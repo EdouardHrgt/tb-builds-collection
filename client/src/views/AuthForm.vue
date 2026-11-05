@@ -1,7 +1,9 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuth } from '../stores/auth.js'
+import PasswordField from '../components/PasswordField.vue'
+import { validatePassword, PASSWORD_HINT } from '../utils/password.js'
 
 const props = defineProps({ mode: { type: String, required: true } })
 const route = useRoute()
@@ -9,23 +11,40 @@ const router = useRouter()
 const auth = useAuth()
 
 const isLogin = computed(() => props.mode === 'login')
+const identifier = ref('') // login: email or username
 const email = ref('')
 const username = ref('')
 const password = ref('')
+const confirm = ref('')
 const error = ref('')
 const busy = ref(false)
 
-// Client-side checks mirror the server rules (the server stays the source of truth).
+// /login and /register share this component: clear the form when switching
+watch(
+  () => props.mode,
+  () => {
+    identifier.value =
+      email.value =
+      username.value =
+      password.value =
+      confirm.value =
+      error.value =
+        ''
+  },
+)
+
 function validate() {
+  if (isLogin.value) {
+    if (!identifier.value.trim()) return 'Email or username is required'
+    return password.value ? '' : 'Password is required'
+  }
   if (!email.value.trim()) return 'Email is required'
-  if (isLogin.value) return password.value ? '' : 'Password is required'
   if (username.value.length < 3) return 'Username must be at least 3 characters'
   if (!/^[a-zA-Z0-9_-]+$/.test(username.value))
     return 'Username may only contain letters, numbers, _ and -'
-  if (password.value.length < 8) return 'Password must be at least 8 characters'
-  if (!/[0-9]/.test(password.value)) return 'Password must contain at least one number'
-  if (!/[^A-Za-z0-9\s]/.test(password.value))
-    return 'Password must contain at least one special character'
+  const pwError = validatePassword(password.value)
+  if (pwError) return pwError
+  if (password.value !== confirm.value) return 'Passwords do not match'
   return ''
 }
 
@@ -34,7 +53,7 @@ async function submit() {
   if (error.value) return
   busy.value = true
   try {
-    if (isLogin.value) await auth.login(email.value, password.value)
+    if (isLogin.value) await auth.login(identifier.value.trim(), password.value)
     else await auth.register(email.value, username.value, password.value)
     router.push(route.query.redirect || '/')
   } catch (e) {
@@ -48,24 +67,35 @@ async function submit() {
 <template>
   <h1>{{ isLogin ? 'Log in' : 'Sign up' }}</h1>
   <form class="form narrow" novalidate @submit.prevent="submit">
-    <label>Email <input v-model="email" type="email" autocomplete="email" /></label>
-    <label v-if="!isLogin"
-      >Username
-      <input v-model="username" autocomplete="username" maxlength="24" />
-    </label>
-    <label
-      >Password
-      <input
-        v-model="password"
-        type="password"
-        maxlength="72"
-        :autocomplete="isLogin ? 'current-password' : 'new-password'" />
-      <small v-if="!isLogin" class="meta"
-        >At least 8 characters, including a number and a special character.</small
-      >
-    </label>
-    <p v-if="error" class="error">{{ error }}</p>
+    <template v-if="isLogin">
+      <label
+        >Email or username
+        <input v-model="identifier" autocomplete="username" />
+        <small class="meta">Forgot your email? Log in with your username instead.</small>
+      </label>
+    </template>
+    <template v-else>
+      <label>Email <input v-model="email" type="email" autocomplete="email" /></label>
+      <label>Username <input v-model="username" autocomplete="username" maxlength="24" /></label>
+    </template>
+
+    <PasswordField
+      v-model="password"
+      label="Password"
+      :autocomplete="isLogin ? 'current-password' : 'new-password'"
+      :hint="isLogin ? '' : PASSWORD_HINT" />
+    <PasswordField
+      v-if="!isLogin"
+      v-model="confirm"
+      label="Confirm password"
+      autocomplete="new-password" />
+
+    <p v-if="error" class="error" role="alert">{{ error }}</p>
     <button class="btn" :disabled="busy">{{ isLogin ? 'Log in' : 'Create account' }}</button>
+
+    <p v-if="isLogin" class="meta">
+      <RouterLink to="/forgot-password">Forgot your password?</RouterLink>
+    </p>
     <p class="meta">
       <template v-if="isLogin"
         >No account yet? <RouterLink to="/register">Sign up</RouterLink></template

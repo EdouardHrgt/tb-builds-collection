@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import { db } from './db.js'
 
 const isProd = process.env.NODE_ENV === 'production'
 const SECRET = process.env.JWT_SECRET || (isProd ? null : 'dev-only-secret')
@@ -12,7 +13,8 @@ const cookieOpts = {
 }
 
 export function setSession(res, user) {
-  const token = jwt.sign({ sub: user.id }, SECRET, { expiresIn: '7d' })
+  // `v` ties the token to users.token_version: bumping it logs everyone out
+  const token = jwt.sign({ sub: user.id, v: user.token_version ?? 0 }, SECRET, { expiresIn: '7d' })
   res.cookie(COOKIE, token, { ...cookieOpts, maxAge: 7 * 24 * 3600 * 1000 })
 }
 
@@ -26,7 +28,9 @@ export function loadUser(req, _res, next) {
   const token = req.cookies?.[COOKIE]
   if (token) {
     try {
-      req.userId = jwt.verify(token, SECRET).sub
+      const { sub, v } = jwt.verify(token, SECRET)
+      const row = db.prepare('SELECT token_version FROM users WHERE id = ?').get(sub)
+      if (row && row.token_version === (v ?? 0)) req.userId = sub
     } catch {
       /* invalid token */
     }

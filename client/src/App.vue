@@ -13,13 +13,12 @@ async function logout() {
 
 <template>
   <header class="top">
-    <RouterLink to="/" class="brand">Modded Builds</RouterLink>
+    <strong id="main__logo">TB Builds Collection</strong>
     <nav>
       <RouterLink to="/">Builds</RouterLink>
       <template v-if="auth.user">
         <RouterLink to="/builds/new">New build</RouterLink>
-        <RouterLink to="/me">My builds</RouterLink>
-        <span class="who">{{ auth.user.username }}</span>
+        <RouterLink to="/me" class="who">{{ auth.user.username }}</RouterLink>
         <button class="link" @click="logout">Log out</button>
       </template>
       <template v-else>
@@ -30,3 +29,11 @@ async function logout() {
   </header>
   <main><RouterView /></main>
 </template>
+
+<style scoped>
+#main__logo {
+  padding: 0;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+}
+</style>

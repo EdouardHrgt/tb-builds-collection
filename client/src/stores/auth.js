@@ -13,8 +13,8 @@ export const useAuth = defineStore('auth', {
       }
       this.ready = true
     },
-    async login(email, password) {
-      this.user = await api('/auth/login', { method: 'POST', body: { email, password } })
+    async login(identifier, password) {
+      this.user = await api('/auth/login', { method: 'POST', body: { identifier, password } })
     },
     async register(email, username, password) {
       this.user = await api('/auth/register', {

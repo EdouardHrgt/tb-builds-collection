@@ -1,17 +1,37 @@
 import { Router } from 'express'
+import crypto from 'node:crypto'
 import bcrypt from 'bcryptjs'
+import rateLimit from 'express-rate-limit'
 import { z } from 'zod'
 import { db } from '../db.js'
 import { setSession, clearSession, requireAuth } from '../auth.js'
+import { sendMail } from '../mailer.js'
 
 export const authRouter = Router()
 
 const ah = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
+// Base URL used in reset links. Never built from request headers (host header injection).
+const APP_URL = (process.env.APP_URL || 'http://localhost:5173').replace(/\/$/, '')
+if (process.env.NODE_ENV === 'production' && !process.env.APP_URL) {
+  console.warn('APP_URL is not set: password reset links will point to http://localhost:5173')
+}
+
+const DUMMY_HASH = bcrypt.hashSync('dummy-password', 10) // keeps login timing similar for unknown users
+const sha256 = (s) => crypto.createHash('sha256').update(s).digest('hex')
+
+const passwordSchema = z
+  .string()
+  .min(8, 'Password must be at least 8 characters')
+  .max(72, 'Password must be at most 72 characters')
+  .regex(/[0-9]/, 'Password must contain at least one number')
+  .regex(/[^A-Za-z0-9\s]/, 'Password must contain at least one special character')
+
+const identifierSchema = z.string().trim().min(1, 'Email or username is required').max(120)
+
 const registerSchema = z.object({
   email: z
     .string()
-    .trim()
     .email('Invalid email')
     .max(120)
     .transform((s) => s.toLowerCase()),
@@ -20,23 +40,32 @@ const registerSchema = z.object({
     .min(3, 'Username must be at least 3 characters')
     .max(24)
     .regex(/^[a-zA-Z0-9_-]+$/, 'Username may only contain letters, numbers, _ and -'),
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters')
-    .max(72, 'Password must be at most 72 characters')
-    .regex(/[0-9]/, 'Password must contain at least one number')
-    .regex(/[^A-Za-z0-9\s]/, 'Password must contain at least one special character'),
+  password: passwordSchema,
 })
 
 const loginSchema = z.object({
-  email: z
+  identifier: identifierSchema,
+  password: z.string().min(1, 'Password is required'),
+})
+
+const forgotSchema = z.object({ identifier: identifierSchema })
+
+const resetSchema = z.object({
+  token: z
     .string()
-    .email()
-    .transform((s) => s.toLowerCase()),
-  password: z.string().min(1),
+    .min(1, 'Invalid or expired reset link')
+    .max(200, 'Invalid or expired reset link'),
+  password: passwordSchema,
 })
 
 const publicUser = (u) => ({ id: u.id, username: u.username, email: u.email })
+
+// Usernames cannot contain "@", so the identifier is unambiguous.
+function findUser(identifier) {
+  return identifier.includes('@')
+    ? db.prepare('SELECT * FROM users WHERE email = ?').get(identifier.toLowerCase())
+    : db.prepare('SELECT * FROM users WHERE username = ?').get(identifier) // column is NOCASE
+}
 
 authRouter.post(
   '/register',
@@ -47,7 +76,7 @@ authRouter.post(
       const info = db
         .prepare('INSERT INTO users (email, username, password_hash) VALUES (?, ?, ?)')
         .run(email, username, hash)
-      const user = { id: info.lastInsertRowid, email, username }
+      const user = { id: info.lastInsertRowid, email, username, token_version: 0 }
       setSession(res, user)
       res.status(201).json(publicUser(user))
     } catch (e) {
@@ -62,10 +91,10 @@ authRouter.post(
 authRouter.post(
   '/login',
   ah(async (req, res) => {
-    const { email, password } = loginSchema.parse(req.body)
-    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email)
-    const ok = user && (await bcrypt.compare(password, user.password_hash))
-    if (!ok) return res.status(401).json({ error: 'Incorrect email or password' })
+    const { identifier, password } = loginSchema.parse(req.body)
+    const user = findUser(identifier)
+    const ok = await bcrypt.compare(password, user ? user.password_hash : DUMMY_HASH)
+    if (!user || !ok) return res.status(401).json({ error: 'Incorrect email/username or password' })
     setSession(res, user)
     res.json(publicUser(user))
   }),
@@ -84,3 +113,67 @@ authRouter.get('/me', requireAuth, (req, res) => {
   }
   res.json(user)
 })
+
+// --- Password reset -------------------------------------------------------
+
+const forgotLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 5,
+  message: { error: 'Too many requests, please try again later' },
+})
+
+// Always answers the same message, whether or not an account matches (no account enumeration).
+authRouter.post('/forgot-password', forgotLimiter, (req, res) => {
+  const { identifier } = forgotSchema.parse(req.body)
+
+  db.prepare("DELETE FROM password_resets WHERE expires_at <= datetime('now')").run()
+
+  const user = findUser(identifier)
+  if (user) {
+    const token = crypto.randomBytes(32).toString('hex')
+    db.prepare('DELETE FROM password_resets WHERE user_id = ?').run(user.id) // one active link at a time
+    db.prepare(
+      "INSERT INTO password_resets (user_id, token_hash, expires_at) VALUES (?, ?, datetime('now', '+1 hour'))",
+    ).run(user.id, sha256(token)) // only the hash is stored
+
+    // Not awaited: the response time must not reveal whether the account exists.
+    sendMail({
+      to: user.email,
+      subject: 'Reset your TB builds collection password',
+      text: `Hi ${user.username},
+
+Someone asked to reset the password of your account. Use the link below to choose a new one (valid for 1 hour):
+
+${APP_URL}/reset-password?token=${token}
+
+If you didn't ask for this, ignore this email: your password will not change.`,
+    }).catch((e) => console.error('Failed to send reset email:', e))
+  }
+
+  res.json({ message: 'If an account matches, a reset link has been sent to its email address ;)' })
+})
+
+authRouter.post(
+  '/reset-password',
+  ah(async (req, res) => {
+    const { token, password } = resetSchema.parse(req.body)
+    const row = db
+      .prepare(
+        "SELECT user_id FROM password_resets WHERE token_hash = ? AND expires_at > datetime('now')",
+      )
+      .get(sha256(token))
+    if (!row) return res.status(400).json({ error: 'Invalid or expired reset link' })
+
+    const hash = await bcrypt.hash(password, 10)
+    db.transaction(() => {
+      // token_version + 1 invalidates every existing session of this account
+      db.prepare(
+        'UPDATE users SET password_hash = ?, token_version = token_version + 1 WHERE id = ?',
+      ).run(hash, row.user_id)
+      db.prepare('DELETE FROM password_resets WHERE user_id = ?').run(row.user_id)
+    })()
+
+    clearSession(res)
+    res.json({ message: 'Password updated. You can now log in.' })
+  }),
+)

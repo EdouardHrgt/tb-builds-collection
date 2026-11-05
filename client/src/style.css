@@ -7,6 +7,7 @@
   --accent: #c9a24a;
   --danger: #c4564a;
   color-scheme: dark;
+  --mx-width: 1440px;
 }
 * {
   box-sizing: border-box;
@@ -40,11 +41,11 @@ a {
   color: var(--accent);
 }
 main {
-  max-width: 960px;
   margin: 0 auto;
-  padding: 1.5rem 1rem 4rem;
+  max-width: var(--mx-width);
+  padding-top: 2rem;
+  border: 2px solid lightslategray;
 }
-
 .top {
   display: flex;
   flex-wrap: wrap;
@@ -54,7 +55,9 @@ main {
   padding: 0.8rem 1rem;
   border-bottom: 1px solid var(--line);
   background: var(--panel);
+  margin-inline: auto;
 }
+
 .brand {
   font-size: 1.25rem;
   color: var(--text);
@@ -153,11 +156,6 @@ textarea {
   margin: 0 0 0.35rem;
   font-size: 1.1rem;
 }
-.meta {
-  color: var(--muted);
-  margin: 0 0 0.25rem;
-  font-size: 0.92rem;
-}
 .error {
   color: var(--danger);
 }
@@ -236,6 +234,28 @@ legend {
 }
 .items dd {
   margin: 0;
+}
+/* Password field with show/hide toggle */
+.pw-field {
+  display: grid;
+  gap: 0.3rem;
+}
+.pw-wrap {
+  display: flex;
+  gap: 0.4rem;
+}
+.pw-wrap input {
+  flex: 1;
+  min-width: 0;
+}
+.pw-toggle {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--line);
+  padding: 0.4rem 0.75rem;
+}
+.pw-toggle:hover {
+  border-color: var(--accent);
 }
 
 @media (max-width: 520px) {
