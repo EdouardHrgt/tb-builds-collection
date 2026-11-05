@@ -30,7 +30,7 @@ async function logout() {
     </nav>
   </header>
   <main><RouterView /></main>
-  <FooterCard />
+  <!-- <FooterCard /> -->
 </template>
 
 <style scoped>

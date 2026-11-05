@@ -1,8 +1,10 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { api } from '../api.js'
-import { heroes } from '../data/index.js'
+import { useGameData } from '../composables/useGameData.js'
 import BuildCard from '../components/BuildCard.vue'
+
+const { heroes } = useGameData()
 
 const hero = ref('')
 const career = ref('')
@@ -43,7 +45,6 @@ onMounted(load)
     </select>
     <select v-model="career" :disabled="!hero">
       <option value="">All careers</option>
-      <!-- REMPLACER L'OPTION EN DESSOUS PAR LES ICONES AU LIEU DES NOMS -->
       <option v-for="c in careers" :key="c.id" :value="c.id">{{ c.name }}</option>
     </select>
   </div>

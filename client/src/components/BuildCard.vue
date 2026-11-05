@@ -1,6 +1,9 @@
 <script setup>
-import { heroName, careerName } from '../data/index.js'
+import { useGameData } from '../composables/useGameData.js'
+
 defineProps({ build: { type: Object, required: true } })
+
+const { heroName, careerName } = useGameData()
 </script>
 
 <template>
@@ -9,21 +12,6 @@ defineProps({ build: { type: Object, required: true } })
     <p class="meta">
       {{ heroName(build.heroId) }} — {{ careerName(build.heroId, build.careerId) }}
     </p>
-    <p class="meta">
-      by <strong>{{ build.author }}</strong
-      ><span v-if="!build.isPublic"> (private)</span>
-    </p>
+    <p class="meta">by {{ build.author }}<span v-if="!build.isPublic"> (private)</span></p>
   </RouterLink>
 </template>
-
-<style scoped>
-.meta {
-  color: var(--muted);
-  margin: 0 0 0.25rem;
-  font-size: 0.92rem;
-}
-.meta strong {
-  color: var(--accent);
-  font-style: italic;
-}
-</style>

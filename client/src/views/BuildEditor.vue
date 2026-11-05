@@ -3,11 +3,28 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
-import { heroes, ITEM_SLOTS } from '../data/index.js'
+import { useGameData } from '../composables/useGameData.js'
+import TalentGrid from '../components/TalentGrid.vue'
+import GearSlot from '../components/GearSlot.vue'
+
+const {
+  heroes,
+  getHero,
+  getCareer,
+  getCareerTalents,
+  getAvailableWeapons,
+  getWeaponOptions,
+  WEAPON_SLOTS,
+  EQUIPMENT_SLOTS,
+} = useGameData()
 
 const route = useRoute()
 const router = useRouter()
 const auth = useAuth()
+
+const emptyTalents = () => [0, 0, 0, 0, 0, 0]
+const emptyGear = () => ({ traitId: '', propertyIds: ['', ''] })
+const emptyWeapon = () => ({ weaponId: '', ...emptyGear() })
 
 const editingId = route.params.id // undefined = creating
 const form = ref({
@@ -16,23 +33,56 @@ const form = ref({
   heroId: heroes[0].id,
   careerId: heroes[0].careers[0].id,
   isPublic: true,
-  talents: [0, 0, 0, 0, 0, 0],
-  items: Object.fromEntries(ITEM_SLOTS.map((s) => [s.key, ''])),
+  talents: emptyTalents(),
+  weapons: Object.fromEntries(WEAPON_SLOTS.map((s) => [s.key, emptyWeapon()])),
+  equipment: Object.fromEntries(EQUIPMENT_SLOTS.map((s) => [s.id, emptyGear()])),
 })
 const error = ref('')
 const saving = ref(false)
 
-const careers = computed(() => heroes.find((h) => h.id === form.value.heroId)?.careers ?? [])
+const careers = computed(() => getHero(form.value.heroId)?.careers ?? [])
+const currentCareerName = computed(
+  () => getCareer(form.value.heroId, form.value.careerId)?.name ?? '',
+)
+const talentTiers = computed(() => getCareerTalents(form.value.heroId, form.value.careerId))
+const availableWeapons = (type) => getAvailableWeapons(form.value.heroId, form.value.careerId, type)
 
-function onHeroChange() {
-  form.value.careerId = careers.value[0].id
+// Hero / career changes are handled by explicit handlers (not watchers) so that
+// loading an existing build never wipes its talents and weapons.
+function setCareer(careerId) {
+  form.value.careerId = careerId
+  form.value.talents = emptyTalents() // talents belong to a career
+  for (const { key } of WEAPON_SLOTS) {
+    const sel = form.value.weapons[key]
+    if (sel.weaponId && !availableWeapons(key).some((w) => w.id === sel.weaponId)) sel.weaponId = ''
+  }
 }
+
+function setHero(heroId) {
+  form.value.heroId = heroId
+  setCareer(getHero(heroId).careers[0].id)
+}
+
+// --- API <-> form conversions ("" in the form, null / compact array in the API) ---
+const pad = (ids = []) => [ids[0] ?? '', ids[1] ?? '']
+const fromGear = (g = {}) => ({ traitId: g.traitId ?? '', propertyIds: pad(g.propertyIds) })
+const fromWeapon = (w = {}) => ({ weaponId: w.weaponId ?? '', ...fromGear(w) })
+const cleanGear = (g) => ({
+  traitId: g.traitId || null,
+  propertyIds: g.propertyIds.filter(Boolean),
+})
+const cleanWeapon = (w) => ({ weaponId: w.weaponId || null, ...cleanGear(w) })
+const mapValues = (obj, fn) => Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, fn(v)]))
 
 onMounted(async () => {
   if (!editingId) return
   try {
     const b = await api(`/builds/${editingId}`)
     if (b.authorId !== auth.user.id) return router.replace(`/builds/${b.id}`)
+    if (b.data.v !== 2) {
+      error.value = 'This build uses an outdated format and cannot be edited.'
+      return
+    }
     form.value = {
       title: b.title,
       description: b.description,
@@ -40,7 +90,12 @@ onMounted(async () => {
       careerId: b.careerId,
       isPublic: b.isPublic,
       talents: [...b.data.talents],
-      items: { ...form.value.items, ...b.data.items },
+      weapons: Object.fromEntries(
+        WEAPON_SLOTS.map((s) => [s.key, fromWeapon(b.data.weapons?.[s.key])]),
+      ),
+      equipment: Object.fromEntries(
+        EQUIPMENT_SLOTS.map((s) => [s.id, fromGear(b.data.equipment?.[s.id])]),
+      ),
     }
   } catch (e) {
     error.value = e.message
@@ -57,7 +112,12 @@ async function save() {
     heroId: f.heroId,
     careerId: f.careerId,
     isPublic: f.isPublic,
-    data: { talents: f.talents, items: f.items },
+    data: {
+      v: 2,
+      talents: f.talents,
+      weapons: mapValues(f.weapons, cleanWeapon),
+      equipment: mapValues(f.equipment, cleanGear),
+    },
   }
   try {
     const saved = editingId
@@ -74,76 +134,133 @@ async function save() {
 
 <template>
   <h1>{{ editingId ? 'Edit build' : 'New build' }}</h1>
-  <form class="form" novalidate @submit.prevent="save">
-    <label
-      >Title
-      <input v-model="form.title" maxlength="80" required />
-    </label>
+  <form class="form wide" novalidate @submit.prevent="save">
+    <div class="measure">
+      <label>
+        Title
+        <input v-model="form.title" maxlength="80" required />
+      </label>
 
-    <div class="row">
-      <label
-        >Hero
-        <select v-model="form.heroId" @change="onHeroChange">
+      <label>
+        Hero
+        <select :value="form.heroId" @change="setHero($event.target.value)">
           <option v-for="h in heroes" :key="h.id" :value="h.id">{{ h.name }}</option>
         </select>
       </label>
-      <label>
-        <!-- REMPLACER PAR ICONES DES CARRIERES A LA PLACE DES NOMS -->
-        Career
-        <select v-model="form.careerId">
-          <option v-for="c in careers" :key="c.id" :value="c.id">{{ c.name }}</option>
-        </select>
-      </label>
+
+      <fieldset>
+        <legend>Career</legend>
+        <div class="career-list">
+          <label v-for="c in careers" :key="c.id" class="career" :title="c.name">
+            <input
+              type="radio"
+              name="career"
+              class="sr-only"
+              :value="c.id"
+              :checked="form.careerId === c.id"
+              @change="setCareer(c.id)" />
+            <img :src="c.icon" :alt="c.name" width="56" height="56" />
+          </label>
+        </div>
+        <small class="meta">{{ currentCareerName }}</small>
+      </fieldset>
     </div>
 
     <fieldset>
       <legend>Talents</legend>
-      <!-- rework ici aussi. il me faut une grille 6 cellules x 3 colones + à gauche le "level" (tier): 5 / 10 / 15 / 20 / 25 / 30 
-      le tier est le chiffre écrit en gros au milieu d'un cercle de couleur.
-      On peut selectionner 1 seul talent par ligne, quand on en sélectionne un, la bordure change de couleur (néon doré?) et les 2 autres talents deviennent gris (noir et blanc foncé).
-      un bouton sur le côté droit "show description" déploie les cartes des talents en hauteur pour afficher la description en dessous. Met un lorem 20 pour le moment, selectionner un talent ne ferme pas la description.
-      5  | icone + nom talent 1 | icone + nom talent 2 |  icone + nom talent 3 |
-      10 | icone + nom talent 1 | icone + nom talent 2 |  icone + nom talent 3 |
-      15 | icone + nom talent 1 | icone + nom talent 2 |  icone + nom talent 3 |
-      ......
-      pour le responsive à partir de 1024px on passe en 1 colone comme ceci:
-               5
-      icone + nom talent 1
-      icone + nom talent 2
-      icone + nom talent 3
-      ----------------------
-              10
-      icone + nom talent 1
-      icone + nom talent 2
-      icone + nom talent 3 -->
-
-      <div v-for="(_, i) in form.talents" :key="i" class="tier">
-        <span>Tier {{ i + 1 }}</span>
-        <label v-for="n in [0, 1, 2, 3]" :key="n">
-          <input type="radio" :name="`tier${i}`" :value="n" v-model="form.talents[i]" />
-          {{ n === 0 ? 'none' : n }}
-        </label>
-      </div>
+      <TalentGrid v-model="form.talents" :tiers="talentTiers" />
     </fieldset>
-
 
     <fieldset>
       <legend>Equipment</legend>
-      <!-- ici idem, rien à écrire par l'utilisateur. Il peut choisir 1 trait et 2 propriétés pour chaque équipement. Attention chaque équipement  à ses propres datas, ils ne sont pas pareils. -->
-      <label v-for="s in ITEM_SLOTS" :key="s.key"
-        >{{ s.label }}
-        <input v-model="form.items[s.key]" maxlength="120" />
-      </label>
+      <div class="gear-grid">
+        <GearSlot
+          v-for="slot in WEAPON_SLOTS"
+          :key="slot.key"
+          v-model="form.weapons[slot.key]"
+          :label="slot.label"
+          :weapons="availableWeapons(slot.key)"
+          :traits="getWeaponOptions(slot.key).traits"
+          :properties="getWeaponOptions(slot.key).properties" />
+        <GearSlot
+          v-for="slot in EQUIPMENT_SLOTS"
+          :key="slot.id"
+          v-model="form.equipment[slot.id]"
+          :label="slot.name"
+          :slot-icon="slot.icon"
+          :traits="slot.traits"
+          :properties="slot.properties" />
+      </div>
     </fieldset>
 
-    <label
-      >Description
-      <textarea v-model="form.description" rows="5" maxlength="2000" />
-    </label>
+    <div class="measure">
+      <label>
+        Description
+        <textarea v-model="form.description" rows="5" maxlength="2000" />
+      </label>
 
-    <label class="check"> <input type="checkbox" v-model="form.isPublic" /> Public build </label>
+      <label class="check"> <input type="checkbox" v-model="form.isPublic" /> Public build </label>
 
-    <p v-if="error" class="error">{{ error }}</p>
-    <button class="btn" :disabled="saving">{{ saving ? 'Saving…' : 'Save' }}</button>
+      <p v-if="error" class="error" role="alert">{{ error }}</p>
+      <div>
+        <button class="btn" :disabled="saving">{{ saving ? 'Saving…' : 'Save' }}</button>
+      </div>
+    </div>
   </form>
 </template>
+
+<style scoped>
+.form.wide {
+  max-width: none;
+}
+.measure {
+  display: grid;
+  gap: 1rem;
+  max-width: 640px;
+}
+.career-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.career {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.career img {
+  display: block;
+  object-fit: cover;
+  font-size: 0.7rem;
+  overflow: hidden;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: 8px;
+}
+.career:hover img {
+  border-color: var(--accent);
+}
+.career input:checked + img {
+  border-color: #ffd75e;
+  box-shadow:
+    0 0 0 1px #ffd75e,
+    0 0 12px rgba(255, 215, 94, 0.55);
+}
+.career input:focus-visible + img {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.gear-grid {
+  display: grid;
+  gap: 0.8rem;
+  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+</style>

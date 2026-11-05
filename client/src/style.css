@@ -22,7 +22,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Special Elite', system-ui;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   min-height: 100dvh;
   /* background-image: url('../src/public/shared/background.webp');
   background-position: center;
@@ -32,7 +32,7 @@ h1,
 h2,
 h3,
 .brand {
-  font-family: 'Frijole', system-ui;
+  /* font-family: 'Frijole', system-ui; */
   font-weight: 600;
   
 }

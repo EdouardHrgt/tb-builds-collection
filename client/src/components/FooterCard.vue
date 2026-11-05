@@ -39,14 +39,15 @@
 
 <style scoped>
 footer {
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: 0; */
   text-align: center;
   padding: 1rem 0;
   border-top: 1px solid var(--line);
   padding-inline: var(--side-padding);
+  margin-top: 5rem;
 }
 
 .links {

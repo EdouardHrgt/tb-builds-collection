@@ -2,20 +2,47 @@ import { Router } from 'express'
 import { z } from 'zod'
 import { db } from '../db.js'
 import { requireAuth } from '../auth.js'
+import { validateBuildData } from '../gameData.js'
 
 export const buildsRouter = Router()
 
 // The exact shape of `data` will be refined once the game data reference exists.
+const id = z.string().min(1).max(60)
+const distinct = (g) => new Set(g.propertyIds).size === g.propertyIds.length
+const DISTINCT_MSG = 'Properties must be different'
+
+// Structure only. Whether the ids exist / are compatible is checked by validateBuildData().
+const gearSchema = z
+  .object({
+    traitId: id.nullable(),
+    propertyIds: z.array(id).max(2),
+  })
+  .strict()
+  .refine(distinct, DISTINCT_MSG)
+
+const weaponSchema = z
+  .object({
+    weaponId: id.nullable(),
+    traitId: id.nullable(),
+    propertyIds: z.array(id).max(2),
+  })
+  .strict()
+  .refine(distinct, DISTINCT_MSG)
+
 const buildSchema = z.object({
   title: z.string().trim().min(1, 'Title is required').max(80),
   description: z.string().max(2000).default(''),
   heroId: z.string().min(1).max(50),
   careerId: z.string().min(1).max(50),
   isPublic: z.boolean().default(true),
-  data: z.object({
-    talents: z.array(z.number().int().min(0).max(3)).length(6),
-    items: z.record(z.string().max(120)).default({}),
-  }),
+  data: z
+    .object({
+      v: z.literal(2),
+      talents: z.array(z.number().int().min(0).max(3)).length(6), // 0 = none, 1..3 = position in the tier
+      weapons: z.record(id, weaponSchema), // melee / ranged
+      equipment: z.record(id, gearSchema), // necklace / charm / trinket
+    })
+    .strict(),
 })
 
 const SELECT = `
@@ -81,6 +108,8 @@ buildsRouter.get('/builds/:id', (req, res) => {
 // Create
 buildsRouter.post('/builds', requireAuth, (req, res) => {
   const b = buildSchema.parse(req.body)
+  const gameError = validateBuildData(b)
+  if (gameError) return res.status(400).json({ error: gameError })
   const info = db
     .prepare(
       `
@@ -109,6 +138,8 @@ buildsRouter.put('/builds/:id', requireAuth, (req, res) => {
     return res.status(403).json({ error: 'You do not own this build' })
 
   const b = buildSchema.parse(req.body)
+  const gameError = validateBuildData(b)
+  if (gameError) return res.status(400).json({ error: gameError })
   db.prepare(
     `
     UPDATE builds SET title=?, description=?, hero_id=?, career_id=?, data=?, is_public=?,
