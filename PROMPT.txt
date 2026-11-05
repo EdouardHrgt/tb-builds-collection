@@ -93,3 +93,5 @@ Fait : auth complète, CRUD builds, liste filtrable par héros/carrière, API te
 Dev sous Windows (projet dans E:/Dev/vt2-tb-builds). L'utilisateur connaît Node et veut une solution
 simple, gratuite ou la moins chère possible. Note : l'utilisateur tourne avec Vite 8.x alors que le
 package.json du client demande ^5.4.10.
+
+

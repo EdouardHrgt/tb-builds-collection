@@ -4,6 +4,7 @@ import { useAuth } from './stores/auth.js'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    { path: '/test', component: () => import('./views/TestBuild.vue') },
     { path: '/', component: () => import('./views/BuildsList.vue') },
     {
       path: '/builds/new',

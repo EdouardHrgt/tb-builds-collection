@@ -1,0 +1,49 @@
+{
+  "weapons": [
+    {
+      "id": "sword",
+      "name": "Sword",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/sword.webp",
+      "availableFor": [
+        "mercenary",
+        "huntsman",
+        "footknight",
+        "grailknight"
+      ]
+    },
+    {
+      "id": "handgun",
+      "name": "Handgun",
+      "heroId": "kruber",
+      "type": "ranged",
+      "icon": "/images/weapons/kruber/handgun.webp",
+      "availableFor": [
+        "mercenary",
+        "huntsman",
+        "footknight"
+      ]
+    },
+    {
+      "id": "longbow",
+      "name": "Longbow",
+      "heroId": "kruber",
+      "type": "ranged",
+      "icon": "/images/weapons/kruber/longbow.webp",
+      "availableFor": [
+        "huntsman"
+      ]
+    },
+    {
+      "id": "dual_axes",
+      "name": "Dual Axes",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/weapons/bardin/dual-axes.webp",
+      "availableFor": [
+        "slayer"
+      ]
+    }
+  ]
+}

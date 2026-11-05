@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Frijole&family=Special+Elite&display=swap');
 :root {
   --bg: #181a20;
   --panel: #22252e;
@@ -9,8 +10,11 @@
   color-scheme: dark;
   --mx-width: 1440px;
   --side-padding: 1.5rem;
-  
 }
+
+/* font-family: "Frijole", system-ui;
+font-family: "Special Elite", system-ui; */
+
 * {
   box-sizing: border-box;
 }
@@ -18,23 +22,19 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font:
-    16px/1.55 system-ui,
-    -apple-system,
-    'Segoe UI',
-    sans-serif;
+  font-family: 'Special Elite', system-ui;
   min-height: 100dvh;
   /* background-image: url('../src/public/shared/background.webp');
   background-position: center;
   background-size: cover; */
 }
-
 h1,
 h2,
 h3,
 .brand {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Frijole', system-ui;
   font-weight: 600;
+  
 }
 h1 {
   font-size: 1.9rem;

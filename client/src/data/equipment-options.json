@@ -1,0 +1,165 @@
+{
+  "equipment": {
+    "necklace": {
+      "id": "necklace",
+      "name": "Necklace",
+      "icon": "/images/equipment/necklace.webp",
+      "traits": [
+        {
+          "id": "barkskin",
+          "name": "Barkskin",
+          "description": "Trait description.",
+          "icon": "/images/traits/barkskin.webp"
+        },
+        {
+          "id": "boon_of_shallya",
+          "name": "Boon of Shallya",
+          "description": "Trait description.",
+          "icon": "/images/traits/boon-of-shallya.webp"
+        },
+        {
+          "id": "hand_of_shallya",
+          "name": "Hand of Shallya",
+          "description": "Trait description.",
+          "icon": "/images/traits/hand-of-shallya.webp"
+        },
+        {
+          "id": "natural_bond",
+          "name": "Natural Bond",
+          "description": "Trait description.",
+          "icon": "/images/traits/natural-bond.webp"
+        },
+        {
+          "id": "healers_touch",
+          "name": "Healer's Touch",
+          "description": "Trait description.",
+          "icon": "/images/traits/healers-touch.webp"
+        }
+      ],
+      "properties": [
+        {
+          "id": "health",
+          "name": "Health"
+        },
+        {
+          "id": "block_cost_reduction",
+          "name": "Block Cost Reduction"
+        },
+        {
+          "id": "stamina_recovery",
+          "name": "Stamina Recovery"
+        },
+        {
+          "id": "revive_speed",
+          "name": "Revive Speed"
+        },
+        {
+          "id": "push_block_angle",
+          "name": "Push/Block Angle"
+        }
+      ]
+    },
+    "charm": {
+      "id": "charm",
+      "name": "Charm",
+      "icon": "/images/equipment/charm.webp",
+      "traits": [
+        {
+          "id": "decanter",
+          "name": "Decanter",
+          "description": "Trait description.",
+          "icon": "/images/traits/decanter.webp"
+        },
+        {
+          "id": "concoction",
+          "name": "Concoction",
+          "description": "Trait description.",
+          "icon": "/images/traits/concoction.webp"
+        },
+        {
+          "id": "proxy",
+          "name": "Proxy",
+          "description": "Trait description.",
+          "icon": "/images/traits/proxy.webp"
+        },
+        {
+          "id": "home_brewer",
+          "name": "Home Brewer",
+          "description": "Trait description.",
+          "icon": "/images/traits/home-brewer.webp"
+        }
+      ],
+      "properties": [
+        {
+          "id": "power_vs_skaven",
+          "name": "Power vs Skaven"
+        },
+        {
+          "id": "power_vs_chaos",
+          "name": "Power vs Chaos"
+        },
+        {
+          "id": "attack_speed",
+          "name": "Attack Speed"
+        },
+        {
+          "id": "critical_strike_chance",
+          "name": "Critical Strike Chance"
+        },
+        {
+          "id": "cooldown_reduction",
+          "name": "Cooldown Reduction"
+        }
+      ]
+    },
+    "trinket": {
+      "id": "trinket",
+      "name": "Trinket",
+      "icon": "/images/equipment/trinket.webp",
+      "traits": [
+        {
+          "id": "explosive_ordnance",
+          "name": "Explosive Ordnance",
+          "description": "Trait description.",
+          "icon": "/images/traits/explosive-ordnance.webp"
+        },
+        {
+          "id": "grenadier",
+          "name": "Grenadier",
+          "description": "Trait description.",
+          "icon": "/images/traits/grenadier.webp"
+        },
+        {
+          "id": "shrapnel",
+          "name": "Shrapnel",
+          "description": "Trait description.",
+          "icon": "/images/traits/shrapnel.webp"
+        },
+        {
+          "id": "explosive_expert",
+          "name": "Explosive Expert",
+          "description": "Trait description.",
+          "icon": "/images/traits/explosive-expert.webp"
+        }
+      ],
+      "properties": [
+        {
+          "id": "curse_resistance",
+          "name": "Curse Resistance"
+        },
+        {
+          "id": "crit_power",
+          "name": "Critical Power"
+        },
+        {
+          "id": "critical_strike_chance",
+          "name": "Critical Strike Chance"
+        },
+        {
+          "id": "stamina_recovery",
+          "name": "Stamina Recovery"
+        }
+      ]
+    }
+  }
+}

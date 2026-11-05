@@ -1,0 +1,62 @@
+{
+  "melee": {
+    "traits": [
+      {
+        "id": "swift_slaying",
+        "name": "Swift Slaying",
+        "description": "Increases attack speed...",
+        "icon": "../public/shared/traits/swift-slaying.webp"
+      },
+      {
+        "id": "parry",
+        "name": "Parry",
+        "description": "Blocks attacks...",
+        "icon": "../public/shared/traits/parry.webp"
+      }
+    ],
+    "properties": [
+      {
+        "id": "attack_speed",
+        "name": "Attack Speed"
+      },
+      {
+        "id": "critical_strike_chance",
+        "name": "Critical Strike Chance"
+      },
+      {
+        "id": "block_cost_reduction",
+        "name": "Block Cost Reduction"
+      }
+    ]
+  },
+  "ranged": {
+    "traits": [
+      {
+        "id": "conservative_shooter",
+        "name": "Conservative Shooter",
+        "description": "Description...",
+        "icon": "../public/shared/traits/conservative-shooter.webp"
+      },
+      {
+        "id": "scrounger",
+        "name": "Scrounger",
+        "description": "Description...",
+        "icon": "../public/shared/traits/scrounger.webp"
+      }
+    ],
+    "properties": [
+      {
+        "id": "power_vs_skaven",
+        "name": "Power vs Skaven"
+      },
+      {
+        "id": "power_vs_chaos",
+        "name": "Power vs Chaos"
+      },
+      {
+        "id": "critical_strike_chance",
+        "name": "Critical Strike Chance"
+      }
+    ]
+  }
+}

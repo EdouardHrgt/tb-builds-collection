@@ -43,6 +43,7 @@ onMounted(load)
     </select>
     <select v-model="career" :disabled="!hero">
       <option value="">All careers</option>
+      <!-- REMPLACER L'OPTION EN DESSOUS PAR LES ICONES AU LIEU DES NOMS -->
       <option v-for="c in careers" :key="c.id" :value="c.id">{{ c.name }}</option>
     </select>
   </div>

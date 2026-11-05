@@ -16,6 +16,7 @@ async function logout() {
   <header class="top">
     <strong id="main__logo">TB Builds Collection</strong>
     <nav>
+      <RouterLink to="/test">Test</RouterLink>
       <RouterLink to="/">Builds</RouterLink>
       <template v-if="auth.user">
         <RouterLink to="/builds/new">New build</RouterLink>

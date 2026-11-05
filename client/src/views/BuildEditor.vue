@@ -87,8 +87,9 @@ async function save() {
           <option v-for="h in heroes" :key="h.id" :value="h.id">{{ h.name }}</option>
         </select>
       </label>
-      <label
-        >Career
+      <label>
+        <!-- REMPLACER PAR ICONES DES CARRIERES A LA PLACE DES NOMS -->
+        Career
         <select v-model="form.careerId">
           <option v-for="c in careers" :key="c.id" :value="c.id">{{ c.name }}</option>
         </select>
@@ -97,6 +98,25 @@ async function save() {
 
     <fieldset>
       <legend>Talents</legend>
+      <!-- rework ici aussi. il me faut une grille 6 cellules x 3 colones + à gauche le "level" (tier): 5 / 10 / 15 / 20 / 25 / 30 
+      le tier est le chiffre écrit en gros au milieu d'un cercle de couleur.
+      On peut selectionner 1 seul talent par ligne, quand on en sélectionne un, la bordure change de couleur (néon doré?) et les 2 autres talents deviennent gris (noir et blanc foncé).
+      un bouton sur le côté droit "show description" déploie les cartes des talents en hauteur pour afficher la description en dessous. Met un lorem 20 pour le moment, selectionner un talent ne ferme pas la description.
+      5  | icone + nom talent 1 | icone + nom talent 2 |  icone + nom talent 3 |
+      10 | icone + nom talent 1 | icone + nom talent 2 |  icone + nom talent 3 |
+      15 | icone + nom talent 1 | icone + nom talent 2 |  icone + nom talent 3 |
+      ......
+      pour le responsive à partir de 1024px on passe en 1 colone comme ceci:
+               5
+      icone + nom talent 1
+      icone + nom talent 2
+      icone + nom talent 3
+      ----------------------
+              10
+      icone + nom talent 1
+      icone + nom talent 2
+      icone + nom talent 3 -->
+
       <div v-for="(_, i) in form.talents" :key="i" class="tier">
         <span>Tier {{ i + 1 }}</span>
         <label v-for="n in [0, 1, 2, 3]" :key="n">
@@ -106,8 +126,10 @@ async function save() {
       </div>
     </fieldset>
 
+
     <fieldset>
       <legend>Equipment</legend>
+      <!-- ici idem, rien à écrire par l'utilisateur. Il peut choisir 1 trait et 2 propriétés pour chaque équipement. Attention chaque équipement  à ses propres datas, ils ne sont pas pareils. -->
       <label v-for="s in ITEM_SLOTS" :key="s.key"
         >{{ s.label }}
         <input v-model="form.items[s.key]" maxlength="120" />

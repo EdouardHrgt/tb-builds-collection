@@ -3,50 +3,244 @@
     "id": "kruber",
     "name": "Markus Kruber",
     "careers": [
-      { "id": "mercenary", "name": "Mercenary" },
-      { "id": "huntsman", "name": "Huntsman" },
-      { "id": "footknight", "name": "Foot Knight" },
-      { "id": "grailknight", "name": "Grail Knight" }
+      {
+        "id": "mercenary",
+        "name": "Mercenary",
+        "icon": "../public/images/kruber/kruber-mercenary.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "2",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "3",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "2",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "3",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "2",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "3",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "2",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "3",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "Talent Name",
+              "description": "Talent description.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "2",
+              "name": "Talent Name",
+              "description": "Talent description.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "3",
+              "name": "Talent Name",
+              "description": "Talent description.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "2",
+              "name": "Talent Name",
+              "description": "Talent description.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            },
+            {
+              "id": "3",
+              "name": "Talent Name",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
+              "icon": "../public/images/kruber/talents/talent-name.webp"
+            }
+          ]
+        }
+      },
+      {
+        "id": "huntsman",
+        "name": "Huntsman",
+        "icon": "../public/images/kruber/kruber-huntsman.webp"
+      },
+      {
+        "id": "footknight",
+        "name": "Foot Knight",
+        "icon": "../public/images/kruber/kruber-foot-knight.webp"
+      },
+      {
+        "id": "grailknight",
+        "name": "Grail Knight",
+        "icon": "../public/images/kruber/kruber-grail-knight.webp"
+      }
     ]
   },
   {
     "id": "bardin",
     "name": "Bardin Goreksson",
     "careers": [
-      { "id": "ranger", "name": "Ranger Veteran" },
-      { "id": "ironbreaker", "name": "Ironbreaker" },
-      { "id": "slayer", "name": "Slayer" },
-      { "id": "engineer", "name": "Outcast Engineer" }
+      {
+        "id": "ranger",
+        "name": "Ranger Veteran",
+        "icon": "../public/images/bardin/bardin-ranger-veteran.webp"
+      },
+      {
+        "id": "ironbreaker",
+        "name": "Ironbreaker",
+        "icon": "../public/images/bardin/bardin-iron-breaker.webp"
+      },
+      { "id": "slayer", "name": "Slayer", "icon": "../public/images/bardin/bardin-slayer.webp" },
+      {
+        "id": "engineer",
+        "name": "Outcast Engineer",
+        "icon": "../public/images/bardin/bardin-outcast-engineer.webp"
+      }
     ]
   },
   {
     "id": "kerillian",
     "name": "Kerillian",
     "careers": [
-      { "id": "waystalker", "name": "Waystalker" },
-      { "id": "handmaiden", "name": "Handmaiden" },
-      { "id": "shade", "name": "Shade" },
-      { "id": "sotp", "name": "Sister of the Thorn" }
+      {
+        "id": "waystalker",
+        "name": "Waystalker",
+        "icon": "../public/images/kerillian/kerillian-waystalker.webp"
+      },
+      {
+        "id": "handmaiden",
+        "name": "Handmaiden",
+        "icon": "../public/images/kerillian/kerillian-handmaiden.webp"
+      },
+      { "id": "shade", "name": "Shade", "icon": "../public/images/kerillian/kerillian-shade.webp" },
+      {
+        "id": "sott",
+        "name": "Sister of the Thorn",
+        "icon": "../public/images/kerillian/kerillian-sister-of-the-thorn.webp"
+      }
     ]
   },
   {
     "id": "saltzpyre",
     "name": "Victor Saltzpyre",
     "careers": [
-      { "id": "whc", "name": "Witch Hunter Captain" },
-      { "id": "bountyhunter", "name": "Bounty Hunter" },
-      { "id": "zealot", "name": "Zealot" },
-      { "id": "warriorpriest", "name": "Warrior Priest" }
+      {
+        "id": "whc",
+        "name": "Witch Hunter Captain",
+        "icon": "../public/images/saltzpyre/saltzpyre-witch-hunter-captain.webp"
+      },
+      {
+        "id": "bountyhunter",
+        "name": "Bounty Hunter",
+        "icon": "../public/images/saltzpyre/saltzpyre-bounty-hunter.webp"
+      },
+      {
+        "id": "zealot",
+        "name": "Zealot",
+        "icon": "../public/images/saltzpyre/saltzpyre-zealot.webp"
+      },
+      {
+        "id": "warriorpriest",
+        "name": "Warrior Priest",
+        "icon": "../public/images/saltzpyre/saltzpyre-warrior-priest.webp"
+      }
     ]
   },
   {
     "id": "sienna",
     "name": "Sienna Fuegonasus",
     "careers": [
-      { "id": "bwizard", "name": "Battle Wizard" },
-      { "id": "pyromancer", "name": "Pyromancer" },
-      { "id": "unchained", "name": "Unchained" },
-      { "id": "necromancer", "name": "Necromancer" }
+      {
+        "id": "bwizard",
+        "name": "Battle Wizard",
+        "icon": "../public/images/sienna/sienna-battle-wizard.webp"
+      },
+      {
+        "id": "pyromancer",
+        "name": "Pyromancer",
+        "icon": "../public/images/sienna/sienna-pyromancer.webp"
+      },
+      {
+        "id": "unchained",
+        "name": "Unchained",
+        "icon": "../public/images/sienna/sienna-unchained.webp"
+      },
+      {
+        "id": "necromancer",
+        "name": "Necromancer",
+        "icon": "../public/images/sienna/sienna-necromancer.webp"
+      }
     ]
   }
 ]
