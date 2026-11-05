@@ -1,0 +1,52 @@
+[
+  {
+    "id": "kruber",
+    "name": "Markus Kruber",
+    "careers": [
+      { "id": "mercenary", "name": "Mercenary" },
+      { "id": "huntsman", "name": "Huntsman" },
+      { "id": "footknight", "name": "Foot Knight" },
+      { "id": "grailknight", "name": "Grail Knight" }
+    ]
+  },
+  {
+    "id": "bardin",
+    "name": "Bardin Goreksson",
+    "careers": [
+      { "id": "ranger", "name": "Ranger Veteran" },
+      { "id": "ironbreaker", "name": "Ironbreaker" },
+      { "id": "slayer", "name": "Slayer" },
+      { "id": "engineer", "name": "Outcast Engineer" }
+    ]
+  },
+  {
+    "id": "kerillian",
+    "name": "Kerillian",
+    "careers": [
+      { "id": "waystalker", "name": "Waystalker" },
+      { "id": "handmaiden", "name": "Handmaiden" },
+      { "id": "shade", "name": "Shade" },
+      { "id": "sotp", "name": "Sister of the Thorn" }
+    ]
+  },
+  {
+    "id": "saltzpyre",
+    "name": "Victor Saltzpyre",
+    "careers": [
+      { "id": "whc", "name": "Witch Hunter Captain" },
+      { "id": "bountyhunter", "name": "Bounty Hunter" },
+      { "id": "zealot", "name": "Zealot" },
+      { "id": "warriorpriest", "name": "Warrior Priest" }
+    ]
+  },
+  {
+    "id": "sienna",
+    "name": "Sienna Fuegonasus",
+    "careers": [
+      { "id": "bwizard", "name": "Battle Wizard" },
+      { "id": "pyromancer", "name": "Pyromancer" },
+      { "id": "unchained", "name": "Unchained" },
+      { "id": "necromancer", "name": "Necromancer" }
+    ]
+  }
+]
