@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useAuth } from './stores/auth.js'
+import FooterCard from './components/FooterCard.vue'
 
 const auth = useAuth()
 const router = useRouter()
@@ -28,6 +29,7 @@ async function logout() {
     </nav>
   </header>
   <main><RouterView /></main>
+  <FooterCard />
 </template>
 
 <style scoped>

@@ -30,6 +30,7 @@ async function submit() {
 
 <template>
   <h1>Forgot your password?</h1>
+  <span>What a NOOB...</span>
 
   <div v-if="message">
     <p>{{ message }}</p>
@@ -41,7 +42,7 @@ async function submit() {
 
   <form v-else class="form narrow" novalidate @submit.prevent="submit">
     <p class="meta">
-      Enter your email or username. If an account matches, we'll send a reset link to the email
+      Enter your email or username. If an account matches, Sigmar will send a reset link to the email
       address on file.
     </p>
     <label>Email or username <input v-model="identifier" autocomplete="username" /></label>
@@ -50,3 +51,9 @@ async function submit() {
     <p class="meta"><RouterLink to="/login">Back to log in</RouterLink></p>
   </form>
 </template>
+
+<style scoped>
+span {
+  color: var(--muted);
+}
+</style>

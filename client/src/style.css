@@ -8,6 +8,8 @@
   --danger: #c4564a;
   color-scheme: dark;
   --mx-width: 1440px;
+  --side-padding: 1.5rem;
+  
 }
 * {
   box-sizing: border-box;
@@ -21,7 +23,12 @@ body {
     -apple-system,
     'Segoe UI',
     sans-serif;
+  min-height: 100dvh;
+  /* background-image: url('../src/public/shared/background.webp');
+  background-position: center;
+  background-size: cover; */
 }
+
 h1,
 h2,
 h3,
@@ -39,12 +46,15 @@ h2 {
 }
 a {
   color: var(--accent);
+  transition: opacity 0.3s ease-out;
+}
+a:hover {
+  opacity: 0.6;
 }
 main {
   margin: 0 auto;
   max-width: var(--mx-width);
   padding-top: 2rem;
-  border: 2px solid lightslategray;
 }
 .top {
   display: flex;
@@ -52,7 +62,8 @@ main {
   gap: 0.75rem 1.5rem;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem 1rem;
+  padding-block: 1rem;
+  padding-inline: var(--side-padding);
   border-bottom: 1px solid var(--line);
   background: var(--panel);
   margin-inline: auto;
@@ -258,7 +269,7 @@ legend {
   border-color: var(--accent);
 }
 
-@media (max-width: 520px) {
+@media (max-width: 600px) {
   .form .row {
     grid-template-columns: 1fr;
   }

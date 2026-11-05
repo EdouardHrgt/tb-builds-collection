@@ -1,0 +1,14 @@
+Create Build Page:
+Add a feature to allow fast breakpoints infos
+Menu with melee / range Breakpoints.
+Can choose 1sBS / 2sBS / 1sHS ans select all units icons (specials / elites )
+--------------------------------------------------------------------------------------------
+RANKING SYSTEM FOR BUILDS
+can only rank others users builds not his own
+--------------------------------------------------------------------------------------------
+
+
+
+
+
+--------------------------------------------------------------------------------------------
