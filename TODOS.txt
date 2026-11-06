@@ -10,3 +10,27 @@ comment section under build view
 pagination 5 comment per page
 reply to comment
 --------------------------------------------------------------------------------------------
+
+Convert and tiny to webp talents icons of:
+GK
+-----
+RV
+IB
+SL
+OE
+-----
+WS
+SH
+HM
+SOT
+-----
+WHC
+BH
+ZL
+WP
+-----
+BW
+PYR
+UC
+NEC
+-----
