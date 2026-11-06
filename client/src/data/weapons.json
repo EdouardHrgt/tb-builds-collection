@@ -5,7 +5,7 @@
       "name": "sword",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/sword.webp",
+      "icon": "/images/kruber/weapons/sword.webp",
       "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
     },
     {
@@ -13,7 +13,7 @@
       "name": "mace",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/mace.webp",
+      "icon": "/images/kruber/weapons/mace.webp",
       "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
     },
     {
@@ -21,7 +21,7 @@
       "name": "mace and sword",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/maceandsword.webp",
+      "icon": "/images/kruber/weapons/maceandsword.webp",
       "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
     },
     {
@@ -29,7 +29,7 @@
       "name": "executioner sword",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/executionersword.webp",
+      "icon": "/images/kruber/weapons/executionersword.webp",
       "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
     },
     {
@@ -37,7 +37,7 @@
       "name": "sword and shield",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/swordandshield.webp",
+      "icon": "/images/kruber/weapons/swordandshield.webp",
       "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
     },
     {
@@ -45,7 +45,7 @@
       "name": "mace and shield",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/maceandshield.webp",
+      "icon": "/images/kruber/weapons/maceandshield.webp",
       "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
     },
     {
@@ -53,7 +53,7 @@
       "name": "bretonnian longsword",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/bretonnianlongsword.webp",
+      "icon": "/images/kruber/weapons/bretonnianlongsword.webp",
       "availableFor": ["mercenary", "footknight", "grailknight"]
     },
     {
@@ -61,7 +61,7 @@
       "name": "spear and shield",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/spearandshield.webp",
+      "icon": "/images/kruber/weapons/spearandshield.webp",
       "availableFor": ["mercenary", "huntsman", "footknight"]
     },
     {
@@ -69,7 +69,7 @@
       "name": "tuskgor spear",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/tuskgorspear.webp",
+      "icon": "/images/kruber/weapons/tuskgorspear.webp",
       "availableFor": ["mercenary", "huntsman", "footknight"]
     },
     {
@@ -77,7 +77,7 @@
       "name": "halberd",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/halberd.webp",
+      "icon": "/images/kruber/weapons/halberd.webp",
       "availableFor": ["mercenary", "huntsman", "footknight"]
     },
     {
@@ -85,7 +85,7 @@
       "name": "greatsword",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/greatsword.webp",
+      "icon": "/images/kruber/weapons/greatsword.webp",
       "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
     },
     {
@@ -93,7 +93,7 @@
       "name": "two handed hammer",
       "heroId": "kruber",
       "type": "melee",
-      "icon": "/images/weapons/kruber/twohandedhammer.webp",
+      "icon": "/images/kruber/weapons/twohandedhammer.webp",
       "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
     },
     {
@@ -117,7 +117,7 @@
       "name": "Longbow",
       "heroId": "kruber",
       "type": "ranged",
-      "icon": "/images/weapons/kruber/longbow.webp",
+      "icon": "/images/kruber/weapons/longbow.webp",
       "availableFor": ["huntsman"]
     },
     {

@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch --env-file=.env src/index.js",
-    "start": "NODE_ENV=production node src/index.js"
+    "start": "NODE_ENV=production node src/index.js",
+    "db:reset": "node --env-file=.env scripts/reset-db.js --yes"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -1,9 +1,9 @@
 <script setup>
-import { ref, computed, useId } from 'vue'
+import { ref, computed, useId, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
   label: { type: String, required: true },
-  slotIcon: { type: String, default: '' }, // icon shown when no weapon is picked (equipment slots)
+  slotIcon: { type: String, default: '' }, // fixed illustration of an equipment slot (necklace, charm, trinket)
   weapons: { type: Array, default: null }, // weapons to choose from; null = not a weapon slot
   traits: { type: Array, required: true },
   properties: { type: Array, required: true },
@@ -14,6 +14,8 @@ const model = defineModel({ type: Object, required: true })
 
 const open = ref(false)
 const panelId = useId()
+const root = ref(null)
+const head = ref(null)
 
 const isWeaponSlot = computed(() => props.weapons !== null)
 const weapon = computed(() => props.weapons?.find((w) => w.id === model.value.weaponId) ?? null)
@@ -23,7 +25,8 @@ const propertyNames = computed(() =>
     .filter(Boolean)
     .map((id) => props.properties.find((p) => p.id === id)?.name ?? id),
 )
-const icon = computed(() => weapon.value?.icon || props.slotIcon)
+// Weapon slots show the picked weapon; equipment slots always show their own fixed illustration
+const icon = computed(() => (isWeaponSlot.value ? weapon.value?.icon : props.slotIcon) || '')
 const title = computed(() => weapon.value?.name || props.label)
 const isEmpty = computed(() => !weapon.value && !trait.value && !propertyNames.value.length)
 
@@ -39,21 +42,64 @@ const propertyChoices = (index) => {
   const other = model.value.propertyIds?.[1 - index] ?? ''
   return props.properties.filter((p) => p.id !== other)
 }
+
+// --- Auto-collapse when the user leaves the slot ---
+const close = () => (open.value = false)
+
+// Click / tap anywhere else (this also closes the slot when another one is opened)
+function onPointerDown(e) {
+  if (open.value && !root.value?.contains(e.target)) close()
+}
+// Keyboard: Tab to something outside the slot. relatedTarget is null when the whole
+// window just loses focus (alt-tab): in that case the slot stays open.
+function onFocusOut(e) {
+  if (e.relatedTarget && !root.value?.contains(e.relatedTarget)) close()
+}
+function onEscape() {
+  if (!open.value) return
+  close()
+  head.value?.focus()
+}
+onMounted(() => document.addEventListener('pointerdown', onPointerDown))
+onBeforeUnmount(() => document.removeEventListener('pointerdown', onPointerDown))
+
+// Dev help: names the wrong image path instead of leaving a silent empty box
+function onImageError(e) {
+  if (import.meta.env.DEV) console.warn(`Image not found: ${new URL(e.target.src).pathname}`)
+}
 </script>
 
 <template>
-  <div class="gear" :class="{ open }">
+  <div ref="root" class="gear" :class="{ open }" @focusout="onFocusOut" @keydown.esc="onEscape">
     <component
       :is="readonly ? 'div' : 'button'"
+      ref="head"
       class="gear-head"
       v-bind="readonly ? {} : { type: 'button', 'aria-expanded': open, 'aria-controls': panelId }"
       @click="!readonly && (open = !open)">
-      <img v-if="icon" :src="icon" alt="" class="gear-icon" />
+      <img
+        v-if="icon"
+        :src="icon"
+        alt=""
+        width="56"
+        height="56"
+        class="gear-icon"
+        @error="onImageError" />
       <span v-else class="gear-icon placeholder" aria-hidden="true">+</span>
 
       <span class="gear-summary">
         <strong>{{ title }}</strong>
-        <span v-if="trait" class="line">{{ trait.name }}</span>
+        <span v-if="trait" class="line trait-line">
+          <img
+            v-if="trait.icon"
+            :src="trait.icon"
+            alt=""
+            width="20"
+            height="20"
+            class="trait-icon"
+            @error="onImageError" />
+          {{ trait.name }}
+        </span>
         <span v-for="name in propertyNames" :key="name" class="line muted">{{ name }}</span>
         <span v-if="isEmpty && !readonly" class="line muted">Click to choose</span>
       </span>
@@ -77,7 +123,17 @@ const propertyChoices = (index) => {
           <option v-for="t in traits" :key="t.id" :value="t.id">{{ t.name }}</option>
         </select>
       </label>
-      <p v-if="trait" class="trait-desc">{{ trait.description }}</p>
+      <div v-if="trait" class="trait-box">
+        <img
+          v-if="trait.icon"
+          :src="trait.icon"
+          alt=""
+          width="40"
+          height="40"
+          class="trait-icon"
+          @error="onImageError" />
+        <p class="trait-desc">{{ trait.description }}</p>
+      </div>
 
       <label v-for="index in [0, 1]" :key="index">
         Property {{ index + 1 }}
@@ -121,19 +177,13 @@ button.gear-head {
 }
 .gear-icon {
   flex: none;
+  width: 56px;
+  height: 56px;
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid var(--line);
   background: var(--bg);
 }
-
-.gear-icon,
-.gear-icon.placeholder {
-  width: var(--icon-size);
-  height: auto;
-  aspect-ratio: 1 / 1;
-}
-
 .gear-icon.placeholder {
   display: grid;
   place-items: center;
@@ -149,6 +199,15 @@ button.gear-head {
 .line {
   font-size: 0.92rem;
 }
+.trait-line {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.trait-icon {
+  flex: none;
+  object-fit: contain;
+}
 .muted,
 .chevron {
   color: var(--muted);
@@ -162,6 +221,11 @@ button.gear-head {
 .gear-panel label {
   display: grid;
   gap: 0.3rem;
+}
+.trait-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
 }
 .trait-desc {
   margin: 0;

@@ -56,6 +56,11 @@ main {
   max-width: var(--mx-width);
   padding-top: 2rem;
 }
+.icons-size {
+  height: auto;
+  aspect-ratio: 1 / 1;
+  width: var(--icon-size);
+}
 .top {
   display: flex;
   flex-wrap: wrap;

@@ -3,37 +3,37 @@
     "necklace": {
       "id": "necklace",
       "name": "Necklace",
-      "icon": "/images/equipment/necklace.webp",
+      "icon": "/shared/equipment/necklace.png",
       "traits": [
         {
           "id": "barkskin",
-          "name": "Barkskin",
+          "name": "barkskin",
           "description": "Trait description.",
-          "icon": "/images/traits/barkskin.webp"
+          "icon": "/shared/traits/equipment/necklace/barkskin.webp"
         },
         {
-          "id": "boon_of_shallya",
-          "name": "Boon of Shallya",
+          "id": "boonofshallya",
+          "name": "boon of shallya",
           "description": "Trait description.",
-          "icon": "/images/traits/boon-of-shallya.webp"
+          "icon": "/shared/traits/equipment/necklace/boonofshallya.webp"
         },
         {
-          "id": "hand_of_shallya",
-          "name": "Hand of Shallya",
+          "id": "handofshallya",
+          "name": "hand of shallya",
           "description": "Trait description.",
-          "icon": "/images/traits/hand-of-shallya.webp"
+          "icon": "/shared/traits/equipment/necklace/handofshallya.webp"
         },
         {
-          "id": "natural_bond",
-          "name": "Natural Bond",
+          "id": "naturalbond",
+          "name": "natural bond",
           "description": "Trait description.",
-          "icon": "/images/traits/natural-bond.webp"
+          "icon": "/shared/traits/equipment/necklace/naturalbond.webp"
         },
         {
-          "id": "healers_touch",
-          "name": "Healer's Touch",
+          "id": "healerstouch",
+          "name": "healer's touch",
           "description": "Trait description.",
-          "icon": "/images/traits/healers-touch.webp"
+          "icon": "/shared/traits/equipment/necklace/healerstouch.webp"
         }
       ],
       "properties": [
@@ -62,31 +62,31 @@
     "charm": {
       "id": "charm",
       "name": "Charm",
-      "icon": "/images/equipment/charm.webp",
+      "icon": "/shared/equipment/charm.png",
       "traits": [
         {
           "id": "decanter",
-          "name": "Decanter",
+          "name": "decanter",
           "description": "Trait description.",
-          "icon": "/images/traits/decanter.webp"
+          "icon": "/shared/traits/equipment/charm/decanter.webp"
         },
         {
           "id": "concoction",
-          "name": "Concoction",
+          "name": "concoction",
           "description": "Trait description.",
-          "icon": "/images/traits/concoction.webp"
+          "icon": "/shared/traits/equipment/charm/concoction.webp"
         },
         {
           "id": "proxy",
-          "name": "Proxy",
+          "name": "proxy",
           "description": "Trait description.",
-          "icon": "/images/traits/proxy.webp"
+          "icon": "/shared/traits/equipment/charm/proxy.webp"
         },
         {
-          "id": "home_brewer",
-          "name": "Home Brewer",
+          "id": "homebrewer",
+          "name": "home brewer",
           "description": "Trait description.",
-          "icon": "/images/traits/home-brewer.webp"
+          "icon": "/shared/traits/equipment/charm/homebrewer.webp"
         }
       ],
       "properties": [
@@ -115,31 +115,25 @@
     "trinket": {
       "id": "trinket",
       "name": "Trinket",
-      "icon": "/images/equipment/trinket.webp",
+      "icon": "/shared/equipment/trinket.png",
       "traits": [
         {
-          "id": "explosive_ordnance",
-          "name": "Explosive Ordnance",
+          "id": "explosiveordnance",
+          "name": "explosive ordnance",
           "description": "Trait description.",
-          "icon": "/images/traits/explosive-ordnance.webp"
+          "icon": "/shared/traits/equipment/trinket/explosiveordnance.webp"
         },
         {
           "id": "grenadier",
-          "name": "Grenadier",
+          "name": "grenadier",
           "description": "Trait description.",
-          "icon": "/images/traits/grenadier.webp"
+          "icon": "/shared/traits/equipment/trinket/grenadier.webp"
         },
         {
           "id": "shrapnel",
-          "name": "Shrapnel",
+          "name": "shrapnel",
           "description": "Trait description.",
-          "icon": "/images/traits/shrapnel.webp"
-        },
-        {
-          "id": "explosive_expert",
-          "name": "Explosive Expert",
-          "description": "Trait description.",
-          "icon": "/images/traits/explosive-expert.webp"
+          "icon": "/shared/traits/equipment/trinket/shrapnel.webp"
         }
       ],
       "properties": [
