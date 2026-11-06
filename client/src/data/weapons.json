@@ -2,28 +2,115 @@
   "weapons": [
     {
       "id": "sword",
-      "name": "Sword",
+      "name": "sword",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/weapons/kruber/sword.webp",
-      "availableFor": [
-        "mercenary",
-        "huntsman",
-        "footknight",
-        "grailknight"
-      ]
+      "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
+    },
+    {
+      "id": "mace",
+      "name": "mace",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/mace.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
+    },
+    {
+      "id": "maceandsword",
+      "name": "mace and sword",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/maceandsword.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
+    },
+    {
+      "id": "executionersword",
+      "name": "executioner sword",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/executionersword.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
+    },
+    {
+      "id": "swordandshield",
+      "name": "sword and shield",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/swordandshield.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
+    },
+    {
+      "id": "maceandshield",
+      "name": "mace and shield",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/maceandshield.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
+    },
+    {
+      "id": "bretonnianlongsword",
+      "name": "bretonnian longsword",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/bretonnianlongsword.webp",
+      "availableFor": ["mercenary", "footknight", "grailknight"]
+    },
+    {
+      "id": "spearandshield",
+      "name": "spear and shield",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/spearandshield.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight"]
+    },
+    {
+      "id": "tuskgorspear",
+      "name": "tuskgor spear",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/tuskgorspear.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight"]
+    },
+    {
+      "id": "halberd",
+      "name": "halberd",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/halberd.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight"]
+    },
+    {
+      "id": "greatsword",
+      "name": "greatsword",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/greatsword.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
+    },
+    {
+      "id": "twohandedhammer",
+      "name": "two handed hammer",
+      "heroId": "kruber",
+      "type": "melee",
+      "icon": "/images/weapons/kruber/twohandedhammer.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight", "grailknight"]
     },
     {
       "id": "handgun",
       "name": "Handgun",
       "heroId": "kruber",
       "type": "ranged",
-      "icon": "/images/weapons/kruber/handgun.webp",
-      "availableFor": [
-        "mercenary",
-        "huntsman",
-        "footknight"
-      ]
+      "icon": "/images/kruber/weapons/handgun.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight"]
+    },
+    {
+      "id": "repeaterhandgun",
+      "name": "Handgun",
+      "heroId": "kruber",
+      "type": "ranged",
+      "icon": "/images/kruber/weapons/repeaterhandgun.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight"]
     },
     {
       "id": "longbow",
@@ -31,19 +118,543 @@
       "heroId": "kruber",
       "type": "ranged",
       "icon": "/images/weapons/kruber/longbow.webp",
-      "availableFor": [
-        "huntsman"
-      ]
+      "availableFor": ["huntsman"]
     },
     {
-      "id": "dual_axes",
-      "name": "Dual Axes",
+      "id": "blunderbuss",
+      "name": "blunderbuss",
+      "heroId": "kruber",
+      "type": "ranged",
+      "icon": "/images/kruber/weapons/blunderbuss.webp",
+      "availableFor": ["mercenary", "huntsman", "footknight"]
+    },
+    {
+      "id": "dualaxes",
+      "name": "dual axes",
       "heroId": "bardin",
       "type": "melee",
-      "icon": "/images/weapons/bardin/dual-axes.webp",
-      "availableFor": [
-        "slayer"
-      ]
+      "icon": "/images/bardin/weapons/dualaxes.webp",
+      "availableFor": ["slayer"]
+    },
+    {
+      "id": "hammer",
+      "name": "hammer",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/bardin/weapons/hammer.webp",
+      "availableFor": ["slayer", "rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "pickaxe",
+      "name": "pickaxe",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/bardin/weapons/pickaxe.webp",
+      "availableFor": ["slayer", "rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "axeandshield",
+      "name": "axeandshield",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/bardin/weapons/axeandshield.webp",
+      "availableFor": ["rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "axe",
+      "name": "axe",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/bardin/weapons/axe.webp",
+      "availableFor": ["slayer", "rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "hammerandshield",
+      "name": "hammer and shield",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/bardin/weapons/hammerandshield.webp",
+      "availableFor": ["rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "dualhammers",
+      "name": "dual hammers",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/bardin/weapons/dualhammers.webp",
+      "availableFor": ["slayer", "rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "greataxe",
+      "name": "great axe",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/bardin/weapons/greataxe.webp",
+      "availableFor": ["slayer", "rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "coghammer",
+      "name": "cog hammer",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/bardin/weapons/coghammer.webp",
+      "availableFor": ["slayer", "rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "greathammer",
+      "name": "great hammer",
+      "heroId": "bardin",
+      "type": "melee",
+      "icon": "/images/bardin/weapons/greathammer.webp",
+      "availableFor": ["slayer", "rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "throwingaxes",
+      "name": "throwing axes",
+      "heroId": "bardin",
+      "type": "ranged",
+      "icon": "/images/bardin/weapons/throwingaxes.webp",
+      "availableFor": ["slayer", "rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "handgun",
+      "name": "handgun",
+      "heroId": "bardin",
+      "type": "ranged",
+      "icon": "/images/bardin/weapons/handgun.webp",
+      "availableFor": ["rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "crossbow",
+      "name": "crossbow",
+      "heroId": "bardin",
+      "type": "ranged",
+      "icon": "/images/bardin/weapons/crossbow.webp",
+      "availableFor": ["rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "masterworkpistol",
+      "name": "masterwork pistol",
+      "heroId": "bardin",
+      "type": "ranged",
+      "icon": "/images/bardin/weapons/masterworkpistol.webp",
+      "availableFor": ["rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "grudgeraker",
+      "name": "grudge-raker",
+      "heroId": "bardin",
+      "type": "ranged",
+      "icon": "/images/bardin/weapons/grudgeraker.webp",
+      "availableFor": ["rangerveteran", "ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "drakegun",
+      "name": "drakegun",
+      "heroId": "bardin",
+      "type": "ranged",
+      "icon": "/images/bardin/weapons/drakegun.webp",
+      "availableFor": ["ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "drakefirepistols",
+      "name": "drakefire pistols",
+      "heroId": "bardin",
+      "type": "ranged",
+      "icon": "/images/bardin/weapons/drakefirepistols.webp",
+      "availableFor": ["ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "trollhammertorpedo",
+      "name": "trollhammer torpedo",
+      "heroId": "bardin",
+      "type": "ranged",
+      "icon": "/images/bardin/weapons/trollhammertorpedo.webp",
+      "availableFor": ["ironbreaker", "outcastengineer"]
+    },
+    {
+      "id": "sword",
+      "name": "sword",
+      "heroId": "kerillian",
+      "type": "melee",
+      "icon": "/images/kerillian/weapons/sword.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "dualswords",
+      "name": "dualswords",
+      "heroId": "kerillian",
+      "type": "melee",
+      "icon": "/images/kerillian/weapons/dualswords.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "swordanddagger",
+      "name": "sword and dagger",
+      "heroId": "kerillian",
+      "type": "melee",
+      "icon": "/images/kerillian/weapons/swordanddagger.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "elvenaxe",
+      "name": "elven axe",
+      "heroId": "kerillian",
+      "type": "melee",
+      "icon": "/images/kerillian/weapons/elvenaxe.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "dualdaggers",
+      "name": "dual daggers",
+      "heroId": "kerillian",
+      "type": "melee",
+      "icon": "/images/kerillian/weapons/dualdaggers.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "twohandedsword",
+      "name": "two handed sword",
+      "heroId": "kerillian",
+      "type": "melee",
+      "icon": "/images/kerillian/weapons/twohandedsword.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "glaive",
+      "name": "glaive",
+      "heroId": "kerillian",
+      "type": "melee",
+      "icon": "/images/kerillian/weapons/glaive.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "spear",
+      "name": "spear",
+      "heroId": "kerillian",
+      "type": "melee",
+      "icon": "/images/kerillian/weapons/spear.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "spearandshield",
+      "name": "spear and shield",
+      "heroId": "kerillian",
+      "type": "melee",
+      "icon": "/images/kerillian/weapons/spearandshield.webp",
+      "availableFor": ["handmaiden"]
+    },
+    {
+      "id": "deepwoodstaff",
+      "name": "deepwood staff",
+      "heroId": "kerillian",
+      "type": "ranged",
+      "icon": "/images/kerillian/weapons/deepwoodstaff.webp",
+      "availableFor": ["sisterofthethorn"]
+    },
+    {
+      "id": "moonfirebow",
+      "name": "moonfire bow",
+      "heroId": "kerillian",
+      "type": "ranged",
+      "icon": "/images/kerillian/weapons/moonfirebow.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "hagbaneshortbow",
+      "name": "hagbane shortbow",
+      "heroId": "kerillian",
+      "type": "ranged",
+      "icon": "/images/kerillian/weapons/hagbaneshortbow.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "briarjavelin",
+      "name": "briar javelin",
+      "heroId": "kerillian",
+      "type": "ranged",
+      "icon": "/images/kerillian/weapons/briarjavelin.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "swiftbow",
+      "name": "swift bow",
+      "heroId": "kerillian",
+      "type": "ranged",
+      "icon": "/images/kerillian/weapons/swiftbow.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "longbow",
+      "name": "longbow",
+      "heroId": "kerillian",
+      "type": "ranged",
+      "icon": "/images/kerillian/weapons/longbow.webp",
+      "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
+    },
+    {
+      "id": "volley crossbow",
+      "name": "volleycrossbow",
+      "heroId": "kerillian",
+      "type": "ranged",
+      "icon": "/images/kerillian/weapons/volleycrossbow.webp",
+      "availableFor": ["shade"]
+    },
+    {
+      "id": "greatsword",
+      "name": "greatsword",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/greatsword.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "billhook",
+      "name": "billhook",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/billhook.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "flail",
+      "name": "flail",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/flail.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "rapier",
+      "name": "rapier",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/rapier.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "falchion",
+      "name": "falchion",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/falchion.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "axe",
+      "name": "axe",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/axe.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "axeandfalchion",
+      "name": "axe and falchion",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/axeandfalchion.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "skullsplitterhammer",
+      "name": "skull-splitter hammer",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/skullsplitterhammer.webp",
+      "availableFor": ["zealot", "warriorpriest"]
+    },
+    {
+      "id": "pairedskullsplitters",
+      "name": "paired skull-splitters",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/pairedskullsplitters.webp",
+      "availableFor": ["zealot", "warriorpriest"]
+    },
+    {
+      "id": "holygreathammer",
+      "name": "holy great hammer",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/holygreathammer.webp",
+      "availableFor": ["zealot", "warriorpriest"]
+    },
+    {
+      "id": "skullsplitterandshield",
+      "name": "skullsplitterandshield",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/skullsplitterandshield.webp",
+      "availableFor": ["warriorpriest"]
+    },
+    {
+      "id": "skullsplitterandblessedtome",
+      "name": "skull-splitter and blessed tome",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/skullsplitterandblessedtome.webp",
+      "availableFor": ["warriorpriest"]
+    },
+    {
+      "id": "flailandshield",
+      "name": "flail and shield",
+      "heroId": "saltzpyre",
+      "type": "melee",
+      "icon": "/images/saltzpyre/weapons/flailandshield.webp",
+      "availableFor": ["warriorpriest"]
+    },
+    {
+      "id": "crossbow",
+      "name": "crossbow",
+      "heroId": "saltzpyre",
+      "type": "ranged",
+      "icon": "/images/saltzpyre/weapons/crossbow.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "braceofpistols",
+      "name": "brace of pistols",
+      "heroId": "saltzpyre",
+      "type": "ranged",
+      "icon": "/images/saltzpyre/weapons/braceofpistols.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "repeaterpistol",
+      "name": "repeater pistol",
+      "heroId": "saltzpyre",
+      "type": "ranged",
+      "icon": "/images/saltzpyre/weapons/repeaterpistol.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "griffonfoot",
+      "name": "griffon-foot",
+      "heroId": "saltzpyre",
+      "type": "ranged",
+      "icon": "/images/saltzpyre/weapons/griffonfoot.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "volleycrossbow",
+      "name": "volley crossbow",
+      "heroId": "saltzpyre",
+      "type": "ranged",
+      "icon": "/images/saltzpyre/weapons/volleycrossbow.webp",
+      "availableFor": ["witchhuntercaptain", "bountyhunter", "zealot"]
+    },
+    {
+      "id": "crowbill",
+      "name": "crowbill",
+      "heroId": "sienna",
+      "type": "melee",
+      "icon": "/images/sienna/weapons/crowbill.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "sword",
+      "name": "sword",
+      "heroId": "sienna",
+      "type": "melee",
+      "icon": "/images/sienna/weapons/sword.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "firesword",
+      "name": "fire sword",
+      "heroId": "sienna",
+      "type": "melee",
+      "icon": "/images/sienna/weapons/firesword.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "dagger",
+      "name": "dagger",
+      "heroId": "sienna",
+      "type": "melee",
+      "icon": "/images/sienna/weapons/dagger.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "mace",
+      "name": "mace",
+      "heroId": "sienna",
+      "type": "melee",
+      "icon": "/images/sienna/weapons/mace.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "flamingflail",
+      "name": "flaming flail",
+      "heroId": "sienna",
+      "type": "melee",
+      "icon": "/images/sienna/weapons/flamingflail.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "ensorcelledreaper",
+      "name": "ensorcelled reaper",
+      "heroId": "sienna",
+      "type": "melee",
+      "icon": "/images/sienna/weapons/ensorcelledreaper.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "fireballstaff",
+      "name": "fireball staff",
+      "heroId": "sienna",
+      "type": "ranged",
+      "icon": "/images/sienna/weapons/fireballstaff.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "beamstaff",
+      "name": "beamstaff",
+      "heroId": "sienna",
+      "type": "ranged",
+      "icon": "/images/sienna/weapons/beamstaff.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "boltstaff",
+      "name": "bolt staff",
+      "heroId": "sienna",
+      "type": "ranged",
+      "icon": "/images/sienna/weapons/boltstaff.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "conflagrationstaff",
+      "name": "conflagration staff",
+      "heroId": "sienna",
+      "type": "ranged",
+      "icon": "/images/sienna/weapons/conflagrationstaff.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "coruscationstaff",
+      "name": "coruscation staff",
+      "heroId": "sienna",
+      "type": "ranged",
+      "icon": "/images/sienna/weapons/coruscationstaff.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "flamestormstaff",
+      "name": "flamestorm staff",
+      "heroId": "sienna",
+      "type": "ranged",
+      "icon": "/images/sienna/weapons/flamestormstaff.webp",
+      "availableFor": ["battlewizard", "pyromancer", "unchained", "necromancer"]
+    },
+    {
+      "id": "soulstealerstaff",
+      "name": "soulstealer staff",
+      "heroId": "sienna",
+      "type": "ranged",
+      "icon": "/images/sienna/weapons/soulstealerstaff.webp",
+      "availableFor": ["necromancer"]
     }
   ]
 }

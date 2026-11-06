@@ -521,7 +521,7 @@
     "name": "Bardin Goreksson",
     "careers": [
       {
-        "id": "ranger",
+        "id": "rangerveteran",
         "name": "Ranger Veteran",
         "icon": "/images/bardin/bardin-ranger-veteran.webp",
         "color": "#22c55e",
@@ -905,7 +905,7 @@
         }
       },
       {
-        "id": "engineer",
+        "id": "outcastengineer",
         "name": "Outcast Engineer",
         "icon": "/images/bardin/bardin-outcast-engineer.webp",
         "talents": {
@@ -1422,7 +1422,7 @@
         }
       },
       {
-        "id": "sott",
+        "id": "sisterofthethorn",
         "name": "Sister of the Thorn",
         "icon": "/images/kerillian/kerillian-sister-of-the-thorn.webp",
         "color": "#10c000",
@@ -1556,7 +1556,7 @@
     "name": "Victor Saltzpyre",
     "careers": [
       {
-        "id": "whc",
+        "id": "witchhuntercaptain",
         "name": "Witch Hunter Captain",
         "icon": "/images/saltzpyre/saltzpyre-witch-hunter-captain.webp",
         "color": "#dd641d",
@@ -2073,7 +2073,7 @@
     "name": "Sienna Fuegonasus",
     "careers": [
       {
-        "id": "bwizard",
+        "id": "battlewizard",
         "name": "Battle Wizard",
         "icon": "/images/sienna/sienna-battle-wizard.webp",
 

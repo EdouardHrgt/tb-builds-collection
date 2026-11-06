@@ -2,60 +2,160 @@
   "melee": {
     "traits": [
       {
-        "id": "swift_slaying",
-        "name": "Swift Slaying",
-        "description": "Increases attack speed...",
-        "icon": "../public/shared/traits/swift-slaying.webp"
+        "id": "swiftslaying",
+        "name": "swift slaying",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/melee/swiftslaying.webp"
       },
       {
         "id": "parry",
-        "name": "Parry",
-        "description": "Blocks attacks...",
-        "icon": "../public/shared/traits/parry.webp"
+        "name": "parry",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/melee/parry.webp"
+      },
+      {
+        "id": "resourcefulcombatant",
+        "name": "resourceful combatant",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/melee/resourcefulcombatant.webp"
+      },
+      {
+        "id": "opportunist",
+        "name": "opportunist",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/melee/opportunist.webp"
+      },
+      {
+        "id": "offbalance",
+        "name": "off balance",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/melee/offbalance.webp"
+      },
+      {
+        "id": "heroicintervention",
+        "name": "heroic intervention",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/melee/heroicintervention.webp"
       }
     ],
     "properties": [
       {
-        "id": "attack_speed",
-        "name": "Attack Speed"
+        "id": "attackspeed",
+        "name": "attack speed"
       },
       {
-        "id": "critical_strike_chance",
-        "name": "Critical Strike Chance"
+        "id": "criticalchance",
+        "name": "critchance"
       },
       {
-        "id": "block_cost_reduction",
-        "name": "Block Cost Reduction"
+        "id": "blockcostreduction",
+        "name": "block cost reduction"
+      },
+      {
+        "id": "criticalpower",
+        "name": "crit power"
+      },
+      {
+        "id": "stamina",
+        "name": "stamina"
+      },
+      {
+        "id": "powervsskaven",
+        "name": "power vs skaven"
+      },
+      {
+        "id": "powervschaos",
+        "name": "power vs chaos"
+      },
+      {
+        "id": "pushandblockangle",
+        "name": "push and block angle"
       }
     ]
   },
   "ranged": {
     "traits": [
       {
-        "id": "conservative_shooter",
-        "name": "Conservative Shooter",
-        "description": "Description...",
-        "icon": "../public/shared/traits/conservative-shooter.webp"
+        "id": "conservativeshooter",
+        "name": "conservative shooter",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/ranged/conservativeshooter.webp"
+      },
+      {
+        "id": "barrage",
+        "name": "barrage",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/ranged/barrage.webp"
+      },
+      {
+        "id": "hunter",
+        "name": "hunter",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/ranged/hunter.webp"
       },
       {
         "id": "scrounger",
-        "name": "Scrounger",
-        "description": "Description...",
-        "icon": "../public/shared/traits/scrounger.webp"
+        "name": "scrounger",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/ranged/scrounger.webp"
+      },
+      {
+        "id": "thermalequalizer",
+        "name": "thermal equalizer",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/ranged/thermalequalizer.webp"
+      },
+      {
+        "id": "heatsink",
+        "name": "heat sink",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/ranged/heatsink.webp"
+      },
+      {
+        "id": "inspirationalshot",
+        "name": "inspirational shot",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/ranged/inspirationalshot.webp"
+      },
+      {
+        "id": "resourcefulsharpshooter",
+        "name": "resourceful sharpshooter",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/ranged/resourcefulsharpshooter.webp"
       }
     ],
     "properties": [
       {
-        "id": "power_vs_skaven",
-        "name": "Power vs Skaven"
+        "id": "powervsskaven",
+        "name": "power vs skaven"
       },
       {
-        "id": "power_vs_chaos",
-        "name": "Power vs Chaos"
+        "id": "powervschaos",
+        "name": "power vs chaos"
       },
       {
-        "id": "critical_strike_chance",
-        "name": "Critical Strike Chance"
+        "id": "powervsmonsters",
+        "name": "power vs monsters"
+      },
+      {
+        "id": "powervsinfantry",
+        "name": "power vs infantry"
+      },
+      {
+        "id": "powervsberserkers",
+        "name": "power vs berserkers"
+      },
+      {
+        "id": "powervsarmored",
+        "name": "power vs armored"
+      },
+      {
+        "id": "criticalchance",
+        "name": "crit chance"
+      },
+      {
+        "id": "criticalpower",
+        "name": "crit power"
       }
     ]
   }
