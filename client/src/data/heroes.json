@@ -140,121 +140,121 @@
           "5": [
             {
               "id": "1",
-              "name": "",
+              "name": "second wind",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "execute",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/execute.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "carve",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/carve.webp"
             }
           ],
           "10": [
             {
               "id": "1",
-              "name": "",
+              "name": "keep it coming",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/keepitcoming.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "make 'em bleed",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/makeembleed.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "one in the eye",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/oneintheeye.webp"
             }
           ],
           "15": [
             {
               "id": "1",
-              "name": "",
+              "name": "bulwark",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/bulwark.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "smiter",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/smiter.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "enhanced power",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/enhancedpower.webp"
             }
           ],
           "20": [
             {
               "id": "1",
-              "name": "",
+              "name": "thrill of the hunt",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/thrillofthehunt.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "makin' it look easy",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/makinitlookeasy.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "burst of enthusiam",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/burstofenthusiam.webp"
             }
           ],
           "25": [
             {
               "id": "1",
-              "name": "",
+              "name": "shot crafter",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/shotcrafter.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "thick hide",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/thickhide.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "longshanks",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/longshanks.webp"
             }
           ],
           "30": [
             {
               "id": "1",
-              "name": "",
+              "name": "blend in",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/blendin.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "concealed strikes",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/concealedstrikes.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "head down and hidden",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/huntsman/headdownandhidden.webp"
             }
           ]
         }
@@ -268,121 +268,121 @@
           "5": [
             {
               "id": "1",
-              "name": "",
+              "name": "second wind",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/secondwind.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "carve",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/carve.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "execute",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/execute.webp"
             }
           ],
           "10": [
             {
               "id": "1",
-              "name": "",
+              "name": "staggering force",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/staggeringforce.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "have at thee!",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/haveatthee.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "crowd clearer",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/crowdclearer.webp"
             }
           ],
           "15": [
             {
               "id": "1",
-              "name": "",
+              "name": "bulwark",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/bulwark.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "mainstay",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/mainstay.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "enhanced power",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/enhancedpower.webp"
             }
           ],
           "20": [
             {
               "id": "1",
-              "name": "",
+              "name": "rock of the reikland",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/rockofthereikland.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "that's bloody teamwork!",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/thatsbloodyteamwork.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "comrades in arms",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/comradesinarms.webp"
             }
           ],
           "25": [
             {
               "id": "1",
-              "name": "",
+              "name": "it's hero time",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/itsherotime.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "counter-punch",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/counterpunch.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "inspiring blow",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/inspiringblow.webp"
             }
           ],
           "30": [
             {
               "id": "1",
-              "name": "",
+              "name": "numb to pain",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/numbtopain.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "battering ram",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/batteringram.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "bulls of ostland!",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/footknight/bullsofostland.webp"
             }
           ]
         }
@@ -395,121 +395,121 @@
           "5": [
             {
               "id": "1",
-              "name": "",
+              "name": "second wind",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/secondwind.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "execute",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/execute.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "carve",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/carve.webp"
             }
           ],
           "10": [
             {
               "id": "1",
-              "name": "",
+              "name": "virtue of the ideal",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueoftheideal.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "virtue of knightly temper",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofknightlytemper.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "virtue of heroism",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofheroism.webp"
             }
           ],
           "15": [
             {
               "id": "1",
-              "name": "",
+              "name": "bulwark",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/bulwark.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "smiter",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/smiter.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "enhanced power",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/enhancedpower.webp"
             }
           ],
           "20": [
             {
               "id": "1",
-              "name": "",
+              "name": "virtue of duty",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofduty.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "virtue of purity",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofpurity.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "virtue of the penitent",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofthepenitent.webp"
             }
           ],
           "25": [
             {
               "id": "1",
-              "name": "",
+              "name": "virtue of stoicism",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofstoicism.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "virtue of discipline",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofdiscipline.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "virtue of the joust",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofthejoust.webp"
             }
           ],
           "30": [
             {
               "id": "1",
-              "name": "",
+              "name": "virtue of audacity",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofaudacity.webp"
             },
             {
               "id": "2",
-              "name": "",
+              "name": "virtue of the impetuous knight",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueoftheimpetuousknight.webp"
             },
             {
               "id": "3",
-              "name": "",
+              "name": "virtue of confidence",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents"
+              "icon": "/images/kruber/talents/grailknight/virtueofconfidence.webp"
             }
           ]
         }
@@ -524,6 +524,7 @@
         "id": "ranger",
         "name": "Ranger Veteran",
         "icon": "/images/bardin/bardin-ranger-veteran.webp",
+        "color": "#22c55e",
         "talents": {
           "5": [
             {
@@ -651,6 +652,7 @@
         "id": "ironbreaker",
         "name": "Ironbreaker",
         "icon": "/images/bardin/bardin-iron-breaker.webp",
+        "color": "#3b82f6",
         "talents": {
           "5": [
             {
@@ -778,6 +780,7 @@
         "id": "slayer",
         "name": "Slayer",
         "icon": "/images/bardin/bardin-slayer.webp",
+        "color": "#E32700",
         "talents": {
           "5": [
             {
@@ -1038,6 +1041,7 @@
         "id": "waystalker",
         "name": "Waystalker",
         "icon": "/images/kerillian/kerillian-waystalker.webp",
+        "color": "#22c55e",
         "talents": {
           "5": [
             {
@@ -1165,6 +1169,7 @@
         "id": "handmaiden",
         "name": "Handmaiden",
         "icon": "/images/kerillian/kerillian-handmaiden.webp",
+        "color": "#3b82f6",
         "talents": {
           "5": [
             {
@@ -1292,6 +1297,7 @@
         "id": "shade",
         "name": "Shade",
         "icon": "/images/kerillian/kerillian-shade.webp",
+        "color": "#9f04ff",
         "talents": {
           "5": [
             {
@@ -1419,6 +1425,7 @@
         "id": "sott",
         "name": "Sister of the Thorn",
         "icon": "/images/kerillian/kerillian-sister-of-the-thorn.webp",
+        "color": "#10c000",
         "talents": {
           "5": [
             {
@@ -1552,6 +1559,7 @@
         "id": "whc",
         "name": "Witch Hunter Captain",
         "icon": "/images/saltzpyre/saltzpyre-witch-hunter-captain.webp",
+        "color": "#dd641d",
         "talents": {
           "5": [
             {
@@ -1679,6 +1687,7 @@
         "id": "bountyhunter",
         "name": "Bounty Hunter",
         "icon": "/images/saltzpyre/saltzpyre-bounty-hunter.webp",
+        "color": "#d8965b",
         "talents": {
           "5": [
             {
@@ -1806,6 +1815,7 @@
         "id": "zealot",
         "name": "Zealot",
         "icon": "/images/saltzpyre/saltzpyre-zealot.webp",
+        "color": "#c90d00",
         "talents": {
           "5": [
             {
@@ -2066,6 +2076,7 @@
         "id": "bwizard",
         "name": "Battle Wizard",
         "icon": "/images/sienna/sienna-battle-wizard.webp",
+
         "talents": {
           "5": [
             {
@@ -2193,6 +2204,7 @@
         "id": "pyromancer",
         "name": "Pyromancer",
         "icon": "/images/sienna/sienna-pyromancer.webp",
+        "color": "#EB4E0E",
         "talents": {
           "5": [
             {
@@ -2320,6 +2332,7 @@
         "id": "unchained",
         "name": "Unchained",
         "icon": "/images/sienna/sienna-unchained.webp",
+        "color": "#E32700",
         "talents": {
           "5": [
             {
@@ -2447,6 +2460,7 @@
         "id": "necromancer",
         "name": "Necromancer",
         "icon": "/images/sienna/sienna-necromancer.webp",
+        "color": "#78fac8",
         "talents": {
           "5": [
             {
