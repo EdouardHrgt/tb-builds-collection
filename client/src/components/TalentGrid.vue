@@ -9,14 +9,9 @@ const props = defineProps({
 // One entry per tier: 0 = nothing picked, 1..3 = position of the picked talent
 const model = defineModel({ type: Array, required: true })
 
-// TODO: set to false once the real descriptions are in heroes.json
-const USE_PLACEHOLDER_DESCRIPTION = true
-const LOREM =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim.'
-
 const showDescriptions = ref(false)
 
-const describe = (talent) => (USE_PLACEHOLDER_DESCRIPTION ? LOREM : talent.description)
+const describe = (talent) => talent.description
 const chosen = (row) => model.value[row] ?? 0
 
 function pick(row, position) {
@@ -81,11 +76,12 @@ function pick(row, position) {
 }
 .toggle {
   background: transparent;
-  color: var(--accent);
+  color: var(--career-color, var(--accent));
   border-color: var(--line);
+  transition: all 0.3s ease-out;
 }
 .toggle:hover {
-  border-color: var(--accent);
+  border-color: var(--career-color, var(--accent));
 }
 
 .tier-row {
@@ -162,8 +158,9 @@ function pick(row, position) {
 }
 .talent-icon {
   flex: none;
-  width: 44px;
-  height: 44px;
+  width: var(--icon-size);
+  height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 4px;
   background: var(--bg);

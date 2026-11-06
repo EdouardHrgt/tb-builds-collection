@@ -85,7 +85,7 @@ onMounted(async () => {
     const b = await api(`/builds/${editingId}`)
     if (b.authorId !== auth.user.id) return router.replace(`/builds/${b.id}`)
     if (b.data.v !== 2) {
-      error.value = 'This build uses an outdated format and cannot be edited.'
+      error.value = 'This build uses an outdated format and cannot be edited (sorry not sorry :p).'
       return
     }
     form.value = {
@@ -180,7 +180,7 @@ async function save() {
                 :value="c.id"
                 :checked="form.careerId === c.id"
                 @change="setCareer(c.id)" />
-              <img :src="c.icon" :alt="c.name" width="56" height="56" />
+              <img :src="c.icon" :alt="c.name" class="career_img" />
             </label>
           </div>
           <small class="meta">{{ currentCareerName }}</small>
@@ -255,6 +255,7 @@ section {
   display: block;
   cursor: pointer;
 }
+
 .career img {
   display: block;
   object-fit: cover;
@@ -263,6 +264,9 @@ section {
   background: var(--bg);
   border: 2px solid var(--line);
   border-radius: 8px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  width: var(--icon-size);
 }
 .career:hover img {
   border-color: var(--career-color, var(--accent));

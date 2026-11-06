@@ -142,7 +142,7 @@
               "id": "1",
               "name": "second wind",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents/huntsman/.webp"
+              "icon": "/images/kruber/talents/huntsman/secondwind.webp"
             },
             {
               "id": "2",
@@ -214,7 +214,7 @@
               "id": "3",
               "name": "burst of enthusiam",
               "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
-              "icon": "/images/kruber/talents/huntsman/burstofenthusiam.webp"
+              "icon": "/images/kruber/talents/huntsman/burstofenthusiasm.webp"
             }
           ],
           "25": [

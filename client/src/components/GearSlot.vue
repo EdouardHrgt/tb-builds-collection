@@ -48,7 +48,7 @@ const propertyChoices = (index) => {
       class="gear-head"
       v-bind="readonly ? {} : { type: 'button', 'aria-expanded': open, 'aria-controls': panelId }"
       @click="!readonly && (open = !open)">
-      <img v-if="icon" :src="icon" alt="" width="56" height="56" class="gear-icon" />
+      <img v-if="icon" :src="icon" alt="" class="gear-icon" />
       <span v-else class="gear-icon placeholder" aria-hidden="true">+</span>
 
       <span class="gear-summary">
@@ -121,13 +121,19 @@ button.gear-head {
 }
 .gear-icon {
   flex: none;
-  width: 56px;
-  height: 56px;
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid var(--line);
   background: var(--bg);
 }
+
+.gear-icon,
+.gear-icon.placeholder {
+  width: var(--icon-size);
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
 .gear-icon.placeholder {
   display: grid;
   place-items: center;
