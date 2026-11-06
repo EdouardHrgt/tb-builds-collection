@@ -133,83 +133,90 @@ async function save() {
 </script>
 
 <template>
-  <h1>{{ editingId ? 'Edit build' : 'New build' }}</h1>
-  <form class="form wide" novalidate @submit.prevent="save">
-    <div class="measure">
-      <label>
-        Title
-        <input v-model="form.title" maxlength="80" required />
-      </label>
+  <section class="align-section">
+    <h1>{{ editingId ? 'Edit build' : 'New build' }}</h1>
+    <form class="form wide" novalidate @submit.prevent="save">
+      <div class="measure">
+        <label>
+          Title
+          <input v-model="form.title" maxlength="80" required />
+        </label>
 
-      <label>
-        Hero
-        <select :value="form.heroId" @change="setHero($event.target.value)">
-          <option v-for="h in heroes" :key="h.id" :value="h.id">{{ h.name }}</option>
-        </select>
-      </label>
+        <label>
+          Hero
+          <select :value="form.heroId" @change="setHero($event.target.value)">
+            <option v-for="h in heroes" :key="h.id" :value="h.id">{{ h.name }}</option>
+          </select>
+        </label>
+
+        <fieldset>
+          <legend>Career</legend>
+          <div class="career-list">
+            <label v-for="c in careers" :key="c.id" class="career" :title="c.name">
+              <input
+                type="radio"
+                name="career"
+                class="sr-only"
+                :value="c.id"
+                :checked="form.careerId === c.id"
+                @change="setCareer(c.id)" />
+              <img :src="c.icon" :alt="c.name" width="56" height="56" />
+            </label>
+          </div>
+          <small class="meta">{{ currentCareerName }}</small>
+        </fieldset>
+      </div>
 
       <fieldset>
-        <legend>Career</legend>
-        <div class="career-list">
-          <label v-for="c in careers" :key="c.id" class="career" :title="c.name">
-            <input
-              type="radio"
-              name="career"
-              class="sr-only"
-              :value="c.id"
-              :checked="form.careerId === c.id"
-              @change="setCareer(c.id)" />
-            <img :src="c.icon" :alt="c.name" width="56" height="56" />
-          </label>
-        </div>
-        <small class="meta">{{ currentCareerName }}</small>
+        <legend>Talents</legend>
+        <TalentGrid v-model="form.talents" :tiers="talentTiers" />
       </fieldset>
-    </div>
 
-    <fieldset>
-      <legend>Talents</legend>
-      <TalentGrid v-model="form.talents" :tiers="talentTiers" />
-    </fieldset>
+      <fieldset>
+        <legend>Equipment</legend>
+        <div class="gear-grid">
+          <GearSlot
+            v-for="slot in WEAPON_SLOTS"
+            :key="slot.key"
+            v-model="form.weapons[slot.key]"
+            :label="slot.label"
+            :weapons="availableWeapons(slot.key)"
+            :traits="getWeaponOptions(slot.key).traits"
+            :properties="getWeaponOptions(slot.key).properties" />
+          <GearSlot
+            v-for="slot in EQUIPMENT_SLOTS"
+            :key="slot.id"
+            v-model="form.equipment[slot.id]"
+            :label="slot.name"
+            :slot-icon="slot.icon"
+            :traits="slot.traits"
+            :properties="slot.properties" />
+        </div>
+      </fieldset>
 
-    <fieldset>
-      <legend>Equipment</legend>
-      <div class="gear-grid">
-        <GearSlot
-          v-for="slot in WEAPON_SLOTS"
-          :key="slot.key"
-          v-model="form.weapons[slot.key]"
-          :label="slot.label"
-          :weapons="availableWeapons(slot.key)"
-          :traits="getWeaponOptions(slot.key).traits"
-          :properties="getWeaponOptions(slot.key).properties" />
-        <GearSlot
-          v-for="slot in EQUIPMENT_SLOTS"
-          :key="slot.id"
-          v-model="form.equipment[slot.id]"
-          :label="slot.name"
-          :slot-icon="slot.icon"
-          :traits="slot.traits"
-          :properties="slot.properties" />
+      <div class="measure">
+        <label>
+          Description
+          <textarea v-model="form.description" rows="5" maxlength="2000" />
+        </label>
+
+        <label class="check">
+          <input type="checkbox" v-model="form.isPublic" /> Public build
+        </label>
+
+        <p v-if="error" class="error" role="alert">{{ error }}</p>
+        <div>
+          <button class="btn" :disabled="saving">{{ saving ? 'Saving…' : 'Save' }}</button>
+        </div>
       </div>
-    </fieldset>
-
-    <div class="measure">
-      <label>
-        Description
-        <textarea v-model="form.description" rows="5" maxlength="2000" />
-      </label>
-
-      <label class="check"> <input type="checkbox" v-model="form.isPublic" /> Public build </label>
-
-      <p v-if="error" class="error" role="alert">{{ error }}</p>
-      <div>
-        <button class="btn" :disabled="saving">{{ saving ? 'Saving…' : 'Save' }}</button>
-      </div>
-    </div>
-  </form>
+    </form>
+  </section>
 </template>
 
 <style scoped>
+section {
+  padding-right: var(--side-padding);
+}
 .form.wide {
   max-width: none;
 }

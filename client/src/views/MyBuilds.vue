@@ -19,13 +19,15 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h1>My builds</h1>
-  <p v-if="error" class="error">{{ error }}</p>
-  <p v-else-if="loading">Loading…</p>
-  <p v-else-if="!builds.length">
-    You don't have any builds yet. <RouterLink to="/builds/new">Create your first one</RouterLink>
-  </p>
-  <div v-else class="grid">
-    <BuildCard v-for="b in builds" :key="b.id" :build="b" />
-  </div>
+  <section class="align-section">
+    <h1>My builds</h1>
+    <p v-if="error" class="error">{{ error }}</p>
+    <p v-else-if="loading">Loading…</p>
+    <p v-else-if="!builds.length">
+      You don't have any builds yet. <RouterLink to="/builds/new">Create your first one</RouterLink>
+    </p>
+    <div v-else class="grid">
+      <BuildCard v-for="b in builds" :key="b.id" :build="b" />
+    </div>
+  </section>
 </template>

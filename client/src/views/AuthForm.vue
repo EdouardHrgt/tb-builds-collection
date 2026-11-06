@@ -65,42 +65,46 @@ async function submit() {
 </script>
 
 <template>
-  <h1>{{ isLogin ? 'Log in' : 'Sign up' }}</h1>
-  <form class="form narrow" novalidate @submit.prevent="submit">
-    <template v-if="isLogin">
-      <label
-        >Email or username
-        <input v-model="identifier" autocomplete="username" />
-        <small class="meta">Forgot your email? Log in with your username instead.</small>
-      </label>
-    </template>
-    <template v-else>
-      <label>Email <input v-model="email" type="email" autocomplete="email" /></label>
-      <label>Username <input v-model="username" autocomplete="username" maxlength="24" /></label>
-    </template>
+  <section class="align-section">
+    <h1>{{ isLogin ? 'Log in' : 'Sign up' }}</h1>
+    <form class="form narrow" novalidate @submit.prevent="submit">
+      <template v-if="isLogin">
+        <label
+          >Email or username
+          <input v-model="identifier" autocomplete="username" />
+          <small class="meta">Forgot your email? Log in with your username instead.</small>
+        </label>
+      </template>
+      <template v-else>
+        <label>Email <input v-model="email" type="email" autocomplete="email" /></label>
+        <label>Username <input v-model="username" autocomplete="username" maxlength="24" /></label>
+      </template>
 
-    <PasswordField
-      v-model="password"
-      label="Password"
-      :autocomplete="isLogin ? 'current-password' : 'new-password'"
-      :hint="isLogin ? '' : PASSWORD_HINT" />
-    <PasswordField
-      v-if="!isLogin"
-      v-model="confirm"
-      label="Confirm password"
-      autocomplete="new-password" />
+      <PasswordField
+        v-model="password"
+        label="Password"
+        :autocomplete="isLogin ? 'current-password' : 'new-password'"
+        :hint="isLogin ? '' : PASSWORD_HINT" />
+      <PasswordField
+        v-if="!isLogin"
+        v-model="confirm"
+        label="Confirm password"
+        autocomplete="new-password" />
 
-    <p v-if="error" class="error" role="alert">{{ error }}</p>
-    <button class="btn" :disabled="busy">{{ isLogin ? 'Log in' : 'Create account' }}</button>
+      <p v-if="error" class="error" role="alert">{{ error }}</p>
+      <button class="btn" :disabled="busy">{{ isLogin ? 'Log in' : 'Create account' }}</button>
 
-    <p v-if="isLogin" class="meta">
-      <RouterLink to="/forgot-password">Forgot your password?</RouterLink>
-    </p>
-    <p class="meta">
-      <template v-if="isLogin"
-        >No account yet? <RouterLink to="/register">Sign up</RouterLink></template
-      >
-      <template v-else>Already registered? <RouterLink to="/login">Log in</RouterLink></template>
-    </p>
-  </form>
+      <p v-if="isLogin" class="meta">
+        <RouterLink to="/forgot-password">Forgot your password?</RouterLink>
+      </p>
+      <p class="meta">
+        <template v-if="isLogin"
+          >No account yet? <RouterLink to="/register">Sign up</RouterLink></template
+        >
+        <template v-else>Already registered? <RouterLink to="/login">Log in</RouterLink></template>
+      </p>
+    </form>
+  </section>
 </template>
+
+<style scoped></style>

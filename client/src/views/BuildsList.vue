@@ -37,22 +37,30 @@ onMounted(load)
 </script>
 
 <template>
-  <h1>Builds</h1>
-  <div class="filters">
-    <select v-model="hero">
-      <option value="">All heroes</option>
-      <option v-for="h in heroes" :key="h.id" :value="h.id">{{ h.name }}</option>
-    </select>
-    <select v-model="career" :disabled="!hero">
-      <option value="">All careers</option>
-      <option v-for="c in careers" :key="c.id" :value="c.id">{{ c.name }}</option>
-    </select>
-  </div>
+  <section class="align-section">
+    <h1>Builds</h1>
+    <div class="filters">
+      <select v-model="hero">
+        <option value="">All heroes</option>
+        <option v-for="h in heroes" :key="h.id" :value="h.id">{{ h.name }}</option>
+      </select>
+      <select v-model="career" :disabled="!hero">
+        <option value="">All careers</option>
+        <option v-for="c in careers" :key="c.id" :value="c.id">{{ c.name }}</option>
+      </select>
+    </div>
 
-  <p v-if="error" class="error">{{ error }}</p>
-  <p v-else-if="loading">Loading…</p>
-  <p v-else-if="!builds.length">No builds match these filters. Create the first one!</p>
-  <div v-else class="grid">
-    <BuildCard v-for="b in builds" :key="b.id" :build="b" />
-  </div>
+    <p v-if="error" class="error">{{ error }}</p>
+    <p v-else-if="loading">Loading…</p>
+    <p v-else-if="!builds.length">No builds match these filters. Create the first one!</p>
+    <div v-else class="grid">
+      <BuildCard v-for="b in builds" :key="b.id" :build="b" />
+    </div>
+  </section>
 </template>
+
+<style scoped>
+section {
+  padding-left: var(--side-padding);
+}
+</style>
