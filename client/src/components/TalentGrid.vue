@@ -49,7 +49,7 @@ function pick(row, position) {
         <span>{{ row.tier }}</span>
       </div>
 
-      <p v-if="!row.talents.length" class="empty">No talent data yet</p>
+      <p v-if="!row.talents.length" class="empty">Sigmar hasn't provided data...</p>
 
       <button
         v-for="t in row.talents"
@@ -106,9 +106,9 @@ function pick(row, position) {
   width: 3.2rem;
   height: 3.2rem;
   border-radius: 50%;
-  border: 2px solid var(--accent);
-  background: #3a3320;
-  color: var(--accent);
+  border: 2px solid var(--career-color, var(--accent));
+  background: color-mix(in srgb, var(--career-color, var(--accent)) 20%, var(--bg));
+  color: var(--career-color, var(--accent));
   font:
     600 1.3rem Georgia,
     'Times New Roman',
@@ -134,20 +134,25 @@ function pick(row, position) {
     border-color 0.15s;
 }
 .talent:hover:not(:disabled) {
-  border-color: var(--accent);
+  border-color: var(--career-color, var(--accent));
 }
 .talent:disabled {
   cursor: default;
   color: var(--text);
 }
+/* --career-color is set by the parent view (career.color in heroes.json); gold when missing */
 .talent.selected {
-  border-color: #ffd75e;
+  border-color: var(--career-color, #ffd75e);
   box-shadow:
-    0 0 0 1px #ffd75e,
-    0 0 14px rgba(255, 215, 94, 0.55);
+    0 0 0 1px var(--career-color, #ffd75e),
+    0 0 14px color-mix(in srgb, var(--career-color, #ffd75e) 55%, transparent);
 }
 .talent.dimmed {
   filter: grayscale(1) brightness(0.55);
+}
+/* the grey filter would also grey the hover border: lift it on hover */
+.talent.dimmed:hover:not(:disabled) {
+  filter: none;
 }
 
 .talent-main {

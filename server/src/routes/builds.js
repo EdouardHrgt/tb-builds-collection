@@ -29,8 +29,14 @@ const weaponSchema = z
   .strict()
   .refine(distinct, DISTINCT_MSG)
 
+const TITLE_MIN = 5
+const TITLE_MAX = 30
 const buildSchema = z.object({
-  title: z.string().trim().min(1, 'Title is required').max(80),
+  title: z
+    .string()
+    .trim()
+    .min(TITLE_MIN, `Title must be at least ${TITLE_MIN} characters`)
+    .max(TITLE_MAX, `Title must be at most ${TITLE_MAX} characters`),
   description: z.string().max(2000).default(''),
   heroId: z.string().min(1).max(50),
   careerId: z.string().min(1).max(50),

@@ -8,6 +8,7 @@ import TalentGrid from '../components/TalentGrid.vue'
 import GearSlot from '../components/GearSlot.vue'
 
 const {
+  getCareer, // ← NEW
   heroName,
   careerName,
   getCareerTalents,
@@ -25,6 +26,11 @@ const build = ref(null)
 const error = ref('')
 const isOwner = computed(() => build.value && auth.user?.id === build.value.authorId)
 const isCurrentFormat = computed(() => build.value?.data?.v === 2)
+// ← NEW: career color (heroes.json) exposed as a CSS variable; the CSS falls back to gold without it
+const careerStyle = computed(() => {
+  const color = build.value && getCareer(build.value.heroId, build.value.careerId)?.color
+  return color ? { '--career-color': color } : {}
+})
 const talentTiers = computed(() => getCareerTalents(build.value.heroId, build.value.careerId))
 
 // Missing slots (older builds, new slots added later) fall back to "nothing picked"
@@ -53,7 +59,8 @@ async function remove() {
 <template>
   <p v-if="error" class="error">{{ error }}</p>
   <p v-else-if="!build">Loading…</p>
-  <article v-else>
+  <article v-else :style="careerStyle">
+    <!-- ← NEW: :style -->
     <h1>{{ build.title }}</h1>
     <p class="meta">
       {{ heroName(build.heroId) }} — {{ careerName(build.heroId, build.careerId) }} · by
@@ -67,7 +74,9 @@ async function remove() {
 
     <p v-if="build.description" class="desc">{{ build.description }}</p>
 
-    <p v-if="!isCurrentFormat" class="error">This build uses an outdated format and cannot be displayed.</p>
+    <p v-if="!isCurrentFormat" class="error">
+      This build uses an outdated format and cannot be displayed.
+    </p>
     <template v-else>
       <h2>Talents</h2>
       <TalentGrid :model-value="build.data.talents" :tiers="talentTiers" readonly />
@@ -82,8 +91,7 @@ async function remove() {
           :weapons="getHeroWeapons(build.heroId, slot.key)"
           :traits="getWeaponOptions(slot.key).traits"
           :properties="getWeaponOptions(slot.key).properties"
-          readonly
-        />
+          readonly />
         <GearSlot
           v-for="slot in EQUIPMENT_SLOTS"
           :key="slot.id"
@@ -92,8 +100,7 @@ async function remove() {
           :slot-icon="slot.icon"
           :traits="slot.traits"
           :properties="slot.properties"
-          readonly
-        />
+          readonly />
       </div>
     </template>
   </article>

@@ -44,6 +44,11 @@ const careers = computed(() => getHero(form.value.heroId)?.careers ?? [])
 const currentCareerName = computed(
   () => getCareer(form.value.heroId, form.value.careerId)?.name ?? '',
 )
+// Accent color of the picked career (heroes.json). Without it the CSS falls back to gold.
+const careerStyle = computed(() => {
+  const color = getCareer(form.value.heroId, form.value.careerId)?.color
+  return color ? { '--career-color': color } : {}
+})
 const talentTiers = computed(() => getCareerTalents(form.value.heroId, form.value.careerId))
 const availableWeapons = (type) => getAvailableWeapons(form.value.heroId, form.value.careerId, type)
 
@@ -102,8 +107,18 @@ onMounted(async () => {
   }
 })
 
+const TITLE_MIN = 5
+const TITLE_MAX = 30
+
 async function save() {
   error.value = ''
+
+  const titleLength = form.value.title.trim().length
+  if (titleLength < TITLE_MIN || titleLength > TITLE_MAX) {
+    error.value = `Title must be between ${TITLE_MIN} and ${TITLE_MAX} characters`
+    return
+  }
+
   saving.value = true
   const f = form.value
   const body = {
@@ -135,11 +150,11 @@ async function save() {
 <template>
   <section class="align-section">
     <h1>{{ editingId ? 'Edit build' : 'New build' }}</h1>
-    <form class="form wide" novalidate @submit.prevent="save">
+    <form class="form wide" :style="careerStyle" novalidate @submit.prevent="save">
       <div class="measure">
         <label>
           Title
-          <input v-model="form.title" maxlength="80" required />
+          <input v-model="form.title" :maxlength="TITLE_MAX" required />
         </label>
 
         <label>
@@ -152,7 +167,12 @@ async function save() {
         <fieldset>
           <legend>Career</legend>
           <div class="career-list">
-            <label v-for="c in careers" :key="c.id" class="career" :title="c.name">
+            <label
+              v-for="c in careers"
+              :key="c.id"
+              class="career"
+              :title="c.name"
+              :style="{ '--career-color': c.color || 'initial' }">
               <input
                 type="radio"
                 name="career"
@@ -245,13 +265,13 @@ section {
   border-radius: 8px;
 }
 .career:hover img {
-  border-color: var(--accent);
+  border-color: var(--career-color, var(--accent));
 }
 .career input:checked + img {
-  border-color: #ffd75e;
+  border-color: var(--career-color, #ffd75e);
   box-shadow:
-    0 0 0 1px #ffd75e,
-    0 0 12px rgba(255, 215, 94, 0.55);
+    0 0 0 1px var(--career-color, #ffd75e),
+    0 0 12px color-mix(in srgb, var(--career-color, #ffd75e) 55%, transparent);
 }
 .career input:focus-visible + img {
   outline: 2px solid var(--accent);

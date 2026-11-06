@@ -6,7 +6,17 @@ Can choose 1sBS / 2sBS / 1sHS ans select all units icons (specials / elites )
 RANKING SYSTEM FOR BUILDS
 can only rank others users builds not his own
 --------------------------------------------------------------------------------------------
+#E32700 (ton rouge)	3,2:1
 
+#3b82f6 (bleu)	3,7:1
+
+#22c55e (vert)	5,3:1
+
+#c9a24a (doré par défaut)	5,1:1
+
+#8B0000 (rouge foncé)	1,7:1
+
+#1e3a8a
 
 
 

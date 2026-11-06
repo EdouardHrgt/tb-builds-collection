@@ -6,26 +6,27 @@
       {
         "id": "mercenary",
         "name": "Mercenary",
-        "icon": "../public/images/kruber/kruber-mercenary.webp",
+        "icon": "/images/kruber/kruber-mercenary.webp",
+        "color": "#E32700",
         "talents": {
           "5": [
             {
               "id": "1",
-              "name": "Talent Name",
+              "name": "carve",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/mercenary/placeholder-icon.png"
             },
             {
               "id": "2",
-              "name": "Talent Name",
+              "name": "execute",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/mercenary/placeholder-icon.png"
             },
             {
               "id": "3",
-              "name": "Talent Name",
+              "name": "second wind",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/mercenary/placeholder-icon.png"
             }
           ],
           "10": [
@@ -33,19 +34,19 @@
               "id": "1",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "2",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "3",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             }
           ],
           "15": [
@@ -53,19 +54,19 @@
               "id": "1",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "2",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "3",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             }
           ],
           "20": [
@@ -73,19 +74,19 @@
               "id": "1",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "2",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "3",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             }
           ],
           "25": [
@@ -93,19 +94,19 @@
               "id": "1",
               "name": "Talent Name",
               "description": "Talent description.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "2",
               "name": "Talent Name",
               "description": "Talent description.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "3",
               "name": "Talent Name",
               "description": "Talent description.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             }
           ],
           "30": [
@@ -113,19 +114,19 @@
               "id": "1",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "2",
               "name": "Talent Name",
               "description": "Talent description.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             },
             {
               "id": "3",
               "name": "Talent Name",
               "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "../public/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/talent-name.webp"
             }
           ]
         }
@@ -133,17 +134,19 @@
       {
         "id": "huntsman",
         "name": "Huntsman",
-        "icon": "../public/images/kruber/kruber-huntsman.webp"
+        "icon": "/images/kruber/kruber-huntsman.webp",
+        "color": "#22c55e"
       },
       {
         "id": "footknight",
         "name": "Foot Knight",
-        "icon": "../public/images/kruber/kruber-foot-knight.webp"
+        "icon": "/images/kruber/kruber-foot-knight.webp",
+        "color": "#3b82f6"
       },
       {
         "id": "grailknight",
         "name": "Grail Knight",
-        "icon": "../public/images/kruber/kruber-grail-knight.webp"
+        "icon": "/images/kruber/kruber-grail-knight.webp"
       }
     ]
   },
@@ -154,18 +157,18 @@
       {
         "id": "ranger",
         "name": "Ranger Veteran",
-        "icon": "../public/images/bardin/bardin-ranger-veteran.webp"
+        "icon": "/images/bardin/bardin-ranger-veteran.webp"
       },
       {
         "id": "ironbreaker",
         "name": "Ironbreaker",
-        "icon": "../public/images/bardin/bardin-iron-breaker.webp"
+        "icon": "/images/bardin/bardin-iron-breaker.webp"
       },
-      { "id": "slayer", "name": "Slayer", "icon": "../public/images/bardin/bardin-slayer.webp" },
+      { "id": "slayer", "name": "Slayer", "icon": "/images/bardin/bardin-slayer.webp" },
       {
         "id": "engineer",
         "name": "Outcast Engineer",
-        "icon": "../public/images/bardin/bardin-outcast-engineer.webp"
+        "icon": "/images/bardin/bardin-outcast-engineer.webp"
       }
     ]
   },
@@ -176,18 +179,18 @@
       {
         "id": "waystalker",
         "name": "Waystalker",
-        "icon": "../public/images/kerillian/kerillian-waystalker.webp"
+        "icon": "/images/kerillian/kerillian-waystalker.webp"
       },
       {
         "id": "handmaiden",
         "name": "Handmaiden",
-        "icon": "../public/images/kerillian/kerillian-handmaiden.webp"
+        "icon": "/images/kerillian/kerillian-handmaiden.webp"
       },
-      { "id": "shade", "name": "Shade", "icon": "../public/images/kerillian/kerillian-shade.webp" },
+      { "id": "shade", "name": "Shade", "icon": "/images/kerillian/kerillian-shade.webp" },
       {
         "id": "sott",
         "name": "Sister of the Thorn",
-        "icon": "../public/images/kerillian/kerillian-sister-of-the-thorn.webp"
+        "icon": "/images/kerillian/kerillian-sister-of-the-thorn.webp"
       }
     ]
   },
@@ -198,22 +201,22 @@
       {
         "id": "whc",
         "name": "Witch Hunter Captain",
-        "icon": "../public/images/saltzpyre/saltzpyre-witch-hunter-captain.webp"
+        "icon": "/images/saltzpyre/saltzpyre-witch-hunter-captain.webp"
       },
       {
         "id": "bountyhunter",
         "name": "Bounty Hunter",
-        "icon": "../public/images/saltzpyre/saltzpyre-bounty-hunter.webp"
+        "icon": "/images/saltzpyre/saltzpyre-bounty-hunter.webp"
       },
       {
         "id": "zealot",
         "name": "Zealot",
-        "icon": "../public/images/saltzpyre/saltzpyre-zealot.webp"
+        "icon": "/images/saltzpyre/saltzpyre-zealot.webp"
       },
       {
         "id": "warriorpriest",
         "name": "Warrior Priest",
-        "icon": "../public/images/saltzpyre/saltzpyre-warrior-priest.webp"
+        "icon": "/images/saltzpyre/saltzpyre-warrior-priest.webp"
       }
     ]
   },
@@ -224,22 +227,22 @@
       {
         "id": "bwizard",
         "name": "Battle Wizard",
-        "icon": "../public/images/sienna/sienna-battle-wizard.webp"
+        "icon": "/images/sienna/sienna-battle-wizard.webp"
       },
       {
         "id": "pyromancer",
         "name": "Pyromancer",
-        "icon": "../public/images/sienna/sienna-pyromancer.webp"
+        "icon": "/images/sienna/sienna-pyromancer.webp"
       },
       {
         "id": "unchained",
         "name": "Unchained",
-        "icon": "../public/images/sienna/sienna-unchained.webp"
+        "icon": "/images/sienna/sienna-unchained.webp"
       },
       {
         "id": "necromancer",
         "name": "Necromancer",
-        "icon": "../public/images/sienna/sienna-necromancer.webp"
+        "icon": "/images/sienna/sienna-necromancer.webp"
       }
     ]
   }
