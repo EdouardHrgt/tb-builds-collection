@@ -13,120 +13,120 @@
             {
               "id": "1",
               "name": "carve",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/mercenary/placeholder-icon.png"
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/carve.webp"
             },
             {
               "id": "2",
               "name": "execute",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/mercenary/placeholder-icon.png"
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/execute.webp"
             },
             {
               "id": "3",
               "name": "second wind",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/mercenary/placeholder-icon.png"
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/secondwind.webp"
             }
           ],
           "10": [
             {
               "id": "1",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "the more the merrier!",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/themorethemerrier.webp"
             },
             {
               "id": "2",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "limb splitter",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/limbsplitter.webp"
             },
             {
               "id": "3",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "helborg's tutelage",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/helborgstutelage.webp"
             }
           ],
           "15": [
             {
               "id": "1",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "mainstay",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/mainstay.webp"
             },
             {
               "id": "2",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "smiter",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/smiter.webp"
             },
             {
               "id": "3",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "enhanced power",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/enhancedpower.webp"
             }
           ],
           "20": [
             {
               "id": "1",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "reikland reaper",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/reiklandreaper.webp"
             },
             {
               "id": "2",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "enhanced training",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/enhancedtraining.webp"
             },
             {
               "id": "3",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "strike together",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/striketogether.webp"
             }
           ],
           "25": [
             {
               "id": "1",
-              "name": "Talent Name",
+              "name": "stand clear",
               "description": "Talent description.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/mercenary/standclear.webp"
             },
             {
               "id": "2",
-              "name": "Talent Name",
+              "name": "blade barrier",
               "description": "Talent description.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/mercenary/bladebarrier.webp"
             },
             {
               "id": "3",
-              "name": "Talent Name",
+              "name": "black market supplies",
               "description": "Talent description.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/mercenary/blackmarketsupplies.webp"
             }
           ],
           "30": [
             {
               "id": "1",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "walk it off",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/walkitoff.webp"
             },
             {
               "id": "2",
-              "name": "Talent Name",
+              "name": "ready for action",
               "description": "Talent description.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "icon": "/images/kruber/talents/mercenary/readyforaction.webp"
             },
             {
               "id": "3",
-              "name": "Talent Name",
-              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aut.",
-              "icon": "/images/kruber/talents/talent-name.webp"
+              "name": "on yer feet, mates!",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents/mercenary/onyerfeetmates.webp"
             }
           ]
         }
@@ -135,18 +135,384 @@
         "id": "huntsman",
         "name": "Huntsman",
         "icon": "/images/kruber/kruber-huntsman.webp",
-        "color": "#22c55e"
+        "color": "#22c55e",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ]
+        }
       },
       {
         "id": "footknight",
         "name": "Foot Knight",
         "icon": "/images/kruber/kruber-foot-knight.webp",
-        "color": "#3b82f6"
+        "color": "#3b82f6",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ]
+        }
       },
       {
         "id": "grailknight",
         "name": "Grail Knight",
-        "icon": "/images/kruber/kruber-grail-knight.webp"
+        "icon": "/images/kruber/kruber-grail-knight.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images/kruber/talents"
+            }
+          ]
+        }
       }
     ]
   },
@@ -157,18 +523,510 @@
       {
         "id": "ranger",
         "name": "Ranger Veteran",
-        "icon": "/images/bardin/bardin-ranger-veteran.webp"
+        "icon": "/images/bardin/bardin-ranger-veteran.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
       {
         "id": "ironbreaker",
         "name": "Ironbreaker",
-        "icon": "/images/bardin/bardin-iron-breaker.webp"
+        "icon": "/images/bardin/bardin-iron-breaker.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
-      { "id": "slayer", "name": "Slayer", "icon": "/images/bardin/bardin-slayer.webp" },
+      {
+        "id": "slayer",
+        "name": "Slayer",
+        "icon": "/images/bardin/bardin-slayer.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
+      },
       {
         "id": "engineer",
         "name": "Outcast Engineer",
-        "icon": "/images/bardin/bardin-outcast-engineer.webp"
+        "icon": "/images/bardin/bardin-outcast-engineer.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       }
     ]
   },
@@ -179,18 +1037,510 @@
       {
         "id": "waystalker",
         "name": "Waystalker",
-        "icon": "/images/kerillian/kerillian-waystalker.webp"
+        "icon": "/images/kerillian/kerillian-waystalker.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
       {
         "id": "handmaiden",
         "name": "Handmaiden",
-        "icon": "/images/kerillian/kerillian-handmaiden.webp"
+        "icon": "/images/kerillian/kerillian-handmaiden.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
-      { "id": "shade", "name": "Shade", "icon": "/images/kerillian/kerillian-shade.webp" },
+      {
+        "id": "shade",
+        "name": "Shade",
+        "icon": "/images/kerillian/kerillian-shade.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
+      },
       {
         "id": "sott",
         "name": "Sister of the Thorn",
-        "icon": "/images/kerillian/kerillian-sister-of-the-thorn.webp"
+        "icon": "/images/kerillian/kerillian-sister-of-the-thorn.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       }
     ]
   },
@@ -201,22 +1551,510 @@
       {
         "id": "whc",
         "name": "Witch Hunter Captain",
-        "icon": "/images/saltzpyre/saltzpyre-witch-hunter-captain.webp"
+        "icon": "/images/saltzpyre/saltzpyre-witch-hunter-captain.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
       {
         "id": "bountyhunter",
         "name": "Bounty Hunter",
-        "icon": "/images/saltzpyre/saltzpyre-bounty-hunter.webp"
+        "icon": "/images/saltzpyre/saltzpyre-bounty-hunter.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
       {
         "id": "zealot",
         "name": "Zealot",
-        "icon": "/images/saltzpyre/saltzpyre-zealot.webp"
+        "icon": "/images/saltzpyre/saltzpyre-zealot.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
       {
         "id": "warriorpriest",
         "name": "Warrior Priest",
-        "icon": "/images/saltzpyre/saltzpyre-warrior-priest.webp"
+        "icon": "/images/saltzpyre/saltzpyre-warrior-priest.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       }
     ]
   },
@@ -227,22 +2065,510 @@
       {
         "id": "bwizard",
         "name": "Battle Wizard",
-        "icon": "/images/sienna/sienna-battle-wizard.webp"
+        "icon": "/images/sienna/sienna-battle-wizard.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
       {
         "id": "pyromancer",
         "name": "Pyromancer",
-        "icon": "/images/sienna/sienna-pyromancer.webp"
+        "icon": "/images/sienna/sienna-pyromancer.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
       {
         "id": "unchained",
         "name": "Unchained",
-        "icon": "/images/sienna/sienna-unchained.webp"
+        "icon": "/images/sienna/sienna-unchained.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       },
       {
         "id": "necromancer",
         "name": "Necromancer",
-        "icon": "/images/sienna/sienna-necromancer.webp"
+        "icon": "/images/sienna/sienna-necromancer.webp",
+        "talents": {
+          "5": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "10": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "15": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "20": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "25": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ],
+          "30": [
+            {
+              "id": "1",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "2",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            },
+            {
+              "id": "3",
+              "name": "",
+              "description": "Sigmar works in mysterious ways… and apparently, very slowly.",
+              "icon": "/images"
+            }
+          ]
+        }
       }
     ]
   }
