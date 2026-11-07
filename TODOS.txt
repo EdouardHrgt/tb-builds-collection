@@ -10,6 +10,9 @@ comment section under build view
 pagination 5 comment per page
 reply to comment
 --------------------------------------------------------------------------------------------
+ADD big size current career seleted on BuildEditor on the right side
+
+
 
 Convert and tiny to webp talents icons of:
 GK

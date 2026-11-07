@@ -123,17 +123,6 @@ function onImageError(e) {
           <option v-for="t in traits" :key="t.id" :value="t.id">{{ t.name }}</option>
         </select>
       </label>
-      <div v-if="trait" class="trait-box">
-        <img
-          v-if="trait.icon"
-          :src="trait.icon"
-          alt=""
-          width="40"
-          height="40"
-          class="trait-icon"
-          @error="onImageError" />
-        <p class="trait-desc">{{ trait.description }}</p>
-      </div>
 
       <label v-for="index in [0, 1]" :key="index">
         Property {{ index + 1 }}

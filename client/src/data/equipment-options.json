@@ -39,23 +39,31 @@
       "properties": [
         {
           "id": "health",
-          "name": "Health"
+          "name": "+20% Health"
         },
         {
-          "id": "block_cost_reduction",
-          "name": "Block Cost Reduction"
+          "id": "blockcostreduction",
+          "name": "+30% BCR"
         },
         {
-          "id": "stamina_recovery",
-          "name": "Stamina Recovery"
+          "id": "stamina",
+          "name": "+2 Stamina"
         },
         {
-          "id": "revive_speed",
-          "name": "Revive Speed"
+          "id": "damagereductionchaos",
+          "name": "10% DR vs Chaos"
         },
         {
-          "id": "push_block_angle",
-          "name": "Push/Block Angle"
+          "id": "damagereductionskaven",
+          "name": "10% DR vs Skaven"
+        },
+        {
+          "id": "damagereductionarea",
+          "name": "10% DR vs AoE"
+        },
+        {
+          "id": "pushblockangle",
+          "name": "+30% Push/Block Angle"
         }
       ]
     },
@@ -91,24 +99,36 @@
       ],
       "properties": [
         {
-          "id": "power_vs_skaven",
-          "name": "Power vs Skaven"
+          "id": "attackspeed",
+          "name": "+5% Attack Speed"
         },
         {
-          "id": "power_vs_chaos",
-          "name": "Power vs Chaos"
+          "id": "powervsskaven",
+          "name": "+10% Power vs Skaven"
         },
         {
-          "id": "attack_speed",
-          "name": "Attack Speed"
+          "id": "powervschaos",
+          "name": "+10% Power vs Chaos"
         },
         {
-          "id": "critical_strike_chance",
-          "name": "Critical Strike Chance"
+          "id": "powervsarmored",
+          "name": "+10% Power vs Armored"
         },
         {
-          "id": "cooldown_reduction",
-          "name": "Cooldown Reduction"
+          "id": "powervsinfantry",
+          "name": "+10% Power vs infantry"
+        },
+        {
+          "id": "powervsberserkers",
+          "name": "+10% Power vs berserkers"
+        },
+        {
+          "id": "powervsmonsters",
+          "name": "+10% Power vs monsters"
+        },
+        {
+          "id": "criticalpower",
+          "name": "+20% Crit Power"
         }
       ]
     },
@@ -138,20 +158,32 @@
       ],
       "properties": [
         {
-          "id": "curse_resistance",
-          "name": "Curse Resistance"
+          "id": "staminarecovery",
+          "name": "+30% Stamina Recovery"
         },
         {
-          "id": "crit_power",
-          "name": "Critical Power"
+          "id": "criticalstrikechance",
+          "name": "+5% Crit Chance"
         },
         {
-          "id": "critical_strike_chance",
-          "name": "Critical Strike Chance"
+          "id": "cooldownreduction",
+          "name": "+10% CDR"
         },
         {
-          "id": "stamina_recovery",
-          "name": "Stamina Recovery"
+          "id": "revivespeed",
+          "name": "+30% revive speed"
+        },
+        {
+          "id": "movementspeed",
+          "name": "+5% movement speed"
+        },
+        {
+          "id": "respawnspeed",
+          "name": "+30% respawn speed"
+        },
+        {
+          "id": "curseresistance",
+          "name": "+33% Curse Resistance"
         }
       ]
     }
