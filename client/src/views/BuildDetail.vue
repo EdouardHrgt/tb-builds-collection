@@ -6,9 +6,10 @@ import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import GearSlot from '../components/GearSlot.vue'
+import LikeButton from '../components/LikeButton.vue'
 
 const {
-  getCareer, // ← NEW
+  getCareer,
   heroName,
   careerName,
   getCareerTalents,
@@ -26,7 +27,7 @@ const build = ref(null)
 const error = ref('')
 const isOwner = computed(() => build.value && auth.user?.id === build.value.authorId)
 const isCurrentFormat = computed(() => build.value?.data?.v === 2)
-// ← NEW: career color (heroes.json) exposed as a CSS variable; the CSS falls back to gold without it
+// career color (heroes.json) exposed as a CSS variable; the CSS falls back to gold without it
 const careerStyle = computed(() => {
   const color = build.value && getCareer(build.value.heroId, build.value.careerId)?.color
   return color ? { '--career-color': color } : {}
@@ -45,6 +46,11 @@ onMounted(async () => {
   }
 })
 
+function onLikeChanged(res) {
+  build.value.likeCount = res.likeCount
+  build.value.likedByMe = res.liked
+}
+
 async function remove() {
   if (!confirm('Permanently delete this build?')) return
   try {
@@ -60,11 +66,13 @@ async function remove() {
   <p v-if="error" class="error">{{ error }}</p>
   <p v-else-if="!build">Loading…</p>
   <article v-else :style="careerStyle">
-    <!-- ← NEW: :style -->
-    <h1>{{ build.title }}</h1>
+    <header class="build-head">
+      <h1>{{ build.title }}</h1>
+      <LikeButton :build="build" @changed="onLikeChanged" />
+    </header>
     <p class="meta">
       {{ heroName(build.heroId) }} — {{ careerName(build.heroId, build.careerId) }} · by
-      {{ build.author }}<span v-if="!build.isPublic"> · private</span>
+      {{ build.author }}
     </p>
 
     <div v-if="isOwner" class="actions">
@@ -107,6 +115,16 @@ async function remove() {
 </template>
 
 <style scoped>
+.build-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.build-head h1 {
+  margin: 0 0 0.5rem;
+  overflow-wrap: anywhere;
+}
 .gear-grid {
   display: grid;
   gap: 0.8rem;

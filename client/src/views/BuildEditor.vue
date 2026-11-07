@@ -32,7 +32,6 @@ const form = ref({
   description: '',
   heroId: heroes[0].id,
   careerId: heroes[0].careers[0].id,
-  isPublic: true,
   talents: emptyTalents(),
   weapons: Object.fromEntries(WEAPON_SLOTS.map((s) => [s.key, emptyWeapon()])),
   equipment: Object.fromEntries(EQUIPMENT_SLOTS.map((s) => [s.id, emptyGear()])),
@@ -61,12 +60,25 @@ function setCareer(careerId) {
     const sel = form.value.weapons[key]
     if (sel.weaponId && !availableWeapons(key).some((w) => w.id === sel.weaponId)) sel.weaponId = ''
   }
+  suggestTitle()
 }
 
 function setHero(heroId) {
   form.value.heroId = heroId
   setCareer(getHero(heroId).careers[0].id)
 }
+
+// New build only: the title starts as the career name and follows career changes,
+// until the user writes something else (or empties the field).
+let autoTitle = ''
+function suggestTitle() {
+  if (editingId) return
+  if (form.value.title !== '' && form.value.title !== autoTitle) return // the user wrote their own
+  const name = getCareer(form.value.heroId, form.value.careerId)?.name ?? ''
+  form.value.title = name
+  autoTitle = name
+}
+suggestTitle()
 
 // --- API <-> form conversions ("" in the form, null / compact array in the API) ---
 const pad = (ids = []) => [ids[0] ?? '', ids[1] ?? '']
@@ -93,7 +105,6 @@ onMounted(async () => {
       description: b.description,
       heroId: b.heroId,
       careerId: b.careerId,
-      isPublic: b.isPublic,
       talents: [...b.data.talents],
       weapons: Object.fromEntries(
         WEAPON_SLOTS.map((s) => [s.key, fromWeapon(b.data.weapons?.[s.key])]),
@@ -126,7 +137,6 @@ async function save() {
     description: f.description,
     heroId: f.heroId,
     careerId: f.careerId,
-    isPublic: f.isPublic,
     data: {
       v: 2,
       talents: f.talents,
@@ -218,10 +228,6 @@ async function save() {
         <label>
           Description
           <textarea v-model="form.description" rows="5" maxlength="2000" />
-        </label>
-
-        <label class="check">
-          <input type="checkbox" v-model="form.isPublic" /> Public build
         </label>
 
         <p v-if="error" class="error" role="alert">{{ error }}</p>

@@ -41,35 +41,35 @@
     "properties": [
       {
         "id": "attackspeed",
-        "name": "attack speed"
+        "name": "+5% attack speed"
       },
       {
         "id": "criticalchance",
-        "name": "critchance"
+        "name": "+5% crit chance"
       },
       {
         "id": "blockcostreduction",
-        "name": "block cost reduction"
+        "name": "+30% BCR"
       },
       {
         "id": "criticalpower",
-        "name": "crit power"
+        "name": "+20% crit power"
       },
       {
         "id": "stamina",
-        "name": "stamina"
+        "name": "+2 stamina"
       },
       {
         "id": "powervsskaven",
-        "name": "power vs skaven"
+        "name": "+10% power vs skaven"
       },
       {
         "id": "powervschaos",
-        "name": "power vs chaos"
+        "name": "+10% power vs chaos"
       },
       {
         "id": "pushandblockangle",
-        "name": "push and block angle"
+        "name": "+30% push and block angle"
       }
     ]
   },
@@ -127,35 +127,35 @@
     "properties": [
       {
         "id": "powervsskaven",
-        "name": "power vs skaven"
+        "name": "+10% power vs skaven"
       },
       {
         "id": "powervschaos",
-        "name": "power vs chaos"
+        "name": "+10% power vs chaos"
       },
       {
         "id": "powervsmonsters",
-        "name": "power vs monsters"
+        "name": "+10% power vs monsters"
       },
       {
         "id": "powervsinfantry",
-        "name": "power vs infantry"
+        "name": "+10% power vs infantry"
       },
       {
         "id": "powervsberserkers",
-        "name": "power vs berserkers"
+        "name": "+10% power vs berserkers"
       },
       {
         "id": "powervsarmored",
-        "name": "power vs armored"
+        "name": "+10% power vs armored"
       },
       {
         "id": "criticalchance",
-        "name": "crit chance"
+        "name": "+5% crit chance"
       },
       {
         "id": "criticalpower",
-        "name": "crit power"
+        "name": "+20% crit power"
       }
     ]
   }

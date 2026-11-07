@@ -34,17 +34,26 @@ db.exec(`
     description TEXT NOT NULL DEFAULT '',
     hero_id     TEXT NOT NULL,
     career_id   TEXT NOT NULL,
-    data        TEXT NOT NULL,          -- JSON: talents, items...
-    is_public   INTEGER NOT NULL DEFAULT 1,
+    data        TEXT NOT NULL,          -- JSON: talents, weapons, equipment
     created_at  TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
   );
 
-  CREATE INDEX IF NOT EXISTS idx_builds_user   ON builds(user_id);
-  CREATE INDEX IF NOT EXISTS idx_builds_filter ON builds(is_public, hero_id, career_id);
+  -- One row = one like. The primary key makes a double like impossible.
+  CREATE TABLE IF NOT EXISTS likes (
+    user_id    INTEGER NOT NULL REFERENCES users(id)  ON DELETE CASCADE,
+    build_id   INTEGER NOT NULL REFERENCES builds(id) ON DELETE CASCADE,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    PRIMARY KEY (user_id, build_id)
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_builds_user ON builds(user_id);
+  CREATE INDEX IF NOT EXISTS idx_likes_build ON likes(build_id);
 `)
 
-// Migration for databases created before token_version existed
+// --- Migrations for databases created by older versions ---
+
+// users.token_version
 if (
   !db
     .prepare('PRAGMA table_info(users)')
@@ -53,3 +62,15 @@ if (
 ) {
   db.exec('ALTER TABLE users ADD COLUMN token_version INTEGER NOT NULL DEFAULT 0')
 }
+
+// Private builds were removed: drop builds.is_public (and the old index that used it)
+if (
+  db
+    .prepare('PRAGMA table_info(builds)')
+    .all()
+    .some((c) => c.name === 'is_public')
+) {
+  db.exec('DROP INDEX IF EXISTS idx_builds_filter')
+  db.exec('ALTER TABLE builds DROP COLUMN is_public')
+}
+db.exec('CREATE INDEX IF NOT EXISTS idx_builds_filter ON builds(hero_id, career_id)')
