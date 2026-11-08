@@ -2,6 +2,8 @@ import heroes from '../data/heroes.json'
 import weaponsData from '../data/weapons.json'
 import weaponOptions from '../data/weapon-options.json'
 import equipmentData from '../data/equipment-options.json'
+import enemiesData from '../data/enemies.json'
+import breakpointData from '../data/breakpoint-attacks.json'
 
 // Talent tiers in display order (keys of `career.talents` in heroes.json)
 const TIERS = ['5', '10', '15', '20', '25', '30']
@@ -36,12 +38,31 @@ const getAvailableWeapons = (heroId, careerId, type) =>
 // { traits, properties } for 'melee' or 'ranged'
 const getWeaponOptions = (type) => weaponOptions[type]
 
+// --- Fast breakpoints ---
+
+// [{ id: 'specials', name: 'Specials', enemies: [...] }, { id: 'elites', ... }] (order of enemies.json)
+const ENEMY_CATEGORIES = enemiesData.categories.map((c) => ({
+  ...c,
+  enemies: enemiesData.enemies.filter((e) => e.category === c.id),
+}))
+const ENEMY_IDS = ENEMY_CATEGORIES.flatMap((c) => c.enemies.map((e) => e.id)) // catalog order
+const getEnemy = (id) => enemiesData.enemies.find((e) => e.id === id)
+
+// [{ id: 'ranged', name, icon, attacks: [{ id, name }] }, { id: 'melee', ... }] (order of the JSON file)
+const BREAKPOINT_TYPES = Object.entries(breakpointData).map(([id, type]) => ({ id, ...type }))
+const getBreakpointType = (id) => BREAKPOINT_TYPES.find((t) => t.id === id)
+const getAttack = (typeId, attackId) =>
+  getBreakpointType(typeId)?.attacks.find((a) => a.id === attackId)
+
 export function useGameData() {
   return {
     heroes,
     TIERS,
     WEAPON_SLOTS,
     EQUIPMENT_SLOTS,
+    ENEMY_CATEGORIES,
+    ENEMY_IDS,
+    BREAKPOINT_TYPES,
     getHero,
     getCareer,
     heroName,
@@ -50,5 +71,8 @@ export function useGameData() {
     getHeroWeapons,
     getAvailableWeapons,
     getWeaponOptions,
+    getEnemy,
+    getBreakpointType,
+    getAttack,
   }
 }

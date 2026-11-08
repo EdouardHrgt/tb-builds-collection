@@ -32,6 +32,15 @@ const weaponSchema = z
   .strict()
   .refine(distinct, DISTINCT_MSG)
 
+// A fast breakpoint card: an attack of a type (melee / ranged) and the enemies it kills fast
+const breakpointSchema = z
+  .object({
+    type: id,
+    attack: id,
+    enemyIds: z.array(id).min(1, 'A breakpoint needs at least one enemy').max(50),
+  })
+  .strict()
+
 const buildSchema = z.object({
   title: z
     .string()
@@ -47,6 +56,7 @@ const buildSchema = z.object({
       talents: z.array(z.number().int().min(0).max(3)).length(6), // 0 = none, 1..3 = position in the tier
       weapons: z.record(id, weaponSchema), // melee / ranged
       equipment: z.record(id, gearSchema), // necklace / charm / trinket
+      breakpoints: z.array(breakpointSchema).max(50).default([]), // fast breakpoint cards (optional)
     })
     .strict(),
 })

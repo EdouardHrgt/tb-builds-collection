@@ -7,6 +7,7 @@ import { useGameData } from '../composables/useGameData.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import GearSlot from '../components/GearSlot.vue'
 import LikeButton from '../components/LikeButton.vue'
+import BreakpointCard from '../components/BreakpointCard.vue'
 
 const {
   getCareer,
@@ -110,6 +111,15 @@ async function remove() {
           :properties="slot.properties"
           readonly />
       </div>
+      <template v-if="build.data.breakpoints?.length">
+        <h2>Fast breakpoints</h2>
+        <div class="bp-list">
+          <BreakpointCard
+            v-for="c in build.data.breakpoints"
+            :key="`${c.type}-${c.attack}`"
+            :card="c" />
+        </div>
+      </template>
     </template>
   </article>
 </template>
@@ -130,5 +140,11 @@ async function remove() {
   gap: 0.8rem;
   align-items: start;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.bp-list {
+  display: grid;
+  gap: 0.8rem;
+  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 </style>

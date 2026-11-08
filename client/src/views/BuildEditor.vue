@@ -6,7 +6,7 @@ import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import GearSlot from '../components/GearSlot.vue'
-
+import BreakpointBuilder from '../components/BreakpointBuilder.vue'
 const {
   heroes,
   getHero,
@@ -35,6 +35,7 @@ const form = ref({
   talents: emptyTalents(),
   weapons: Object.fromEntries(WEAPON_SLOTS.map((s) => [s.key, emptyWeapon()])),
   equipment: Object.fromEntries(EQUIPMENT_SLOTS.map((s) => [s.id, emptyGear()])),
+  breakpoints: [],
 })
 const error = ref('')
 const saving = ref(false)
@@ -112,6 +113,7 @@ onMounted(async () => {
       equipment: Object.fromEntries(
         EQUIPMENT_SLOTS.map((s) => [s.id, fromGear(b.data.equipment?.[s.id])]),
       ),
+      breakpoints: (b.data.breakpoints ?? []).map((c) => ({ ...c, enemyIds: [...c.enemyIds] })),
     }
   } catch (e) {
     error.value = e.message
@@ -142,6 +144,7 @@ async function save() {
       talents: f.talents,
       weapons: mapValues(f.weapons, cleanWeapon),
       equipment: mapValues(f.equipment, cleanGear),
+      breakpoints: f.breakpoints,
     },
   }
   try {
@@ -222,6 +225,11 @@ async function save() {
             :traits="slot.traits"
             :properties="slot.properties" />
         </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Fast breakpoints</legend>
+        <BreakpointBuilder v-model="form.breakpoints" />
       </fieldset>
 
       <div class="measure">

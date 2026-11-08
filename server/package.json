@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node --watch --env-file=.env src/index.js",
     "start": "NODE_ENV=production node src/index.js",
-    "db:reset": "node --env-file=.env scripts/reset-db.js --yes"
+    "db:reset": "node --env-file=.env scripts/reset-db.js --yes",
+    "check:icons": "node scripts/check-icons.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

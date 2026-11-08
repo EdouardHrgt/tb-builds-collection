@@ -1,0 +1,92 @@
+{
+  "categories": [
+    { "id": "specials", "name": "Specials" },
+    { "id": "elites", "name": "Elites" }
+  ],
+  "enemies": [
+    {
+      "id": "packmaster",
+      "name": "Packmaster",
+      "category": "specials",
+      "icon": "/shared/breakpoints/enemies/packmaster.webp"
+    },
+    {
+      "id": "gutterrunner",
+      "name": "Gutter Runner",
+      "category": "specials",
+      "icon": "/shared/breakpoints/enemies/assassin.webp"
+    },
+    {
+      "id": "poisonwindglobadier",
+      "name": "Poison Wind Globadier",
+      "category": "specials",
+      "icon": "/shared/breakpoints/enemies/globadier.webp"
+    },
+    {
+      "id": "ratlinggunner",
+      "name": "Ratling Gunner",
+      "category": "specials",
+      "icon": "/shared/breakpoints/enemies/ratling.webp"
+    },
+    {
+      "id": "warpfirethrower",
+      "name": "Warpfire Thrower",
+      "category": "specials",
+      "icon": "/shared/breakpoints/enemies/warpfire.webp"
+    },
+    {
+      "id": "blightstormer",
+      "name": "Blightstormer",
+      "category": "specials",
+      "icon": "/shared/breakpoints/enemies/blightstormer.webp"
+    },
+    {
+      "id": "lifeleech",
+      "name": "Lifeleech",
+      "category": "specials",
+      "icon": "/shared/breakpoints/enemies/leech.webp"
+    },
+    {
+      "id": "standardbearer",
+      "name": "Standard Bearer",
+      "category": "specials",
+      "icon": "/shared/breakpoints/enemies/banner.webp"
+    },
+    {
+      "id": "stormvermin",
+      "name": "Stormvermin",
+      "category": "elites",
+      "icon": "/shared/breakpoints/enemies/stormvermin.webp"
+    },
+    {
+      "id": "plaguemonk",
+      "name": "Plague Monk",
+      "category": "elites",
+      "icon": "/shared/breakpoints/enemies/monk.webp"
+    },
+    {
+      "id": "mauler",
+      "name": "Mauler",
+      "category": "elites",
+      "icon": "/shared/breakpoints/enemies/mauler.webp"
+    },
+    {
+      "id": "chaoswarrior",
+      "name": "Chaos Warrior",
+      "category": "elites",
+      "icon": "/shared/breakpoints/enemies/chaoswarrior.webp"
+    },
+    {
+      "id": "savage",
+      "name": "Savage",
+      "category": "elites",
+      "icon": "/shared/breakpoints/enemies/savage.webp"
+    },
+    {
+      "id": "bestigor",
+      "name": "Bestigor",
+      "category": "elites",
+      "icon": "/shared/breakpoints/enemies/bestigor.webp"
+    }
+  ]
+}

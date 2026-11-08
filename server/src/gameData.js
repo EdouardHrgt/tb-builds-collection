@@ -6,7 +6,14 @@ import { fileURLToPath } from 'node:url'
 const here = path.dirname(fileURLToPath(import.meta.url))
 const DATA_DIR = process.env.GAME_DATA_DIR || path.join(here, '../../client/src/data')
 
-const FILES = ['heroes.json', 'weapons.json', 'weapon-options.json', 'equipment-options.json']
+const FILES = [
+  'heroes.json',
+  'weapons.json',
+  'weapon-options.json',
+  'equipment-options.json',
+  'enemies.json',
+  'breakpoint-attacks.json',
+]
 const missing = FILES.filter((f) => !fs.existsSync(path.join(DATA_DIR, f)))
 if (missing.length) {
   throw new Error(`Missing game data file(s) in ${DATA_DIR}: ${missing.join(', ')}`)
@@ -18,6 +25,8 @@ const heroes = load('heroes.json')
 const weapons = load('weapons.json').weapons
 const weaponOptions = load('weapon-options.json') // { melee: {traits, properties}, ranged: {...} }
 const equipmentOptions = load('equipment-options.json').equipment // { necklace: {...}, charm: {...}, trinket: {...} }
+const enemies = load('enemies.json').enemies // [{ id, name, category, icon }]
+const breakpointAttacks = load('breakpoint-attacks.json') // { ranged: { attacks: [...] }, melee: { attacks: [...] } }
 
 const TIERS = ['5', '10', '15', '20', '25', '30']
 const has = (obj, key) => Object.hasOwn(obj, key)
@@ -62,6 +71,23 @@ export function validateBuildData({ heroId, careerId, data }) {
     if (!has(equipmentOptions, slot)) return `Unknown equipment slot: ${slot}`
     const err = checkOptions(sel, equipmentOptions[slot], slot)
     if (err) return err
+  }
+
+  // Fast breakpoint cards: the attack must belong to the card's type, enemies must exist,
+  // and an attack can only have one card (a second one would just be more enemies on the first)
+  const usedAttacks = new Set()
+  for (const card of data.breakpoints ?? []) {
+    if (!has(breakpointAttacks, card.type)) return 'Breakpoint: unknown attack type'
+    if (!breakpointAttacks[card.type].attacks.some((a) => a.id === card.attack)) {
+      return 'Breakpoint: this attack does not exist for this type'
+    }
+    const key = `${card.type}/${card.attack}`
+    if (usedAttacks.has(key)) return 'Breakpoint: two cards use the same attack'
+    usedAttacks.add(key)
+    if (new Set(card.enemyIds).size !== card.enemyIds.length)
+      return 'Breakpoint: an enemy is listed twice'
+    if (!card.enemyIds.every((id) => enemies.some((e) => e.id === id)))
+      return 'Breakpoint: unknown enemy'
   }
 
   return null
