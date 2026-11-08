@@ -89,6 +89,16 @@ export function validateBuildData({ heroId, careerId, data }) {
     if (!card.enemyIds.every((id) => enemies.some((e) => e.id === id)))
       return 'Breakpoint: unknown enemy'
   }
-
+  // Recommended teammates: careers of OTHER heroes, at most one per hero (a team has one of each hero)
+  const teamHeroes = new Set()
+  for (const mate of data.teammates ?? []) {
+    const mateHero = heroes.find((h) => h.id === mate.heroId)
+    if (!mateHero || !mateHero.careers.some((c) => c.id === mate.careerId)) {
+      return 'Teammate: unknown hero or career'
+    }
+    if (mate.heroId === heroId) return 'Teammate: it cannot be the same hero as the build'
+    if (teamHeroes.has(mate.heroId)) return 'Teammate: a team has only one of each hero'
+    teamHeroes.add(mate.heroId)
+  }
   return null
 }

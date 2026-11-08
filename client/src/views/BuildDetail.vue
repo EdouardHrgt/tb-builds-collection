@@ -120,6 +120,22 @@ async function remove() {
             :card="c" />
         </div>
       </template>
+      <template v-if="build.data.teammates?.length">
+        <h2>Recommended teammates</h2>
+        <ul class="teammates">
+          <li
+            v-for="t in build.data.teammates"
+            :key="`${t.heroId}-${t.careerId}`"
+            :title="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`">
+            <img
+              v-if="getCareer(t.heroId, t.careerId)?.icon"
+              :src="getCareer(t.heroId, t.careerId).icon"
+              :alt="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`"
+              width="64"
+              height="79" />
+          </li>
+        </ul>
+      </template>
     </template>
   </article>
 </template>
@@ -146,5 +162,23 @@ async function remove() {
   gap: 0.8rem;
   align-items: start;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.teammates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.teammates img {
+  display: block;
+  width: 64px;
+  height: auto; /* the height comes from aspect-ratio (source images are 154x189) */
+  aspect-ratio: 154 / 189;
+  object-fit: cover;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
 }
 </style>

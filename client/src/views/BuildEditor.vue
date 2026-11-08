@@ -7,6 +7,8 @@ import { useGameData } from '../composables/useGameData.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import GearSlot from '../components/GearSlot.vue'
 import BreakpointBuilder from '../components/BreakpointBuilder.vue'
+import TeammatePicker from '../components/TeammatePicker.vue'
+
 const {
   heroes,
   getHero,
@@ -36,6 +38,7 @@ const form = ref({
   weapons: Object.fromEntries(WEAPON_SLOTS.map((s) => [s.key, emptyWeapon()])),
   equipment: Object.fromEntries(EQUIPMENT_SLOTS.map((s) => [s.id, emptyGear()])),
   breakpoints: [],
+  teammates: [],
 })
 const error = ref('')
 const saving = ref(false)
@@ -66,6 +69,7 @@ function setCareer(careerId) {
 
 function setHero(heroId) {
   form.value.heroId = heroId
+  form.value.teammates = form.value.teammates.filter((t) => t.heroId !== heroId) // one of each hero per team
   setCareer(getHero(heroId).careers[0].id)
 }
 
@@ -114,6 +118,7 @@ onMounted(async () => {
         EQUIPMENT_SLOTS.map((s) => [s.id, fromGear(b.data.equipment?.[s.id])]),
       ),
       breakpoints: (b.data.breakpoints ?? []).map((c) => ({ ...c, enemyIds: [...c.enemyIds] })),
+      teammates: (b.data.teammates ?? []).map((t) => ({ ...t })),
     }
   } catch (e) {
     error.value = e.message
@@ -145,6 +150,7 @@ async function save() {
       weapons: mapValues(f.weapons, cleanWeapon),
       equipment: mapValues(f.equipment, cleanGear),
       breakpoints: f.breakpoints,
+      teammates: f.teammates,
     },
   }
   try {
@@ -230,6 +236,11 @@ async function save() {
       <fieldset>
         <legend>Fast breakpoints</legend>
         <BreakpointBuilder v-model="form.breakpoints" />
+      </fieldset>
+
+      <fieldset>
+        <legend>Recommended teammates</legend>
+        <TeammatePicker v-model="form.teammates" :hero-id="form.heroId" />
       </fieldset>
 
       <div class="measure">

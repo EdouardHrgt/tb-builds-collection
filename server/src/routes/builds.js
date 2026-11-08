@@ -9,6 +9,7 @@ export const buildsRouter = Router()
 const TITLE_MIN = 5
 const TITLE_MAX = 30
 const TOP_LIMIT = 3 // number of builds in the "Top rated builds" section
+const MAX_TEAMMATES = 3 // recommended teammates: 3 other heroes make a team of 4
 
 const id = z.string().min(1).max(60)
 const distinct = (g) => new Set(g.propertyIds).size === g.propertyIds.length
@@ -41,6 +42,8 @@ const breakpointSchema = z
   })
   .strict()
 
+// A recommended teammate: a career of ANOTHER hero (checked in validateBuildData)
+const teammateSchema = z.object({ heroId: id, careerId: id }).strict()
 const buildSchema = z.object({
   title: z
     .string()
@@ -57,6 +60,7 @@ const buildSchema = z.object({
       weapons: z.record(id, weaponSchema), // melee / ranged
       equipment: z.record(id, gearSchema), // necklace / charm / trinket
       breakpoints: z.array(breakpointSchema).max(50).default([]), // fast breakpoint cards (optional)
+      teammates: z.array(teammateSchema).max(MAX_TEAMMATES).default([]), // recommended teammates (optional)
     })
     .strict(),
 })
