@@ -57,34 +57,37 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
 <template>
   <div class="bp-builder">
     <div class="bp-form">
-      <div class="bp-types" role="radiogroup" aria-label="Attack type">
-        <label v-for="t in BREAKPOINT_TYPES" :key="t.id" class="bp-type-option" :title="t.name">
-          <input
-            type="radio"
-            name="breakpoint-type"
-            class="sr-only"
-            :value="t.id"
-            :checked="typeId === t.id"
-            @change="setType(t.id)" />
-          <img :src="t.icon" :alt="t.name" width="44" height="44" />
+      <!-- Melee / Ranged icons, with the attack selector on their right -->
+      <div class="bp-top">
+        <div class="bp-types" role="radiogroup" aria-label="Attack type">
+          <label v-for="t in BREAKPOINT_TYPES" :key="t.id" class="bp-type-option" :title="t.name">
+            <input
+              type="radio"
+              name="breakpoint-type"
+              class="sr-only"
+              :value="t.id"
+              :checked="typeId === t.id"
+              @change="setType(t.id)" />
+            <img :src="t.icon" :alt="t.name" width="44" height="44" />
+          </label>
+        </div>
+
+        <label class="bp-attack-select">
+          Attack
+          <select v-model="attackId">
+            <option value="">Choose an attack…</option>
+            <option v-for="a in attacks" :key="a.id" :value="a.id" :disabled="usedAttacks.has(a.id)">
+              {{ a.name }}{{ usedAttacks.has(a.id) ? ' (already added)' : '' }}
+            </option>
+          </select>
         </label>
       </div>
-
-      <label class="bp-attack-select">
-        Attack
-        <select v-model="attackId">
-          <option value="">Choose an attack…</option>
-          <option v-for="a in attacks" :key="a.id" :value="a.id" :disabled="usedAttacks.has(a.id)">
-            {{ a.name }}{{ usedAttacks.has(a.id) ? ' (already added)' : '' }}
-          </option>
-        </select>
-      </label>
 
       <div v-for="category in ENEMY_CATEGORIES" :key="category.id" class="bp-category">
         <div class="bp-category-head">
           <span>{{ category.name }}</span>
           <button type="button" class="link-btn" @click="toggleCategory(category)">
-            {{ isCategoryFull(category) ? 'Clear' : 'Select all' }}
+            {{ isCategoryFull(category) ? 'Clear' : 'Select All' }}
           </button>
         </div>
         <div class="bp-chips">
@@ -103,8 +106,8 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
       </div>
 
       <div class="bp-actions">
-        <button type="button" class="btn" :disabled="!canAdd" @click="addCard">
-          Add breakpoint card
+        <button type="button" class="btn add" :disabled="!canAdd" @click="addCard">
+          Add Breakpoint
         </button>
         <small v-if="!canAdd" class="meta">Pick an attack and at least one enemy.</small>
       </div>
@@ -130,9 +133,22 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
   display: grid;
   gap: 1rem;
 }
+.bp-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
 .bp-types {
   display: flex;
   gap: 0.6rem;
+}
+/* Buttons use the color of the selected career (gold without one) */
+.add {
+  color: #fff;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.55);
+  background: var(--career-color, var(--accent));
+  border-color: var(--career-color, var(--accent));
 }
 .bp-type-option {
   position: relative;
@@ -183,7 +199,7 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
   padding: 0;
   font: inherit;
   font-size: 0.9rem;
-  color: var(--accent);
+  color: var(--career-color, var(--accent));
   background: none;
   border: 0;
   text-decoration: underline;

@@ -93,11 +93,6 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
       Comments <span v-if="data" class="count">({{ data.commentCount }})</span>
     </h2>
 
-    <CommentForm v-if="auth.user" :submit="postComment" />
-    <p v-else class="meta">
-      <RouterLink :to="loginLink">Log in</RouterLink> to write a comment.
-    </p>
-
     <p v-if="error" class="error" role="alert">{{ error }}</p>
     <p v-if="loading">Loading comments…</p>
 
@@ -164,6 +159,14 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
         </button>
       </nav>
     </template>
+
+    <!-- The new comment form sits under the existing comments -->
+    <div class="new-comment">
+      <CommentForm v-if="auth.user" :submit="postComment" />
+      <p v-else class="meta">
+        <RouterLink :to="loginLink">Log in</RouterLink> to write a comment.
+      </p>
+    </div>
   </section>
 </template>
 
@@ -181,16 +184,26 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
   padding: 0;
   list-style: none;
 }
+.threads {
+  display: grid;
+  gap: 0.8rem;
+}
+/* Each comment is a card using the --line color, to stand out from the page background */
 .thread {
-  padding: 1rem 0;
-  border-top: 1px solid var(--line);
+  padding: 1rem;
+  background: var(--panel);
+  border-radius: 8px;
+  border: 1px solid var(--line);
 }
 .replies {
   display: grid;
   gap: 0.7rem;
   margin: 0.7rem 0 0 0.8rem;
   padding-left: 1rem;
-  border-left: 2px solid var(--line);
+  border-left: 2px solid var(--muted);
+}
+.new-comment {
+  margin-top: 1.5rem;
 }
 .reply-list {
   display: grid;

@@ -9,6 +9,7 @@ import { loadUser } from './auth.js'
 import { authRouter } from './routes/auth.js'
 import { buildsRouter } from './routes/builds.js'
 import { commentsRouter } from './routes/comments.js'
+import { usersRouter } from './routes/users.js'
 
 const app = express()
 const isProd = process.env.NODE_ENV === 'production'
@@ -21,6 +22,7 @@ app.use(loadUser)
 app.use('/api/auth', rateLimit({ windowMs: 15 * 60 * 1000, limit: 30 }), authRouter)
 app.use('/api', buildsRouter)
 app.use('/api', commentsRouter)
+app.use('/api', usersRouter)
 
 // Centralized error handling
 app.use('/api', (err, _req, res, _next) => {

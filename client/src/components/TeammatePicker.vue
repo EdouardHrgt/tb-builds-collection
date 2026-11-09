@@ -32,13 +32,11 @@ function toggle(heroId, careerId) {
 <template>
   <div class="tm-picker">
     <p class="meta">
-      Pick up to {{ MAX_TEAMMATES }} careers, one per hero ({{ teammates.length }}/{{
-        MAX_TEAMMATES
-      }}).
+      Select the ideal teammates for this build.
+      <span class="tm-count">{{ teammates.length }}/{{ MAX_TEAMMATES }}</span>
     </p>
 
     <div v-for="hero in otherHeroes" :key="hero.id" class="tm-row">
-      <span class="tm-hero">{{ hero.name }}</span>
       <div class="tm-careers" role="group" :aria-label="`${hero.name} career`">
         <button
           v-for="c in hero.careers"
@@ -71,9 +69,9 @@ function toggle(heroId, careerId) {
   align-items: center;
   gap: 0.5rem 1rem;
 }
-.tm-hero {
-  min-width: 11rem;
-  color: var(--muted);
+.tm-count {
+  margin-left: 0.5rem;
+  font-weight: 600;
 }
 .tm-careers {
   display: flex;

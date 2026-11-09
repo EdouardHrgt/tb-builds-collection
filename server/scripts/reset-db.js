@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
   process.exit(1)
 }
 
-const TABLES = ['password_resets', 'likes', 'comments', 'builds', 'users']
+const TABLES = ['password_resets', 'likes', 'comments', 'follows', 'bookmarks', 'builds', 'users']
 const count = (table) => db.prepare(`SELECT COUNT(*) AS n FROM ${table}`).get().n
 
 for (const t of TABLES) console.log(`${t}: ${count(t)} row(s)`)

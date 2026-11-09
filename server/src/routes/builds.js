@@ -8,7 +8,8 @@ export const buildsRouter = Router()
 
 const TITLE_MIN = 5
 const TITLE_MAX = 30
-const TOP_LIMIT = 3 // number of builds in the "Top rated builds" section
+const TOP_LIMIT = 30 // "Top rated builds" carousel: the best build of each career (30 > number of careers)
+const TOP_LIMIT_CAREER = 10 // when a career is selected: its 10 best builds
 const MAX_TEAMMATES = 3 // recommended teammates: 3 other heroes make a team of 4
 
 const id = z.string().min(1).max(60)
@@ -66,15 +67,16 @@ const buildSchema = z.object({
 })
 
 // Every query built on SELECT must pass `me` (the viewer's user id, 0 for a visitor)
-const SELECT = `
+export const SELECT = `
   SELECT b.*, u.username AS author,
          (SELECT COUNT(*) FROM likes l WHERE l.build_id = b.id) AS like_count,
          EXISTS (SELECT 1 FROM likes l WHERE l.build_id = b.id AND l.user_id = @me) AS liked_by_me,
+         EXISTS (SELECT 1 FROM bookmarks k WHERE k.build_id = b.id AND k.user_id = @me) AS bookmarked_by_me,
          (SELECT COUNT(*) FROM comments c WHERE c.build_id = b.id) AS comment_count
   FROM builds b JOIN users u ON u.id = b.user_id
 `
 
-const toBuild = (r) => ({
+export const toBuild = (r) => ({
   id: r.id,
   title: r.title,
   description: r.description,
@@ -85,6 +87,7 @@ const toBuild = (r) => ({
   authorId: r.user_id,
   likeCount: r.like_count,
   likedByMe: !!r.liked_by_me,
+  bookmarkedByMe: !!r.bookmarked_by_me, // only about the viewer: the bookmarks of others are never exposed
   createdAt: r.created_at,
   updatedAt: r.updated_at,
   commentCount: r.comment_count,
@@ -95,28 +98,45 @@ const str = (v) => (typeof v === 'string' && v ? v : null)
 const findOne = (buildId, req) =>
   db.prepare(`${SELECT} WHERE b.id = @id`).get({ id: buildId, me: viewer(req) })
 
-// List (hero / career filters, pagination), newest first
+const LIST_PAGE_SIZE = 20
+// Sort orders the client may ask for (?sort=). A whitelist: the value is put in the SQL text.
+const SORTS = {
+  newest: 'b.created_at DESC, b.id DESC',
+  oldest: 'b.created_at ASC, b.id ASC',
+  likes: 'like_count DESC, b.created_at DESC, b.id DESC',
+}
+// "%" and "_" typed by a user must be searched as plain characters
+const escapeLike = (s) => s.replace(/[\\%_]/g, (c) => '\\' + c)
+
+// List: filters (hero, career, author name), sort (newest by default / oldest / most liked), pagination
 buildsRouter.get('/builds', (req, res) => {
-  const limit = 20
-  const page = Math.max(1, parseInt(req.query.page) || 1)
-  const rows = db
-    .prepare(
-      `
-    ${SELECT}
+  const username = str(req.query.username)?.trim().slice(0, 24) || null
+  const filters = {
+    hero: str(req.query.hero),
+    career: str(req.query.career),
+    user: username ? `%${escapeLike(username)}%` : null, // the author name contains the text
+  }
+  const WHERE = `
     WHERE (@hero   IS NULL OR b.hero_id   = @hero)
       AND (@career IS NULL OR b.career_id = @career)
-    ORDER BY b.created_at DESC, b.id DESC
-    LIMIT @limit OFFSET @offset
-  `,
-    )
+      AND (@user   IS NULL OR u.username LIKE @user ESCAPE '\\')`
+  const order = Object.hasOwn(SORTS, req.query.sort) ? SORTS[req.query.sort] : SORTS.newest
+
+  const total = db
+    .prepare(`SELECT COUNT(*) AS n FROM builds b JOIN users u ON u.id = b.user_id ${WHERE}`)
+    .get(filters).n
+  const pages = Math.max(1, Math.ceil(total / LIST_PAGE_SIZE))
+  const page = Math.min(Math.max(1, parseInt(req.query.page) || 1), pages) // out of range -> last page
+
+  const rows = db
+    .prepare(`${SELECT} ${WHERE} ORDER BY ${order} LIMIT @limit OFFSET @offset`)
     .all({
-      hero: str(req.query.hero),
-      career: str(req.query.career),
-      limit,
-      offset: (page - 1) * limit,
+      ...filters,
+      limit: LIST_PAGE_SIZE,
+      offset: (page - 1) * LIST_PAGE_SIZE,
       me: viewer(req),
     })
-  res.json({ page, items: rows.map(toBuild) })
+  res.json({ page, pages, total, items: rows.map(toBuild) })
 })
 
 // "Top rated builds": most liked first, only builds with at least one like, and at most ONE build
@@ -147,7 +167,7 @@ buildsRouter.get('/builds/top', (req, res) => {
     .all({
       hero: str(req.query.hero),
       career: str(req.query.career),
-      limit: TOP_LIMIT,
+      limit: str(req.query.career) ? TOP_LIMIT_CAREER : TOP_LIMIT,
       me: viewer(req),
     })
   res.json({ items: rows.map(toBuild) })
@@ -242,4 +262,36 @@ buildsRouter.delete('/builds/:id/like', requireAuth, (req, res) => {
   if (!build) return res.status(404).json({ error: 'Build not found' })
   db.prepare('DELETE FROM likes WHERE user_id = ? AND build_id = ?').run(req.userId, build.id)
   res.json(likeState(build.id, req.userId))
+})
+
+// --- Bookmarks (favorites) -----------------------------------------------------
+// Private: a user only ever sees his own bookmarks. Any build can be bookmarked, even your own.
+
+// Bookmark a build (idempotent)
+buildsRouter.post('/builds/:id/bookmark', requireAuth, (req, res) => {
+  const build = db.prepare('SELECT id FROM builds WHERE id = ?').get(req.params.id)
+  if (!build) return res.status(404).json({ error: 'Build not found' })
+  db.prepare('INSERT OR IGNORE INTO bookmarks (user_id, build_id) VALUES (?, ?)').run(req.userId, build.id)
+  res.json({ bookmarked: true })
+})
+
+// Remove my bookmark (idempotent)
+buildsRouter.delete('/builds/:id/bookmark', requireAuth, (req, res) => {
+  const build = db.prepare('SELECT id FROM builds WHERE id = ?').get(req.params.id)
+  if (!build) return res.status(404).json({ error: 'Build not found' })
+  db.prepare('DELETE FROM bookmarks WHERE user_id = ? AND build_id = ?').run(req.userId, build.id)
+  res.json({ bookmarked: false })
+})
+
+// My bookmarked builds, most recently bookmarked first
+buildsRouter.get('/me/bookmarks', requireAuth, (req, res) => {
+  const rows = db
+    .prepare(
+      `${SELECT}
+       WHERE b.id IN (SELECT build_id FROM bookmarks WHERE user_id = @uid)
+       ORDER BY (SELECT k.created_at FROM bookmarks k WHERE k.build_id = b.id AND k.user_id = @uid) DESC, b.id DESC
+       LIMIT 100`,
+    )
+    .all({ uid: req.userId, me: req.userId })
+  res.json(rows.map(toBuild))
 })

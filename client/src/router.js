@@ -16,6 +16,7 @@ const router = createRouter({
       component: () => import('./views/BuildEditor.vue'),
       meta: { auth: true },
     },
+    { path: '/u/:username', component: () => import('./views/UserProfile.vue') },
     { path: '/me', component: () => import('./views/MyBuilds.vue'), meta: { auth: true } },
     { path: '/login', component: () => import('./views/AuthForm.vue'), props: { mode: 'login' } },
     {

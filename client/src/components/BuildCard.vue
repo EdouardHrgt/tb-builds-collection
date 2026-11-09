@@ -2,9 +2,10 @@
 import { computed } from 'vue'
 import { useGameData } from '../composables/useGameData.js'
 import LikeButton from './LikeButton.vue'
+import BookmarkButton from './BookmarkButton.vue'
 
 const props = defineProps({ build: { type: Object, required: true } })
-const emit = defineEmits(['liked'])
+const emit = defineEmits(['liked', 'bookmarked'])
 
 const { getCareer } = useGameData()
 
@@ -30,9 +31,9 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
       <span v-else class="portrait" aria-hidden="true"></span>
 
       <div class="info">
-        <h3>{{ build.title }}</h3>
+        <h3 :title="build.title">{{ build.title }}</h3>
         <div class="meta-row">
-          <p class="meta">by {{ build.author }}</p>
+          <p class="meta" :title="build.author">by {{ build.author }}</p>
           <span class="comment-count" role="img" :aria-label="commentsLabel" :title="commentsLabel">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
               <path
@@ -49,6 +50,7 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
     </RouterLink>
 
     <LikeButton class="like-corner" :build="build" @changed="emit('liked')" />
+    <BookmarkButton class="bookmark-corner" :build="build" @changed="(res) => emit('bookmarked', res)" />
   </div>
 </template>
 
@@ -67,6 +69,11 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
   top: 0.5rem;
   right: 0.5rem;
 }
+.bookmark-corner {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+}
 .portrait {
   flex: none;
   width: 64px;
@@ -80,21 +87,30 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
   background: var(--bg);
 }
 .info {
-  min-width: 0; /* lets long titles wrap instead of stretching the card */
+  flex: 1;
+  min-width: 0; /* required for the ellipsis: lets the text shrink instead of stretching the card */
 }
+/* Long titles / usernames stay on ONE line ("MyTitleIsVery…"): all the cards keep the same height.
+   The full text is in the title attribute (tooltip on hover). */
 .info h3 {
-  overflow-wrap: anywhere;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .meta-row {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 0.2rem 0.9rem;
+  gap: 0.9rem;
 }
 .meta-row .meta {
+  min-width: 0;
   margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .comment-count {
+  flex: none;
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;

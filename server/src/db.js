@@ -16,6 +16,7 @@ db.exec(`
     username      TEXT NOT NULL UNIQUE COLLATE NOCASE,
     password_hash TEXT NOT NULL,
     token_version INTEGER NOT NULL DEFAULT 0,  -- bumped on password reset to invalidate sessions
+    hide_followers INTEGER NOT NULL DEFAULT 0, -- privacy: 1 = the follower count is hidden from other users
     created_at    TEXT NOT NULL DEFAULT (datetime('now'))
   );
 
@@ -56,6 +57,25 @@ db.exec(`
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+  -- One row = "follower_id follows followed_id". The primary key prevents a double follow.
+  CREATE TABLE IF NOT EXISTS follows (
+    follower_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    followed_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    created_at  TEXT NOT NULL DEFAULT (datetime('now')),
+    PRIMARY KEY (follower_id, followed_id),
+    CHECK (follower_id != followed_id)
+  );
+  CREATE INDEX IF NOT EXISTS idx_follows_followed ON follows(followed_id);
+
+  -- Bookmarks (favorites): private to their owner, nobody else can see who bookmarked a build.
+  CREATE TABLE IF NOT EXISTS bookmarks (
+    user_id    INTEGER NOT NULL REFERENCES users(id)  ON DELETE CASCADE,
+    build_id   INTEGER NOT NULL REFERENCES builds(id) ON DELETE CASCADE,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    PRIMARY KEY (user_id, build_id)
+  );
+  CREATE INDEX IF NOT EXISTS idx_bookmarks_build ON bookmarks(build_id);
+
   CREATE INDEX IF NOT EXISTS idx_comments_build  ON comments(build_id, parent_id, created_at);
   CREATE INDEX IF NOT EXISTS idx_comments_parent ON comments(parent_id);
   CREATE INDEX IF NOT EXISTS idx_comments_user   ON comments(user_id);
@@ -74,6 +94,16 @@ if (
     .some((c) => c.name === 'token_version')
 ) {
   db.exec('ALTER TABLE users ADD COLUMN token_version INTEGER NOT NULL DEFAULT 0')
+}
+
+// users.hide_followers
+if (
+  !db
+    .prepare('PRAGMA table_info(users)')
+    .all()
+    .some((c) => c.name === 'hide_followers')
+) {
+  db.exec('ALTER TABLE users ADD COLUMN hide_followers INTEGER NOT NULL DEFAULT 0')
 }
 
 // Private builds were removed: drop builds.is_public (and the old index that used it)

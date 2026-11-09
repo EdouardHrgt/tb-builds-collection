@@ -31,6 +31,15 @@ const breakpointAttacks = load('breakpoint-attacks.json') // { ranged: { attacks
 const TIERS = ['5', '10', '15', '20', '25', '30']
 const has = (obj, key) => Object.hasOwn(obj, key)
 
+// Some traits only exist on certain weapons (weapon-options.json):
+//   onlyWeaponIds      -> exclusive to these weapons (e.g. Heat Sink: Sienna's staves)
+//   excludedWeaponIds  -> available everywhere except on these weapons
+// Keep in sync with isTraitAllowed in the client (composables/useGameData.js).
+const isTraitAllowed = (trait, weaponId) =>
+  trait.onlyWeaponIds
+    ? !!weaponId && trait.onlyWeaponIds.includes(weaponId)
+    : !(weaponId && trait.excludedWeaponIds?.includes(weaponId))
+
 function checkOptions(sel, pool, slot) {
   if (sel.traitId && !pool.traits.some((t) => t.id === sel.traitId)) return `${slot}: unknown trait`
   for (const id of sel.propertyIds) {
@@ -55,16 +64,24 @@ export function validateBuildData({ heroId, careerId, data }) {
     }
   }
 
+  // Two weapon slots, stored under the keys 'melee' and 'ranged'. The second one holds a second MELEE
+  // weapon for the careers marked `"secondWeaponType": "melee"` in heroes.json (no ranged weapon).
+  const slotTypes = { melee: 'melee', ranged: career.secondWeaponType ?? 'ranged' }
   for (const [slot, sel] of Object.entries(data.weapons)) {
-    if (!has(weaponOptions, slot)) return `Unknown weapon slot: ${slot}`
+    if (!has(slotTypes, slot)) return `Unknown weapon slot: ${slot}`
+    const type = slotTypes[slot]
     if (sel.weaponId) {
       const weapon = weapons.find((w) => w.id === sel.weaponId && w.heroId === heroId)
-      if (!weapon || weapon.type !== slot || !weapon.availableFor.includes(careerId)) {
+      if (!weapon || weapon.type !== type || !weapon.availableFor.includes(careerId)) {
         return `${slot}: this weapon is not available for this career`
       }
     }
-    const err = checkOptions(sel, weaponOptions[slot], slot)
+    const err = checkOptions(sel, weaponOptions[type], slot)
     if (err) return err
+    const trait = weaponOptions[type].traits.find((t) => t.id === sel.traitId)
+    if (trait && !isTraitAllowed(trait, sel.weaponId)) {
+      return `${slot}: this trait is not available on this weapon`
+    }
   }
 
   for (const [slot, sel] of Object.entries(data.equipment)) {

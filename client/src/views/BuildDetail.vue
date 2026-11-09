@@ -7,9 +7,13 @@ import { useGameData } from '../composables/useGameData.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import GearSlot from '../components/GearSlot.vue'
 import LikeButton from '../components/LikeButton.vue'
+import BookmarkButton from '../components/BookmarkButton.vue'
 import BreakpointCard from '../components/BreakpointCard.vue'
 import CommentSection from '../components/CommentSection.vue'
+import { buildToText } from '../utils/buildText.js'
+import { copyText } from '../utils/clipboard.js'
 
+const gameData = useGameData()
 const {
   getCareer,
   heroName,
@@ -17,9 +21,9 @@ const {
   getCareerTalents,
   getHeroWeapons,
   getWeaponOptions,
-  WEAPON_SLOTS,
+  getWeaponSlots,
   EQUIPMENT_SLOTS,
-} = useGameData()
+} = gameData
 
 const route = useRoute()
 const router = useRouter()
@@ -34,7 +38,27 @@ const careerStyle = computed(() => {
   const color = build.value && getCareer(build.value.heroId, build.value.careerId)?.color
   return color ? { '--career-color': color } : {}
 })
+const career = computed(() => build.value && getCareer(build.value.heroId, build.value.careerId))
 const talentTiers = computed(() => getCareerTalents(build.value.heroId, build.value.careerId))
+// melee + ranged, or two melee weapons for Grail Knight / Slayer / Warrior Priest
+const weaponSlots = computed(() => getWeaponSlots(build.value.heroId, build.value.careerId))
+
+// "Share" copies the address of the page, "Export" a text version of the build.
+// The button shows a short confirmation (or the failure) for 2 seconds.
+const shareNotice = ref('') // empty = the normal label
+const exportNotice = ref('')
+function flash(notice, text) {
+  notice.value = text
+  setTimeout(() => (notice.value = ''), 2000)
+}
+async function share() {
+  const ok = await copyText(window.location.origin + route.path)
+  flash(shareNotice, ok ? 'Link copied!' : 'Copy failed')
+}
+async function exportBuild() {
+  const ok = await copyText(buildToText(build.value, gameData))
+  flash(exportNotice, ok ? 'Build copied!' : 'Copy failed')
+}
 
 // Missing slots (older builds, new slots added later) fall back to "nothing picked"
 const weaponSel = (key) => build.value.data.weapons?.[key] ?? {}
@@ -69,20 +93,47 @@ async function remove() {
   <p v-else-if="!build">Loading…</p>
   <article v-else :style="careerStyle">
     <header class="build-head">
-      <h1>{{ build.title }}</h1>
-      <LikeButton :build="build" @changed="onLikeChanged" />
+      <!-- Left: title, who / what, description -->
+      <div class="head-main">
+        <div class="title-row">
+          <h1>{{ build.title }}</h1>
+          <div class="reactions">
+            <LikeButton :build="build" @changed="onLikeChanged" />
+            <BookmarkButton :build="build" />
+          </div>
+        </div>
+        <p class="meta">
+          {{ heroName(build.heroId) }} | {{ careerName(build.heroId, build.careerId) }} ·
+          by
+          <RouterLink :to="`/u/${build.author}`" class="author" title="See profile">{{
+            build.author
+          }}</RouterLink>
+        </p>
+        <p v-if="build.description" class="desc">{{ build.description }}</p>
+      </div>
+
+      <!-- Right: career portrait, with the buttons next to it -->
+      <aside class="head-side">
+        <img
+          v-if="career?.icon"
+          :src="career.icon"
+          :alt="career.name"
+          class="head-portrait"
+          width="120"
+          height="147" />
+        <!-- Owner only: Edit / Delete on one line, above Share / Export -->
+        <div v-if="isOwner" class="owner-actions">
+          <RouterLink :to="`/builds/${build.id}/edit`" class="btn">Edit</RouterLink>
+          <button type="button" class="btn danger" @click="remove">Delete</button>
+        </div>
+        <div class="share-actions">
+          <button type="button" class="btn" @click="share">{{ shareNotice || 'Share the build' }}</button>
+          <button v-if="isCurrentFormat" type="button" class="btn" @click="exportBuild">
+            {{ exportNotice || 'Export the build' }}
+          </button>
+        </div>
+      </aside>
     </header>
-    <p class="meta">
-      {{ heroName(build.heroId) }} | {{ careerName(build.heroId, build.careerId) }} ·
-      <span class="author">by {{ build.author }}</span>
-    </p>
-
-    <div v-if="isOwner" class="actions">
-      <RouterLink :to="`/builds/${build.id}/edit`" class="btn">Edit</RouterLink>
-      <button class="btn danger" @click="remove">Delete</button>
-    </div>
-
-    <p v-if="build.description" class="desc">{{ build.description }}</p>
 
     <p v-if="!isCurrentFormat" class="error">
       This build uses an outdated format and cannot be displayed.
@@ -94,13 +145,13 @@ async function remove() {
       <h2>Equipment</h2>
       <div class="gear-grid">
         <GearSlot
-          v-for="slot in WEAPON_SLOTS"
+          v-for="slot in weaponSlots"
           :key="slot.key"
           :model-value="weaponSel(slot.key)"
           :label="slot.label"
-          :weapons="getHeroWeapons(build.heroId, slot.key)"
-          :traits="getWeaponOptions(slot.key).traits"
-          :properties="getWeaponOptions(slot.key).properties"
+          :weapons="getHeroWeapons(build.heroId, slot.type)"
+          :traits="getWeaponOptions(slot.type).traits"
+          :properties="getWeaponOptions(slot.type).properties"
           readonly />
         <GearSlot
           v-for="slot in EQUIPMENT_SLOTS"
@@ -113,7 +164,7 @@ async function remove() {
           readonly />
       </div>
       <template v-if="build.data.breakpoints?.length">
-        <h2>Fast breakpoints</h2>
+        <h2>Breakpoints</h2>
         <div class="bp-list">
           <BreakpointCard
             v-for="c in build.data.breakpoints"
@@ -144,14 +195,62 @@ async function remove() {
 
 <style scoped>
 .build-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 1rem 2rem;
+}
+.title-row {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
   gap: 1rem;
+}
+.reactions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.2rem;
 }
 .build-head h1 {
   margin: 0 0 0.5rem;
   overflow-wrap: anywhere;
+}
+.head-side {
+  display: grid;
+  gap: 0.6rem;
+  min-width: 12rem;
+}
+.head-portrait {
+  display: block;
+  justify-self: center;
+  width: 120px;
+  height: auto; /* the height comes from aspect-ratio (source images are 154x189) */
+  aspect-ratio: 154 / 189;
+  object-fit: cover;
+  background: var(--bg);
+  border: 2px solid var(--career-color, var(--line));
+  border-radius: 8px;
+}
+/* Row 1 (owner only): Edit + Delete side by side. Then Share, and Export below it. */
+.owner-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.share-actions {
+  display: grid;
+  gap: 0.5rem;
+}
+.head-side .btn {
+  text-align: center;
+}
+@media (max-width: 700px) {
+  .build-head {
+    grid-template-columns: 1fr;
+  }
+  .head-portrait {
+    justify-self: start;
+  }
 }
 .author {
   color: var(--accent);

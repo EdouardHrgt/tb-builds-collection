@@ -79,7 +79,18 @@
         "id": "conservativeshooter",
         "name": "conservative shooter",
         "description": "The Empire awaits Sigmar's divine revelation.",
-        "icon": "/shared/traits/ranged/conservativeshooter.webp"
+        "icon": "/shared/traits/ranged/conservativeshooter.webp",
+        "excludedWeaponIds": [
+          "fireballstaff",
+          "beamstaff",
+          "boltstaff",
+          "conflagrationstaff",
+          "coruscationstaff",
+          "flamestormstaff",
+          "soulstealerstaff",
+          "moonfirebow",
+          "trollhammertorpedo"
+        ]
       },
       {
         "id": "barrage",
@@ -97,19 +108,48 @@
         "id": "scrounger",
         "name": "scrounger",
         "description": "The Empire awaits Sigmar's divine revelation.",
-        "icon": "/shared/traits/ranged/scrounger.webp"
+        "icon": "/shared/traits/ranged/scrounger.webp",
+        "excludedWeaponIds": [
+          "fireballstaff",
+          "beamstaff",
+          "boltstaff",
+          "conflagrationstaff",
+          "coruscationstaff",
+          "flamestormstaff",
+          "soulstealerstaff",
+          "moonfirebow",
+          "trollhammertorpedo"
+        ]
       },
       {
         "id": "thermalequalizer",
         "name": "thermal equalizer",
         "description": "The Empire awaits Sigmar's divine revelation.",
-        "icon": "/shared/traits/ranged/thermalequalizer.webp"
+        "icon": "/shared/traits/ranged/thermalequalizer.webp",
+        "onlyWeaponIds": [
+          "fireballstaff",
+          "beamstaff",
+          "boltstaff",
+          "conflagrationstaff",
+          "coruscationstaff",
+          "flamestormstaff",
+          "soulstealerstaff"
+        ]
       },
       {
         "id": "heatsink",
         "name": "heat sink",
         "description": "The Empire awaits Sigmar's divine revelation.",
-        "icon": "/shared/traits/ranged/heatsink.webp"
+        "icon": "/shared/traits/ranged/heatsink.webp",
+        "onlyWeaponIds": [
+          "fireballstaff",
+          "beamstaff",
+          "boltstaff",
+          "conflagrationstaff",
+          "coruscationstaff",
+          "flamestormstaff",
+          "soulstealerstaff"
+        ]
       },
       {
         "id": "inspirationalshot",

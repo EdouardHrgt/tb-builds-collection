@@ -19,8 +19,7 @@ async function logout() {
       <RouterLink to="/">Builds</RouterLink>
       <template v-if="auth.user">
         <RouterLink to="/builds/new">New build</RouterLink>
-        <RouterLink to="/me" class="who">{{ auth.user.username }}</RouterLink>
-        <button class="link" @click="logout">Log out</button>
+        <RouterLink to="/me" class="who">{{ auth.user.username }}</RouterLink>        <button class="link" @click="logout">Log out</button>
       </template>
       <template v-else>
         <RouterLink to="/login">Log in</RouterLink>

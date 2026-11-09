@@ -8,6 +8,9 @@ import breakpointData from '../data/breakpoint-attacks.json'
 // Talent tiers in display order (keys of `career.talents` in heroes.json)
 const TIERS = ['5', '10', '15', '20', '25', '30']
 
+// The two weapon slots of a build. Their KEYS are what builds store ('melee' / 'ranged').
+// A career with `"secondWeaponType": "melee"` in heroes.json (Grail Knight, Slayer, Warrior Priest)
+// has no ranged weapon: its second slot, still stored under the key 'ranged', holds a second melee weapon.
 const WEAPON_SLOTS = [
   { key: 'melee', label: 'Melee weapon' },
   { key: 'ranged', label: 'Ranged weapon' },
@@ -27,6 +30,29 @@ const careerName = (heroId, careerId) => getCareer(heroId, careerId)?.name ?? ca
 function getCareerTalents(heroId, careerId) {
   const talents = getCareer(heroId, careerId)?.talents ?? {}
   return TIERS.map((tier) => ({ tier, talents: talents[tier] ?? [] }))
+}
+
+// The weapon slots of a career: [{ key, type, label }]. `type` ('melee' | 'ranged') decides which
+// weapons can be picked and which traits / properties apply; `key` is where the build stores the choice.
+function getWeaponSlots(heroId, careerId) {
+  const secondType = getCareer(heroId, careerId)?.secondWeaponType ?? 'ranged'
+  if (secondType === 'melee') {
+    return [
+      { key: 'melee', type: 'melee', label: 'Melee weapon 1' },
+      { key: 'ranged', type: 'melee', label: 'Melee weapon 2' },
+    ]
+  }
+  return WEAPON_SLOTS.map((s) => ({ ...s, type: s.key }))
+}
+
+// Some traits only exist on certain weapons (weapon-options.json):
+//   onlyWeaponIds      -> the trait is exclusive to these weapons (e.g. Heat Sink: Sienna's staves)
+//   excludedWeaponIds  -> the trait is available everywhere except on these weapons
+// Without a weapon picked yet, exclusive traits are hidden and the others are offered.
+// Keep in sync with isTraitAllowed in the server (gameData.js).
+function isTraitAllowed(trait, weaponId) {
+  if (trait.onlyWeaponIds) return !!weaponId && trait.onlyWeaponIds.includes(weaponId)
+  return !(weaponId && trait.excludedWeaponIds?.includes(weaponId))
 }
 
 const getHeroWeapons = (heroId, type) =>
@@ -70,6 +96,8 @@ export function useGameData() {
     getCareerTalents,
     getHeroWeapons,
     getAvailableWeapons,
+    getWeaponSlots,
+    isTraitAllowed,
     getWeaponOptions,
     getEnemy,
     getBreakpointType,

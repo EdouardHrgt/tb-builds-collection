@@ -72,6 +72,7 @@ const iso = computed(() => parseDbDate(props.comment.createdAt).toISOString())
   margin: 0.3rem 0;
   white-space: pre-wrap; /* keeps the line breaks typed by the author */
   overflow-wrap: anywhere;
+  color: var(--muted);
 }
 .comment-actions {
   display: flex;

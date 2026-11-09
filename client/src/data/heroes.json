@@ -390,6 +390,7 @@
       {
         "id": "grailknight",
         "name": "Grail Knight",
+        "secondWeaponType": "melee",
         "icon": "/images/kruber/kruber-grail-knight.webp",
         "talents": {
           "5": [
@@ -779,6 +780,7 @@
       {
         "id": "slayer",
         "name": "Slayer",
+        "secondWeaponType": "melee",
         "icon": "/images/bardin/bardin-slayer.webp",
         "color": "#E32700",
         "talents": {
@@ -1942,6 +1944,7 @@
       {
         "id": "warriorpriest",
         "name": "Warrior Priest",
+        "secondWeaponType": "melee",
         "icon": "/images/saltzpyre/saltzpyre-warrior-priest.webp",
         "talents": {
           "5": [
