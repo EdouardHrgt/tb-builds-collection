@@ -100,10 +100,14 @@ nav a.router-link-exact-active {
 }
 .who {
   padding: 7px;
-  color: white;
-  background-color: var(--accent);
+  color: var(--accent);
   border-radius: 8px;
   transition: all 0.3s ease-out;
+  font-family: 'New Rocker', system-ui;
+  font-size: 1.2rem;
+  letter-spacing: 0.7px;
+  border: 1px solid var(--line);
+
 }
 .who:hover {
   background-color: white;

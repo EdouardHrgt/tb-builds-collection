@@ -47,6 +47,19 @@ db.exec(`
     PRIMARY KEY (user_id, build_id)
   );
 
+  CREATE TABLE IF NOT EXISTS comments (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  build_id   INTEGER NOT NULL REFERENCES builds(id) ON DELETE CASCADE,
+  user_id    INTEGER NOT NULL REFERENCES users(id)  ON DELETE CASCADE,
+  parent_id  INTEGER REFERENCES comments(id)        ON DELETE CASCADE,
+  body       TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+  CREATE INDEX IF NOT EXISTS idx_comments_build  ON comments(build_id, parent_id, created_at);
+  CREATE INDEX IF NOT EXISTS idx_comments_parent ON comments(parent_id);
+  CREATE INDEX IF NOT EXISTS idx_comments_user   ON comments(user_id);
+
   CREATE INDEX IF NOT EXISTS idx_builds_user ON builds(user_id);
   CREATE INDEX IF NOT EXISTS idx_likes_build ON likes(build_id);
 `)

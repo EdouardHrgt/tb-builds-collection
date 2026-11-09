@@ -26,7 +26,7 @@ const enemies = computed(() => props.card.enemyIds.map((id) => getEnemy(id)).fil
       :src="type.icon"
       :alt="type.name"
       :title="type.name"
-      width="40"
+      width="45"
       height="40"
       class="bp-type" />
 
@@ -77,7 +77,7 @@ const enemies = computed(() => props.card.enemyIds.map((id) => getEnemy(id)).fil
 }
 .bp-enemies {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.4rem 0.7rem;
   margin: 0;
   padding: 0;
@@ -91,8 +91,9 @@ const enemies = computed(() => props.card.enemyIds.map((id) => getEnemy(id)).fil
   color: var(--muted);
 }
 .bp-enemy img {
-  width: 36px;
-  height: 36px;
+  width: 45px;
+  height: auto;
+  aspect-ratio: 1;
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid var(--line);

@@ -69,7 +69,8 @@ const buildSchema = z.object({
 const SELECT = `
   SELECT b.*, u.username AS author,
          (SELECT COUNT(*) FROM likes l WHERE l.build_id = b.id) AS like_count,
-         EXISTS (SELECT 1 FROM likes l WHERE l.build_id = b.id AND l.user_id = @me) AS liked_by_me
+         EXISTS (SELECT 1 FROM likes l WHERE l.build_id = b.id AND l.user_id = @me) AS liked_by_me,
+         (SELECT COUNT(*) FROM comments c WHERE c.build_id = b.id) AS comment_count
   FROM builds b JOIN users u ON u.id = b.user_id
 `
 
@@ -86,6 +87,7 @@ const toBuild = (r) => ({
   likedByMe: !!r.liked_by_me,
   createdAt: r.created_at,
   updatedAt: r.updated_at,
+  commentCount: r.comment_count,
 })
 
 const viewer = (req) => req.userId ?? 0 // user ids start at 1, so 0 matches nobody

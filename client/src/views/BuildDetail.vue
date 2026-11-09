@@ -8,6 +8,7 @@ import TalentGrid from '../components/TalentGrid.vue'
 import GearSlot from '../components/GearSlot.vue'
 import LikeButton from '../components/LikeButton.vue'
 import BreakpointCard from '../components/BreakpointCard.vue'
+import CommentSection from '../components/CommentSection.vue'
 
 const {
   getCareer,
@@ -72,8 +73,8 @@ async function remove() {
       <LikeButton :build="build" @changed="onLikeChanged" />
     </header>
     <p class="meta">
-      {{ heroName(build.heroId) }} — {{ careerName(build.heroId, build.careerId) }} · by
-      {{ build.author }}
+      {{ heroName(build.heroId) }} | {{ careerName(build.heroId, build.careerId) }} ·
+      <span class="author">by {{ build.author }}</span>
     </p>
 
     <div v-if="isOwner" class="actions">
@@ -137,6 +138,7 @@ async function remove() {
         </ul>
       </template>
     </template>
+    <CommentSection :build-id="build.id" :build-author-id="build.authorId" />
   </article>
 </template>
 
@@ -150,6 +152,9 @@ async function remove() {
 .build-head h1 {
   margin: 0 0 0.5rem;
   overflow-wrap: anywhere;
+}
+.author {
+  color: var(--accent);
 }
 .gear-grid {
   display: grid;

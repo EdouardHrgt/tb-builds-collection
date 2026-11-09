@@ -96,7 +96,7 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
             :class="{ on: isPicked(e.id) }"
             :aria-pressed="isPicked(e.id)"
             @click="toggleEnemy(e.id)">
-            <img :src="e.icon" alt="" width="28" height="28" />
+            <img :src="e.icon" alt="" width="32" height="32" />
             <span>{{ e.name }}</span>
           </button>
         </div>
@@ -211,6 +211,7 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
   object-fit: cover;
   border-radius: 50%;
   background: var(--bg);
+
 }
 .chip:hover {
   border-color: var(--career-color, var(--accent));

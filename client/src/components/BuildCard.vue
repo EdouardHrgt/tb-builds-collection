@@ -9,6 +9,10 @@ const emit = defineEmits(['liked'])
 const { getCareer } = useGameData()
 
 const career = computed(() => getCareer(props.build.heroId, props.build.careerId))
+
+const comments = computed(() => props.build.commentCount ?? 0)
+const commentsShown = computed(() => (comments.value > 99 ? '99+' : comments.value))
+const commentsLabel = computed(() => `${comments.value} comment${comments.value === 1 ? '' : 's'}`)
 </script>
 
 <template>
@@ -27,7 +31,20 @@ const career = computed(() => getCareer(props.build.heroId, props.build.careerId
 
       <div class="info">
         <h3>{{ build.title }}</h3>
-        <p class="meta">by {{ build.author }}</p>
+        <div class="meta-row">
+          <p class="meta">by {{ build.author }}</p>
+          <span class="comment-count" role="img" :aria-label="commentsLabel" :title="commentsLabel">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path
+                d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round" />
+            </svg>
+            {{ commentsShown }}
+          </span>
+        </div>
       </div>
     </RouterLink>
 
@@ -67,5 +84,21 @@ const career = computed(() => getCareer(props.build.heroId, props.build.careerId
 }
 .info h3 {
   overflow-wrap: anywhere;
+}
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.9rem;
+}
+.meta-row .meta {
+  margin: 0;
+}
+.comment-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 </style>

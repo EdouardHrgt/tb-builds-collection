@@ -14,7 +14,7 @@ async function logout() {
 
 <template>
   <header class="top">
-    <strong id="main__logo">Sigmar Will Provide</strong>
+    <strong id="main__logo">Sigmar's Arsenal</strong>
     <nav>
       <RouterLink to="/">Builds</RouterLink>
       <template v-if="auth.user">

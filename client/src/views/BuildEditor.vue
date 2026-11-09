@@ -234,7 +234,7 @@ async function save() {
       </fieldset>
 
       <fieldset>
-        <legend>Fast breakpoints</legend>
+        <legend>Breakpoints</legend>
         <BreakpointBuilder v-model="form.breakpoints" />
       </fieldset>
 
@@ -244,7 +244,7 @@ async function save() {
       </fieldset>
 
       <div class="measure">
-        <label>
+        <label class="description-label">
           Description
           <textarea v-model="form.description" rows="5" maxlength="2000" />
         </label>
@@ -318,5 +318,12 @@ section {
   gap: 0.8rem;
   align-items: start;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+legend,
+.description-label {
+  font-weight: 600;
+  font-family: 'New Rocker', system-ui;
+  letter-spacing: 1px;
+  font-size: 1.5rem;
 }
 </style>
