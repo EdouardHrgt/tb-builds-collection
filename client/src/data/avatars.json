@@ -1,4 +1,8 @@
 {
+  "default": {
+    "id": "avatar-default",
+    "icon": "/profile/avatar-default.webp"
+  },
   "avatars": [
     {
       "id": "avatar-1",

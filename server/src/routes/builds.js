@@ -11,6 +11,9 @@ const TITLE_MIN = 5
 const TITLE_MAX = 30
 const TOP_LIMIT = 30 // "Top rated builds" carousel: the best build of each career (30 > number of careers)
 const TOP_LIMIT_CAREER = 10 // when a career is selected: its 10 best builds
+// ?all=1 (the "see all" window of a carousel): the list without its cap, loaded by pages (?offset=&limit=)
+const MODAL_PAGE = 40
+const MODAL_PAGE_MAX = 200
 const MAX_TEAMMATES = 3 // recommended teammates: 3 other heroes make a team of 4
 
 const id = z.string().min(1).max(60)
@@ -146,6 +149,11 @@ buildsRouter.get('/builds', (req, res) => {
 // "one per career" rule is dropped: it would only ever show a single build.
 // Declared before /builds/:id so "top" is not read as an id.
 buildsRouter.get('/builds/top', (req, res) => {
+  // ?all=1 = same list as the carousel without its cap (by pages). With no career filter that is still
+  // one build per career, the most liked one, so the cap never matters there.
+  const all = req.query.all === '1'
+  const size = all ? Math.min(MODAL_PAGE_MAX, Math.max(1, parseInt(req.query.limit) || MODAL_PAGE)) : str(req.query.career) ? TOP_LIMIT_CAREER : TOP_LIMIT
+  const offset = all ? Math.max(0, parseInt(req.query.offset) || 0) : 0
   const rows = db
     .prepare(
       `
@@ -163,16 +171,17 @@ buildsRouter.get('/builds/top', (req, res) => {
     )
     WHERE @career IS NOT NULL OR rank_in_career = 1
     ORDER BY like_count DESC, created_at DESC, id DESC
-    LIMIT @limit
+    LIMIT @limit OFFSET @offset
   `,
     )
     .all({
       hero: str(req.query.hero),
       career: str(req.query.career),
-      limit: str(req.query.career) ? TOP_LIMIT_CAREER : TOP_LIMIT,
+      limit: size + 1, // one more than asked: tells whether there is a next page
+      offset,
       me: viewer(req),
     })
-  res.json({ items: rows.map(toBuild) })
+  res.json({ items: rows.slice(0, size).map(toBuild), hasMore: rows.length > size })
 })
 
 // My builds (declared before /builds/:id as well)

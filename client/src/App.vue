@@ -14,7 +14,10 @@ async function logout() {
 
 <template>
   <header class="top">
-    <strong id="main__logo">Sigmar's Arsenal</strong>
+    <div class="brand-block">
+      <strong id="main__logo">Sigmar's Arsenal</strong>
+      <div class="ornament" aria-hidden="true">◆</div>
+    </div>
     <nav>
       <RouterLink to="/">Builds</RouterLink>
       <template v-if="auth.user">
@@ -29,10 +32,19 @@ async function logout() {
     </nav>
   </header>
   <main><RouterView /></main>
-  <!-- <FooterCard /> -->
+  <FooterCard />
 </template>
 
 <style scoped>
+/* The logo with the golden ornament line (global .ornament) under it, as wide as the logo */
+.brand-block {
+  display: flex;
+  flex-direction: column;
+}
+.brand-block .ornament {
+  margin: 0.1rem 0 0;
+  font-size: 0.6rem;
+}
 #main__logo {
   padding: 0;
   font-size: 1.8rem;

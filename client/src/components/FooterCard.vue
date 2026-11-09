@@ -24,30 +24,24 @@
           >Modded discord</a
         >
       </div>
-      <div class="wrap">
-        <a href="https://www.ranalds.gift/" target="_blank" rel="noopener noreferrer"
-          >ranalds.gift</a
-        >
-      </div>
     </section>
 
     <div class="disclaimer">
-      <p>|| This project is not affiliated with <strong>Fatshark</strong> ||</p>
+      <p>
+        This is a personal project made for the Vermintide 2 Modded Realm community. It has no connection with
+        <strong>Fatshark</strong>, the studio that created the game.
+      </p>
     </div>
   </footer>
 </template>
 
 <style scoped>
 footer {
-  /* position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0; */
   text-align: center;
   padding: 1rem 0;
   border-top: 1px solid var(--line);
   padding-inline: var(--side-padding);
-  margin-top: 5rem;
+  background: var(--bg); /* full width, like the header (the page behind is textured) */
 }
 
 .links {
@@ -60,6 +54,7 @@ footer {
 .disclaimer {
   max-width: var(--mx-width);
   margin-inline: auto;
+  font-size: 0.8rem;
   color: var(--muted);
 }
 

@@ -236,7 +236,6 @@ async function remove() {
   height: auto; /* the height comes from aspect-ratio (source images are 154x189) */
   aspect-ratio: 154 / 189;
   object-fit: cover;
-  background: var(--bg);
   border-radius: 8px;
 }
 /* Edit + Delete side by side, under the title (owner only) */

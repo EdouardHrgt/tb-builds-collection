@@ -7,7 +7,7 @@
 //   --follow NAME   also makes the existing account NAME follow every test user (and the test users
 //                   follow NAME back), so the "Followed users" carousel and the follower counts have content.
 //
-// Safe to run again: users that already exist are skipped. All test accounts use the password below.
+// Safe to run again: users that already exist are skipped (their avatar and privacy setting are still applied). All test accounts use the password below.
 // The builds are generated from the real game data and checked with the same validation as the API.
 import fs from 'node:fs'
 import path from 'node:path'
@@ -23,10 +23,10 @@ if (process.env.NODE_ENV === 'production') {
 
 const PASSWORD = 'Test1234!'
 const USERS = [
-  { username: 'Grudge_Hunter', email: 'grudge.hunter@example.com' },
-  { username: 'Ember-of-Ulric', email: 'ember.ulric@example.com' },
-  { username: 'SkavenSlayer42', email: 'skaven.slayer42@example.com' },
-  { username: 'Lady_Moonfire', email: 'lady.moonfire@example.com' },
+  { username: 'Grudge_Hunter', email: 'grudge.hunter@example.com', avatar: 'avatar-2' },
+  { username: 'Ember-of-Ulric', email: 'ember.ulric@example.com', avatar: 'avatar-5' },
+  { username: 'SkavenSlayer42', email: 'skaven.slayer42@example.com', hideFollowers: true }, // to test the privacy setting
+  { username: 'Lady_Moonfire', email: 'lady.moonfire@example.com', avatar: 'avatar-9' },
   { username: 'Sigmars_Hammer', email: 'sigmars.hammer@example.com' },
 ]
 const TITLES = [
@@ -130,16 +130,22 @@ const like = db.prepare('INSERT OR IGNORE INTO likes (user_id, build_id) VALUES 
 const bookmark = db.prepare('INSERT OR IGNORE INTO bookmarks (user_id, build_id) VALUES (?, ?)')
 const comment = db.prepare('INSERT INTO comments (build_id, user_id, body) VALUES (?, ?, ?)')
 
+const setHidden = db.prepare('UPDATE users SET hide_followers = ? WHERE username = ?')
+const setAvatar = db.prepare('UPDATE users SET avatar = ? WHERE username = ?')
 const ids = []
 const buildIds = []
 db.transaction(() => {
   for (const u of USERS) {
     if (findUser.get(u.username)) {
       console.log(`skip   ${u.username} (already exists)`)
+      if (u.hideFollowers) setHidden.run(1, u.username) // the privacy setting is also applied to an existing account
+      if (u.avatar) setAvatar.run(u.avatar, u.username) // and so is the avatar (the others keep the default one)
       continue
     }
     const userId = insertUser.run(u.email, u.username, hash).lastInsertRowid
     ids.push(userId)
+    if (u.hideFollowers) setHidden.run(1, u.username)
+    if (u.avatar) setAvatar.run(u.avatar, u.username)
     let created = 0
     for (let n = 2 + int(3); created < n; ) {
       const b = randomBuild()

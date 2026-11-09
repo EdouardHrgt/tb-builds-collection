@@ -5,6 +5,8 @@ import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
 import BuildCard from '../components/BuildCard.vue'
 import CardCarousel from '../components/CardCarousel.vue'
+import SectionTitle from '../components/SectionTitle.vue'
+import ListModal from '../components/ListModal.vue'
 
 const { heroes } = useGameData()
 const auth = useAuth()
@@ -16,8 +18,19 @@ const username = ref('')
 const sort = ref('newest') // newest (default) | oldest | likes
 const page = ref(1)
 
+// Lists hidden with the eye button (remembered by SectionTitle)
+const hideTop = ref(false)
+const hideFollowed = ref(false)
+const hideAll = ref(false)
+
+// Which list is open in the big modal: '' (none) | 'top' | 'followed'
+const openList = ref('')
+
+const FEED_DAYS = 30 // keep in step with FEED_MAX_AGE_DAYS in server/src/routes/users.js
+
 const top = ref([]) // best build of each career
 const followed = ref([]) // latest build of each followed user (logged in users only)
+const followedLoaded = ref(false) // false until the first answer, so the "nothing" message does not flash
 const builds = ref([])
 const pages = ref(1)
 const total = ref(0)
@@ -33,6 +46,15 @@ const SORTS = [
 const careers = computed(() => heroes.find((h) => h.id === hero.value)?.careers ?? [])
 const hasFilters = computed(
   () => hero.value || career.value || username.value.trim() || sort.value !== 'newest',
+)
+
+// Name of the hero / career in the filters, for the message of an empty "From people I follow"
+const filterLabel = computed(
+  () => careers.value.find((c) => c.id === career.value)?.name ?? heroes.find((h) => h.id === hero.value)?.name ?? '',
+)
+// That list is shown even when empty, but only to explain a filter (otherwise an empty list just stays hidden)
+const showFollowed = computed(
+  () => followed.value.length > 0 || (!!auth.user && followedLoaded.value && !!(hero.value || career.value)),
 )
 
 const heroCareerQuery = () => {
@@ -77,9 +99,11 @@ async function loadFollowed() {
     return
   }
   try {
-    followed.value = (await api('/me/following/builds')).items
+    followed.value = (await api('/me/following/builds?' + heroCareerQuery())).items
   } catch {
     followed.value = [] // an optional section: never blocks the page
+  } finally {
+    followedLoaded.value = true
   }
 }
 
@@ -96,9 +120,12 @@ function applyFilters() {
   loadList()
 }
 
-// Only the hero and the career also change the top rated carousel.
+// Only the hero and the career also change the two carousels (top rated, followed).
 // (The career reset when the hero changes is done in the select's @change, so this runs only once.)
-watch([hero, career], loadTop)
+watch([hero, career], () => {
+  loadTop()
+  loadFollowed()
+})
 watch([hero, career, sort], applyFilters)
 
 // The author search waits for the end of the typing (300 ms) before asking the server
@@ -107,7 +134,10 @@ watch(username, () => {
   clearTimeout(typing)
   typing = setTimeout(applyFilters, 300)
 })
-onBeforeUnmount(() => clearTimeout(typing))
+onBeforeUnmount(() => {
+  clearTimeout(typing)
+  window.removeEventListener('scroll', onScroll)
+})
 
 function resetFilters() {
   hero.value = ''
@@ -122,7 +152,17 @@ function goTo(p) {
   document.getElementById('all-title')?.scrollIntoView?.({ block: 'start' })
 }
 
+// "Back to top" button under the list: only shown once the page has been scrolled down
+const scrolled = ref(false)
+const onScroll = () => (scrolled.value = window.scrollY > 400)
+function toTop() {
+  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
+}
+
 onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
   lastKey = filtersKey()
   loadTop()
   loadList()
@@ -159,26 +199,49 @@ onMounted(() => {
   <p v-if="error" class="error">{{ error }}</p>
 
   <section v-if="top.length" class="block" aria-labelledby="top-title">
-    <h2 id="top-title">Top rated builds</h2>
-    <CardCarousel label="Top rated builds">
-      <BuildCard v-for="b in top" :key="b.id" :build="b" @liked="refresh" />
+    <SectionTitle
+      id="top-title"
+      icon="top"
+      label="Top rated builds"
+      storage-key="top"
+      expandable
+      v-model:hidden="hideTop"
+      @open="openList = 'top'" />
+    <CardCarousel v-if="!hideTop" label="Top rated builds">
+      <BuildCard v-for="b in top" :key="b.id" :build="b" @liked="refresh" @bookmarked="refresh" />
     </CardCarousel>
   </section>
 
-  <section v-if="followed.length" class="block" aria-labelledby="followed-title">
-    <h2 id="followed-title">From people I follow</h2>
-    <CardCarousel label="From people I follow">
-      <BuildCard v-for="b in followed" :key="b.id" :build="b" @liked="refresh" />
+  <div v-if="top.length && showFollowed && !hideFollowed" class="ornament" aria-hidden="true">◆</div>
+
+  <section v-if="showFollowed" class="block" aria-labelledby="followed-title">
+    <SectionTitle
+      id="followed-title"
+      icon="following"
+      label="From people I follow"
+      storage-key="followed"
+      expandable
+      v-model:hidden="hideFollowed"
+      @open="openList = 'followed'" />
+    <CardCarousel v-if="!hideFollowed && followed.length" label="From people I follow">
+      <BuildCard v-for="b in followed" :key="b.id" :build="b" @liked="refresh" @bookmarked="refresh" />
     </CardCarousel>
+    <p v-else-if="!hideFollowed" class="empty-note">
+      No {{ filterLabel }} builds published in the last {{ FEED_DAYS }} days by people you follow.
+    </p>
   </section>
+
+  <div v-if="(top.length || showFollowed) && !hideAll" class="ornament" aria-hidden="true">◆</div>
 
   <section aria-labelledby="all-title">
-    <h2 id="all-title">All builds <span v-if="!loading" class="meta">({{ total }})</span></h2>
-    <p v-if="loading">Loading…</p>
+    <SectionTitle id="all-title" icon="all" label="All builds" storage-key="all" v-model:hidden="hideAll" />
+    <!-- hidden with the eye: only the title is shown -->
+    <template v-if="hideAll"></template>
+    <p v-else-if="loading">Loading…</p>
     <p v-else-if="!builds.length">No builds match these filters. Create the first one!</p>
     <template v-else>
       <div class="grid">
-        <BuildCard v-for="b in builds" :key="b.id" :build="b" @liked="refresh" />
+        <BuildCard v-for="b in builds" :key="b.id" :build="b" @liked="refresh" @bookmarked="refresh" />
       </div>
 
       <nav v-if="pages > 1" class="pager" aria-label="Build pages">
@@ -186,8 +249,29 @@ onMounted(() => {
         <span>Page {{ page }} of {{ pages }}</span>
         <button type="button" class="ghost" :disabled="page >= pages" @click="goTo(page + 1)">Next</button>
       </nav>
+
+      <div v-if="scrolled" class="to-top">
+        <button type="button" class="ghost" @click="toTop">↑ Back to top</button>
+      </div>
     </template>
   </section>
+
+  <ListModal
+    v-if="openList === 'top'"
+    title="Top rated builds"
+    icon="top"
+    :url="'/builds/top?' + heroCareerQuery()"
+    @close="openList = ''"
+    @liked="refresh"
+    @bookmarked="refresh" />
+  <ListModal
+    v-else-if="openList === 'followed'"
+    title="From people I follow"
+    icon="following"
+    :url="'/me/following/builds?' + heroCareerQuery()"
+    @close="openList = ''"
+    @liked="refresh"
+    @bookmarked="refresh" />
 </template>
 
 <style scoped>
@@ -197,6 +281,10 @@ onMounted(() => {
 .filters .search {
   width: auto;
   min-width: 14rem;
+}
+.empty-note {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
 }
 .reset {
   color: var(--accent);
@@ -209,6 +297,11 @@ onMounted(() => {
   justify-content: center;
   gap: 1rem;
   margin: 1.5rem 0;
+}
+.to-top {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
 .ghost {
   color: var(--text);

@@ -10,6 +10,10 @@ export const usersRouter = Router()
 
 const PROFILE_BUILDS_LIMIT = 100
 const FEED_LIMIT = 20
+const FEED_MAX_AGE_DAYS = 30 // a followed user whose latest build is older than this is not shown
+// ?all=1 (the "see all" window): the same list without the cap of 20, loaded by pages (?offset=&limit=)
+const MODAL_PAGE = 40
+const MODAL_PAGE_MAX = 200
 
 const viewer = (req) => req.userId ?? 0 // user ids start at 1, so 0 matches nobody
 const findByName = (username) =>
@@ -104,7 +108,13 @@ usersRouter.get('/me/following', requireAuth, (req, res) => {
 })
 
 // "Latest builds from followed users": only the most recent build of each followed user
+// Optional filters ?hero= and ?career= (the same ones as the build list): a followed user is shown with
+// his latest build THAT MATCHES the filters, and does not appear if none of his builds matches.
+const str = (v) => (typeof v === 'string' && v ? v : null)
 usersRouter.get('/me/following/builds', requireAuth, (req, res) => {
+  const all = req.query.all === '1' // no cap of 20: the latest build of EVERY followed user, by pages
+  const size = all ? Math.min(MODAL_PAGE_MAX, Math.max(1, parseInt(req.query.limit) || MODAL_PAGE)) : FEED_LIMIT
+  const offset = all ? Math.max(0, parseInt(req.query.offset) || 0) : 0
   const rows = db
     .prepare(
       `
@@ -116,15 +126,18 @@ usersRouter.get('/me/following/builds', requireAuth, (req, res) => {
       FROM (
         ${SELECT}
         WHERE b.user_id IN (SELECT followed_id FROM follows WHERE follower_id = @uid)
+          AND (@hero   IS NULL OR b.hero_id   = @hero)
+          AND (@career IS NULL OR b.career_id = @career)
+          AND b.created_at >= datetime('now', @since)
       )
     )
     WHERE rank_of_user = 1
     ORDER BY created_at DESC, id DESC
-    LIMIT @limit
+    LIMIT @limit OFFSET @offset
   `,
     )
-    .all({ uid: req.userId, me: req.userId, limit: FEED_LIMIT })
-  res.json({ items: rows.map(toBuild) })
+    .all({ uid: req.userId, me: req.userId, hero: str(req.query.hero), career: str(req.query.career), limit: size + 1, offset, since: `-${FEED_MAX_AGE_DAYS} days` })
+  res.json({ items: rows.slice(0, size).map(toBuild), hasMore: rows.length > size })
 })
 
 // My settings: hide my follower count from other users, pick my avatar. Every field is optional,

@@ -6,6 +6,10 @@ import BuildCard from '../components/BuildCard.vue'
 import UserAvatar from '../components/UserAvatar.vue'
 import { AVATARS, avatarSrc } from '../utils/avatars.js'
 import CardCarousel from '../components/CardCarousel.vue'
+import SectionIcon from '../components/SectionIcon.vue'
+import FollowedUserCard from '../components/FollowedUserCard.vue'
+import FollowingModal from '../components/FollowingModal.vue'
+import { SHIELD } from '../utils/shield.js'
 
 const auth = useAuth()
 
@@ -54,16 +58,20 @@ function onBookmarkChanged(build, res) {
 
 // Unfollow from a card of the carousel: asks first, then the card disappears
 const followError = ref('')
+const followingOpen = ref(false) // the big window with every followed account
 async function unfollow(username) {
   if (!confirm(`Unfollow ${username}?`)) return
   followError.value = ''
   try {
     await api(`/users/${encodeURIComponent(username)}/follow`, { method: 'DELETE' })
     following.value = following.value.filter((u) => u.username !== username)
+    if (!following.value.length) followingOpen.value = false
   } catch (e) {
     followError.value = e.message
   }
 }
+
+const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
 
 // Avatar picker (in the settings): the choice is saved as soon as an image is clicked
 async function setAvatar(id) {
@@ -78,7 +86,6 @@ async function setAvatar(id) {
   }
 }
 
-const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
 </script>
 
 <template>
@@ -117,14 +124,18 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
     <!-- Settings: only for the account owner -->
     <div v-if="settingsOpen" id="settings-panel" class="settings">
       <h2>Avatar</h2>
-      <button
-        type="button"
-        class="btn change-avatar"
-        :aria-expanded="avatarsOpen"
-        @click="avatarsOpen = !avatarsOpen"
-      >
-        {{ avatarsOpen ? 'Close' : 'Change avatar' }}
-      </button>
+      <!-- My current avatar, with the button that opens the list (it also shows that the change worked) -->
+      <div class="avatar-current">
+        <UserAvatar v-if="profile" :id="profile.avatar" large />
+        <button
+          type="button"
+          class="btn change-avatar"
+          :aria-expanded="avatarsOpen"
+          @click="avatarsOpen = !avatarsOpen"
+        >
+          {{ avatarsOpen ? 'Close' : 'Change avatar' }}
+        </button>
+      </div>
       <div v-if="profile && avatarsOpen" class="avatar-grid" role="radiogroup" aria-label="Avatar">
         <button
           v-for="a in AVATARS"
@@ -155,54 +166,43 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
 
     <!-- People I follow: name, number of builds and of followers, unfollow button -->
     <section v-if="!loading && !error && following?.length" class="block" aria-labelledby="following-title">
-      <h2 id="following-title" class="list-title">People I follow</h2>
-      <CardCarousel label="People I follow" item-width="260px">
-        <!-- The avatar is the background of the card (cropped on its top) -->
-        <div
-          v-for="u in following"
-          :key="u.id"
-          class="user-card"
-          :style="{ '--avatar-url': `url('${avatarSrc(u.avatar)}')` }"
-        >
-          <!-- Black semi transparent bar over the whole bottom of the card: text on the left, unfollow icon on the right -->
-          <div class="user-bar">
-            <RouterLink :to="`/u/${u.username}`" class="user-link">
-              <strong class="user-name" :title="u.username">{{ u.username }}</strong>
-              <span class="meta">{{ plural(u.buildCount, 'build') }}</span>
-              <span v-if="u.followerCount !== null" class="meta">{{
-                plural(u.followerCount, 'follower')
-              }}</span>
-            </RouterLink>
-            <button
-              type="button"
-              class="unfollow"
-              :aria-label="`Unfollow ${u.username}`"
-              :title="`Unfollow ${u.username}`"
-              @click="unfollow(u.username)"
-            >
-              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15 19v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM17 8h5"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+      <h2 id="following-title" class="list-title with-icon">
+        <SectionIcon name="following" />
+        <button type="button" class="title-btn" title="See all: People I follow" @click="followingOpen = true">
+          People I follow<span class="chev" aria-hidden="true">›</span>
+        </button>
+      </h2>
+      <!-- Shared by every shield (referenced by id): the shape that crops the avatar, and the dark fade under the text.
+           Same path as the outline drawn in each card. -->
+      <svg class="shield-defs" width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <clipPath id="shield-clip"><path :d="SHIELD" /></clipPath>
+          <linearGradient id="shield-fade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0.3" stop-color="#000" stop-opacity="0" />
+            <stop offset="0.7" stop-color="#000" stop-opacity="0.85" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <CardCarousel label="People I follow" item-width="180px">
+        <FollowedUserCard v-for="u in following" :key="u.id" :user="u" @unfollow="unfollow" />
       </CardCarousel>
       <p v-if="followError" class="error" role="alert">{{ followError }}</p>
     </section>
+
+    <FollowingModal
+      v-if="followingOpen && following?.length"
+      :users="following"
+      @close="followingOpen = false"
+      @unfollow="unfollow" />
+
+    <div v-if="!loading && !error && following?.length" class="ornament" aria-hidden="true">◆</div>
 
     <p v-if="error" class="error">{{ error }}</p>
     <p v-else-if="loading">Loading…</p>
     <!-- Two lists side by side: my builds (3 columns) and my bookmarks (1 column, on the right) -->
     <div v-else class="lists">
       <section aria-labelledby="builds-title">
-        <h2 id="builds-title" class="list-title">My builds</h2>
+        <h2 id="builds-title" class="list-title with-icon"><SectionIcon name="mine" />My builds</h2>
         <p v-if="!builds.length">
           You don't have any builds yet.
           <RouterLink to="/builds/new">Create your first one</RouterLink>
@@ -213,7 +213,7 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
       </section>
 
       <section class="bookmarks" aria-labelledby="bookmarks-title">
-        <h2 id="bookmarks-title" class="list-title">Bookmarked builds</h2>
+        <h2 id="bookmarks-title" class="list-title with-icon"><SectionIcon name="bookmarks" />Bookmarked builds</h2>
         <p v-if="!bookmarks.length" class="meta">
           Nothing here yet. Use the bookmark icon on a build to find it again easily.
         </p>
@@ -279,72 +279,43 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
 .block {
   margin-bottom: 1.5rem;
 }
-.user-card {
-  position: relative; /* the link of the bar stretches over the whole card (see .user-link::after) */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: 9rem;
-  overflow: hidden;
-  background: var(--panel) var(--avatar-url) center top / cover no-repeat; /* cropped on its top (the face) */
-  border: 1px solid var(--line);
-  border-radius: 6px;
-}
-/* Bottom of the card, full width: black semi transparent (lower the last number to see more of the image) */
-.user-bar {
-  display: flex;
+/* The title of the list is a button: click = the window with everyone (same look as SectionTitle) */
+.title-btn {
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.5rem 0.7rem;
-  background: rgb(0 0 0 / 0.65);
-}
-.user-link {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.15rem;
-  min-width: 0;
-  color: var(--text);
-  text-decoration: none;
-}
-/* the whole card is clickable: the link stretches over it (the unfollow icon stays above) */
-.user-link::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-}
-.user-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.user-card .meta {
-  margin: 0;
-  color: var(--muted);
-}
-.unfollow {
-  position: relative;
-  z-index: 1;
-  flex: none;
-  display: grid;
-  place-items: center;
-  padding: 0.2rem;
-  color: var(--danger);
+  gap: 0.4rem;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
   background: transparent;
   border: 0;
+  border-radius: 0;
   cursor: pointer;
-  border-radius: 50%;
-  transition: transform 0.15s, background 0.15s, color 0.15s;
+  transition: color 0.15s;
 }
-/* hover: the icon grows, gets a light red background and a brighter red */
-.unfollow:hover,
-.unfollow:focus-visible {
-  color: #ff6b5e;
-  background: rgb(196 86 74 / 0.25);
-  transform: scale(1.15);
+.title-btn:hover {
+  color: var(--accent);
+  background: transparent;
+}
+.chev {
+  color: var(--accent);
+  transition: transform 0.15s;
+}
+.title-btn:hover .chev {
+  transform: translateX(4px);
+}
+/* The shield cards themselves are styled in FollowedUserCard.vue */
+.shield-defs {
+  position: absolute;
+}
+.avatar-current {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
 }
 .change-avatar {
-  margin-bottom: 0.8rem;
   color: #fff;
   background: transparent;
   border: 1px solid var(--line);
@@ -368,18 +339,6 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
 }
 .avatar-option.on {
   border-color: var(--accent);
-}
-.user-card:hover {
-  border-color: var(--accent);
-}
-.user-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.user-card .meta {
-  margin: 0;
-  color: var(--muted);
 }
 /* Both list titles share one style (smaller than the page title) */
 .list-title {

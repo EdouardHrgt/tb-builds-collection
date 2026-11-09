@@ -27,9 +27,18 @@
 * {
   box-sizing: border-box;
 }
+/* Page background (around the content): a subtle stone-like texture in the tones of --bg made of two SVG noise layers
+   (blotches + fine grain) under a vignette. To use a real image instead, put it in client/public/ and set
+   --page-image on :root, e.g.  --page-image: url('/textures/stone.jpg');  (it is drawn above the texture). */
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: color-mix(in srgb, var(--bg) 55%, var(--line)); /* derived from the content colour */
+  background-image:
+    var(--page-image, none),
+    radial-gradient(ellipse at 50% 0%, transparent 40%, rgb(0 0 0 / 0.25) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.018' numOctaves='5' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .54 0 0 0 0 .66 1.1 0 0 0 -.38'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='.16'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-attachment: fixed;
   color: var(--text);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   min-height: 100dvh;
@@ -47,6 +56,31 @@ h1 {
   font-size: 1.9rem;
   margin: 0 0 1rem;
 }
+/* Separator between two sections: two golden lines fading out, with a diamond in the middle */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.8rem 0;
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent));
+}
+.ornament::after {
+  background: linear-gradient(to left, transparent, var(--accent));
+}
+/* A list title with its icon in front */
+h2.with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 h2 {
   font-size: 1.25rem;
   margin: 1.8rem 0 0.6rem;
@@ -58,11 +92,26 @@ a {
 a:hover {
   opacity: 0.6;
 }
+/* Sticky footer: the page is a column at least as tall as the window, and <main> takes the free space,
+   so the footer is at the bottom of the window even when the page is short (and after the content when it is long). */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
 main {
+  flex: 1 0 auto;
+  width: 100%; /* (the auto side margins below would otherwise shrink <main> to its content) */
   margin: 0 auto;
   max-width: var(--mx-width);
   padding-top: 2rem;
+  padding-bottom: 5rem; /* space before the footer (inside the solid area) */
   padding-inline: var(--side-padding);
+  /* The content area: solid colour, standing out from the textured page (no border) */
+  background: var(--bg);
+  box-shadow: 0 0 40px rgb(0 0 0 / 0.6);
+  position: relative;
+  z-index: 1; /* its shadow falls on both the header and the footer, darkening them the same way */
 }
 .icons-size {
   height: auto;
@@ -78,8 +127,16 @@ main {
   padding-block: 1rem;
   padding-inline: var(--side-padding);
   border-bottom: 1px solid var(--line);
-  background: var(--panel);
+  /* The darker top-to-bottom tint is what the shadow of <main> used to give the header; now that the header
+     sits above <main> it is painted here, so the look stays the same (same tint as the footer). */
+  background: linear-gradient(rgb(0 0 0 / 0.09), rgb(0 0 0 / 0.24)), var(--panel);
+  width: 100%; /* #app is a flex column: without it the auto margin shrinks the bar to its content */
   margin-inline: auto;
+  /* Always visible, also when the page is scrolled */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.35);
 }
 
 .brand {
@@ -93,12 +150,47 @@ nav {
   gap: 0.4rem 1.1rem;
   align-items: center;
 }
-nav a {
+/* Header links: same medieval font as the logo and titles, light text, gold line that grows under the
+   link on hover and stays under the page you are on. (The username chip, .who, has its own style.) */
+nav a,
+nav button.link {
+  font-family: 'New Rocker', system-ui;
+  font-size: 1.15rem;
+  letter-spacing: 1px;
   text-decoration: none;
 }
-nav a.router-link-exact-active {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+nav a:not(.who),
+nav button.link {
+  position: relative;
+  padding-block: 0.25rem;
+  color: var(--text);
+}
+nav a:not(.who):hover {
+  color: var(--accent);
+  opacity: 1;
+}
+nav a:not(.who)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.1rem;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+}
+nav a:not(.who):hover::after {
+  transform: scaleX(0.4);
+}
+nav a:not(.who).router-link-exact-active {
+  color: var(--accent);
+}
+nav a:not(.who).router-link-exact-active::after {
+  transform: scaleX(1);
+}
+nav a.who.router-link-exact-active {
+  border-color: var(--accent);
 }
 .who {
   padding: 7px;

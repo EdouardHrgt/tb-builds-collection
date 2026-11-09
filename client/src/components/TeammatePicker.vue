@@ -48,7 +48,7 @@ function toggle(heroId, careerId) {
           :disabled="isLocked(hero.id)"
           :title="c.name"
           @click="toggle(hero.id, c.id)">
-          <img :src="c.icon" :alt="c.name" width="48" height="59" />
+          <img :src="c.icon" :alt="c.name" width="60" height="74" />
         </button>
       </div>
     </div>
@@ -84,25 +84,29 @@ function toggle(heroId, careerId) {
   padding: 0;
   line-height: 0; /* no gap under the image */
   overflow: hidden;
-  background: var(--bg);
-  border: 2px solid var(--line);
+  background: transparent; /* no background behind the portrait */
+  border: 2px solid transparent; /* no visible border until hovered or picked (the space is kept, so nothing moves) */
   border-radius: 8px;
   cursor: pointer;
 }
 .tm-career img {
   display: block;
-  width: 48px;
+  width: 60px;
   height: auto; /* the height comes from aspect-ratio (source images are 154x189) */
   aspect-ratio: 154 / 189;
   object-fit: cover;
   font-size: 0.6rem; /* alt text, only visible if the image fails to load */
 }
+/* Hovered: border and background take the color of the career */
 .tm-career:hover:not(:disabled) {
   border-color: var(--career-color, var(--accent));
+  background: var(--career-color, var(--accent));
 }
+/* Picked: the same, plus a halo (to soften the background: color-mix(in srgb, var(--career-color, #ffd75e) 40%, transparent)) */
 .tm-career.on {
   border-color: var(--career-color, #ffd75e);
   box-shadow: 0 0 0 1px var(--career-color, #ffd75e);
+  background: var(--career-color, #ffd75e);
 }
 .tm-career:disabled {
   cursor: not-allowed;

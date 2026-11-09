@@ -18,8 +18,11 @@ const iso = computed(() => parseDbDate(props.comment.createdAt).toISOString())
 <template>
   <article class="comment">
     <header class="comment-head">
-      <UserAvatar :id="comment.authorAvatar" />
-      <strong>{{ comment.author }}</strong>
+      <!-- Avatar + name: a link to the public profile of the author -->
+      <RouterLink :to="`/u/${comment.author}`" class="comment-author" title="See profile">
+        <UserAvatar :id="comment.authorAvatar" />
+        <strong>{{ comment.author }}</strong>
+      </RouterLink>
       <span v-if="isBuildAuthor" class="badge">Author</span>
       <time :datetime="iso" :title="fullDate(comment.createdAt)">{{ ago }}</time>
     </header>
@@ -56,6 +59,19 @@ const iso = computed(() => parseDbDate(props.comment.createdAt).toISOString())
   flex-wrap: wrap;
   align-items: center;
   gap: 0.2rem 0.6rem;
+}
+.comment-author {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text);
+  text-decoration: none;
+}
+.comment-author:hover {
+  opacity: 1; /* (the global link hover fades the link) */
+}
+.comment-author:hover strong {
+  color: var(--accent);
 }
 .comment-head time {
   font-size: 0.85rem;
