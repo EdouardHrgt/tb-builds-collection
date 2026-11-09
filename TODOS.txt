@@ -1,28 +1,132 @@
+# TODO – Modded Builds
 
-FRIENDS System?
-when check someone's build you can click on his profile to see: all his builds and "follow" button.
-People you follow appears in your own profile as a list (private info)
-On profile page, you can see the number of People following you (private info? maybe be public so make it possible in the code. IF public the user can choose to hide it)
-when a followed user published a new build it appears on the build list page in a "followed users latest build" only the lastest build is displayed for each followed user (carousel or pagination?)
---------------------------------------------------------------------------------------------
+## 1. Friends / Follow System
 
-Grailknight, Slayer and warrior priest doesn't has access to a range weapon but a second melee weapon (can be twice the same weapon with their own trait and properties.)
-Some weapons doesn't has access to specific traits (scrounger & conservatice shooter on all sienna's staves, moonfire bow or trollhammer torpedo...) also heat sink / thermal equalizer are only available on sienna's staves.
+- When viewing another user's build, clicking on their profile should open their profile page, displaying:
+  - All builds published by that user.
+  - A **Follow** button to follow/unfollow them.
 
---------------------------------------------------------------------------------------------
-Rework design
-Buildlist:
-- Top Rated = horizontal carousel on top of the page, display the most rated build for each career (when you click side arrows it move to the next unseen builds not just +/- 1)
-- Regular Builds list = Filter by hero / career / published date (by default the list display the most recent ones) and by username (search a specific user)
-- New list from followed users "lastest friends published"
-- BuildCard looks weird, depending of the build title lenght it goes on multiple lines and all BuildCards height isnt the same anymore. Need a solution either max title length is set to always be in 1 line OR title is ellipsed (MyTitleIsVery...) and on hover the title is displayed properly. same issue with author name, if too long it goes another line.
-BuildEditor & BuildDetail:
-- On BuildDetail only portrait of the career is added right side of the title + description + edit delete buttons. 
-- Equipment must be on a single column on the left below talents to be tested: when clicking on an equipment the selection opens side way instead on vertically OR opens a modal middle screen...
-- Next to equipment on the right you have recommended teammates. Remove hero name from here. and change instruction to : "Select the ideal teammates for this build"
-- Fast breakpoints is renamed "breakpoints". Choose an attack is now right side of ranged / melee icons. "Add breakpoint card" is renamed "Add breakpoint"
-- When clicking on "show descriptions" the alents got a height animation instead of intant opening up. To be tested: each talent row animation is delayed 0s - talents lvl 5, 0.3s - talents level 10...
-  In BuildEditor only, if the user selected a talent on each row all descriptions auto close (not sure if it's a good UX thing...)
-- For BuildEditor need more security for saving a build: you need at least: select a talent in each row, add all equipement( item + trait + property ). Description, recommend teammates and breakpoints are optional.
-- By default Necklace has +20% health  and +30% BCR properties selected (it's those in 90% of the builds users will make) and trait is on barkskin.
-- Breakpoints "select all" buttons, "Add breakpoint" Button and the "save" build button are in the career custom color instead of the gold one.
+- On their own profile page, users can see a list of all the people they follow. This information should be private and only visible to the account owner.
+
+- Display the number of followers on each user's profile.
+  - This information could be public by default.
+  - Users should have the option to hide their follower count through their privacy settings.
+  - Make sure the code allows this visibility setting to be implemented.
+
+- When a followed user publishes a new build, it should appear on the main Build List page in a dedicated section: **Latest Builds from Followed Users**.
+  - Only display the latest build from each followed user.
+  - Consider using either a horizontal carousel or pagination to browse the builds.
+
+---
+
+## 2. Weapon & Equipment Rules
+
+- Grail Knight, Slayer and Warrior Priest do not have access to ranged weapons. Instead, they can equip a second melee weapon.
+  - Both melee weapon slots can contain the same weapon.
+  - Each weapon slot has its own independent traits and properties.
+
+- Some weapons do not have access to certain traits:
+  - Scrounger and Conservative Shooter are not available on Sienna's staves, Moonfire Bow or Trollhammer Torpedo.
+  - Heat Sink and Thermal Equalizer are exclusive to Sienna's staves.
+
+---
+
+## 3. Design & UI Rework
+
+### 3.1. Build List Page
+
+**Top Rated Builds**
+- Add a horizontal carousel at the top of the page.
+- Display the highest-rated build for each career.
+- When clicking the navigation arrows, skip to the next unseen builds rather than moving forward or backward by just one item.
+
+**Regular Builds List**
+- Add filters for:
+  - Hero
+  - Career
+  - Publication date (newest first by default)
+  - Username (search for builds published by a specific user)
+
+**Latest Builds from Followed Users**
+- Add a dedicated section displaying the latest published builds from followed users.
+- Only show the most recent build from each followed user.
+
+**Build Cards**
+- Build card heights are currently inconsistent because long build titles wrap onto multiple lines.
+- Find a solution to keep all cards aligned:
+  - Either enforce a maximum title length to keep titles on a single line.
+  - Or truncate long titles with an ellipsis (e.g. `MyTitleIsVery...`) and display the full title on hover.
+- Apply the same solution to author names to prevent long usernames from wrapping onto multiple lines.
+
+### 3.2. Build Editor & Build Detail
+
+**Build Detail**
+- Only display the career portrait on the right side of the title and description, alongside the Edit and Delete buttons.
+- Add a "Share the build" button with auto url copy.
+
+**Equipment Layout**
+- Display all equipment slots in a single vertical column on the left, underneath the talents section.
+- Test alternative equipment selection interfaces:
+  - Open the selection panel sideways instead of vertically when clicking on an equipment slot.
+  - Alternatively, open the selection interface in a centered modal.
+
+**Recommended Teammates**
+- Display the recommended teammates section to the right of the equipment column.
+- Remove the hero name from this section.
+- Replace the current instruction with: **"Select the ideal teammates for this build."**
+
+**Breakpoints**
+- Rename **Fast Breakpoints** to **Breakpoints**.
+- Move the **Choose an attack** selector to the right of the Melee / Ranged icons.
+- Rename **Add Breakpoint Card** to **Add Breakpoint**.
+
+**Talent Descriptions**
+- When clicking **Show Descriptions**, talent descriptions should expand with a height animation instead of opening instantly.
+- Test staggered animations for each talent row:
+  - Level 5: 0s delay
+  - Level 10: 0.3s delay
+  - Level 15: 0.6s delay
+  - Level 20: 0.9s delay
+  - Level 25: 1.2s delay
+  - Level 30: 1.5s delay
+
+- Build Editor only: Consider automatically collapsing all talent descriptions once the user has selected a talent in every row. This is optional and should be tested to determine whether it improves the user experience.
+
+**Build Saving Requirements**
+- Add validation before allowing a build to be saved.
+- The following fields must be completed:
+  - At least one talent selected in each talent row.
+  - All equipment slots must be fully configured (item + trait + properties).
+- The following fields remain optional:
+  - Build description.
+  - Recommended teammates.
+  - Breakpoints.
+
+**Default Equipment Selections**
+- By default, preselect the following Necklace configuration:
+  - Properties: +20% Health and +30% Block Cost Reduction (BCR).
+  - Trait: Barkskin.
+
+**Button Colors**
+- Change the following buttons from the default gold accent color to the selected career's custom color:
+  - Breakpoints "Select All" buttons.
+  - "Add Breakpoint" button.
+  - "Save Build" button.
+
+**Export Build**
+- at the bottom of the BuildDetail an "Export the Build" button make an auto copy / paste text version of the build.
+  - Format: 
+  TITLE
+  TALENTS: 1-1-2-3-1-2
+  WEAPONS: 
+    WEPON_NAME | trait | property 1 | property 2
+    WEPON_NAME | trait | property 1 | property 2
+  EQUIPMENT:
+    NECKLACE | trait | property 1 | property 2
+    CHARM | trait | property 1 | property 2
+    TRINKET | trait | property 1 | property 2
+  BREAKPOINTS:
+    ATTACK: ENEMIES_LIST
+    ATTACK: ENEMIES_LIST
+  DESCRIPTION:
+  BUILD DESCRIPTION
