@@ -5,8 +5,10 @@
     "attacks": [
       { "id": "1head", "name": "1 head" },
       { "id": "2head", "name": "2 head" },
+      { "id": "1headcrit", "name": "1 head + crit" },
       { "id": "1body", "name": "1 body" },
       { "id": "2body", "name": "2 body" },
+      { "id": "1bodycrit", "name": "1 body + crit" },
       { "id": "1head1body", "name": "1 head + 1 body" },
       { "id": "1chargedhead1fastbody", "name": "1 charged head + 1 fast body" }
     ]

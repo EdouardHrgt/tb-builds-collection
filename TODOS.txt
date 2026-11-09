@@ -1,20 +1,28 @@
---------------------------------------------------------------------------------------------
-LIKE SYSTEM: frontend display the amount of likes but if it goes too high it will break the design. maybe more than 99 likes display something else ? icon could change for a double star.. I take any better idea.
---------------------------------------------------------------------------------------------
-comment section under build view
-pagination 5 comment per page
-reply to comment
---------------------------------------------------------------------------------------------
+
 FRIENDS System?
 when check someone's build you can click on his profile to see: all his builds and "follow" button.
 People you follow appears in your own profile as a list (private info)
 On profile page, you can see the number of People following you (private info? maybe be public so make it possible in the code. IF public the user can choose to hide it)
 when a followed user published a new build it appears on the build list page in a "followed users latest build" only the lastest build is displayed for each followed user (carousel or pagination?)
 --------------------------------------------------------------------------------------------
+
+Grailknight, Slayer and warrior priest doesn't has access to a range weapon but a second melee weapon (can be twice the same weapon with their own trait and properties.)
+Some weapons doesn't has access to specific traits (scrounger & conservatice shooter on all sienna's staves, moonfire bow or trollhammer torpedo...) also heat sink / thermal equalizer are only available on sienna's staves.
+
+--------------------------------------------------------------------------------------------
 Rework design
 Buildlist:
 - Top Rated = horizontal carousel on top of the page, display the most rated build for each career (when you click side arrows it move to the next unseen builds not just +/- 1)
-- Regular Builds list = Filter by hero / career / published date (by default the list display the most recent ones) and by username
+- Regular Builds list = Filter by hero / career / published date (by default the list display the most recent ones) and by username (search a specific user)
 - New list from followed users "lastest friends published"
---------------------------------------------------------------------------------------------
-
+- BuildCard looks weird, depending of the build title lenght it goes on multiple lines and all BuildCards height isnt the same anymore. Need a solution either max title length is set to always be in 1 line OR title is ellipsed (MyTitleIsVery...) and on hover the title is displayed properly. same issue with author name, if too long it goes another line.
+BuildEditor & BuildDetail:
+- On BuildDetail only portrait of the career is added right side of the title + description + edit delete buttons. 
+- Equipment must be on a single column on the left below talents to be tested: when clicking on an equipment the selection opens side way instead on vertically OR opens a modal middle screen...
+- Next to equipment on the right you have recommended teammates. Remove hero name from here. and change instruction to : "Select the ideal teammates for this build"
+- Fast breakpoints is renamed "breakpoints". Choose an attack is now right side of ranged / melee icons. "Add breakpoint card" is renamed "Add breakpoint"
+- When clicking on "show descriptions" the alents got a height animation instead of intant opening up. To be tested: each talent row animation is delayed 0s - talents lvl 5, 0.3s - talents level 10...
+  In BuildEditor only, if the user selected a talent on each row all descriptions auto close (not sure if it's a good UX thing...)
+- For BuildEditor need more security for saving a build: you need at least: select a talent in each row, add all equipement( item + trait + property ). Description, recommend teammates and breakpoints are optional.
+- By default Necklace has +20% health  and +30% BCR properties selected (it's those in 90% of the builds users will make) and trait is on barkskin.
+- Breakpoints "select all" buttons, "Add breakpoint" Button and the "save" build button are in the career custom color instead of the gold one.

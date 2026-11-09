@@ -55,6 +55,7 @@ main {
   margin: 0 auto;
   max-width: var(--mx-width);
   padding-top: 2rem;
+  padding-inline: var(--side-padding);
 }
 .icons-size {
   height: auto;
