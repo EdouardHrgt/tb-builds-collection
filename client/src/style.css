@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Frijole&family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanchenjunga:wght@400;500;600;700&family=MedievalSharp&family=New+Rocker&family=Permanent+Marker&display=swap');
 :root {
   --bg: #181a20;
   --panel: #22252e;
@@ -8,13 +8,19 @@
   --accent: #c9a24a;
   --danger: #c4564a;
   color-scheme: dark;
+  /* SIZES */
   --mx-width: 1440px;
   --side-padding: 1.5rem;
   --icon-size: 60px;
+  /* FONTS*/
+  --title-font: font-family: 'MedievalSharp', cursive;
+  --text-font: font-family: Verdana, Geneva, Tahoma, sans-serif;
+  --sub-font: font-family: 'New Rocker', system-ui;
 }
 
-/* font-family: "Frijole", system-ui;
-font-family: "Special Elite", system-ui; */
+/* font-family: 'Permanent Marker', cursive;
+  font-family: 'Kanchenjunga', sans-serif;
+*/
 
 * {
   box-sizing: border-box;
@@ -25,16 +31,15 @@ body {
   color: var(--text);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   min-height: 100dvh;
-  /* background-image: url('../src/public/shared/background.webp');
-  background-position: center;
-  background-size: cover; */
 }
+
 h1,
 h2,
 h3,
 .brand {
-  /* font-family: 'Frijole', system-ui; */
   font-weight: 600;
+  font-family: 'New Rocker', system-ui;
+  letter-spacing: 1px;
 }
 h1 {
   font-size: 1.9rem;

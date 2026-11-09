@@ -89,11 +89,11 @@ async function toggle() {
   cursor: pointer;
 }
 .like:hover:not([aria-disabled='true']) {
-  color: #ffd75e;
+  color: var(--accent);
   border-color: var(--line);
 }
 .like.liked {
-  color: #ffd75e;
+  color: var(--accent);
 }
 .like[aria-disabled='true'] {
   cursor: default;

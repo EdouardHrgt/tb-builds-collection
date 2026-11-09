@@ -14,7 +14,7 @@ async function logout() {
 
 <template>
   <header class="top">
-    <strong id="main__logo">TB Builds Collection</strong>
+    <strong id="main__logo">Sigmar Will Provide</strong>
     <nav>
       <RouterLink to="/">Builds</RouterLink>
       <template v-if="auth.user">
@@ -35,7 +35,22 @@ async function logout() {
 <style scoped>
 #main__logo {
   padding: 0;
-  font-size: 1.25rem;
+  font-size: 1.8rem;
   letter-spacing: 0.5px;
+  font-family: 'New Rocker', system-ui;
+  letter-spacing: 1.7px;
+  background: linear-gradient(
+    90deg,
+    #462523 0%,
+    #cb9b51 21%,
+    #f6e27a 45%,
+    #f6f2c0 50%,
+    #f6e27a 55%,
+    #cb9b51 79%,
+    #462523 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>

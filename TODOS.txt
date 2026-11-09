@@ -4,7 +4,7 @@
 
 - When viewing another user's build, clicking on their profile should open their profile page, displaying:
   - All builds published by that user.
-  - A **Follow** button to follow/unfollow them.
+  - A **Follow** button to follow/unfollow them (an animation on the button to see clearly the action of following somebody).
 
 - On their own profile page, users can see a list of all the people they follow. This information should be private and only visible to the account owner.
 
@@ -39,6 +39,7 @@
 - Add a horizontal carousel at the top of the page.
 - Display the highest-rated build for each career.
 - When clicking the navigation arrows, skip to the next unseen builds rather than moving forward or backward by just one item.
+- Users can bookmark builds. Bookmarked builds appears on user's profile page.
 
 **Regular Builds List**
 - Add filters for:
@@ -46,6 +47,7 @@
   - Career
   - Publication date (newest first by default)
   - Username (search for builds published by a specific user)
+  - Number of likes
 
 **Latest Builds from Followed Users**
 - Add a dedicated section displaying the latest published builds from followed users.
@@ -68,7 +70,6 @@
 - Display all equipment slots in a single vertical column on the left, underneath the talents section.
 - Test alternative equipment selection interfaces:
   - Open the selection panel sideways instead of vertically when clicking on an equipment slot.
-  - Alternatively, open the selection interface in a centered modal.
 
 **Recommended Teammates**
 - Display the recommended teammates section to the right of the equipment column.
@@ -101,6 +102,7 @@
   - Build description.
   - Recommended teammates.
   - Breakpoints.
+- Add a modal saying "build saved"
 
 **Default Equipment Selections**
 - By default, preselect the following Necklace configuration:
