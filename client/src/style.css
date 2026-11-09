@@ -12,6 +12,8 @@
   --mx-width: 1440px;
   --side-padding: 1.5rem;
   --icon-size: 60px;
+  --avatar-size: 44px; /* round profile pictures: cards, comments, build page */
+  --avatar-size-lg: 88px; /* public profile, avatar picker */
   /* FONTS*/
   --title-font: font-family: 'MedievalSharp', cursive;
   --text-font: font-family: Verdana, Geneva, Tahoma, sans-serif;

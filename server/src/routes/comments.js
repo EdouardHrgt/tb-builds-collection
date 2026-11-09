@@ -3,6 +3,7 @@ import rateLimit from 'express-rate-limit'
 import { z } from 'zod'
 import { db } from '../db.js'
 import { requireAuth } from '../auth.js'
+import { avatarFor } from '../avatars.js'
 
 export const commentsRouter = Router()
 
@@ -27,7 +28,7 @@ const postLimiter = rateLimit({
 })
 
 const SELECT = `
-  SELECT c.*, u.username AS author
+  SELECT c.*, u.username AS author, u.avatar AS author_avatar
   FROM comments c JOIN users u ON u.id = c.user_id
 `
 
@@ -36,6 +37,7 @@ const toComment = (r) => ({
   body: r.body,
   author: r.author,
   authorId: r.user_id,
+  authorAvatar: avatarFor(r.user_id, r.author_avatar),
   parentId: r.parent_id,
   createdAt: r.created_at,
 })

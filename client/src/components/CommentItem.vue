@@ -1,9 +1,10 @@
 <script setup>
 import { computed } from 'vue'
 import { timeAgo, fullDate, parseDbDate } from '../utils/time.js'
+import UserAvatar from './UserAvatar.vue'
 
 const props = defineProps({
-  comment: { type: Object, required: true }, // { id, body, author, authorId, createdAt }
+  comment: { type: Object, required: true }, // { id, body, author, authorId, authorAvatar, createdAt }
   isBuildAuthor: { type: Boolean, default: false }, // this comment was written by the author of the build
   canReply: { type: Boolean, default: false },
   canDelete: { type: Boolean, default: false },
@@ -17,6 +18,7 @@ const iso = computed(() => parseDbDate(props.comment.createdAt).toISOString())
 <template>
   <article class="comment">
     <header class="comment-head">
+      <UserAvatar :id="comment.authorAvatar" />
       <strong>{{ comment.author }}</strong>
       <span v-if="isBuildAuthor" class="badge">Author</span>
       <time :datetime="iso" :title="fullDate(comment.createdAt)">{{ ago }}</time>
@@ -52,7 +54,7 @@ const iso = computed(() => parseDbDate(props.comment.createdAt).toISOString())
 .comment-head {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: 0.2rem 0.6rem;
 }
 .comment-head time {

@@ -106,6 +106,16 @@ if (
   db.exec('ALTER TABLE users ADD COLUMN hide_followers INTEGER NOT NULL DEFAULT 0')
 }
 
+// users.avatar (NULL = the default avatar of the user, see avatars.js)
+if (
+  !db
+    .prepare('PRAGMA table_info(users)')
+    .all()
+    .some((c) => c.name === 'avatar')
+) {
+  db.exec('ALTER TABLE users ADD COLUMN avatar TEXT')
+}
+
 // Private builds were removed: drop builds.is_public (and the old index that used it)
 if (
   db

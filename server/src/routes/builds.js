@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { db } from '../db.js'
 import { requireAuth } from '../auth.js'
 import { validateBuildData } from '../gameData.js'
+import { avatarFor } from '../avatars.js'
 
 export const buildsRouter = Router()
 
@@ -68,7 +69,7 @@ const buildSchema = z.object({
 
 // Every query built on SELECT must pass `me` (the viewer's user id, 0 for a visitor)
 export const SELECT = `
-  SELECT b.*, u.username AS author,
+  SELECT b.*, u.username AS author, u.avatar AS author_avatar,
          (SELECT COUNT(*) FROM likes l WHERE l.build_id = b.id) AS like_count,
          EXISTS (SELECT 1 FROM likes l WHERE l.build_id = b.id AND l.user_id = @me) AS liked_by_me,
          EXISTS (SELECT 1 FROM bookmarks k WHERE k.build_id = b.id AND k.user_id = @me) AS bookmarked_by_me,
@@ -85,6 +86,7 @@ export const toBuild = (r) => ({
   data: JSON.parse(r.data),
   author: r.author,
   authorId: r.user_id,
+  authorAvatar: avatarFor(r.user_id, r.author_avatar),
   likeCount: r.like_count,
   likedByMe: !!r.liked_by_me,
   bookmarkedByMe: !!r.bookmarked_by_me, // only about the viewer: the bookmarks of others are never exposed

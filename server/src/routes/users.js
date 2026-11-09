@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { db } from '../db.js'
 import { requireAuth } from '../auth.js'
 import { SELECT, toBuild } from './builds.js'
+import { avatarFor, isAvatarId } from '../avatars.js'
 
 export const usersRouter = Router()
 
@@ -12,7 +13,7 @@ const FEED_LIMIT = 20
 
 const viewer = (req) => req.userId ?? 0 // user ids start at 1, so 0 matches nobody
 const findByName = (username) =>
-  db.prepare('SELECT id, username, hide_followers, created_at FROM users WHERE username = ?').get(username) // column is NOCASE
+  db.prepare('SELECT id, username, avatar, hide_followers, created_at FROM users WHERE username = ?').get(username) // column is NOCASE
 
 const followerCount = (userId) =>
   db.prepare('SELECT COUNT(*) AS n FROM follows WHERE followed_id = ?').get(userId).n
@@ -39,6 +40,7 @@ usersRouter.get('/users/:username', (req, res) => {
   res.json({
     id: user.id,
     username: user.username,
+    avatar: avatarFor(user.id, user.avatar),
     createdAt: user.created_at,
     isSelf,
     isFollowing: me ? isFollowing(me, user.id) : false,
@@ -82,7 +84,7 @@ usersRouter.delete('/users/:username/follow', requireAuth, followLimiter, (req, 
 usersRouter.get('/me/following', requireAuth, (req, res) => {
   const rows = db
     .prepare(
-      `SELECT u.id, u.username, u.hide_followers, f.created_at AS followed_at,
+      `SELECT u.id, u.username, u.avatar, u.hide_followers, f.created_at AS followed_at,
               (SELECT COUNT(*) FROM builds b WHERE b.user_id = u.id) AS build_count
        FROM follows f JOIN users u ON u.id = f.followed_id
        WHERE f.follower_id = ?
@@ -93,6 +95,7 @@ usersRouter.get('/me/following', requireAuth, (req, res) => {
     items: rows.map((r) => ({
       id: r.id,
       username: r.username,
+      avatar: avatarFor(r.id, r.avatar),
       followedAt: r.followed_at,
       buildCount: r.build_count,
       followerCount: visibleCount(r, req.userId), // null when this user hides his follower count
@@ -124,11 +127,22 @@ usersRouter.get('/me/following/builds', requireAuth, (req, res) => {
   res.json({ items: rows.map(toBuild) })
 })
 
-// Privacy settings (for now: hide my follower count from other users)
-const settingsSchema = z.object({ hideFollowers: z.boolean() }).strict()
+// My settings: hide my follower count from other users, pick my avatar. Every field is optional,
+// but at least one must be sent.
+const settingsSchema = z
+  .object({
+    hideFollowers: z.boolean().optional(),
+    avatar: z.string().refine(isAvatarId, 'Unknown avatar').optional(),
+  })
+  .strict()
+  .refine((s) => Object.keys(s).length > 0, 'Nothing to update')
 
 usersRouter.patch('/me/settings', requireAuth, (req, res) => {
-  const { hideFollowers } = settingsSchema.parse(req.body)
-  db.prepare('UPDATE users SET hide_followers = ? WHERE id = ?').run(hideFollowers ? 1 : 0, req.userId)
-  res.json({ hideFollowers })
+  const { hideFollowers, avatar } = settingsSchema.parse(req.body)
+  if (hideFollowers !== undefined) {
+    db.prepare('UPDATE users SET hide_followers = ? WHERE id = ?').run(hideFollowers ? 1 : 0, req.userId)
+  }
+  if (avatar !== undefined) db.prepare('UPDATE users SET avatar = ? WHERE id = ?').run(avatar, req.userId)
+  const me = db.prepare('SELECT id, avatar, hide_followers FROM users WHERE id = ?').get(req.userId)
+  res.json({ hideFollowers: !!me.hide_followers, avatar: avatarFor(me.id, me.avatar) })
 })

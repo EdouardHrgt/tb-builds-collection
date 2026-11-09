@@ -3,7 +3,8 @@ import { ref, onMounted } from 'vue'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import BuildCard from '../components/BuildCard.vue'
-import FollowButton from '../components/FollowButton.vue'
+import UserAvatar from '../components/UserAvatar.vue'
+import { AVATARS, avatarSrc } from '../utils/avatars.js'
 import CardCarousel from '../components/CardCarousel.vue'
 
 const auth = useAuth()
@@ -34,6 +35,7 @@ onMounted(async () => {
 })
 
 const toggleSettings = () => (settingsOpen.value = !settingsOpen.value)
+const avatarsOpen = ref(false) // the avatar list is hidden until "Change avatar" is clicked
 
 async function setHideCount(hide) {
   settingError.value = ''
@@ -50,9 +52,30 @@ function onBookmarkChanged(build, res) {
   if (!res.bookmarked) bookmarks.value = bookmarks.value.filter((b) => b.id !== build.id)
 }
 
-// On this list a person disappears once unfollowed
-function onUnfollowed(username) {
-  following.value = following.value.filter((u) => u.username !== username)
+// Unfollow from a card of the carousel: asks first, then the card disappears
+const followError = ref('')
+async function unfollow(username) {
+  if (!confirm(`Unfollow ${username}?`)) return
+  followError.value = ''
+  try {
+    await api(`/users/${encodeURIComponent(username)}/follow`, { method: 'DELETE' })
+    following.value = following.value.filter((u) => u.username !== username)
+  } catch (e) {
+    followError.value = e.message
+  }
+}
+
+// Avatar picker (in the settings): the choice is saved as soon as an image is clicked
+async function setAvatar(id) {
+  if (profile.value?.avatar === id) return
+  settingError.value = ''
+  try {
+    const res = await api('/me/settings', { method: 'PATCH', body: { avatar: id } })
+    profile.value.avatar = res.avatar
+    avatarsOpen.value = false
+  } catch (e) {
+    settingError.value = e.message
+  }
 }
 
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
@@ -93,6 +116,31 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
 
     <!-- Settings: only for the account owner -->
     <div v-if="settingsOpen" id="settings-panel" class="settings">
+      <h2>Avatar</h2>
+      <button
+        type="button"
+        class="btn change-avatar"
+        :aria-expanded="avatarsOpen"
+        @click="avatarsOpen = !avatarsOpen"
+      >
+        {{ avatarsOpen ? 'Close' : 'Change avatar' }}
+      </button>
+      <div v-if="profile && avatarsOpen" class="avatar-grid" role="radiogroup" aria-label="Avatar">
+        <button
+          v-for="a in AVATARS"
+          :key="a.id"
+          type="button"
+          role="radio"
+          class="avatar-option"
+          :class="{ on: profile.avatar === a.id }"
+          :aria-checked="profile.avatar === a.id"
+          :aria-label="a.id"
+          @click="setAvatar(a.id)"
+        >
+          <UserAvatar :id="a.id" large />
+        </button>
+      </div>
+
       <h2>Privacy</h2>
       <label v-if="profile" class="check">
         <input
@@ -103,31 +151,50 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
         Hide my follower count on my public profile
       </label>
       <p v-if="settingError" class="error" role="alert">{{ settingError }}</p>
-
-      <h2>People I follow</h2>
-      <p v-if="following === null" class="meta">Loading…</p>
-      <p v-else-if="!following.length" class="meta">
-        You don't follow anyone yet. Open the profile of a build author to follow them.
-      </p>
-      <ul v-else class="following">
-        <li v-for="u in following" :key="u.id">
-          <RouterLink :to="`/u/${u.username}`">{{ u.username }}</RouterLink>
-          <span class="meta">{{ plural(u.buildCount, 'build') }}</span>
-          <FollowButton :username="u.username" following @changed="onUnfollowed(u.username)" />
-        </li>
-      </ul>
     </div>
 
-    <!-- People I follow: name, number of builds and of followers -->
+    <!-- People I follow: name, number of builds and of followers, unfollow button -->
     <section v-if="!loading && !error && following?.length" class="block" aria-labelledby="following-title">
-      <h2 id="following-title" class="list-title">From people I follow</h2>
-      <CardCarousel label="From people I follow" item-width="220px">
-        <RouterLink v-for="u in following" :key="u.id" :to="`/u/${u.username}`" class="user-card">
-          <strong class="user-name" :title="u.username">{{ u.username }}</strong>
-          <span class="meta">{{ plural(u.buildCount, 'build') }}</span>
-          <span v-if="u.followerCount !== null" class="meta">{{ plural(u.followerCount, 'follower') }}</span>
-        </RouterLink>
+      <h2 id="following-title" class="list-title">People I follow</h2>
+      <CardCarousel label="People I follow" item-width="260px">
+        <!-- The avatar is the background of the card (cropped on its top) -->
+        <div
+          v-for="u in following"
+          :key="u.id"
+          class="user-card"
+          :style="{ '--avatar-url': `url('${avatarSrc(u.avatar)}')` }"
+        >
+          <!-- Black semi transparent bar over the whole bottom of the card: text on the left, unfollow icon on the right -->
+          <div class="user-bar">
+            <RouterLink :to="`/u/${u.username}`" class="user-link">
+              <strong class="user-name" :title="u.username">{{ u.username }}</strong>
+              <span class="meta">{{ plural(u.buildCount, 'build') }}</span>
+              <span v-if="u.followerCount !== null" class="meta">{{
+                plural(u.followerCount, 'follower')
+              }}</span>
+            </RouterLink>
+            <button
+              type="button"
+              class="unfollow"
+              :aria-label="`Unfollow ${u.username}`"
+              :title="`Unfollow ${u.username}`"
+              @click="unfollow(u.username)"
+            >
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 19v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM17 8h5"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
       </CardCarousel>
+      <p v-if="followError" class="error" role="alert">{{ followError }}</p>
     </section>
 
     <p v-if="error" class="error">{{ error }}</p>
@@ -213,15 +280,94 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   margin-bottom: 1.5rem;
 }
 .user-card {
-  display: grid;
-  gap: 0.2rem;
-  padding: 0.8rem 1rem;
-  color: var(--text);
-  text-decoration: none;
-  background: var(--panel);
+  position: relative; /* the link of the bar stretches over the whole card (see .user-link::after) */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 9rem;
+  overflow: hidden;
+  background: var(--panel) var(--avatar-url) center top / cover no-repeat; /* cropped on its top (the face) */
   border: 1px solid var(--line);
   border-radius: 6px;
+}
+/* Bottom of the card, full width: black semi transparent (lower the last number to see more of the image) */
+.user-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  background: rgb(0 0 0 / 0.65);
+}
+.user-link {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  color: var(--text);
+  text-decoration: none;
+}
+/* the whole card is clickable: the link stretches over it (the unfollow icon stays above) */
+.user-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.user-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.user-card .meta {
+  margin: 0;
+  color: var(--muted);
+}
+.unfollow {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 0.2rem;
+  color: var(--danger);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.15s, background 0.15s, color 0.15s;
+}
+/* hover: the icon grows, gets a light red background and a brighter red */
+.unfollow:hover,
+.unfollow:focus-visible {
+  color: #ff6b5e;
+  background: rgb(196 86 74 / 0.25);
+  transform: scale(1.15);
+}
+.change-avatar {
+  margin-bottom: 0.8rem;
+  color: #fff;
+  background: transparent;
+  border: 1px solid var(--line);
+}
+.avatar-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.avatar-option {
+  padding: 0;
+  line-height: 0;
+  background: none;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
   transition: border-color 0.2s;
+}
+.avatar-option:hover {
+  border-color: var(--line);
+}
+.avatar-option.on {
+  border-color: var(--accent);
 }
 .user-card:hover {
   border-color: var(--accent);
@@ -271,26 +417,6 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
     border-top: 0;
     border-left: 1px solid var(--line);
   }
-}
-.following {
-  display: grid;
-  gap: 0.6rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.following li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.4rem 1rem;
-}
-.following li > a {
-  font-weight: 600;
-}
-.following li > .meta {
-  flex: 1;
-  margin: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   .gear {

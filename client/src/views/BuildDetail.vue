@@ -9,6 +9,7 @@ import GearSlot from '../components/GearSlot.vue'
 import LikeButton from '../components/LikeButton.vue'
 import BookmarkButton from '../components/BookmarkButton.vue'
 import BreakpointCard from '../components/BreakpointCard.vue'
+import UserAvatar from '../components/UserAvatar.vue'
 import CommentSection from '../components/CommentSection.vue'
 import { buildToText } from '../utils/buildText.js'
 import { copyText } from '../utils/clipboard.js'
@@ -105,13 +106,11 @@ async function remove() {
             <BookmarkButton :build="build" />
           </div>
         </div>
-        <p class="meta">
-          {{ heroName(build.heroId) }} | {{ careerName(build.heroId, build.careerId) }} ·
-          by
-          <RouterLink :to="`/u/${build.author}`" class="author" title="See profile">{{
-            build.author
-          }}</RouterLink>
-        </p>
+        <p class="meta">{{ heroName(build.heroId) }} | {{ careerName(build.heroId, build.careerId) }}</p>
+        <RouterLink :to="`/u/${build.author}`" class="author-row" title="See profile">
+          <UserAvatar :id="build.authorAvatar" />
+          <span class="meta">by <span class="author">{{ build.author }}</span></span>
+        </RouterLink>
         <!-- Owner only: Edit / Delete, right under the title -->
         <div v-if="isOwner" class="owner-actions">
           <RouterLink :to="`/builds/${build.id}/edit`" class="btn">Edit</RouterLink>
@@ -270,6 +269,17 @@ async function remove() {
 }
 .author {
   color: var(--accent);
+}
+.author-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  margin: 0.5rem 0 0.8rem;
+  text-decoration: none;
+}
+.author-row .meta {
+  margin: 0;
 }
 /* Three columns from 1280px: equipment | breakpoints | ideal team (far right).
    1024-1279px: equipment | breakpoints, ideal team below. Under 1024px: one column. */

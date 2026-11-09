@@ -6,6 +6,7 @@ import { useAuth } from '../stores/auth.js'
 import { parseDbDate } from '../utils/time.js'
 import BuildCard from '../components/BuildCard.vue'
 import FollowButton from '../components/FollowButton.vue'
+import UserAvatar from '../components/UserAvatar.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -49,7 +50,9 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   <p v-else-if="loading">Loading…</p>
   <template v-else-if="profile">
     <header class="profile-head">
-      <div>
+      <div class="profile-who">
+        <UserAvatar :id="profile.avatar" large />
+        <div>
         <h1>{{ profile.username }}</h1>
         <p class="meta">
           Member since {{ memberSince(profile.createdAt) }} · {{ plural(profile.builds.length, 'build') }}
@@ -58,6 +61,7 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
             · <span data-test="follower-count">{{ plural(profile.followerCount, 'follower') }}</span>
           </template>
         </p>
+        </div>
       </div>
 
       <FollowButton
@@ -88,6 +92,11 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+}
+.profile-who {
+  display: flex;
+  align-items: center;
   gap: 1rem;
 }
 .profile-head h1 {

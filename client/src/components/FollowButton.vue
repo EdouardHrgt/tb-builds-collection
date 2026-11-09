@@ -14,6 +14,8 @@ const burst = ref(0) // changes at every action: restarts the animation
 
 async function toggle() {
   if (busy.value) return
+  // Unfollowing asks for a confirmation (following does not)
+  if (props.following && !confirm(`Unfollow ${props.username}?`)) return
   busy.value = true
   error.value = ''
   try {
