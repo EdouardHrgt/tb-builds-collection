@@ -166,8 +166,8 @@ onMounted(() => {
   </section>
 
   <section v-if="followed.length" class="block" aria-labelledby="followed-title">
-    <h2 id="followed-title">Latest builds from followed users</h2>
-    <CardCarousel label="Latest builds from followed users">
+    <h2 id="followed-title">From people I follow</h2>
+    <CardCarousel label="From people I follow">
       <BuildCard v-for="b in followed" :key="b.id" :build="b" @liked="refresh" />
     </CardCarousel>
   </section>

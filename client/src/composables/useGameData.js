@@ -9,8 +9,9 @@ import breakpointData from '../data/breakpoint-attacks.json'
 const TIERS = ['5', '10', '15', '20', '25', '30']
 
 // The two weapon slots of a build. Their KEYS are what builds store ('melee' / 'ranged').
-// A career with `"secondWeaponType": "melee"` in heroes.json (Grail Knight, Slayer, Warrior Priest)
-// has no ranged weapon: its second slot, still stored under the key 'ranged', holds a second melee weapon.
+// A career with `"secondWeaponTypes"` in heroes.json changes what its second slot accepts (the slot is
+// still stored under the key 'ranged'): ["melee"] for Grail Knight and Warrior Priest (a second melee
+// weapon), ["melee", "ranged"] for Slayer (melee weapons or throwing axes). Default: ["ranged"].
 const WEAPON_SLOTS = [
   { key: 'melee', label: 'Melee weapon' },
   { key: 'ranged', label: 'Ranged weapon' },
@@ -32,17 +33,26 @@ function getCareerTalents(heroId, careerId) {
   return TIERS.map((tier) => ({ tier, talents: talents[tier] ?? [] }))
 }
 
-// The weapon slots of a career: [{ key, type, label }]. `type` ('melee' | 'ranged') decides which
-// weapons can be picked and which traits / properties apply; `key` is where the build stores the choice.
+// The weapon slots of a career: [{ key, types, label }]. `types` lists the kinds of weapon the slot
+// accepts ('melee' / 'ranged'); `key` is where the build stores the choice.
 function getWeaponSlots(heroId, careerId) {
-  const secondType = getCareer(heroId, careerId)?.secondWeaponType ?? 'ranged'
-  if (secondType === 'melee') {
-    return [
-      { key: 'melee', type: 'melee', label: 'Melee weapon 1' },
-      { key: 'ranged', type: 'melee', label: 'Melee weapon 2' },
-    ]
-  }
-  return WEAPON_SLOTS.map((s) => ({ ...s, type: s.key }))
+  const second = getCareer(heroId, careerId)?.secondWeaponTypes ?? ['ranged']
+  const secondLabel = second.length > 1 ? 'Second weapon' : second[0] === 'melee' ? 'Melee weapon 2' : 'Ranged weapon'
+  return [
+    { key: 'melee', types: ['melee'], label: second[0] === 'melee' && second.length === 1 ? 'Melee weapon 1' : 'Melee weapon' },
+    { key: 'ranged', types: second, label: secondLabel },
+  ]
+}
+
+// The weapons a slot can hold (for this career): the melee ones first, then the ranged ones if accepted
+const getSlotWeapons = (heroId, careerId, slot) =>
+  slot.types.flatMap((type) => getAvailableWeapons(heroId, careerId, type))
+
+// Traits and properties depend on the kind of weapon picked. Without a weapon yet: the slot's first kind.
+// -> { traits, properties }
+function getSlotOptions(heroId, slot, weaponId) {
+  const weapon = weapons.find((w) => w.heroId === heroId && w.id === weaponId && slot.types.includes(w.type))
+  return weaponOptions[weapon?.type ?? slot.types[0]]
 }
 
 // Some traits only exist on certain weapons (weapon-options.json):
@@ -97,6 +107,8 @@ export function useGameData() {
     getHeroWeapons,
     getAvailableWeapons,
     getWeaponSlots,
+    getSlotWeapons,
+    getSlotOptions,
     isTraitAllowed,
     getWeaponOptions,
     getEnemy,

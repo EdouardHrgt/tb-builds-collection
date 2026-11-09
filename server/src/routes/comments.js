@@ -7,7 +7,7 @@ import { requireAuth } from '../auth.js'
 export const commentsRouter = Router()
 
 const PAGE_SIZE = 5 // comments per page (replies are not counted: they sit under their comment)
-const BODY_MAX = 1000
+const BODY_MAX = 200
 
 const commentSchema = z.object({
   body: z

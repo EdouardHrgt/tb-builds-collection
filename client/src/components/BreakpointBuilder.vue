@@ -109,7 +109,7 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
         <button type="button" class="btn add" :disabled="!canAdd" @click="addCard">
           Add Breakpoint
         </button>
-        <small v-if="!canAdd" class="meta">Pick an attack and at least one enemy.</small>
+        <small v-if="!canAdd" class="bp-hint">Pick an attack and at least one enemy.</small>
       </div>
     </div>
 
@@ -235,6 +235,9 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
 .chip.on {
   border-color: var(--career-color, #ffd75e);
   box-shadow: 0 0 0 1px var(--career-color, #ffd75e);
+}
+.bp-hint {
+  color: var(--muted);
 }
 .bp-actions {
   display: flex;

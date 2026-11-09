@@ -393,7 +393,7 @@
       "availableFor": ["waystalker", "shade", "handmaiden", "sisterofthethorn"]
     },
     {
-      "id": "volley crossbow",
+      "id": "volleycrossbow",
       "name": "volleycrossbow",
       "heroId": "kerillian",
       "type": "ranged",

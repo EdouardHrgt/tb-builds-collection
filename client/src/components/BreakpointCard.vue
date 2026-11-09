@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useGameData } from '../composables/useGameData.js'
 
 const props = defineProps({
@@ -11,33 +11,59 @@ const emit = defineEmits(['remove'])
 // TODO: set to false once the real enemy icons exist. Names are only a stand-in while every
 // enemy uses the same placeholder icon (they stay available as a tooltip and for screen readers).
 const SHOW_ENEMY_NAMES = true
+// The card has a fixed height: it previews this many enemies, the rest shows when it is opened
+const PREVIEW_COUNT = 3
 
 const { getBreakpointType, getAttack, getEnemy } = useGameData()
 
 const type = computed(() => getBreakpointType(props.card.type))
 const attack = computed(() => getAttack(props.card.type, props.card.attack))
 const enemies = computed(() => props.card.enemyIds.map((id) => getEnemy(id)).filter(Boolean))
+
+const open = ref(false)
+const hiddenCount = computed(() => Math.max(0, enemies.value.length - PREVIEW_COUNT))
+// An opened card closes when the user clicks / taps elsewhere, or when the keyboard focus leaves it
+const root = ref(null)
+const close = () => (open.value = false)
+function onFocusOut(e) {
+  if (e.relatedTarget && !root.value?.contains(e.relatedTarget)) close()
+}
+function onPointerDown(e) {
+  if (open.value && !root.value?.contains(e.target)) close()
+}
+onMounted(() => document.addEventListener('pointerdown', onPointerDown))
+onBeforeUnmount(() => document.removeEventListener('pointerdown', onPointerDown))
+const visibleEnemies = computed(() => (open.value ? enemies.value : enemies.value.slice(0, PREVIEW_COUNT)))
 </script>
 
 <template>
-  <article class="bp-card">
-    <img
-      v-if="type?.icon"
-      :src="type.icon"
-      :alt="type.name"
-      :title="type.name"
-      width="45"
-      height="40"
-      class="bp-type" />
-
+  <article ref="root" class="bp-card" :class="{ open }" @focusout="onFocusOut">
     <div class="bp-body">
-      <strong class="bp-attack">{{ attack?.name ?? card.attack }}</strong>
+      <div class="bp-head">
+        <img
+          v-if="type?.icon"
+          :src="type.icon"
+          :alt="type.name"
+          :title="type.name"
+          width="45"
+          height="40"
+          class="bp-type" />
+        <strong class="bp-attack">{{ attack?.name ?? card.attack }}</strong>
+      </div>
       <ul class="bp-enemies">
-        <li v-for="e in enemies" :key="e.id" class="bp-enemy" :title="e.name">
+        <li v-for="e in visibleEnemies" :key="e.id" class="bp-enemy" :title="e.name">
           <img :src="e.icon" :alt="SHOW_ENEMY_NAMES ? '' : e.name" width="36" height="36" />
           <span v-if="SHOW_ENEMY_NAMES">{{ e.name }}</span>
         </li>
       </ul>
+      <button
+        v-if="hiddenCount"
+        type="button"
+        class="bp-more"
+        :aria-expanded="open"
+        @click="open = !open">
+        {{ open ? 'Show less ▲' : `+${hiddenCount} more ▼` }}
+      </button>
     </div>
 
     <button
@@ -57,10 +83,22 @@ const enemies = computed(() => props.card.enemyIds.map((id) => getEnemy(id)).fil
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
+  height: 13rem; /* fixed: attack name + 3 enemies + the "more" line */
+  overflow: hidden;
   padding: 0.7rem 2.4rem 0.7rem 0.7rem;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 6px;
+}
+.bp-card.open {
+  height: auto;
+  min-height: 13rem;
+}
+.bp-head {
+  display: flex;
+  align-items: center; /* icon and attack name on the same line */
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 .bp-type {
   flex: none;
@@ -72,13 +110,12 @@ const enemies = computed(() => props.card.enemyIds.map((id) => getEnemy(id)).fil
   min-width: 0;
 }
 .bp-attack {
-  display: block;
-  margin-bottom: 0.45rem;
+  min-width: 0;
 }
 .bp-enemies {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem 0.7rem;
+  gap: 0.4rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -86,18 +123,31 @@ const enemies = computed(() => props.card.enemyIds.map((id) => getEnemy(id)).fil
 .bp-enemy {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
   font-size: 0.85rem;
   color: var(--muted);
 }
 .bp-enemy img {
-  width: 45px;
-  height: auto;
-  aspect-ratio: 1;
+  flex: none;
+  width: 36px;
+  height: 36px;
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid var(--line);
   background: var(--bg);
+}
+.bp-more {
+  margin-top: 0.4rem;
+  padding: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--career-color, var(--accent));
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.bp-more:hover {
+  text-decoration: underline;
 }
 .bp-remove {
   position: absolute;

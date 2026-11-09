@@ -64,17 +64,19 @@ export function validateBuildData({ heroId, careerId, data }) {
     }
   }
 
-  // Two weapon slots, stored under the keys 'melee' and 'ranged'. The second one holds a second MELEE
-  // weapon for the careers marked `"secondWeaponType": "melee"` in heroes.json (no ranged weapon).
-  const slotTypes = { melee: 'melee', ranged: career.secondWeaponType ?? 'ranged' }
+  // Two weapon slots, stored under the keys 'melee' and 'ranged'. What the second one accepts is set by
+  // `"secondWeaponTypes"` in heroes.json: ["melee"] (Grail Knight, Warrior Priest: a second melee weapon),
+  // ["melee", "ranged"] (Slayer: melee weapon or throwing axes). Default: ["ranged"].
+  const slotTypes = { melee: ['melee'], ranged: career.secondWeaponTypes ?? ['ranged'] }
   for (const [slot, sel] of Object.entries(data.weapons)) {
     if (!has(slotTypes, slot)) return `Unknown weapon slot: ${slot}`
-    const type = slotTypes[slot]
+    let type = slotTypes[slot][0] // without a weapon: the first accepted kind
     if (sel.weaponId) {
-      const weapon = weapons.find((w) => w.id === sel.weaponId && w.heroId === heroId)
-      if (!weapon || weapon.type !== type || !weapon.availableFor.includes(careerId)) {
+      const weapon = weapons.find((w) => w.id === sel.weaponId && w.heroId === heroId && slotTypes[slot].includes(w.type))
+      if (!weapon || !weapon.availableFor.includes(careerId)) {
         return `${slot}: this weapon is not available for this career`
       }
+      type = weapon.type // traits and properties depend on the kind of weapon
     }
     const err = checkOptions(sel, weaponOptions[type], slot)
     if (err) return err

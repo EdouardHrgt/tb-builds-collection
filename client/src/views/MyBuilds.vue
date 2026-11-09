@@ -4,6 +4,7 @@ import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import BuildCard from '../components/BuildCard.vue'
 import FollowButton from '../components/FollowButton.vue'
+import CardCarousel from '../components/CardCarousel.vue'
 
 const auth = useAuth()
 
@@ -19,10 +20,11 @@ const settingError = ref('')
 
 onMounted(async () => {
   try {
-    ;[builds.value, profile.value, bookmarks.value] = await Promise.all([
+    ;[builds.value, profile.value, bookmarks.value, following.value] = await Promise.all([
       api('/me/builds'),
       api(`/users/${encodeURIComponent(auth.user.username)}`),
       api('/me/bookmarks'),
+      api('/me/following').then((res) => res.items),
     ])
   } catch (e) {
     error.value = e.message
@@ -31,22 +33,12 @@ onMounted(async () => {
   }
 })
 
-// The list of followed people is only fetched the first time the settings are opened
-async function toggleSettings() {
-  settingsOpen.value = !settingsOpen.value
-  if (!settingsOpen.value || following.value !== null) return
-  try {
-    following.value = (await api('/me/following')).items
-  } catch (e) {
-    settingError.value = e.message
-    following.value = []
-  }
-}
+const toggleSettings = () => (settingsOpen.value = !settingsOpen.value)
 
-async function setShowCount(show) {
+async function setHideCount(hide) {
   settingError.value = ''
   try {
-    const res = await api('/me/settings', { method: 'PATCH', body: { hideFollowers: !show } })
+    const res = await api('/me/settings', { method: 'PATCH', body: { hideFollowers: hide } })
     profile.value.hideFollowers = res.hideFollowers
   } catch (e) {
     settingError.value = e.message
@@ -70,13 +62,13 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   <section class="align-section">
     <header class="head">
       <div>
-        <h1>My builds</h1>
-        <p v-if="profile && profile.followerCount !== null" class="meta">
-          <RouterLink :to="`/u/${profile.username}`" title="How others see your profile">{{
-            profile.username
+        <h1>
+          <RouterLink :to="`/u/${auth.user.username}`" title="How others see your profile">{{
+            auth.user.username
           }}</RouterLink>
-          · <span data-test="follower-count">{{ plural(profile.followerCount, 'follower') }}</span>
-          <span v-if="profile.hideFollowers"> (only visible to you)</span>
+        </h1>
+        <p v-if="profile && profile.followerCount !== null" class="meta">
+          <span data-test="follower-count">{{ plural(profile.followerCount, 'follower') }}</span>
         </p>
       </div>
 
@@ -105,14 +97,14 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
       <label v-if="profile" class="check">
         <input
           type="checkbox"
-          :checked="!profile.hideFollowers"
-          @change="setShowCount($event.target.checked)"
+          :checked="profile.hideFollowers"
+          @change="setHideCount($event.target.checked)"
         />
-        Show my follower count on my public profile
+        Hide my follower count on my public profile
       </label>
       <p v-if="settingError" class="error" role="alert">{{ settingError }}</p>
 
-      <h2>People I follow <span class="meta">(only visible to you)</span></h2>
+      <h2>People I follow</h2>
       <p v-if="following === null" class="meta">Loading…</p>
       <p v-else-if="!following.length" class="meta">
         You don't follow anyone yet. Open the profile of a build author to follow them.
@@ -126,29 +118,48 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
       </ul>
     </div>
 
+    <!-- People I follow: name, number of builds and of followers -->
+    <section v-if="!loading && !error && following?.length" class="block" aria-labelledby="following-title">
+      <h2 id="following-title" class="list-title">From people I follow</h2>
+      <CardCarousel label="From people I follow" item-width="220px">
+        <RouterLink v-for="u in following" :key="u.id" :to="`/u/${u.username}`" class="user-card">
+          <strong class="user-name" :title="u.username">{{ u.username }}</strong>
+          <span class="meta">{{ plural(u.buildCount, 'build') }}</span>
+          <span v-if="u.followerCount !== null" class="meta">{{ plural(u.followerCount, 'follower') }}</span>
+        </RouterLink>
+      </CardCarousel>
+    </section>
+
     <p v-if="error" class="error">{{ error }}</p>
     <p v-else-if="loading">Loading…</p>
-    <p v-else-if="!builds.length">
-      You don't have any builds yet. <RouterLink to="/builds/new">Create your first one</RouterLink>
-    </p>
-    <div v-else class="grid">
-      <BuildCard v-for="b in builds" :key="b.id" :build="b" />
-    </div>
+    <!-- Two lists side by side: my builds (3 columns) and my bookmarks (1 column, on the right) -->
+    <div v-else class="lists">
+      <section aria-labelledby="builds-title">
+        <h2 id="builds-title" class="list-title">My builds</h2>
+        <p v-if="!builds.length">
+          You don't have any builds yet.
+          <RouterLink to="/builds/new">Create your first one</RouterLink>
+        </p>
+        <div v-else class="cards builds-cards">
+          <BuildCard v-for="b in builds" :key="b.id" :build="b" />
+        </div>
+      </section>
 
-    <section v-if="!loading && !error" aria-labelledby="bookmarks-title">
-      <h2 id="bookmarks-title">Bookmarked builds <span class="meta">(only visible to you)</span></h2>
-      <p v-if="!bookmarks.length" class="meta">
-        Nothing here yet. Use the bookmark icon on a build to find it again easily.
-      </p>
-      <div v-else class="grid">
-        <BuildCard
-          v-for="b in bookmarks"
-          :key="b.id"
-          :build="b"
-          @bookmarked="(res) => onBookmarkChanged(b, res)"
-        />
-      </div>
-    </section>
+      <section class="bookmarks" aria-labelledby="bookmarks-title">
+        <h2 id="bookmarks-title" class="list-title">Bookmarked builds</h2>
+        <p v-if="!bookmarks.length" class="meta">
+          Nothing here yet. Use the bookmark icon on a build to find it again easily.
+        </p>
+        <div v-else class="cards bookmark-cards">
+          <BuildCard
+            v-for="b in bookmarks"
+            :key="b.id"
+            :build="b"
+            @bookmarked="(res) => onBookmarkChanged(b, res)"
+          />
+        </div>
+      </section>
+    </div>
   </section>
 </template>
 
@@ -161,6 +172,10 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
 }
 .head h1 {
   margin-bottom: 0.3rem;
+}
+.head h1 a {
+  color: inherit;
+  text-decoration: none;
 }
 .head .meta {
   margin: 0 0 1rem;
@@ -190,6 +205,72 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 8px;
+}
+.settings h2 {
+  letter-spacing: 0.5px;
+}
+.block {
+  margin-bottom: 1.5rem;
+}
+.user-card {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.8rem 1rem;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  transition: border-color 0.2s;
+}
+.user-card:hover {
+  border-color: var(--accent);
+}
+.user-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.user-card .meta {
+  margin: 0;
+  color: var(--muted);
+}
+/* Both list titles share one style (smaller than the page title) */
+.list-title {
+  margin: 0 0 0.8rem;
+}
+.lists {
+  display: grid;
+  gap: 1.5rem 2rem;
+  align-items: start;
+}
+.bookmarks {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line); /* stacked layout: a line above the bookmarks */
+}
+.cards {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+/* Wide screens: builds on the left (3 columns), bookmarks alone on the right (1 column) */
+@media (min-width: 1100px) {
+  .lists {
+    grid-template-columns: 3fr 1fr;
+  }
+  .builds-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .bookmark-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* side by side: a vertical line between the two lists instead */
+  .bookmarks {
+    padding-top: 0;
+    padding-left: 2rem;
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
 }
 .following {
   display: grid;

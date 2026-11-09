@@ -1,7 +1,10 @@
 <script setup>
 import { ref, onMounted, onUpdated, onBeforeUnmount } from 'vue'
 
-defineProps({ label: { type: String, default: 'Builds' } }) // accessible name of the carousel
+defineProps({
+  label: { type: String, default: 'Builds' }, // accessible name of the carousel
+  itemWidth: { type: String, default: '340px' }, // width of one card
+})
 
 const track = ref(null)
 const canPrev = ref(false)
@@ -34,8 +37,8 @@ onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
-  <div class="carousel" role="region" :aria-label="label">
-    <button type="button" class="arrow prev" :disabled="!canPrev" aria-label="Previous builds" @click="go(-1)">
+  <div class="carousel" role="region" :aria-label="label" :style="{ '--item-w': itemWidth }">
+    <button type="button" class="arrow prev" :disabled="!canPrev" aria-label="Previous" @click="go(-1)">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
         <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
@@ -45,7 +48,7 @@ onBeforeUnmount(() => observer?.disconnect())
       <slot />
     </div>
 
-    <button type="button" class="arrow next" :disabled="!canNext" aria-label="Next builds" @click="go(1)">
+    <button type="button" class="arrow next" :disabled="!canNext" aria-label="Next" @click="go(1)">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
         <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
@@ -69,7 +72,7 @@ onBeforeUnmount(() => observer?.disconnect())
   display: none;
 }
 .track > :slotted(*) {
-  flex: 0 0 min(340px, 85%);
+  flex: 0 0 min(var(--item-w), 85%);
   scroll-snap-align: start;
 }
 

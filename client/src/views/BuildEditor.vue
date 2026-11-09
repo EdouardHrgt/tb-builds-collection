@@ -14,10 +14,10 @@ const {
   getHero,
   getCareer,
   getCareerTalents,
-  getAvailableWeapons,
   getWeaponSlots,
+  getSlotWeapons,
+  getSlotOptions,
   isTraitAllowed,
-  getWeaponOptions,
   TIERS,
   WEAPON_SLOTS,
   EQUIPMENT_SLOTS,
@@ -71,14 +71,16 @@ const careerStyle = computed(() => {
   return color ? { '--career-color': color } : {}
 })
 const talentTiers = computed(() => getCareerTalents(form.value.heroId, form.value.careerId))
-// The two weapon slots of the career: melee + ranged, or melee + a second melee weapon
-// (Grail Knight, Slayer, Warrior Priest). See getWeaponSlots in useGameData.js.
+// The two weapon slots of the career: melee + ranged, melee + a second melee weapon (Grail Knight,
+// Warrior Priest) or melee + a second weapon that is melee or throwing axes (Slayer).
+// See getWeaponSlots in useGameData.js.
 const weaponSlots = computed(() => getWeaponSlots(form.value.heroId, form.value.careerId))
-const availableWeapons = (slot) =>
-  getAvailableWeapons(form.value.heroId, form.value.careerId, slot.type)
+const availableWeapons = (slot) => getSlotWeapons(form.value.heroId, form.value.careerId, slot)
+// Traits / properties of a slot depend on the kind of weapon picked (melee or ranged)
+const slotOptions = (slot) => getSlotOptions(form.value.heroId, slot, form.value.weapons[slot.key].weaponId)
 // Traits offered for a slot: the ones that exist on the picked weapon
 const traitsFor = (slot) =>
-  getWeaponOptions(slot.type).traits.filter((t) => isTraitAllowed(t, form.value.weapons[slot.key].weaponId))
+  slotOptions(slot).traits.filter((t) => isTraitAllowed(t, form.value.weapons[slot.key].weaponId))
 
 // Keeps the weapon slots consistent after ANY change (new career, new weapon): a weapon the career
 // cannot use is removed, and so are the trait / properties that do not exist for this kind of
@@ -86,8 +88,8 @@ const traitsFor = (slot) =>
 function sanitizeWeapons() {
   for (const slot of weaponSlots.value) {
     const sel = form.value.weapons[slot.key]
-    const pool = getWeaponOptions(slot.type)
     if (sel.weaponId && !availableWeapons(slot).some((w) => w.id === sel.weaponId)) sel.weaponId = ''
+    const pool = slotOptions(slot) // after the weapon check: it may have just been removed
     const trait = pool.traits.find((t) => t.id === sel.traitId)
     if (sel.traitId && (!trait || !isTraitAllowed(trait, sel.weaponId))) sel.traitId = ''
     sel.propertyIds.forEach((id, i) => {
@@ -282,36 +284,42 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
         <TalentGrid v-model="form.talents" :tiers="talentTiers" />
       </fieldset>
 
-      <fieldset>
-        <legend>Equipment</legend>
-        <div class="gear-grid">
-          <GearSlot
-            v-for="slot in weaponSlots"
-            :key="slot.key"
-            v-model="form.weapons[slot.key]"
-            :label="slot.label"
-            :weapons="availableWeapons(slot)"
-            :traits="traitsFor(slot)"
-            :properties="getWeaponOptions(slot.type).properties" />
-          <GearSlot
-            v-for="slot in EQUIPMENT_SLOTS"
-            :key="slot.id"
-            v-model="form.equipment[slot.id]"
-            :label="slot.name"
-            :slot-icon="slot.icon"
-            :traits="slot.traits"
-            :properties="slot.properties" />
-        </div>
-      </fieldset>
+      <!-- Under the talents: ONE column with all the equipment slots on the left,
+           the recommended teammates on its right. A slot opens its choices sideways. -->
+      <div class="gear-layout">
+        <fieldset>
+          <legend>Equipment</legend>
+          <div class="gear-column">
+            <GearSlot
+              v-for="slot in weaponSlots"
+              :key="slot.key"
+              v-model="form.weapons[slot.key]"
+              side
+              :label="slot.label"
+              :weapons="availableWeapons(slot)"
+              :traits="traitsFor(slot)"
+              :properties="slotOptions(slot).properties" />
+            <GearSlot
+              v-for="slot in EQUIPMENT_SLOTS"
+              :key="slot.id"
+              v-model="form.equipment[slot.id]"
+              side
+              :label="slot.name"
+              :slot-icon="slot.icon"
+              :traits="slot.traits"
+              :properties="slot.properties" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Ideal team</legend>
+          <TeammatePicker v-model="form.teammates" :hero-id="form.heroId" />
+        </fieldset>
+      </div>
 
       <fieldset>
         <legend>Breakpoints</legend>
         <BreakpointBuilder v-model="form.breakpoints" />
-      </fieldset>
-
-      <fieldset>
-        <legend>Recommended teammates</legend>
-        <TeammatePicker v-model="form.teammates" :hero-id="form.heroId" />
       </fieldset>
 
       <div class="measure">
@@ -414,11 +422,31 @@ section {
 .saved h2 {
   margin-top: 0;
 }
-.gear-grid {
+/* Equipment column on the left, teammates on the right (one column under 1024px) */
+.gear-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+.gear-layout fieldset {
+  min-width: 0;
+}
+.gear-column {
   display: grid;
   gap: 0.8rem;
-  align-items: start;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+@media (max-width: 1023px) {
+  .gear-layout {
+    grid-template-columns: 1fr;
+  }
+}
+/* What the user types uses the normal text font, not the title font of the label */
+.description-label textarea {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: normal;
 }
 legend,
 .description-label {

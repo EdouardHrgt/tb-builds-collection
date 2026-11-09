@@ -133,6 +133,7 @@ function pick(row, position) {
   border-color: var(--career-color, var(--accent));
 }
 .talent:disabled {
+  opacity: 0.8; /* read-only view: cancel the global button:disabled fade (style.css) */
   cursor: default;
   color: var(--text);
 }

@@ -82,7 +82,7 @@ usersRouter.delete('/users/:username/follow', requireAuth, followLimiter, (req, 
 usersRouter.get('/me/following', requireAuth, (req, res) => {
   const rows = db
     .prepare(
-      `SELECT u.id, u.username, f.created_at AS followed_at,
+      `SELECT u.id, u.username, u.hide_followers, f.created_at AS followed_at,
               (SELECT COUNT(*) FROM builds b WHERE b.user_id = u.id) AS build_count
        FROM follows f JOIN users u ON u.id = f.followed_id
        WHERE f.follower_id = ?
@@ -95,6 +95,7 @@ usersRouter.get('/me/following', requireAuth, (req, res) => {
       username: r.username,
       followedAt: r.followed_at,
       buildCount: r.build_count,
+      followerCount: visibleCount(r, req.userId), // null when this user hides his follower count
     })),
   })
 })

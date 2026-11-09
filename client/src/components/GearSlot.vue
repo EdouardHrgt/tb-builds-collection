@@ -8,6 +8,9 @@ const props = defineProps({
   traits: { type: Array, required: true },
   properties: { type: Array, required: true },
   readonly: { type: Boolean, default: false },
+  // The choices open on the RIGHT of the slot (a floating panel) instead of below it.
+  // Only from 1024px wide: on smaller screens there is no room on the side, so it opens below.
+  side: { type: Boolean, default: false },
 })
 // { weaponId?, traitId, propertyIds: [a, b] } ('' or missing = nothing picked)
 const model = defineModel({ type: Object, required: true })
@@ -70,7 +73,7 @@ function onImageError(e) {
 </script>
 
 <template>
-  <div ref="root" class="gear" :class="{ open }" @focusout="onFocusOut" @keydown.esc="onEscape">
+  <div ref="root" class="gear" :class="{ open, side }" @focusout="onFocusOut" @keydown.esc="onEscape">
     <component
       :is="readonly ? 'div' : 'button'"
       ref="head"
@@ -141,12 +144,29 @@ function onImageError(e) {
 
 <style scoped>
 .gear {
+  position: relative;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 6px;
 }
 .gear.open {
   border-color: var(--accent);
+}
+/* Sideways panel: it floats next to the slot (over what is on its right) and opens at the same height */
+@media (min-width: 1024px) {
+  .gear.side.open {
+    z-index: 20;
+  }
+  .gear.side .gear-panel {
+    position: absolute;
+    top: -1px;
+    left: calc(100% + 0.6rem);
+    width: 300px;
+    background: var(--panel);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.55);
+  }
 }
 .gear-head {
   display: flex;
@@ -185,6 +205,7 @@ button.gear-head {
   flex-direction: column;
   min-width: 0;
 }
+.gear-summary strong { margin-bottom: 0.3rem; }
 .line {
   font-size: 0.92rem;
 }

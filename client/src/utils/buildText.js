@@ -22,8 +22,8 @@ export function buildToText(build, gd) {
 
   for (const slot of gd.getWeaponSlots(build.heroId, build.careerId)) {
     const sel = data.weapons?.[slot.key] ?? {}
-    const options = gd.getWeaponOptions(slot.type)
-    const weaponName = nameOf(gd.getHeroWeapons(build.heroId, slot.type), sel.weaponId)
+    const options = gd.getSlotOptions(build.heroId, slot, sel.weaponId)
+    const weaponName = nameOf(gd.getSlotWeapons(build.heroId, build.careerId, slot), sel.weaponId)
     lines.push(gear(weaponName, sel, options.traits, options.properties))
   }
 

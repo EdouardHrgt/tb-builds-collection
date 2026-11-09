@@ -89,7 +89,8 @@
           "flamestormstaff",
           "soulstealerstaff",
           "moonfirebow",
-          "trollhammertorpedo"
+          "trollhammertorpedo",
+          "deepwoodstaff"
         ]
       },
       {
@@ -118,7 +119,8 @@
           "flamestormstaff",
           "soulstealerstaff",
           "moonfirebow",
-          "trollhammertorpedo"
+          "trollhammertorpedo",
+          "deepwoodstaff"
         ]
       },
       {
@@ -133,7 +135,10 @@
           "conflagrationstaff",
           "coruscationstaff",
           "flamestormstaff",
-          "soulstealerstaff"
+          "soulstealerstaff",
+          "drakegun",
+          "drakefirepistols",
+          "deepwoodstaff"
         ]
       },
       {
@@ -148,7 +153,10 @@
           "conflagrationstaff",
           "coruscationstaff",
           "flamestormstaff",
-          "soulstealerstaff"
+          "soulstealerstaff",
+          "drakegun",
+          "drakefirepistols",
+          "deepwoodstaff"
         ]
       },
       {

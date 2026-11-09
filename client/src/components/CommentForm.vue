@@ -12,7 +12,7 @@ const props = defineProps({
 const emit = defineEmits(['cancel'])
 
 // Keep in sync with BODY_MAX in the server (routes/comments.js)
-const MAX_LENGTH = 1000
+const MAX_LENGTH = 200
 
 const text = ref(props.initial)
 const busy = ref(false)

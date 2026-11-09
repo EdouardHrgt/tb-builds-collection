@@ -20,7 +20,7 @@ const {
   careerName,
   getCareerTalents,
   getHeroWeapons,
-  getWeaponOptions,
+  getSlotOptions,
   getWeaponSlots,
   EQUIPMENT_SLOTS,
 } = gameData
@@ -40,8 +40,11 @@ const careerStyle = computed(() => {
 })
 const career = computed(() => build.value && getCareer(build.value.heroId, build.value.careerId))
 const talentTiers = computed(() => getCareerTalents(build.value.heroId, build.value.careerId))
-// melee + ranged, or two melee weapons for Grail Knight / Slayer / Warrior Priest
+// melee + ranged, or a second melee weapon for Grail Knight / Slayer / Warrior Priest
 const weaponSlots = computed(() => getWeaponSlots(build.value.heroId, build.value.careerId))
+// Read only: every weapon of the hero that fits the slot, so a saved weapon is always found
+const slotWeapons = (slot) => slot.types.flatMap((type) => getHeroWeapons(build.value.heroId, type))
+const slotOptions = (slot) => getSlotOptions(build.value.heroId, slot, weaponSel(slot.key).weaponId)
 
 // "Share" copies the address of the page, "Export" a text version of the build.
 // The button shows a short confirmation (or the failure) for 2 seconds.
@@ -109,6 +112,11 @@ async function remove() {
             build.author
           }}</RouterLink>
         </p>
+        <!-- Owner only: Edit / Delete, right under the title -->
+        <div v-if="isOwner" class="owner-actions">
+          <RouterLink :to="`/builds/${build.id}/edit`" class="btn">Edit</RouterLink>
+          <button type="button" class="btn danger" @click="remove">Delete</button>
+        </div>
         <p v-if="build.description" class="desc">{{ build.description }}</p>
       </div>
 
@@ -121,11 +129,6 @@ async function remove() {
           class="head-portrait"
           width="120"
           height="147" />
-        <!-- Owner only: Edit / Delete on one line, above Share / Export -->
-        <div v-if="isOwner" class="owner-actions">
-          <RouterLink :to="`/builds/${build.id}/edit`" class="btn">Edit</RouterLink>
-          <button type="button" class="btn danger" @click="remove">Delete</button>
-        </div>
         <div class="share-actions">
           <button type="button" class="btn" @click="share">{{ shareNotice || 'Share the build' }}</button>
           <button v-if="isCurrentFormat" type="button" class="btn" @click="exportBuild">
@@ -142,52 +145,59 @@ async function remove() {
       <h2>Talents</h2>
       <TalentGrid :model-value="build.data.talents" :tiers="talentTiers" readonly />
 
-      <h2>Equipment</h2>
-      <div class="gear-grid">
-        <GearSlot
-          v-for="slot in weaponSlots"
-          :key="slot.key"
-          :model-value="weaponSel(slot.key)"
-          :label="slot.label"
-          :weapons="getHeroWeapons(build.heroId, slot.type)"
-          :traits="getWeaponOptions(slot.type).traits"
-          :properties="getWeaponOptions(slot.type).properties"
-          readonly />
-        <GearSlot
-          v-for="slot in EQUIPMENT_SLOTS"
-          :key="slot.id"
-          :model-value="equipmentSel(slot.id)"
-          :label="slot.name"
-          :slot-icon="slot.icon"
-          :traits="slot.traits"
-          :properties="slot.properties"
-          readonly />
+      <!-- Equipment on the left, breakpoints in the middle, synergies on the far right -->
+      <div class="gear-layout">
+        <section class="area-gear">
+          <h2>Equipment</h2>
+          <div class="gear-column">
+            <GearSlot
+              v-for="slot in weaponSlots"
+              :key="slot.key"
+              :model-value="weaponSel(slot.key)"
+              :label="slot.label"
+              :weapons="slotWeapons(slot)"
+              :traits="slotOptions(slot).traits"
+              :properties="slotOptions(slot).properties"
+              readonly />
+            <GearSlot
+              v-for="slot in EQUIPMENT_SLOTS"
+              :key="slot.id"
+              :model-value="equipmentSel(slot.id)"
+              :label="slot.name"
+              :slot-icon="slot.icon"
+              :traits="slot.traits"
+              :properties="slot.properties"
+              readonly />
+          </div>
+        </section>
+
+        <section v-if="build.data.breakpoints?.length" class="area-bp">
+          <h2>Breakpoints</h2>
+          <div class="bp-list">
+            <BreakpointCard
+              v-for="c in build.data.breakpoints"
+              :key="`${c.type}-${c.attack}`"
+              :card="c" />
+          </div>
+        </section>
+
+        <section v-if="build.data.teammates?.length" class="area-team">
+          <h2>Ideal team</h2>
+          <ul class="teammates">
+            <li
+              v-for="t in build.data.teammates"
+              :key="`${t.heroId}-${t.careerId}`"
+              :title="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`">
+              <img
+                v-if="getCareer(t.heroId, t.careerId)?.icon"
+                :src="getCareer(t.heroId, t.careerId).icon"
+                :alt="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`"
+                width="64"
+                height="79" />
+            </li>
+          </ul>
+        </section>
       </div>
-      <template v-if="build.data.breakpoints?.length">
-        <h2>Breakpoints</h2>
-        <div class="bp-list">
-          <BreakpointCard
-            v-for="c in build.data.breakpoints"
-            :key="`${c.type}-${c.attack}`"
-            :card="c" />
-        </div>
-      </template>
-      <template v-if="build.data.teammates?.length">
-        <h2>Recommended teammates</h2>
-        <ul class="teammates">
-          <li
-            v-for="t in build.data.teammates"
-            :key="`${t.heroId}-${t.careerId}`"
-            :title="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`">
-            <img
-              v-if="getCareer(t.heroId, t.careerId)?.icon"
-              :src="getCareer(t.heroId, t.careerId).icon"
-              :alt="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`"
-              width="64"
-              height="79" />
-          </li>
-        </ul>
-      </template>
     </template>
     <CommentSection :build-id="build.id" :build-author-id="build.authorId" />
   </article>
@@ -228,21 +238,27 @@ async function remove() {
   aspect-ratio: 154 / 189;
   object-fit: cover;
   background: var(--bg);
-  border: 2px solid var(--career-color, var(--line));
   border-radius: 8px;
 }
-/* Row 1 (owner only): Edit + Delete side by side. Then Share, and Export below it. */
+/* Edit + Delete side by side, under the title (owner only) */
 .owner-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 0.5rem;
+  margin: 0 0 0.8rem;
 }
+/* Share, and Export below it: gold text, no background, thin border */
 .share-actions {
   display: grid;
   gap: 0.5rem;
 }
-.head-side .btn {
+.share-actions .btn {
   text-align: center;
+  color: #fff;
+  background: transparent;
+  border: 1px solid var(--line);
+}
+.share-actions .btn:hover {
+  border-color: var(--accent);
 }
 @media (max-width: 700px) {
   .build-head {
@@ -255,24 +271,56 @@ async function remove() {
 .author {
   color: var(--accent);
 }
-.gear-grid {
+/* Three columns from 1280px: equipment | breakpoints | ideal team (far right).
+   1024-1279px: equipment | breakpoints, ideal team below. Under 1024px: one column. */
+.gear-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 2rem;
+  align-items: start;
+}
+.area-gear,
+.area-bp,
+.area-team {
+  min-width: 0;
+}
+.gear-column {
   display: grid;
   gap: 0.8rem;
-  align-items: start;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+@media (min-width: 1024px) {
+  .gear-layout {
+    grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+    grid-template-areas:
+      'gear bp'
+      'gear team';
+  }
+  .area-gear { grid-area: gear; }
+  .area-bp { grid-area: bp; }
+  .area-team { grid-area: team; }
+}
+@media (min-width: 1280px) {
+  .gear-layout {
+    grid-template-columns: minmax(300px, 380px) minmax(0, 1fr) auto;
+    grid-template-areas: 'gear bp team';
+  }
 }
 .bp-list {
   display: grid;
   gap: 0.8rem;
-  align-items: start;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  align-items: start; /* an opened card does not stretch its neighbours */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 .teammates {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: 0.5rem;
+  width: fit-content;
+  padding: 0.7rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
   margin: 0;
-  padding: 0;
   list-style: none;
 }
 .teammates img {
@@ -281,8 +329,7 @@ async function remove() {
   height: auto; /* the height comes from aspect-ratio (source images are 154x189) */
   aspect-ratio: 154 / 189;
   object-fit: cover;
-  border: 2px solid var(--line);
   border-radius: 8px;
-  background: var(--bg);
+  background: transparent; /* same background as the section frame */
 }
 </style>

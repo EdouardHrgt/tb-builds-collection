@@ -58,10 +58,11 @@ function toggle(heroId, careerId) {
 <style scoped>
 .tm-picker {
   display: grid;
-  gap: 0.8rem;
+  gap: 0.5rem; /* same space between the rows as between the portraits */
 }
 .tm-picker p {
   margin: 0;
+  color: var(--muted); /* the instruction; the counter below keeps the normal color */
 }
 .tm-row {
   display: flex;
@@ -71,6 +72,7 @@ function toggle(heroId, careerId) {
 }
 .tm-count {
   margin-left: 0.5rem;
+  color: var(--text);
   font-weight: 600;
 }
 .tm-careers {
