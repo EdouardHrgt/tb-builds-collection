@@ -35,7 +35,8 @@ async function submit() {
   <div v-if="message">
     <p>{{ message }}</p>
     <p class="meta">
-      The link is valid for 1 hour. Check your spam folder if you don't see the email.
+      The link is valid for 1 hour. Check your spam folder if you don't see the email, and wait 5 minutes before
+      asking for another one.
     </p>
     <RouterLink to="/login">Back to log in</RouterLink>
   </div>

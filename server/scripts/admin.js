@@ -4,6 +4,7 @@
 // Commands:
 //   users [text]            list users (optionally filtered by username / email)
 //   user <name|id>          details of one user
+//   export <user>           writes all the data of an account to exports/<name>-<date>.json (GDPR access request)
 //   reset-password <user>   sets a new random password and prints it (the user is logged out everywhere)
 //   logout <user>           logs the user out of every device
 //   delete-user <user>      deletes the account AND everything it owns (builds, comments, likes, follows)
@@ -13,6 +14,8 @@
 //   delete-comment <id>     deletes a comment (and the replies under it)
 // Destructive commands ask for confirmation; --yes skips the question (scripts).
 import crypto from 'node:crypto'
+import fs from 'node:fs'
+import path from 'node:path'
 import readline from 'node:readline/promises'
 import bcrypt from 'bcryptjs'
 import { db } from '../src/db.js'
@@ -82,6 +85,41 @@ switch (command) {
       comments: count('SELECT COUNT(*) AS n FROM comments WHERE user_id = ?', u.id),
       followers: count('SELECT COUNT(*) AS n FROM follows WHERE followed_id = ?', u.id),
     })
+    break
+  }
+  case 'export': {
+    // Everything the site holds about the account, except the password hash and the session counter.
+    const u = findUser(target)
+    const all = (sql) => db.prepare(sql).all(u.id)
+    const data = {
+      exportedAt: new Date().toISOString(),
+      account: {
+        id: u.id,
+        username: u.username,
+        email: u.email,
+        avatar: u.avatar,
+        hideFollowers: !!u.hide_followers,
+        createdAt: u.created_at,
+      },
+      builds: all(
+        'SELECT id, title, description, hero_id, career_id, data, created_at, updated_at FROM builds WHERE user_id = ? ORDER BY id',
+      ).map((b) => ({ ...b, data: JSON.parse(b.data) })),
+      comments: all('SELECT id, build_id, parent_id, body, created_at FROM comments WHERE user_id = ? ORDER BY id'),
+      likedBuilds: all('SELECT build_id, created_at FROM likes WHERE user_id = ? ORDER BY created_at'),
+      bookmarkedBuilds: all('SELECT build_id, created_at FROM bookmarks WHERE user_id = ? ORDER BY created_at'),
+      following: all(
+        'SELECT u2.username, f.created_at FROM follows f JOIN users u2 ON u2.id = f.followed_id WHERE f.follower_id = ? ORDER BY f.created_at',
+      ),
+      followers: all(
+        'SELECT u2.username, f.created_at FROM follows f JOIN users u2 ON u2.id = f.follower_id WHERE f.followed_id = ? ORDER BY f.created_at',
+      ),
+    }
+    const dir = process.env.EXPORT_DIR || './exports'
+    fs.mkdirSync(dir, { recursive: true, mode: 0o700 })
+    const file = path.join(dir, `${u.username}-${new Date().toISOString().slice(0, 10)}.json`)
+    fs.writeFileSync(file, JSON.stringify(data, null, 2), { mode: 0o600 })
+    console.log(`Export written: ${file}`)
+    console.log('It contains personal data: send it to the person privately, then delete the file.')
     break
   }
   case 'reset-password': {
@@ -161,7 +199,7 @@ switch (command) {
   }
   default:
     console.log(
-      'Commands: users [text] | user <u> | reset-password <u> | logout <u> | delete-user <u> | builds <u> | delete-build <id> | comments <build id> | delete-comment <id>   (add --yes to skip confirmations)',
+      'Commands: users [text] | user <u> | export <u> | reset-password <u> | logout <u> | delete-user <u> | builds <u> | delete-build <id> | comments <build id> | delete-comment <id>   (add --yes to skip confirmations)',
     )
 }
 db.close()

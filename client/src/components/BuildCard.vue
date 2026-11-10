@@ -147,6 +147,7 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
   overflow: hidden;
   overflow-wrap: anywhere;
   line-height: 1.25;
+  letter-spacing: 0.7px;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }

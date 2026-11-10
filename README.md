@@ -5,6 +5,8 @@ comments, bookmarks and follows.
 
 ## Run in development (2 terminals)
 
+Requires Node.js 20.6 or newer (22 recommended) and npm.
+
 ```bash
 # Terminal 1: API (http://localhost:3000)
 cd server && cp .env.example .env && npm install && npm run dev

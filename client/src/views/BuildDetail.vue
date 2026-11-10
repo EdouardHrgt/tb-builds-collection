@@ -145,13 +145,13 @@ async function remove() {
           width="120"
           height="147" />
         <div class="share-actions">
-          <button type="button" class="btn" @click="share">{{ shareNotice || 'Share the build' }}</button>
+          <button type="button" class="btn" @click="share">{{ shareNotice || 'Share' }}</button>
           <button v-if="isCurrentFormat" type="button" class="btn" @click="exportBuild">
-            {{ exportNotice || 'Export the build' }}
+            {{ exportNotice || 'Export' }}
           </button>
           <!-- Opens the editor with a copy of this build (anyone can copy a build; it is saved as a new build of yours) -->
           <RouterLink v-if="isCurrentFormat" :to="`/builds/new?from=${build.id}`" class="btn">
-            Duplicate the build
+            Duplicate
           </RouterLink>
         </div>
       </aside>
@@ -251,6 +251,7 @@ async function remove() {
 .build-head h1 {
   margin: 0 0 0.5rem;
   overflow-wrap: anywhere;
+  letter-spacing: 0.7px;
 }
 .head-side {
   display: grid;

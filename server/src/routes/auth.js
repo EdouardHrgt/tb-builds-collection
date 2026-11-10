@@ -122,6 +122,11 @@ const forgotLimiter = rateLimit({
   message: { error: 'Too many requests, please try again later' },
 })
 
+// Limits on the emails themselves, besides the per-address limiter above (an attacker can change address, and a
+// victim's inbox or the email quota must not be flooded). Both use the password_resets table: one row = one email sent.
+const RESET_COOLDOWN = "-5 minutes" // at most one reset email per account every 5 minutes
+const RESET_MAILS_PER_HOUR = 30 // and at most 30 for the whole site per hour
+
 // Always answers the same message, whether or not an account matches (no account enumeration).
 authRouter.post('/forgot-password', forgotLimiter, (req, res) => {
   const { identifier } = forgotSchema.parse(req.body)
@@ -129,7 +134,14 @@ authRouter.post('/forgot-password', forgotLimiter, (req, res) => {
   db.prepare("DELETE FROM password_resets WHERE expires_at <= datetime('now')").run()
 
   const user = findUser(identifier)
-  if (user) {
+  // Over a limit: nothing is sent, and the answer stays the same (it must not reveal anything)
+  const tooSoon =
+    user &&
+    db.prepare("SELECT 1 FROM password_resets WHERE user_id = ? AND created_at > datetime('now', ?)").get(user.id, RESET_COOLDOWN)
+  const sentThisHour = db
+    .prepare("SELECT COUNT(*) AS n FROM password_resets WHERE created_at > datetime('now', '-1 hour')")
+    .get().n
+  if (user && !tooSoon && sentThisHour < RESET_MAILS_PER_HOUR) {
     const token = crypto.randomBytes(32).toString('hex')
     db.prepare('DELETE FROM password_resets WHERE user_id = ?').run(user.id) // one active link at a time
     db.prepare(
@@ -139,7 +151,7 @@ authRouter.post('/forgot-password', forgotLimiter, (req, res) => {
     // Not awaited: the response time must not reveal whether the account exists.
     sendMail({
       to: user.email,
-      subject: 'Reset your TB builds collection password',
+      subject: "Reset your Sigmar's Arsenal password",
       text: `Hi ${user.username},
 
 Someone asked to reset the password of your account. Use the link below to choose a new one (valid for 1 hour):
@@ -255,7 +267,7 @@ authRouter.post(
       // Warns the OLD address (someone with a stolen session could be changing it)
       sendMail({
         to: user.email,
-        subject: 'Your TB builds collection email was changed',
+        subject: "Your Sigmar's Arsenal email was changed",
         text: `Hi ${user.username},
 
 The email of your account was just changed to ${email}.

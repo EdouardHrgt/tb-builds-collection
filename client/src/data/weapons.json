@@ -214,7 +214,7 @@
       "heroId": "bardin",
       "type": "ranged",
       "icon": "/images/bardin/weapons/throwingaxes.webp",
-      "availableFor": ["slayer", "rangerveteran", "ironbreaker", "outcastengineer"]
+      "availableFor": ["slayer", "rangerveteran"]
     },
     {
       "id": "handgun",

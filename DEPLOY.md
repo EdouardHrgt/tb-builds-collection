@@ -132,7 +132,7 @@ nano .env
 Fill in at least:
 - `JWT_SECRET`: paste the result of `openssl rand -hex 32`.
 - `APP_URL=https://sigmararsenal.xyz` (https, no trailing slash).
-- `NODE_ENV=production` (also protects against running `db:reset` by mistake).
+- `NODE_ENV=production` (uncomment it; also protects against running `db:reset` by mistake).
 - the `SMTP_*` values later (step 10).
 
 ```bash
@@ -211,11 +211,17 @@ what the server expects by default (`TRUST_PROXY=1`).
 Create a free account on an email sending service (Brevo, Resend...). Follow its guide to:
 1. **Verify the domain**: it gives you DNS records (SPF, DKIM, sometimes DMARC) to add at the registrar. Without
    them the emails land in spam, which is likely with a `.xyz` domain.
-2. Get the SMTP settings (host, port 587, user, password / API key).
+2. Get the SMTP settings. With Resend: `SMTP_HOST=smtp.resend.com`, `SMTP_PORT=587`, `SMTP_USER=resend`,
+   `SMTP_PASS=` your API key.
+3. Add a DMARC record at the registrar (TXT, name `_dmarc`, value `v=DMARC1; p=none;`): it helps the emails stay out
+   of spam.
 
 Put them in `server/.env` (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` with an address of your
 domain), then `sudo systemctl restart sigmar`.
 Test: "Forgot password" on the site with your own account, and check the inbox AND the spam folder.
+
+Abuse limits (built in): one reset email per account every 5 minutes, and 30 reset emails per hour for the whole
+site. Never paste server logs in public: they can contain reset links.
 
 ## 11. Backups
 
@@ -262,6 +268,7 @@ Game data (`client/src/data/*.json`, including `balance.json`) is read by the se
 - [ ] Paste a build link in Discord: the preview shows the title and the career portrait. Discord keeps previews in
       cache: a new link or `?x=1` forces a refresh.
 - [ ] "Forgot password" email arrives.
+- [ ] `/privacy` page opens (footer link) and sign-up requires the checkbox.
 - [ ] `npm run db:backup` works and the cron line is in `crontab -l`.
 - [ ] Admin tools work: `cd ~/sigmar/server && npm run admin -- users` (see `server/scripts/README.md`).
 

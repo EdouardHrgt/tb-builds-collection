@@ -90,7 +90,9 @@
           "soulstealerstaff",
           "moonfirebow",
           "trollhammertorpedo",
-          "deepwoodstaff"
+          "deepwoodstaff",
+          "drakegun",
+          "drakefirepistols"
         ]
       },
       {
@@ -120,7 +122,9 @@
           "soulstealerstaff",
           "moonfirebow",
           "trollhammertorpedo",
-          "deepwoodstaff"
+          "deepwoodstaff",
+          "drakegun",
+          "drakefirepistols"
         ]
       },
       {
@@ -170,6 +174,24 @@
         "name": "resourceful sharpshooter",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/ranged/resourcefulsharpshooter.webp"
+      },
+      {
+        "id": "parry",
+        "name": "parry",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/melee/parry.webp",
+        "onlyWeaponIds": [
+          "trollhammertorpedo"
+        ]
+      },
+      {
+        "id": "offbalance",
+        "name": "off balance",
+        "description": "The Empire awaits Sigmar's divine revelation.",
+        "icon": "/shared/traits/melee/offbalance.webp",
+        "onlyWeaponIds": [
+          "trollhammertorpedo"
+        ]
       }
     ],
     "properties": [

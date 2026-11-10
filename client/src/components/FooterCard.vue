@@ -14,16 +14,13 @@ import { BALANCE } from '../utils/balance.js'
           >changelogs app</a
         >
       </div>
-
       <div class="wrap">
-        <a :href="BALANCE.url" target="_blank" rel="noopener noreferrer"
-          >{{ BALANCE.name }} patch notes</a
+        <a href="https://discord.gg/C5HST8upJC" target="_blank" rel="noopener noreferrer"
+          >Sigmar's Arsenal discord</a
         >
       </div>
       <div class="wrap">
-        <a href="https://discord.gg/BepCgkBJqW" target="_blank" rel="noopener noreferrer"
-          >Modded discord</a
-        >
+        <RouterLink to="/privacy">Privacy &amp; rules</RouterLink>
       </div>
     </section>
 

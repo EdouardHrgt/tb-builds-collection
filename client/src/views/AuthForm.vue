@@ -16,6 +16,7 @@ const email = ref('')
 const username = ref('')
 const password = ref('')
 const confirm = ref('')
+const agreed = ref(false) // sign-up only: privacy policy and community rules
 const error = ref('')
 const busy = ref(false)
 
@@ -30,6 +31,7 @@ watch(
       confirm.value =
       error.value =
         ''
+    agreed.value = false
   },
 )
 
@@ -45,6 +47,7 @@ function validate() {
   const pwError = validatePassword(password.value)
   if (pwError) return pwError
   if (password.value !== confirm.value) return 'Passwords do not match'
+  if (!agreed.value) return 'Please accept the privacy policy and the community rules'
   return ''
 }
 
@@ -91,6 +94,15 @@ async function submit() {
         label="Confirm password"
         autocomplete="new-password" />
 
+      <label v-if="!isLogin" class="agree">
+        <input v-model="agreed" type="checkbox" />
+        <span
+          >I have read the
+          <RouterLink to="/privacy" target="_blank">privacy policy and community rules</RouterLink> and I agree
+          to them.</span
+        >
+      </label>
+
       <p v-if="error" class="error" role="alert">{{ error }}</p>
       <button class="btn" :disabled="busy">{{ isLogin ? 'Log in' : 'Create account' }}</button>
 
@@ -107,4 +119,16 @@ async function submit() {
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.agree {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}
+.agree input {
+  flex: none;
+  width: auto;
+  margin-top: 0.2rem;
+}
+</style>

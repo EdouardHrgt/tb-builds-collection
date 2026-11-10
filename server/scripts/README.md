@@ -13,8 +13,9 @@ If your host gives you environment variables instead of a `.env` file, run the s
 
 | Command | What it does |
 | --- | --- |
-| `users` | Lists users (filtered by username / email if a text is given) with their number of builds |
+| `users [text]` | Lists users (filtered by username / email if a text is given) with their number of builds |
 | `user <name\|email\|id>` | Details of one account |
+| `export <user>` | Writes everything held about an account (profile, email, builds, comments, likes, bookmarks, follows; never the password) to `exports/<name>-<date>.json`. For a user's data request: send them the file privately (WinSCP to download it), then delete it |
 | `reset-password <user>` | Sets a new random password, prints it, logs the user out everywhere. Send it to them privately: they change it in *My builds > Account* |
 | `logout <user>` | Logs the user out of every device |
 | `delete-user <user>` | Deletes the account and everything it owns: builds, comments, likes, follows |
@@ -63,5 +64,5 @@ copy, delete `app.db-wal` and `app.db-shm` next to it if they exist, start the s
 | --- | --- |
 | `npm run db:reset` | Wipes all data. Refuses to run with `NODE_ENV=production` |
 | `npm run check:icons` | Checks that the icons referenced by the game data exist |
-| `node scripts/seed-test-users.js` | Fills the development database with test users |
-| `node scripts/delete-builds.js` | Deletes builds (development) |
+| `node --env-file=.env scripts/seed-test-users.js` | Creates 5 fake users with builds, likes and comments to try the site |
+| `node --env-file=.env scripts/delete-builds.js old\|all` | Bulk delete: builds in the outdated format, or EVERY build (dry run unless `--yes`). Never run `all` on production |
