@@ -5,6 +5,7 @@ import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import CommentForm from './CommentForm.vue'
 import CommentItem from './CommentItem.vue'
+import SectionIcon from './SectionIcon.vue'
 
 const props = defineProps({
   buildId: { type: Number, required: true },
@@ -89,8 +90,8 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
 
 <template>
   <section ref="root" class="comments" aria-labelledby="comments-title">
-    <h2 id="comments-title">
-      Comments <span v-if="data" class="count">({{ data.commentCount }})</span>
+    <h2 id="comments-title" class="with-icon">
+      <SectionIcon name="comments" />Comments <span v-if="data" class="count">({{ data.commentCount }})</span>
     </h2>
 
     <p v-if="error" class="error" role="alert">{{ error }}</p>
@@ -188,19 +189,19 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
   display: grid;
   gap: 0.8rem;
 }
-/* Each comment is a card using the --line color, to stand out from the page background */
+/* Dark cards, slightly lighter than the page */
 .thread {
   padding: 1rem;
   background: var(--panel);
-  border-radius: 8px;
   border: 1px solid var(--line);
+  border-radius: 8px;
 }
 .replies {
   display: grid;
   gap: 0.7rem;
   margin: 0.7rem 0 0 0.8rem;
   padding-left: 1rem;
-  border-left: 2px solid var(--muted);
+  border-left: 2px solid var(--line);
 }
 .new-comment {
   margin-top: 1.5rem;

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { showDescriptions } from '../composables/useDescriptions.js'
 
 const props = defineProps({
   // [{ tier: '5', talents: [{ id, name, description, icon }, x3] }, ...] (6 rows)
@@ -8,8 +8,6 @@ const props = defineProps({
 })
 // One entry per tier: 0 = nothing picked, 1..3 = position of the picked talent
 const model = defineModel({ type: Array, required: true })
-
-const showDescriptions = ref(false)
 
 const describe = (talent) => talent.description
 const chosen = (row) => model.value[row] ?? 0
@@ -24,16 +22,6 @@ function pick(row, position) {
 
 <template>
   <div class="talent-grid">
-    <div class="grid-head">
-      <button
-        type="button"
-        class="toggle"
-        :aria-expanded="showDescriptions"
-        @click="showDescriptions = !showDescriptions">
-        {{ showDescriptions ? 'Hide descriptions' : 'Show descriptions' }}
-      </button>
-    </div>
-
     <div
       v-for="(row, i) in tiers"
       :key="row.tier"
@@ -69,21 +57,6 @@ function pick(row, position) {
 </template>
 
 <style scoped>
-.grid-head {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 0.8rem;
-}
-.toggle {
-  background: transparent;
-  color: var(--career-color, var(--accent));
-  border-color: var(--line);
-  transition: all 0.3s ease-out;
-}
-.toggle:hover {
-  border-color: var(--career-color, var(--accent));
-}
-
 .tier-row {
   display: grid;
   grid-template-columns: 4.2rem repeat(3, 1fr);

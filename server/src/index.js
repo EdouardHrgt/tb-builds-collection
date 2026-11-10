@@ -15,7 +15,39 @@ import { buildPageHtml } from './meta.js'
 
 const app = express()
 const isProd = process.env.NODE_ENV === 'production'
-if (isProd) app.set('trust proxy', 1) // behind the host's proxy
+app.disable('x-powered-by')
+// Behind a reverse proxy (Caddy, Nginx, the host's proxy) req.ip is the visitor's address only if we trust
+// it, otherwise every rate limit would count all visitors as ONE. TRUST_PROXY = number of proxies in front
+// (default 1 in production, 0 = none, e.g. if the Node server is exposed directly).
+const trustProxy = Number(process.env.TRUST_PROXY ?? (isProd ? 1 : 0))
+if (trustProxy > 0) app.set('trust proxy', trustProxy)
+
+// Security headers (production only: the Vite dev server needs inline scripts).
+// Google Fonts is the only external resource of the site.
+if (isProd) {
+  const csp = [
+    "default-src 'self'",
+    "script-src 'self'",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com", // Vue sets some style="" attributes
+    "font-src 'self' https://fonts.gstatic.com",
+    "img-src 'self' data:",
+    "connect-src 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+  ].join('; ')
+  app.use((_req, res, next) => {
+    res.set({
+      'Content-Security-Policy': csp,
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+      'Strict-Transport-Security': 'max-age=15552000', // 180 days: HTTPS only (ignored over plain http)
+    })
+    next()
+  })
+}
 
 app.use(express.json({ limit: '100kb' }))
 app.use(cookieParser())

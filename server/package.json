@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "node --watch --env-file=.env src/index.js",
     "start": "NODE_ENV=production node src/index.js",
+    "admin": "node --env-file=.env scripts/admin.js",
+    "db:backup": "node --env-file=.env scripts/backup-db.js",
     "db:reset": "node --env-file=.env scripts/reset-db.js --yes",
     "check:icons": "node scripts/check-icons.js"
   },

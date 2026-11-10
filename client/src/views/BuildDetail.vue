@@ -5,6 +5,8 @@ import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
 import TalentGrid from '../components/TalentGrid.vue'
+import CareerAbilities from '../components/CareerAbilities.vue'
+import SectionIcon from '../components/SectionIcon.vue'
 import GearSlot from '../components/GearSlot.vue'
 import LikeButton from '../components/LikeButton.vue'
 import BookmarkButton from '../components/BookmarkButton.vue'
@@ -13,6 +15,7 @@ import UserAvatar from '../components/UserAvatar.vue'
 import CommentSection from '../components/CommentSection.vue'
 import { buildToText } from '../utils/buildText.js'
 import { copyText } from '../utils/clipboard.js'
+import { BALANCE } from '../utils/balance.js'
 
 const gameData = useGameData()
 const {
@@ -106,7 +109,20 @@ async function remove() {
             <BookmarkButton :build="build" />
           </div>
         </div>
-        <p class="meta">{{ heroName(build.heroId) }} | {{ careerName(build.heroId, build.careerId) }}</p>
+        <p class="meta">
+          {{ heroName(build.heroId) }} | {{ careerName(build.heroId, build.careerId) }}
+          <span
+            v-if="build.data.balance"
+            class="tb-tag"
+            :class="{ old: build.data.balance !== BALANCE.version }"
+            :title="
+              build.data.balance === BALANCE.version
+                ? `Made for ${BALANCE.name} ${build.data.balance}`
+                : `Made for ${BALANCE.name} ${build.data.balance} (current: ${BALANCE.version}). Edit and save the build to update it.`
+            "
+            >{{ BALANCE.short }} {{ build.data.balance }}</span
+          >
+        </p>
         <RouterLink :to="`/u/${build.author}`" class="author-row" title="See profile">
           <UserAvatar :id="build.authorAvatar" />
           <span class="meta">by <span class="author">{{ build.author }}</span></span>
@@ -145,13 +161,21 @@ async function remove() {
       This build uses an outdated format and cannot be displayed.
     </p>
     <template v-else>
-      <h2>Talents</h2>
+      <CareerAbilities :career="career" />
+
+      <!-- Golden line with a diamond (global .ornament): sets the talents apart from perks and passive -->
+      <div class="ornament" aria-hidden="true">◆</div>
+
+      <h2 class="with-icon"><SectionIcon name="talents" />Talents</h2>
       <TalentGrid :model-value="build.data.talents" :tiers="talentTiers" readonly />
 
       <!-- Equipment on the left, breakpoints in the middle, synergies on the far right -->
-      <div class="gear-layout">
+      <div
+        class="gear-layout"
+        :class="{ 'no-bp': !build.data.breakpoints?.length }"
+        :style="{ '--bp-n': build.data.breakpoints?.length || 0 }">
         <section class="area-gear">
-          <h2>Equipment</h2>
+          <h2 class="with-icon"><SectionIcon name="equipment" />Equipment</h2>
           <div class="gear-column">
             <GearSlot
               v-for="slot in weaponSlots"
@@ -175,7 +199,7 @@ async function remove() {
         </section>
 
         <section v-if="build.data.breakpoints?.length" class="area-bp">
-          <h2>Breakpoints</h2>
+          <h2 class="with-icon"><SectionIcon name="breakpoints" />Breakpoints</h2>
           <div class="bp-list">
             <BreakpointCard
               v-for="c in build.data.breakpoints"
@@ -185,7 +209,7 @@ async function remove() {
         </section>
 
         <section v-if="build.data.teammates?.length" class="area-team">
-          <h2>Ideal team</h2>
+          <h2 class="with-icon"><SectionIcon name="team" />Ideal team</h2>
           <ul class="teammates">
             <li
               v-for="t in build.data.teammates"
@@ -284,8 +308,24 @@ async function remove() {
 .author-row .meta {
   margin: 0;
 }
-/* Three columns from 1280px: equipment | breakpoints | ideal team (far right).
-   1024-1279px: equipment | breakpoints, ideal team below. Under 1024px: one column. */
+/* Balance version the build was saved with; dimmed when it is not the current one */
+.tb-tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.5rem;
+  font-size: 0.78rem;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  vertical-align: 1px;
+}
+.tb-tag.old {
+  color: var(--muted);
+  border-color: var(--line);
+}
+/* Three columns from 1280px: equipment | breakpoints | ideal team (right next to the breakpoint cards).
+   1024-1279px: equipment | breakpoints, ideal team below. Under 1024px: one column.
+   Without breakpoints (.no-bp), from 1024px: equipment | ideal team, side by side. */
 .gear-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -308,14 +348,30 @@ async function remove() {
       'gear bp'
       'gear team';
   }
+  .gear-layout.no-bp {
+    grid-template-columns: minmax(300px, 380px) auto;
+    grid-template-areas: 'gear team';
+  }
   .area-gear { grid-area: gear; }
   .area-bp { grid-area: bp; }
   .area-team { grid-area: team; }
 }
 @media (min-width: 1280px) {
+  /* The middle column is only as wide as its cards need (up to 320px each, within the free width): with
+     1 or 2 breakpoints the ideal team stays next to them instead of drifting to the far right. */
   .gear-layout {
-    grid-template-columns: minmax(300px, 380px) minmax(0, 1fr) auto;
+    grid-template-columns:
+      minmax(300px, 380px)
+      minmax(0, max(0px, calc(var(--bp-n, 1) * 320px + (var(--bp-n, 1) - 1) * 0.8rem)))
+      auto;
     grid-template-areas: 'gear bp team';
+  }
+  .gear-layout.no-bp {
+    grid-template-columns: minmax(300px, 380px) auto;
+    grid-template-areas: 'gear team';
+  }
+  .bp-list {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* few cards: no empty column */
   }
 }
 .bp-list {

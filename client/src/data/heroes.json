@@ -8,6 +8,26 @@
         "name": "Mercenary",
         "icon": "/images/kruber/kruber-mercenary.webp",
         "color": "#E32700",
+        "perks": [
+          {
+            "name": "Hitting the Sweet Spot",
+            "description": "Attacks cleave through more enemies."
+          },
+          {
+            "name": "No More Laughin' Now!",
+            "description": "Increased crit chance by 5%."
+          }
+        ],
+        "passive": {
+          "name": "Paced Strikes",
+          "description": "Hitting 3 enemies in one swing grants 10% increased attack speed for 6 seconds to allies. Kruber also takes 10% less damage for the duration.",
+          "icon": "/images/kruber/talents/mercenary/pacedstrikes.webp"
+        },
+        "skill": {
+          "name": "Morale Boost",
+          "description": "Markus grants nearby allies 25 temporary health, and staggers nearby enemies.",
+          "icon": "/images/kruber/talents/mercenary/moraleboost.webp"
+        },
         "talents": {
           "5": [
             {
@@ -136,6 +156,34 @@
         "name": "Huntsman",
         "icon": "/images/kruber/kruber-huntsman.webp",
         "color": "#22c55e",
+        "perks": [
+          {
+            "name": "Poacher's Mark",
+            "description": "Double effective range for ranged weapons and 15% increased reload speed."
+          },
+          {
+            "name": "Call Out Weakness",
+            "description": "Aura that increases critical strike chance by 5%."
+          },
+          {
+            "name": "Deep Pockets",
+            "description": "Increases ammunition capacity by 50%."
+          },
+          {
+            "name": "Eagle Eye",
+            "description": "Ranged weapon zoom. Bound to weapon special."
+          }
+        ],
+        "passive": {
+          "name": "Waste Not, Want Not",
+          "description": "Ranged headshots recover 1 ammunition.",
+          "icon": "/images/kruber/talents/huntsman/wastenotwantnot.webp"
+        },
+        "skill": {
+          "name": "Hunter's Prowl",
+          "description": "Markus disappears from sight for 6 seconds. When he attacks or fires a ranged weapon he gains boosted ranged attack damage and shooting his ranged weapon does not consume ammunition.",
+          "icon": "/images/kruber/talents/huntsman/huntersprowl.webp"
+        },
         "talents": {
           "5": [
             {
@@ -264,6 +312,26 @@
         "name": "Foot Knight",
         "icon": "/images/kruber/kruber-foot-knight.webp",
         "color": "#3b82f6",
+        "perks": [
+          {
+            "name": "Taal's Fortitude",
+            "description": "Grants an extra Stamina shield."
+          },
+          {
+            "name": "No Guts, No Glory",
+            "description": "Reduces damage taken by 10%."
+          }
+        ],
+        "passive": {
+          "name": "Protective Presence",
+          "description": "Aura that reduces damage taken by 15%",
+          "icon": "/images/kruber/talents/footknight/protectivepresence.webp"
+        },
+        "skill": {
+          "name": "Valiant Charge",
+          "description": "Markus charges forward, slamming into enemies and knocking them back.",
+          "icon": "/images/kruber/talents/footknight/valiantcharge.webp"
+        },
         "talents": {
           "5": [
             {
@@ -392,6 +460,30 @@
         "name": "Grail Knight",
         "secondWeaponTypes": ["melee"],
         "icon": "/images/kruber/kruber-grail-knight.webp",
+        "perks": [
+          {
+            "name": "Knight's Challenge",
+            "description": "Deals 25% more damage to the first enemy hit."
+          },
+          {
+            "name": "Thirst for Glory",
+            "description": "Increases movement speed by 10%."
+          },
+          {
+            "name": "Bastion of Bretonnia",
+            "description": "Markus can use shields to block Warpfire Thrower attacks."
+          }
+        ],
+        "passive": {
+          "name": "The Lady's Duty",
+          "description": "Upon entering a mission the Lady of the Lake grants 2 random Duties for the Grail Knight and his party to complete. Upon completion of a Duty the party is granted a Benison for the rest of the mission.",
+          "icon": "/images/kruber/talents/grailknight/theladysduty.webp"
+        },
+        "skill": {
+          "name": "Blessed Blade",
+          "description": "Markus equips a blessed blade and slashes down with great force, smiting any evil creature caught in its wake and dealing heavy damage.",
+          "icon": "/images/kruber/talents/grailknight/blessedblade.webp"
+        },
         "talents": {
           "5": [
             {
@@ -526,6 +618,30 @@
         "name": "Ranger Veteran",
         "icon": "/images/bardin/bardin-ranger-veteran.webp",
         "color": "#22c55e",
+        "perks": [
+          {
+            "name": "Loaded for Battle",
+            "description": "Increases ammo capacity by 50%."
+          },
+          {
+            "name": "Fast Hands",
+            "description": "Double effective range for ranged weapons, 10% increased ranged power, and 15% increased reload speed."
+          },
+          {
+            "name": "Ingenious Improvisation",
+            "description": "Using any Healing Supplies, Potions or Grenades has a 10% chance to not consume the item."
+          }
+        ],
+        "passive": {
+          "name": "Survivalist",
+          "description": "Specials drop ammunition pickups on death that restore 10% of maximum ammo when picked up.",
+          "icon": "/images/bardin/talents/rangerveteran/survivalist.webp"
+        },
+        "skill": {
+          "name": "Disengage",
+          "description": "Bardin deploys a smoke bomb for 10 seconds that conceals him from enemies whilst he stays inside the cloud. Also gains increased ranged attack power while concealed.",
+          "icon": "/images/bardin/talents/rangerveteran/disengage.webp"
+        },
         "talents": {
           "5": [
             {
@@ -654,6 +770,30 @@
         "name": "Ironbreaker",
         "icon": "/images/bardin/bardin-iron-breaker.webp",
         "color": "#3b82f6",
+        "perks": [
+          {
+            "name": "Dwarf-Forged",
+            "description": "Reduces damage taken by 30%."
+          },
+          {
+            "name": "Doughty",
+            "description": "Grants an extra Stamina shield."
+          },
+          {
+            "name": "Resilient",
+            "description": "Decreases stun duration after getting hit by an attack by 50%."
+          }
+        ],
+        "passive": {
+          "name": "Gromril Armour",
+          "description": "Completely absorbs one hit every 20 seconds.",
+          "icon": "/images/bardin/talents/ironbreaker/gromrilarmour.webp"
+        },
+        "skill": {
+          "name": "Impenetrable",
+          "description": "Bardin taunts all nearby man-sized enemies, takes 28.5% less damage (stacks with Dwarf-Forged) and has 0 block cost for the next 10 seconds",
+          "icon": "/images/bardin/talents/ironbreaker/impenetrable.webp"
+        },
         "talents": {
           "5": [
             {
@@ -783,6 +923,26 @@
         "secondWeaponTypes": ["melee", "ranged"],
         "icon": "/images/bardin/bardin-slayer.webp",
         "color": "#E32700",
+        "perks": [
+          {
+            "name": "Path of Carnage",
+            "description": "Increases attack speed by 10%."
+          },
+          {
+            "name": "Drengi Grit",
+            "description": "Charged attacks can't be interrupted by damage."
+          }
+        ],
+        "passive": {
+          "name": "Trophy Hunter",
+          "description": "Hitting an enemy grants a stack of Trophy Hunter, increasing weapon damage by 10% and attack speed by 5%. Lasts 2 seconds, stacks up to 3 times.",
+          "icon": "/images/bardin/talents/slayer/trophyhunter.webp"
+        },
+        "skill": {
+          "name": "Leap",
+          "description": "Bardin leaps forward, staggering enemies where he lands. Grants 15% attack speed for 10 seconds.",
+          "icon": "/images/bardin/talents/slayer/leap.webp"
+        },
         "talents": {
           "5": [
             {
@@ -910,6 +1070,30 @@
         "id": "outcastengineer",
         "name": "Outcast Engineer",
         "icon": "/images/bardin/bardin-outcast-engineer.webp",
+        "perks": [
+          {
+            "name": "Gunsmith",
+            "description": "Increases max Ammo by 50%."
+          },
+          {
+            "name": "Spotter",
+            "description": "Increases Ranged Power of nearby allies by 10%."
+          },
+          {
+            "name": "Utility Belt",
+            "description": "Bardin can carry up to 3 Bombs (of any type) at one time. Pressing the Bomb keybind cycles between them."
+          }
+        ],
+        "passive": {
+          "name": "Build Pressure",
+          "description": "Holding reload with the Steam-Assisted Crank Gun (Mk II) equipped builds Pressure. Each stack of Pressure lasts 12 seconds and gradually restores the Ability Bar. Stacks up to 5 times.",
+          "icon": "/images/bardin/talents/outcastengineer/buildpressure.webp"
+        },
+        "skill": {
+          "name": "Steam-Assisted Crank Gun (Mk II)",
+          "description": "Unleash the fearsome firepower of Bardin's custom creation. Shots reduce the Ability Bar.",
+          "icon": "/images/bardin/talents/outcastengineer/steamassistedcrankgunmkii.webp"
+        },
         "talents": {
           "5": [
             {
@@ -1044,6 +1228,30 @@
         "name": "Waystalker",
         "icon": "/images/kerillian/kerillian-waystalker.webp",
         "color": "#22c55e",
+        "perks": [
+          {
+            "name": "Arrow-storm",
+            "description": "Increases ammo capacity by 100%."
+          },
+          {
+            "name": "Waywatcher's Bow",
+            "description": "Double effective range for ranged weapons."
+          },
+          {
+            "name": "Asrai Vigil",
+            "description": "Ranged weapon zoom. Bound to weapon special."
+          }
+        ],
+        "passive": {
+          "name": "Amaranthe",
+          "description": "Kerillian regenerates 3 health when below 50.0% health and 3% of max ammo every 10 seconds. This does not replace temp health.",
+          "icon": "/images/kerillian/talents/waystalker/amaranthe.webp"
+        },
+        "skill": {
+          "name": "Trueshot Volley",
+          "description": "Kerillian shoots a volley of arrows that seek out enemies in her path.",
+          "icon": "/images/kerillian/talents/waystalker/trueshhotvolley.webp"
+        },
         "talents": {
           "5": [
             {
@@ -1172,6 +1380,30 @@
         "name": "Handmaiden",
         "icon": "/images/kerillian/kerillian-handmaiden.webp",
         "color": "#3b82f6",
+        "perks": [
+          {
+            "name": "Renewal",
+            "description": "Aura that increases stamina regeneration speed by 100%. Kerillian's gains 40% increased healing received and shares overflowing temporary health from her level 5 talents evenly divided to injured teammates."
+          },
+          {
+            "name": "Ariel's Benison",
+            "description": " Aura that reduces damage taken by knocked down allies by 50%. Increase Kerillian's revive speed by 50%. When Kerillian revives allies, she heals them for 20 health and they take 50% less damage for 2 seconds."
+          },
+          {
+            "name": "Oak Guard",
+            "description": "Increases stamina by 1. Blocking starts instantly."
+          }
+        ],
+        "passive": {
+          "name": "The Dance of Seasons",
+          "description": "Increased dodge distance by 15%.",
+          "icon": "/images/kerillian/talents/handmaiden/danceofseasons.webp"
+        },
+        "skill": {
+          "name": "Dash",
+          "description": "Kerillian swiftly dashes forward, moving through enemies.",
+          "icon": "/images/kerillian/talents/handmaiden/dash.webp"
+        },
         "talents": {
           "5": [
             {
@@ -1300,6 +1532,30 @@
         "name": "Shade",
         "icon": "/images/kerillian/kerillian-shade.webp",
         "color": "#9f04ff",
+        "perks": [
+          {
+            "name": "Dagger in the Dark",
+            "description": "Melee Attacks from Stealth are always Critical."
+          },
+          {
+            "name": "Murderous Prowess",
+            "description": "Charged critical backstabs instantly slay up to 2 man-sized enemies."
+          },
+          {
+            "name": "Grim Fortune",
+            "description": "Increases critical strike chance by 10%. Parrying an attack grants a guaranteed melee critical strike lasting 3 seconds."
+          }
+        ],
+        "passive": {
+          "name": "Assassin's Blade",
+          "description": "Double damage when attacking enemies from behind with melee attacks. Increases movement speed by 10%.",
+          "icon": "/images/kerillian/talents/shade/assassinsblade.webp"
+        },
+        "skill": {
+          "name": "Infiltrate",
+          "description": "Kerillian becomes undetectable, can pass through enemies, and deals greatly increased melee damage. Lasts for 3 seconds or until she deals damage.",
+          "icon": "/images/kerillian/talents/shade/infiltrate.webp"
+        },
         "talents": {
           "5": [
             {
@@ -1428,6 +1684,30 @@
         "name": "Sister of the Thorn",
         "icon": "/images/kerillian/kerillian-sister-of-the-thorn.webp",
         "color": "#10c000",
+        "perks": [
+          {
+            "name": "Blackvenom Blades",
+            "description": "Melee attacks apply a Poison that deals damage and increases damage suffered by 12% for 10 seconds."
+          },
+          {
+            "name": "A Sustenance of Leechlings",
+            "description": "Whenever another party member receives temporary health while at full health, Kerillian gains temporary health instead."
+          },
+          {
+            "name": "An Attendance of Munificents",
+            "description": "All healing received by the party is increased by 25%."
+          }
+        ],
+        "passive": {
+          "name": "A Cluster of Radiants",
+          "description": "Kerillian is granted Radiance (a free use of her career skill) every 80 seconds.",
+          "icon": "/images/kerillian/talents/sisterofthethorn/aclusterofradiants.webp"
+        },
+        "skill": {
+          "name": "Thornwake",
+          "description": "Kerillian conjures a Thorn Wall that hinders enemy movement. The Thorn Wall lasts for 6 seconds.",
+          "icon": "/images/kerillian/talents/sisterofthethorn/thornwake.webp"
+        },
         "talents": {
           "5": [
             {
@@ -1562,6 +1842,26 @@
         "name": "Witch Hunter Captain",
         "icon": "/images/saltzpyre/saltzpyre-witch-hunter-captain.webp",
         "color": "#dd641d",
+        "perks": [
+          {
+            "name": "Eternal Guard",
+            "description": "No light attack block cost from frontal attacks."
+          },
+          {
+            "name": "Killing Shot",
+            "description": "Critical hit headshots instantly slay man-sized enemies."
+          }
+        ],
+        "passive": {
+          "name": "Witch-Hunt",
+          "description": "Tagged enemies take an additional 20% damage. Does not stack with similar effects.",
+          "icon": "/images/saltzpyre/talents/witchhuntercaptain/witchhunt.webp"
+        },
+        "skill": {
+          "name": "Animosity",
+          "description": "Victor pushes back nearby enemies, and boosts nearby allies' critical hit chance by 25% for 6 seconds.",
+          "icon": "/images/saltzpyre/talents/witchhuntercaptain/animosity.webp"
+        },
         "talents": {
           "5": [
             {
@@ -1690,6 +1990,30 @@
         "name": "Bounty Hunter",
         "icon": "/images/saltzpyre/saltzpyre-bounty-hunter.webp",
         "color": "#d8965b",
+        "perks": [
+          {
+            "name": "Ammo Pouches",
+            "description": "Increases ammo capacity by 50%."
+          },
+          {
+            "name": "Quick Release",
+            "description": "Increased reload speed by 20%."
+          },
+          {
+            "name": "Blessed Kill",
+            "description": "Melee kills reset the cooldown of Blessed Shots and reload 1 ammo into Victor's ranged weapon."
+          }
+        ],
+        "passive": {
+          "name": "Blessed Shots",
+          "description": "Guaranteed ranged critical hit every 10 seconds.",
+          "icon": "/images/saltzpyre/talents/bountyhunter/blessedshots.webp"
+        },
+        "skill": {
+          "name": "Locked and Loaded",
+          "description": "Victor fires a powerful shot that pierces enemies.",
+          "icon": "/images/saltzpyre/talents/bountyhunter/lockedandloaded.webp"
+        },
         "talents": {
           "5": [
             {
@@ -1818,6 +2142,30 @@
         "name": "Zealot",
         "icon": "/images/saltzpyre/saltzpyre-zealot.webp",
         "color": "#c90d00",
+        "perks": [
+          {
+            "name": "Unswerving Strikes",
+            "description": "Charged attacks can't be interrupted by damage."
+          },
+          {
+            "name": "Heart of Iron",
+            "description": "Resist death on taking lethal damage."
+          },
+          {
+            "name": "Chasten",
+            "description": "Increases healing received by 30%."
+          }
+        ],
+        "passive": {
+          "name": "Fiery Faith",
+          "description": "Power increases by 5% for every 25 health missing. Max Stacks 6.",
+          "icon": "/images/saltzpyre/talents/zealot/fieryfaith.webp"
+        },
+        "skill": {
+          "name": "Holy Fervour",
+          "description": "Victor charges forward and gains 25% increased attack speed for 5 seconds.",
+          "icon": "/images/saltzpyre/talents/zealot/holyfervour.webp"
+        },
         "talents": {
           "5": [
             {
@@ -1946,6 +2294,30 @@
         "name": "Warrior Priest",
         "secondWeaponTypes": ["melee"],
         "icon": "/images/saltzpyre/saltzpyre-warrior-priest.webp",
+        "perks": [
+          {
+            "name": "Enemy of Chaos",
+            "description": "30% bonus to Power vs Chaos Warriors and Beastman Standard Bearers."
+          },
+          {
+            "name": "Incorruptible",
+            "description": "100% Curse Resistance."
+          },
+          {
+            "name": "Implacable",
+            "description": "Damage dealt to Saltzpyre is reduced by 20%. A further 20% of incoming damage is dealt to Saltzpyre over 3 seconds. Saltzpyre cannot be killed by damage dealt by Implacable."
+          }
+        ],
+        "passive": {
+          "name": "Righteous Fury",
+          "description": "Saltzpyre gains Fury when enemies die nearby. On reaching 100% Fury, he briefly enters Righteous Fury and his attacks Smite the enemy for 20% of weapon damage. Saltzpyre loses Fury while out of combat.",
+          "icon": "/images/saltzpyre/talents/warriorpriest/righteousfury.webp"
+        },
+        "skill": {
+          "name": "Shield of Faith",
+          "description": "Saltzpyre imbues himself or an ally with a shield, rendering them immune to damage for 5 seconds. Upon expiring, the shield explodes, inflicting damage on nearby enemies. Hold to target allies.",
+          "icon": "/images/saltzpyre/talents/warriorpriest/shieldoffaith.webp"
+        },
         "talents": {
           "5": [
             {
@@ -2079,6 +2451,26 @@
         "id": "battlewizard",
         "name": "Battle Wizard",
         "icon": "/images/sienna/sienna-battle-wizard.webp",
+        "perks": [
+          {
+            "name": "Reckless Haste",
+            "description": "Overcharge increases spell charge speed by up to 30%."
+          },
+          {
+            "name": "Pyromantic Surge",
+            "description": "Increased ranged damage by 10%."
+          }
+        ],
+        "passive": {
+          "name": "Tranquillity",
+          "description": "After not casting spells for 6 seconds, automatically ventilates Overcharge.",
+          "icon": "/images/sienna/talents/battlewizard/tranquillity.webp"
+        },
+        "skill": {
+          "name": "Fire Walk",
+          "description": "Sienna teleports forward, leaving a blanket of fire in her wake that lingers for 6 seconds.",
+          "icon": "/images/sienna/talents/battlewizard/firewalk.webp"
+        },
         "talents": {
           "5": [
             {
@@ -2207,6 +2599,30 @@
         "name": "Pyromancer",
         "icon": "/images/sienna/sienna-pyromancer.webp",
         "color": "#EB4E0E",
+        "perks": [
+          {
+            "name": "Searing Focus",
+            "description": "Increased ranged damage by 10%."
+          },
+          {
+            "name": "The Volans Doctrine",
+            "description": "No longer slowed from being overcharged."
+          },
+          {
+            "name": "One with Aqshy",
+            "description": "50% increased max Overcharge."
+          }
+        ],
+        "passive": {
+          "name": "Critical Mass",
+          "description": "Increased critical strike chance based on Overcharge level up to 30%.",
+          "icon": "/images/sienna/talents/pyromancer/criticalmass.webp"
+        },
+        "skill": {
+          "name": "The Burning Head",
+          "description": "Sienna unleashes a fiery projectile that seeks out foes.",
+          "icon": "/images/sienna/talents/pyromancer/theburninghead.webp"
+        },
         "talents": {
           "5": [
             {
@@ -2335,6 +2751,26 @@
         "name": "Unchained",
         "icon": "/images/sienna/sienna-unchained.webp",
         "color": "#E32700",
+        "perks": [
+          {
+            "name": "Slave to Aqshy",
+            "description": "No Overcharge slowdown."
+          },
+          {
+            "name": "Unstable Strength",
+            "description": "Increased melee power on high Overcharge by up to 60%."
+          }
+        ],
+        "passive": {
+          "name": "Blood Magic",
+          "description": "50% damage taken transferred to Overcharge. When overcharging, Sienna drains 5% health for 10% cooldown reduction every 0.25 seconds.",
+          "icon": "/images/sienna/talents/unchained/bloodmagic.webp"
+        },
+        "skill": {
+          "name": "Living Bomb",
+          "description": "Sienna explodes, dealing damage to surrounding enemies and clearing her Overcharge.",
+          "icon": "/images/sienna/talents/unchained/livingbomb.webp"
+        },
         "talents": {
           "5": [
             {
@@ -2463,6 +2899,30 @@
         "name": "Necromancer",
         "icon": "/images/sienna/sienna-necromancer.webp",
         "color": "#78fac8",
+        "perks": [
+          {
+            "name": "Mistress of Death",
+            "description": "Sienna can command her servants to Attack or Defend. She can also Release them to ventilate Overcharge."
+          },
+          {
+            "name": "Cold Flames",
+            "description": "Sienna's damage over time effects last 100% longer."
+          },
+          {
+            "name": "Lifetaker",
+            "description": "Killing an enemy grants 2% crit for 5 seconds. Max stacks 5."
+          }
+        ],
+        "passive": {
+          "name": "Malediction of Nagash",
+          "description": "Sienna's flames now burn with a cold, unearthly light that saps enemy vigour, causing them to suffer 20% additional damage from Sienna and her Servants",
+          "icon": "/images/sienna/talents/necromancer/maledictionofnagash.webp"
+        },
+        "skill": {
+          "name": "Raise Dead",
+          "description": "Sienna raises a company of Skeleton Warriors to ravage the enemy ranks.",
+          "icon": "/images/sienna/talents/necromancer/raisedead.webp"
+        },
         "talents": {
           "5": [
             {

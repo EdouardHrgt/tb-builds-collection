@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { z } from 'zod'
 import { db } from '../db.js'
 import { requireAuth } from '../auth.js'
-import { validateBuildData } from '../gameData.js'
+import { validateBuildData, BALANCE_VERSION } from '../gameData.js'
 import { avatarFor } from '../avatars.js'
 
 export const buildsRouter = Router()
@@ -61,6 +61,7 @@ const buildSchema = z.object({
   data: z
     .object({
       v: z.literal(2),
+      balance: z.string().max(20).optional(), // ignored: the server always writes the current version
       talents: z.array(z.number().int().min(0).max(3)).length(6), // 0 = none, 1..3 = position in the tier
       weapons: z.record(id, weaponSchema), // melee / ranged
       equipment: z.record(id, gearSchema), // necklace / charm / trinket
@@ -213,6 +214,7 @@ buildsRouter.post('/builds', requireAuth, (req, res) => {
   const b = buildSchema.parse(req.body)
   const gameError = validateBuildData(b)
   if (gameError) return res.status(400).json({ error: gameError })
+  b.data.balance = BALANCE_VERSION
   const info = db
     .prepare(
       `
@@ -234,6 +236,7 @@ buildsRouter.put('/builds/:id', requireAuth, (req, res) => {
   const b = buildSchema.parse(req.body)
   const gameError = validateBuildData(b)
   if (gameError) return res.status(400).json({ error: gameError })
+  b.data.balance = BALANCE_VERSION // editing a build brings it up to the current balance version
   db.prepare(
     `
     UPDATE builds SET title=?, description=?, hero_id=?, career_id=?, data=?,

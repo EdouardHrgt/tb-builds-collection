@@ -5,6 +5,7 @@ import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
 import TalentGrid from '../components/TalentGrid.vue'
+import CareerAbilities from '../components/CareerAbilities.vue'
 import GearSlot from '../components/GearSlot.vue'
 import BreakpointBuilder from '../components/BreakpointBuilder.vue'
 import TeammatePicker from '../components/TeammatePicker.vue'
@@ -280,6 +281,8 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
           <small class="meta">{{ currentCareerName }}</small>
         </fieldset>
       </div>
+
+      <CareerAbilities :career="getCareer(form.heroId, form.careerId)" form />
 
       <fieldset>
         <legend>Talents</legend>

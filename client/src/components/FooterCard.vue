@@ -1,3 +1,7 @@
+<script setup>
+import { BALANCE } from '../utils/balance.js'
+</script>
+
 <template>
   <footer>
     <h3>Usefull links</h3>
@@ -12,11 +16,8 @@
       </div>
 
       <div class="wrap">
-        <a
-          href="https://vt2-tourney-balance.github.io/Tourney-Balance-Open-Beta/patch-notes/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >official Documentation</a
+        <a :href="BALANCE.url" target="_blank" rel="noopener noreferrer"
+          >{{ BALANCE.name }} patch notes</a
         >
       </div>
       <div class="wrap">
@@ -28,8 +29,14 @@
 
     <div class="disclaimer">
       <p>
-        This is a personal project made for the Vermintide 2 Modded Realm community. It has no connection with
-        <strong>Fatshark</strong>, the studio that created the game.
+        Talents, weapons and gear follow the <strong>{{ BALANCE.name }}</strong> mod ({{
+          BALANCE.version
+        }}), not the official game balance.
+      </p>
+      <p>
+        This is a personal project made for the Vermintide 2 Modded Realm community. It has no
+        connection with
+        <strong>Fatshark</strong>.
       </p>
     </div>
   </footer>
@@ -37,7 +44,9 @@
 
 <style scoped>
 footer {
-  margin-top: var(--gap-footer); /* gap between the page content (main) and the footer (style.css) */
+  margin-top: var(
+    --gap-footer
+  ); /* gap between the page content (main) and the footer (style.css) */
   text-align: center;
   padding: 1rem 0;
   border-top: 1px solid var(--line);

@@ -7,6 +7,7 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const DATA_DIR = process.env.GAME_DATA_DIR || path.join(here, '../../client/src/data')
 
 const FILES = [
+  'balance.json',
   'heroes.json',
   'weapons.json',
   'weapon-options.json',
@@ -21,6 +22,8 @@ if (missing.length) {
 
 const load = (file) => JSON.parse(fs.readFileSync(path.join(DATA_DIR, file), 'utf8'))
 
+// Tourney Balance version, saved in every build when it is created or edited
+export const BALANCE_VERSION = String(load('balance.json').version)
 const heroes = load('heroes.json')
 const weapons = load('weapons.json').weapons
 const weaponOptions = load('weapon-options.json') // { melee: {traits, properties}, ranged: {...} }
