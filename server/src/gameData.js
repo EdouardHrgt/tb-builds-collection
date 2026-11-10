@@ -48,6 +48,13 @@ function checkOptions(sel, pool, slot) {
   return null
 }
 
+// Names and portrait of a hero / career, for the link previews (server/src/meta.js). null if unknown.
+export function getHeroCareer(heroId, careerId) {
+  const hero = heroes.find((h) => h.id === heroId)
+  const career = hero?.careers.find((c) => c.id === careerId)
+  return hero && career ? { heroName: hero.name, careerName: career.name, icon: career.icon ?? null } : null
+}
+
 // Checks that every id in a (structurally valid) build exists and is compatible.
 // Returns an error message, or null when the build is valid.
 export function validateBuildData({ heroId, careerId, data }) {

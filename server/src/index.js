@@ -11,6 +11,7 @@ import { authRouter } from './routes/auth.js'
 import { buildsRouter } from './routes/builds.js'
 import { commentsRouter } from './routes/comments.js'
 import { usersRouter } from './routes/users.js'
+import { buildPageHtml } from './meta.js'
 
 const app = express()
 const isProd = process.env.NODE_ENV === 'production'
@@ -43,6 +44,8 @@ if (isProd) {
   const appUrl = (process.env.APP_URL || 'http://localhost:5173').replace(/\/$/, '')
   const indexHtml = fs.readFileSync(path.join(dist, 'index.html'), 'utf8').replaceAll('__APP_URL__', appUrl)
   app.use(express.static(dist, { index: false }))
+  // The page of a build: same page, with the link-preview tags of that build (title, career, author)
+  app.get('/builds/:id(\\d+)', (req, res) => res.type('html').send(buildPageHtml(indexHtml, appUrl, req.params.id)))
   app.get('*', (_req, res) => res.type('html').send(indexHtml))
 }
 
