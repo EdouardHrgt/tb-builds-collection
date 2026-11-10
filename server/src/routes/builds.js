@@ -110,6 +110,11 @@ const SORTS = {
   oldest: 'b.created_at ASC, b.id ASC',
   likes: 'like_count DESC, b.created_at DESC, b.id DESC',
 }
+// Filter "builds that use this weapon" (in either weapon slot). Needs @weapon (NULL = no filter).
+// Used by the three lists that follow the hero / career filters (here, /builds/top, /me/following/builds).
+export const WEAPON_SQL = `(@weapon IS NULL
+    OR json_extract(b.data, '$.weapons.melee.weaponId')  = @weapon
+    OR json_extract(b.data, '$.weapons.ranged.weaponId') = @weapon)`
 // "%" and "_" typed by a user must be searched as plain characters
 const escapeLike = (s) => s.replace(/[\\%_]/g, (c) => '\\' + c)
 
@@ -119,11 +124,13 @@ buildsRouter.get('/builds', (req, res) => {
   const filters = {
     hero: str(req.query.hero),
     career: str(req.query.career),
+    weapon: str(req.query.weapon)?.slice(0, 60) || null,
     user: username ? `%${escapeLike(username)}%` : null, // the author name contains the text
   }
   const WHERE = `
     WHERE (@hero   IS NULL OR b.hero_id   = @hero)
       AND (@career IS NULL OR b.career_id = @career)
+      AND ${WEAPON_SQL}
       AND (@user   IS NULL OR u.username LIKE @user ESCAPE '\\')`
   const order = Object.hasOwn(SORTS, req.query.sort) ? SORTS[req.query.sort] : SORTS.newest
 
@@ -166,6 +173,7 @@ buildsRouter.get('/builds/top', (req, res) => {
         ${SELECT}
         WHERE (@hero   IS NULL OR b.hero_id   = @hero)
           AND (@career IS NULL OR b.career_id = @career)
+          AND ${WEAPON_SQL}
       )
       WHERE like_count > 0
     )
@@ -177,6 +185,7 @@ buildsRouter.get('/builds/top', (req, res) => {
     .all({
       hero: str(req.query.hero),
       career: str(req.query.career),
+      weapon: str(req.query.weapon)?.slice(0, 60) || null,
       limit: size + 1, // one more than asked: tells whether there is a next page
       offset,
       me: viewer(req),

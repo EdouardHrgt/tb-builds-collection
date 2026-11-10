@@ -133,6 +133,10 @@ async function remove() {
           <button v-if="isCurrentFormat" type="button" class="btn" @click="exportBuild">
             {{ exportNotice || 'Export the build' }}
           </button>
+          <!-- Opens the editor with a copy of this build (anyone can copy a build; it is saved as a new build of yours) -->
+          <RouterLink v-if="isCurrentFormat" :to="`/builds/new?from=${build.id}`" class="btn">
+            Duplicate the build
+          </RouterLink>
         </div>
       </aside>
     </header>

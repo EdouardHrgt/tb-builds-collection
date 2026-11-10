@@ -8,12 +8,13 @@ import CardCarousel from '../components/CardCarousel.vue'
 import SectionTitle from '../components/SectionTitle.vue'
 import ListModal from '../components/ListModal.vue'
 
-const { heroes } = useGameData()
+const { heroes, getHeroWeapons } = useGameData()
 const auth = useAuth()
 
 // Filters (the list shows 20 builds per page)
 const hero = ref('')
 const career = ref('')
+const weapon = ref('') // id of a weapon of the picked hero (melee or ranged slot)
 const username = ref('')
 const sort = ref('newest') // newest (default) | oldest | likes
 const page = ref(1)
@@ -44,23 +45,51 @@ const SORTS = [
 ]
 
 const careers = computed(() => heroes.find((h) => h.id === hero.value)?.careers ?? [])
+// Weapons of the picked hero (limited to the ones the career can use once a career is picked), by kind
+const weaponGroups = computed(() =>
+  hero.value
+    ? [
+        { type: 'melee', label: 'Melee' },
+        { type: 'ranged', label: 'Ranged' },
+      ]
+        .map((g) => ({
+          ...g,
+          weapons: getHeroWeapons(hero.value, g.type).filter(
+            (w) => !career.value || w.availableFor.includes(career.value),
+          ),
+        }))
+        .filter((g) => g.weapons.length)
+    : [],
+)
+const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
+const weaponName = computed(() => {
+  const w = weaponGroups.value.flatMap((g) => g.weapons).find((x) => x.id === weapon.value)
+  return w ? capitalize(w.name) : ''
+})
+// A new career may not be able to use the picked weapon: then the weapon filter is cleared
+function onCareerChange() {
+  if (weapon.value && !weaponName.value) weapon.value = ''
+}
 const hasFilters = computed(
-  () => hero.value || career.value || username.value.trim() || sort.value !== 'newest',
+  () => hero.value || career.value || weapon.value || username.value.trim() || sort.value !== 'newest',
 )
 
 // Name of the hero / career in the filters, for the message of an empty "From people I follow"
-const filterLabel = computed(
-  () => careers.value.find((c) => c.id === career.value)?.name ?? heroes.find((h) => h.id === hero.value)?.name ?? '',
-)
+const filterLabel = computed(() => {
+  const base =
+    careers.value.find((c) => c.id === career.value)?.name ?? heroes.find((h) => h.id === hero.value)?.name ?? ''
+  return weaponName.value ? `${base} (${weaponName.value})` : base
+})
 // That list is shown even when empty, but only to explain a filter (otherwise an empty list just stays hidden)
 const showFollowed = computed(
-  () => followed.value.length > 0 || (!!auth.user && followedLoaded.value && !!(hero.value || career.value)),
+  () => followed.value.length > 0 || (!!auth.user && followedLoaded.value && !!(hero.value || career.value || weapon.value)),
 )
 
 const heroCareerQuery = () => {
   const q = new URLSearchParams()
   if (hero.value) q.set('hero', hero.value)
   if (career.value) q.set('career', career.value)
+  if (weapon.value) q.set('weapon', weapon.value)
   return q
 }
 
@@ -112,7 +141,7 @@ const refresh = () => Promise.all([loadTop(), loadList({ silent: true }), loadFo
 // Any filter change goes back to page 1. Nothing is reloaded if the filters did not really change
 // (for instance after "Reset filters", which changes several values at once).
 let lastKey = ''
-const filtersKey = () => [hero.value, career.value, username.value.trim(), sort.value].join('|')
+const filtersKey = () => [hero.value, career.value, weapon.value, username.value.trim(), sort.value].join('|')
 function applyFilters() {
   if (filtersKey() === lastKey) return
   lastKey = filtersKey()
@@ -120,13 +149,13 @@ function applyFilters() {
   loadList()
 }
 
-// Only the hero and the career also change the two carousels (top rated, followed).
+// Only the hero, the career and the weapon also change the two carousels (top rated, followed).
 // (The career reset when the hero changes is done in the select's @change, so this runs only once.)
-watch([hero, career], () => {
+watch([hero, career, weapon], () => {
   loadTop()
   loadFollowed()
 })
-watch([hero, career, sort], applyFilters)
+watch([hero, career, weapon, sort], applyFilters)
 
 // The author search waits for the end of the typing (300 ms) before asking the server
 let typing = null
@@ -142,6 +171,7 @@ onBeforeUnmount(() => {
 function resetFilters() {
   hero.value = ''
   career.value = ''
+  weapon.value = ''
   username.value = ''
   sort.value = 'newest'
 }
@@ -174,13 +204,19 @@ onMounted(() => {
   <h1>Builds</h1>
 
   <div class="filters">
-    <select v-model="hero" aria-label="Hero" @change="career = ''">
+    <select v-model="hero" aria-label="Hero" @change="((career = ''), (weapon = ''))">
       <option value="">All heroes</option>
       <option v-for="h in heroes" :key="h.id" :value="h.id">{{ h.name }}</option>
     </select>
-    <select v-model="career" aria-label="Career" :disabled="!hero">
+    <select v-model="career" aria-label="Career" :disabled="!hero" @change="onCareerChange">
       <option value="">All careers</option>
       <option v-for="c in careers" :key="c.id" :value="c.id">{{ c.name }}</option>
+    </select>
+    <select v-model="weapon" aria-label="Weapon" :disabled="!hero">
+      <option value="">All weapons</option>
+      <optgroup v-for="g in weaponGroups" :key="g.type" :label="g.label">
+        <option v-for="w in g.weapons" :key="w.id" :value="w.id">{{ capitalize(w.name) }}</option>
+      </optgroup>
     </select>
     <input
       v-model="username"

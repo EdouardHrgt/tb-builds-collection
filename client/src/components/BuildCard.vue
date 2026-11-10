@@ -74,6 +74,9 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
   padding: 0.8rem 0.8rem 0.9rem;
   text-align: center;
   position: relative;
+  /* Subtle diagonal gradient: starts from the usual card color (top left) and gets a bit darker
+     toward the bottom right. Raise the 82% for an even fainter effect. */
+  background: linear-gradient(135deg, var(--panel), color-mix(in srgb, var(--panel) 82%, #000));
 }
 /* Hover: the border takes the career color (gold when it has none), instead of the global gold */
 .card:hover {

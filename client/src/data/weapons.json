@@ -282,7 +282,7 @@
     },
     {
       "id": "dualswords",
-      "name": "dualswords",
+      "name": "dual swords",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/dualswords.webp",

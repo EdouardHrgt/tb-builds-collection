@@ -10,6 +10,7 @@ import SectionIcon from '../components/SectionIcon.vue'
 import FollowedUserCard from '../components/FollowedUserCard.vue'
 import FollowingModal from '../components/FollowingModal.vue'
 import { SHIELD } from '../utils/shield.js'
+import AccountSettings from '../components/AccountSettings.vue'
 
 const auth = useAuth()
 
@@ -151,6 +152,9 @@ async function setAvatar(id) {
           <UserAvatar :id="a.id" large />
         </button>
       </div>
+
+      <h2>Account</h2>
+      <AccountSettings />
 
       <h2>Privacy</h2>
       <label v-if="profile" class="check">

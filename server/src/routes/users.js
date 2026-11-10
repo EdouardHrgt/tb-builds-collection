@@ -3,7 +3,7 @@ import rateLimit from 'express-rate-limit'
 import { z } from 'zod'
 import { db } from '../db.js'
 import { requireAuth } from '../auth.js'
-import { SELECT, toBuild } from './builds.js'
+import { SELECT, WEAPON_SQL, toBuild } from './builds.js'
 import { avatarFor, isAvatarId } from '../avatars.js'
 
 export const usersRouter = Router()
@@ -128,6 +128,7 @@ usersRouter.get('/me/following/builds', requireAuth, (req, res) => {
         WHERE b.user_id IN (SELECT followed_id FROM follows WHERE follower_id = @uid)
           AND (@hero   IS NULL OR b.hero_id   = @hero)
           AND (@career IS NULL OR b.career_id = @career)
+          AND ${WEAPON_SQL}
           AND b.created_at >= datetime('now', @since)
       )
     )
@@ -136,7 +137,7 @@ usersRouter.get('/me/following/builds', requireAuth, (req, res) => {
     LIMIT @limit OFFSET @offset
   `,
     )
-    .all({ uid: req.userId, me: req.userId, hero: str(req.query.hero), career: str(req.query.career), limit: size + 1, offset, since: `-${FEED_MAX_AGE_DAYS} days` })
+    .all({ uid: req.userId, me: req.userId, hero: str(req.query.hero), career: str(req.query.career), weapon: str(req.query.weapon)?.slice(0, 60) || null, limit: size + 1, offset, since: `-${FEED_MAX_AGE_DAYS} days` })
   res.json({ items: rows.slice(0, size).map(toBuild), hasMore: rows.length > size })
 })
 

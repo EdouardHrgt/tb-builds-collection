@@ -177,3 +177,110 @@ authRouter.post(
     res.json({ message: 'Password updated. You can now log in.' })
   }),
 )
+
+// --- Account settings (logged in) -----------------------------------------
+
+const accountLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  message: { error: 'Too many attempts, please try again later' },
+})
+
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required').max(72),
+  newPassword: passwordSchema,
+})
+
+const changeEmailSchema = z.object({
+  password: z.string().min(1, 'Password is required').max(72),
+  email: z
+    .string()
+    .trim()
+    .email('Invalid email')
+    .max(120)
+    .transform((s) => s.toLowerCase()),
+})
+
+// Loads the account and checks its password (403 = wrong password, so the client never mistakes it for a lost session).
+async function accountWithPassword(req, res, password) {
+  const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.userId)
+  if (!user) {
+    clearSession(res)
+    res.status(401).json({ error: 'Session expired' })
+    return null
+  }
+  if (!(await bcrypt.compare(password, user.password_hash))) {
+    res.status(403).json({ error: 'Current password is incorrect' })
+    return null
+  }
+  return user
+}
+
+authRouter.post(
+  '/change-password',
+  requireAuth,
+  accountLimiter,
+  ah(async (req, res) => {
+    const { currentPassword, newPassword } = changePasswordSchema.parse(req.body)
+    const user = await accountWithPassword(req, res, currentPassword)
+    if (!user) return
+    const hash = await bcrypt.hash(newPassword, 10)
+    // token_version + 1 logs out every other device; this one gets a fresh session right below
+    db.prepare(
+      'UPDATE users SET password_hash = ?, token_version = token_version + 1 WHERE id = ?',
+    ).run(hash, user.id)
+    db.prepare('DELETE FROM password_resets WHERE user_id = ?').run(user.id) // a pending reset link is now useless
+    setSession(res, { ...user, token_version: user.token_version + 1 })
+    res.json({ message: 'Password updated.' })
+  }),
+)
+
+authRouter.post(
+  '/change-email',
+  requireAuth,
+  accountLimiter,
+  ah(async (req, res) => {
+    const { password, email } = changeEmailSchema.parse(req.body)
+    const user = await accountWithPassword(req, res, password)
+    if (!user) return
+    if (email !== user.email) {
+      try {
+        db.prepare('UPDATE users SET email = ? WHERE id = ?').run(email, user.id)
+      } catch (e) {
+        if (e.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+          return res.status(409).json({ error: 'Email already in use' })
+        }
+        throw e
+      }
+      // Warns the OLD address (someone with a stolen session could be changing it)
+      sendMail({
+        to: user.email,
+        subject: 'Your TB builds collection email was changed',
+        text: `Hi ${user.username},
+
+The email of your account was just changed to ${email}.
+
+If this was not you, use "Forgot password" with your username to take your account back.`,
+      }).catch((e) => console.error('Failed to send email-change notice:', e))
+    }
+    res.json(publicUser({ ...user, email }))
+  }),
+)
+
+// Deletes the account. Every table references users with ON DELETE CASCADE, so one DELETE also removes the
+// builds (with their likes, comments and bookmarks), the comments and likes of this user, follows and reset links.
+const deleteAccountSchema = z.object({ password: z.string().min(1, 'Password is required').max(72) })
+
+authRouter.post(
+  '/delete-account',
+  requireAuth,
+  accountLimiter,
+  ah(async (req, res) => {
+    const { password } = deleteAccountSchema.parse(req.body)
+    const user = await accountWithPassword(req, res, password)
+    if (!user) return
+    db.prepare('DELETE FROM users WHERE id = ?').run(user.id)
+    clearSession(res)
+    res.status(204).end()
+  }),
+)

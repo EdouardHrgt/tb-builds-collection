@@ -1,6 +1,7 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import rateLimit from 'express-rate-limit'
+import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { ZodError } from 'zod'
@@ -36,8 +37,13 @@ app.use('/api', (err, _req, res, _next) => {
 // In production the server also serves the front end (same origin, no CORS)
 if (isProd) {
   const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../client/dist')
-  app.use(express.static(dist))
-  app.get('*', (_req, res) => res.sendFile(path.join(dist, 'index.html')))
+  // index.html carries the link-preview tags (Open Graph), which need absolute addresses: __APP_URL__ is
+  // replaced once, here, with APP_URL (never built from request headers). `index: false` so that "/" goes
+  // through the catch-all below instead of serving the raw file.
+  const appUrl = (process.env.APP_URL || 'http://localhost:5173').replace(/\/$/, '')
+  const indexHtml = fs.readFileSync(path.join(dist, 'index.html'), 'utf8').replaceAll('__APP_URL__', appUrl)
+  app.use(express.static(dist, { index: false }))
+  app.get('*', (_req, res) => res.type('html').send(indexHtml))
 }
 
 const port = process.env.PORT || 3000

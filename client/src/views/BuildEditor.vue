@@ -32,6 +32,8 @@ const emptyGear = () => ({ traitId: '', propertyIds: ['', ''] })
 const emptyWeapon = () => ({ weaponId: '', ...emptyGear() })
 
 const editingId = route.params.id // undefined = creating
+// /builds/new?from=<id>: a new build that starts as a copy of that build (nothing is saved before "Save")
+const copyFrom = !editingId && /^\d+$/.test(String(route.query.from ?? '')) ? String(route.query.from) : ''
 const form = ref({
   title: '',
   description: '',
@@ -137,16 +139,16 @@ const cleanWeapon = (w) => ({ weaponId: w.weaponId || null, ...cleanGear(w) })
 const mapValues = (obj, fn) => Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, fn(v)]))
 
 onMounted(async () => {
-  if (!editingId) return
+  if (!editingId && !copyFrom) return
   try {
-    const b = await api(`/builds/${editingId}`)
-    if (b.authorId !== auth.user.id) return router.replace(`/builds/${b.id}`)
+    const b = await api(`/builds/${editingId || copyFrom}`)
+    if (editingId && b.authorId !== auth.user.id) return router.replace(`/builds/${b.id}`)
     if (b.data.v !== 2) {
-      error.value = 'This build uses an outdated format and cannot be edited (sorry not sorry :p).'
+      error.value = `This build uses an outdated format and cannot be ${copyFrom ? 'duplicated' : 'edited'} (sorry not sorry :p).`
       return
     }
     form.value = {
-      title: b.title,
+      title: copyFrom ? `Copy of ${b.title}`.slice(0, TITLE_MAX) : b.title,
       description: b.description,
       heroId: b.heroId,
       careerId: b.careerId,
@@ -241,7 +243,7 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
 
 <template>
   <section class="align-section">
-    <h1>{{ editingId ? 'Edit build' : 'New build' }}</h1>
+    <h1>{{ editingId ? 'Edit build' : copyFrom ? 'Duplicate build' : 'New build' }}</h1>
     <form class="form wide" :style="careerStyle" novalidate @submit.prevent="save">
       <div class="measure">
         <label>

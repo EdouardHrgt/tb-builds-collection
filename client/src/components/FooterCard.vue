@@ -37,6 +37,7 @@
 
 <style scoped>
 footer {
+  margin-top: var(--gap-footer); /* gap between the page content (main) and the footer (style.css) */
   text-align: center;
   padding: 1rem 0;
   border-top: 1px solid var(--line);

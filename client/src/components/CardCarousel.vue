@@ -126,7 +126,24 @@ onBeforeUnmount(() => {
 .carousel {
   position: relative;
 }
+/* Hover: the area of the carousel gets darker (edge to edge, like the arrow strips), so it reads as a
+   section of its own that can be dragged. Mouse only: a touch screen has no hover. */
+.carousel::before {
+  content: '';
+  position: absolute;
+  inset: -0.6rem calc(var(--side-padding) * -1) -0.2rem;
+  background: rgb(0 0 0 / 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+@media (hover: hover) {
+  .carousel:hover::before {
+    opacity: 1;
+  }
+}
 .track {
+  position: relative; /* above the dark area */
   display: flex;
   gap: 1rem;
   overflow-x: auto;
@@ -190,8 +207,8 @@ onBeforeUnmount(() => {
   bottom: 0.4rem; /* the space under the track */
   width: var(--side-padding);
   height: auto;
-  color: var(--bg); /* dark chevron on the light strip */
-  background: color-mix(in srgb, var(--text) 85%, transparent); /* off-white (the text color) */
+  color: #fff; /* white chevron on the dark strip */
+  background: rgb(0 0 0 / 0.55); /* a bit darker than the hover veil of the carousel (0.28) */
   border: 0;
   border-radius: 0;
   box-shadow: none;
@@ -204,7 +221,7 @@ onBeforeUnmount(() => {
   opacity: 1;
 }
 .on-hover .arrow:hover:not(:disabled) {
-  background: var(--text);
+  background: rgb(0 0 0 / 0.75);
 }
 .on-hover .arrow.prev {
   left: calc(var(--side-padding) * -1);
@@ -215,6 +232,11 @@ onBeforeUnmount(() => {
 @media (hover: none) {
   .on-hover .arrow {
     display: none; /* touch screens: swipe */
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel::before {
+    transition: none;
   }
 }
 @media (max-width: 700px) {

@@ -31,7 +31,7 @@ async function logout() {
       </template>
     </nav>
   </header>
-  <main><RouterView /></main>
+  <main><RouterView :key="$route.path + ($route.query.from ?? '')" /></main>
   <FooterCard />
 </template>
 

@@ -11,6 +11,8 @@
   /* SIZES */
   --mx-width: 1440px;
   --side-padding: 1.5rem;
+  --gap-header: 3rem; /* space between the header and the content area (main) */
+  --gap-footer: 3rem; /* space between the content area (main) and the footer */
   --icon-size: 60px;
   --avatar-size: 44px; /* round profile pictures: cards, comments, build page */
   --avatar-size-lg: 88px; /* public profile, avatar picker */
@@ -20,19 +22,17 @@
   --sub-font: font-family: 'New Rocker', system-ui;
 }
 
-/* font-family: 'Permanent Marker', cursive;
-  font-family: 'Kanchenjunga', sans-serif;
-*/
-
 * {
   box-sizing: border-box;
 }
-/* Page background (around the content): a subtle stone-like texture in the tones of --bg made of two SVG noise layers
-   (blotches + fine grain) under a vignette. To use a real image instead, put it in client/public/ and set
-   --page-image on :root, e.g.  --page-image: url('/textures/stone.jpg');  (it is drawn above the texture). */
+
 body {
   margin: 0;
-  background-color: color-mix(in srgb, var(--bg) 55%, var(--line)); /* derived from the content colour */
+  background-color: color-mix(
+    in srgb,
+    var(--bg) 55%,
+    var(--line)
+  ); /* derived from the content colour */
   background-image:
     var(--page-image, none),
     radial-gradient(ellipse at 50% 0%, transparent 40%, rgb(0 0 0 / 0.25) 100%),
@@ -102,7 +102,7 @@ a:hover {
 main {
   flex: 1 0 auto;
   width: 100%; /* (the auto side margins below would otherwise shrink <main> to its content) */
-  margin: 0 auto;
+  margin: var(--gap-header) auto 0;
   max-width: var(--mx-width);
   padding-top: 2rem;
   padding-bottom: 5rem; /* space before the footer (inside the solid area) */
@@ -201,7 +201,6 @@ nav a.who.router-link-exact-active {
   font-size: 1.2rem;
   letter-spacing: 0.7px;
   border: 1px solid var(--line);
-
 }
 .who:hover {
   background-color: white;
