@@ -13,7 +13,7 @@ If your host gives you environment variables instead of a `.env` file, run the s
 
 | Command | What it does |
 | --- | --- |
-| `users [text]` | Lists users (filtered by username / email if a text is given) with their number of builds |
+| `users` | Lists users (filtered by username / email if a text is given) with their number of builds |
 | `user <name\|email\|id>` | Details of one account |
 | `reset-password <user>` | Sets a new random password, prints it, logs the user out everywhere. Send it to them privately: they change it in *My builds > Account* |
 | `logout <user>` | Logs the user out of every device |
