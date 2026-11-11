@@ -378,10 +378,18 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
           Description
           <textarea v-model="form.description" rows="5" :maxlength="DESCRIPTION_MAX" />
         </label>
-        <p class="desc-help">
-          <span># Title &nbsp;·&nbsp; - list item &nbsp;·&nbsp; **bold** &nbsp;·&nbsp; __underlined__ &nbsp;·&nbsp; empty line = new paragraph</span>
-          <small>{{ form.description.length }}/{{ DESCRIPTION_MAX }}</small>
-        </p>
+        <div class="desc-tools">
+          <details class="desc-help">
+            <summary>Formatting help</summary>
+            <ul>
+              <li><code># Title</code> a heading</li>
+              <li><code>- Item</code> a bullet list (one item per line)</li>
+              <li><code>**bold**</code> bold text</li>
+              <li><code>__underlined__</code> underlined text</li>
+            </ul>
+          </details>
+          <small class="desc-count">{{ form.description.length }}/{{ DESCRIPTION_MAX }}</small>
+        </div>
 
         <p v-if="error" class="error" role="alert">{{ error }}</p>
         <div>
@@ -519,15 +527,49 @@ section {
 .team-note-count {
   justify-self: end;
 }
-/* Formatting help + counter under the description */
-.desc-help {
+/* Formatting help (a button that opens the examples) + counter under the description */
+.desc-tools {
   display: flex;
-  flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 0.3rem 1rem;
-  margin: 0.3rem 0 0;
+  gap: 1rem;
+  margin-top: 0.4rem;
   font-size: 0.85rem;
   color: var(--muted);
+}
+.desc-help summary {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  list-style: none;
+}
+.desc-help summary::-webkit-details-marker {
+  display: none;
+}
+.desc-help summary:hover,
+.desc-help[open] summary {
+  border-color: var(--accent);
+}
+.desc-help ul {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.desc-help code {
+  margin-right: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.desc-count {
+  padding-top: 0.3rem;
 }
 /* What the user types uses the normal text font, not the title font of the label */
 .description-label textarea {
