@@ -4,3 +4,4 @@ dist
 /server/data/
 /server/backups/
 /server/exports/
+tools/vps.txt
