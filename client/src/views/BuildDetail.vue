@@ -12,6 +12,7 @@ import LikeButton from '../components/LikeButton.vue'
 import BookmarkButton from '../components/BookmarkButton.vue'
 import BreakpointCard from '../components/BreakpointCard.vue'
 import UserAvatar from '../components/UserAvatar.vue'
+import RichText from '../components/RichText.vue'
 import CommentSection from '../components/CommentSection.vue'
 import { buildToText } from '../utils/buildText.js'
 import { breakpointKey } from '../utils/breakpoints.js'
@@ -35,13 +36,9 @@ const router = useRouter()
 const auth = useAuth()
 
 const build = ref(null)
-// Recommended builds of the ideal team that still exist (a deleted one is simply not listed)
-const teamLinks = computed(() =>
-  (build.value?.data.teammates ?? [])
-    .map((t) => ({ t, b: t.buildId ? build.value.teammateBuilds?.[t.buildId] : null }))
-    .filter((x) => x.b)
-    .map(({ t, b }) => ({ id: b.id, title: b.title, author: b.author, career: careerName(t.heroId, t.careerId) })),
-)
+// The build recommended for a teammate, if it still exists (a deleted one is simply not shown)
+const recommendedBuild = (t) => (t.buildId ? build.value?.teammateBuilds?.[t.buildId] : null)
+const hasRecommended = computed(() => (build.value?.data.teammates ?? []).some((t) => recommendedBuild(t)))
 const error = ref('')
 const isOwner = computed(() => build.value && auth.user?.id === build.value.authorId)
 const isCurrentFormat = computed(() => build.value?.data?.v === 2)
@@ -142,7 +139,7 @@ async function remove() {
           <RouterLink :to="`/builds/${build.id}/edit`" class="btn">Edit</RouterLink>
           <button type="button" class="btn danger" @click="remove">Delete</button>
         </div>
-        <p v-if="build.description" class="desc">{{ build.description }}</p>
+        <RichText v-if="build.description" :text="build.description" />
       </div>
 
       <!-- Right: career portrait, with the buttons next to it -->
@@ -231,26 +228,26 @@ async function remove() {
 
         <section v-if="build.data.teammates?.length" class="area-team">
           <h2 class="with-icon"><SectionIcon name="team" />Ideal team</h2>
-          <ul class="teammates">
-            <li
-              v-for="t in build.data.teammates"
-              :key="`${t.heroId}-${t.careerId}`"
-              :title="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`">
-              <img
-                v-if="getCareer(t.heroId, t.careerId)?.icon"
-                :src="getCareer(t.heroId, t.careerId).icon"
-                :alt="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`"
-                width="64"
-                height="79" />
-            </li>
-          </ul>
-          <ul v-if="teamLinks.length" class="team-builds">
-            <li v-for="l in teamLinks" :key="l.id">
-              <RouterLink :to="`/builds/${l.id}`">{{ l.career }}: {{ l.title }}</RouterLink>
-              <span class="by"> by {{ l.author }}</span>
-            </li>
-          </ul>
-          <p v-if="build.data.teamDescription" class="team-desc">{{ build.data.teamDescription }}</p>
+          <div class="team-card">
+            <ul class="teammates" :class="{ plain: !hasRecommended }">
+              <li v-if="hasRecommended" class="rec-sub">Recommended builds</li>
+              <li
+                v-for="t in build.data.teammates"
+                :key="`${t.heroId}-${t.careerId}`"
+                :title="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`">
+                <img
+                  v-if="getCareer(t.heroId, t.careerId)?.icon"
+                  :src="getCareer(t.heroId, t.careerId).icon"
+                  :alt="`${careerName(t.heroId, t.careerId)} (${heroName(t.heroId)})`"
+                  width="64"
+                  height="79" />
+                <RouterLink v-if="recommendedBuild(t)" :to="`/builds/${recommendedBuild(t).id}`" class="rec-link">
+                  {{ recommendedBuild(t).title }}
+                </RouterLink>
+              </li>
+            </ul>
+            <p v-if="build.data.teamDescription" class="team-desc">{{ build.data.teamDescription }}</p>
+          </div>
         </section>
       </div>
     </template>
@@ -409,36 +406,56 @@ async function remove() {
   align-items: start; /* an opened card does not stretch its neighbours */
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
-.teammates {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+.team-card {
   width: fit-content;
-  padding: 0.7rem;
+  min-width: min(16rem, 100%); /* a short link or description still has room */
+  max-width: 100%;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 6px;
+}
+.teammates {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.7rem;
   margin: 0;
   list-style: none;
 }
-.team-builds {
-  max-width: 16rem;
-  margin: 0.6rem 0 0;
-  padding: 0;
-  list-style: none;
+/* No recommended build at all: the portraits side by side, centered in the card */
+.teammates.plain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* Subtitle above the links: it starts where they start (portrait width 64px + the gap of the row) */
+.teammates .rec-sub {
+  padding-left: calc(64px + 0.8rem);
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+/* One row per teammate: portrait | link to the recommended build */
+.teammates li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.rec-link {
+  min-width: 0;
   overflow-wrap: anywhere;
 }
-.team-builds li + li {
-  margin-top: 0.3rem;
-}
-.team-builds .by {
-  color: var(--muted);
-}
+/* The description: under the rows, separated by a line. The card keeps the width of the rows
+   (width: 0 + min-width: 100%), the text wraps inside it. */
 .team-desc {
-  max-width: 16rem;
-  margin: 0.6rem 0 0;
+  box-sizing: border-box;
+  width: 0;
+  min-width: 100%;
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  border-top: 1px solid var(--line);
   overflow-wrap: anywhere;
-  color: var(--muted);
+  color: #fff;
 }
 .teammates img {
   display: block;

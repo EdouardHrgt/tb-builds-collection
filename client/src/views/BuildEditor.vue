@@ -194,6 +194,7 @@ onMounted(async () => {
 const teamBuilds = ref({}) // recommended builds that still exist (when editing / duplicating)
 const TITLE_MIN = 5
 const TITLE_MAX = 30
+const DESCRIPTION_MAX = 2000 // keep in sync with the server (routes/builds.js)
 const TEAM_DESCRIPTION_MAX = 150 // keep in sync with the server (routes/builds.js)
 
 // Returns the first problem found (a sentence for the player), or '' when the build can be saved.
@@ -375,8 +376,12 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
       <div class="measure">
         <label class="description-label">
           Description
-          <textarea v-model="form.description" rows="5" maxlength="2000" />
+          <textarea v-model="form.description" rows="5" :maxlength="DESCRIPTION_MAX" />
         </label>
+        <p class="desc-help">
+          <span># Title &nbsp;·&nbsp; - list item &nbsp;·&nbsp; **bold** &nbsp;·&nbsp; __underlined__ &nbsp;·&nbsp; empty line = new paragraph</span>
+          <small>{{ form.description.length }}/{{ DESCRIPTION_MAX }}</small>
+        </p>
 
         <p v-if="error" class="error" role="alert">{{ error }}</p>
         <div>
@@ -513,6 +518,16 @@ section {
 }
 .team-note-count {
   justify-self: end;
+}
+/* Formatting help + counter under the description */
+.desc-help {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.3rem 1rem;
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 /* What the user types uses the normal text font, not the title font of the label */
 .description-label textarea {
