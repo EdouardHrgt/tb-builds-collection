@@ -3,6 +3,10 @@
     "id": "avatar-default",
     "icon": "/profile/avatar-default.webp"
   },
+  "admin": {
+    "id": "avatar-admin",
+    "icon": "/profile/avatar-admin.webp"
+  },
   "avatars": [
     {
       "id": "avatar-1",

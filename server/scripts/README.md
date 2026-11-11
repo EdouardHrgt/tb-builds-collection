@@ -18,6 +18,7 @@ If your host gives you environment variables instead of a `.env` file, run the s
 | `export <user>` | Writes everything held about an account (profile, email, builds, comments, likes, bookmarks, follows; never the password) to `exports/<name>-<date>.json`. For a user's data request: send them the file privately (WinSCP to download it), then delete it |
 | `reset-password <user>` | Sets a new random password, prints it, logs the user out everywhere. Send it to them privately: they change it in *My builds > Account* |
 | `logout <user>` | Logs the user out of every device |
+| `admin-avatar <user> [off]` | Gives the admin-only avatar (`avatar-admin` in `avatars.json`, image `client/public/profile/avatar-admin.webp`) to an account; users cannot pick it. `off` takes it back (default avatar). If that user picks another avatar later, run the command again |
 | `delete-user <user>` | Deletes the account and everything it owns: builds, comments, likes, follows |
 | `builds <user>` | Lists the builds of a user (ids, titles, likes) |
 | `delete-build <id>` | Deletes a build with its likes, bookmarks and comments |
