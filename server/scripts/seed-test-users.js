@@ -65,7 +65,7 @@ const weapons = load('weapons.json').weapons
 const weaponOptions = load('weapon-options.json')
 const equipmentOptions = load('equipment-options.json').equipment
 const enemies = load('enemies.json').enemies
-const breakpointAttacks = load('breakpoint-attacks.json')
+const breakpointOptions = load('breakpoint-attacks.json')
 const TIERS = ['5', '10', '15', '20', '25', '30']
 
 // Small seeded random generator: the same data every time
@@ -83,7 +83,12 @@ const sample = (list, n) => [...list].sort(() => rnd() - 0.5).slice(0, n)
 
 const gear = (pool, weaponId) => {
   const traits = pool.traits.filter((t) => (t.onlyWeaponIds ? t.onlyWeaponIds.includes(weaponId) : !t.excludedWeaponIds?.includes(weaponId)))
-  return { traitId: pick(traits).id, propertyIds: sample(pool.properties, 2).map((p) => p.id) }
+  // Weapons cannot have two properties of the same exclusive group (power vs skaven + power vs chaos)
+  let propertyIds
+  do {
+    propertyIds = sample(pool.properties, 2).map((p) => p.id)
+  } while ((pool.exclusiveProperties ?? []).some((g) => g.every((id) => propertyIds.includes(id))))
+  return { traitId: pick(traits).id, propertyIds }
 }
 
 function randomBuild() {
@@ -101,12 +106,15 @@ function randomBuild() {
 
   const used = new Set()
   for (let i = int(4); i > 0; i--) {
-    const type = pick(Object.keys(breakpointAttacks))
-    const attack = pick(breakpointAttacks[type].attacks).id
-    if (used.has(`${type}/${attack}`)) continue
-    used.add(`${type}/${attack}`)
+    const type = pick(breakpointOptions.types)
+    const hits = Array.from({ length: 1 + int(2) }, () => ({ kind: pick(type.kinds).id, zone: pick(breakpointOptions.zones).id }))
+    const crit = rnd() < 0.3
+    const boosters = rnd() < 0.3 ? [pick(breakpointOptions.boosters).id] : []
+    const key = JSON.stringify([type.id, hits, crit, boosters])
+    if (used.has(key)) continue
+    used.add(key)
     const chosen = new Set(sample(enemies, 1 + int(6)).map((e) => e.id))
-    data.breakpoints.push({ type, attack, enemyIds: enemies.filter((e) => chosen.has(e.id)).map((e) => e.id) }) // catalog order
+    data.breakpoints.push({ type: type.id, hits, crit, boosters, enemyIds: enemies.filter((e) => chosen.has(e.id)).map((e) => e.id) }) // catalog order
   }
   for (const h of sample(heroes.filter((x) => x.id !== hero.id), int(4))) {
     data.teammates.push({ heroId: h.id, careerId: pick(h.careers).id })

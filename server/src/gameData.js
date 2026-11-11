@@ -29,7 +29,7 @@ const weapons = load('weapons.json').weapons
 const weaponOptions = load('weapon-options.json') // { melee: {traits, properties}, ranged: {...} }
 const equipmentOptions = load('equipment-options.json').equipment // { necklace: {...}, charm: {...}, trinket: {...} }
 const enemies = load('enemies.json').enemies // [{ id, name, category, icon }]
-const breakpointAttacks = load('breakpoint-attacks.json') // { ranged: { attacks: [...] }, melee: { attacks: [...] } }
+const breakpointOptions = load('breakpoint-attacks.json') // { types: [{ id, kinds }], zones, boosters }
 
 const TIERS = ['5', '10', '15', '20', '25', '30']
 const has = (obj, key) => Object.hasOwn(obj, key)
@@ -47,6 +47,13 @@ function checkOptions(sel, pool, slot) {
   if (sel.traitId && !pool.traits.some((t) => t.id === sel.traitId)) return `${slot}: unknown trait`
   for (const id of sel.propertyIds) {
     if (!pool.properties.some((p) => p.id === id)) return `${slot}: unknown property`
+  }
+  // Properties of which only one can be picked (`exclusiveProperties` in weapon-options.json, weapons only)
+  for (const group of pool.exclusiveProperties ?? []) {
+    if (group.filter((id) => sel.propertyIds.includes(id)).length > 1) {
+      const names = group.map((id) => pool.properties.find((p) => p.id === id)?.name ?? id)
+      return `${slot}: pick only one of these properties: ${names.join(' / ')}`
+    }
   }
   return null
 }
@@ -102,17 +109,32 @@ export function validateBuildData({ heroId, careerId, data }) {
     if (err) return err
   }
 
-  // Fast breakpoint cards: the attack must belong to the card's type, enemies must exist,
-  // and an attack can only have one card (a second one would just be more enemies on the first)
-  const usedAttacks = new Set()
+  // Fast breakpoint cards: 1 or 2 hits (the schema limits that), each a kind of hit of the card's type landing on a
+  // known zone; known boosters and enemies, none listed twice. Two cards with the same hits, crit and boosters
+  // would only differ by their enemies: the second one is refused.
+  // Keep the key in sync with breakpointKey in the client (utils/breakpoints.js).
+  const usedCards = new Set()
   for (const card of data.breakpoints ?? []) {
-    if (!has(breakpointAttacks, card.type)) return 'Breakpoint: unknown attack type'
-    if (!breakpointAttacks[card.type].attacks.some((a) => a.id === card.attack)) {
-      return 'Breakpoint: this attack does not exist for this type'
+    const type = breakpointOptions.types.find((t) => t.id === card.type)
+    if (!type) return 'Breakpoint: unknown attack type'
+    for (const hit of card.hits) {
+      if (!type.kinds.some((k) => k.id === hit.kind)) {
+        return 'Breakpoint: this kind of hit does not exist for this type'
+      }
+      if (!breakpointOptions.zones.some((z) => z.id === hit.zone)) return 'Breakpoint: unknown target'
     }
-    const key = `${card.type}/${card.attack}`
-    if (usedAttacks.has(key)) return 'Breakpoint: two cards use the same attack'
-    usedAttacks.add(key)
+    if (new Set(card.boosters).size !== card.boosters.length) return 'Breakpoint: a booster is listed twice'
+    if (!card.boosters.every((id) => breakpointOptions.boosters.some((b) => b.id === id))) {
+      return 'Breakpoint: unknown booster'
+    }
+    const key = [
+      card.type,
+      card.hits.map((h) => `${h.kind}:${h.zone}`).join('>'),
+      card.crit ? 'crit' : '',
+      [...card.boosters].sort().join(','),
+    ].join('|')
+    if (usedCards.has(key)) return 'Breakpoint: two cards are identical'
+    usedCards.add(key)
     if (new Set(card.enemyIds).size !== card.enemyIds.length)
       return 'Breakpoint: an enemy is listed twice'
     if (!card.enemyIds.every((id) => enemies.some((e) => e.id === id)))
@@ -128,6 +150,10 @@ export function validateBuildData({ heroId, careerId, data }) {
     if (mate.heroId === heroId) return 'Teammate: it cannot be the same hero as the build'
     if (teamHeroes.has(mate.heroId)) return 'Teammate: a team has only one of each hero'
     teamHeroes.add(mate.heroId)
+  }
+  // A team description needs a team
+  if (data.teamDescription && !(data.teammates ?? []).length) {
+    return 'Team description: pick at least one teammate first'
   }
   return null
 }

@@ -15,6 +15,7 @@ const TOP_LIMIT_CAREER = 10 // when a career is selected: its 10 best builds
 const MODAL_PAGE = 40
 const MODAL_PAGE_MAX = 200
 const MAX_TEAMMATES = 3 // recommended teammates: 3 other heroes make a team of 4
+const TEAM_DESCRIPTION_MAX = 150 // keep in sync with the editor (views/BuildEditor.vue)
 
 const id = z.string().min(1).max(60)
 const distinct = (g) => new Set(g.propertyIds).size === g.propertyIds.length
@@ -38,17 +39,25 @@ const weaponSchema = z
   .strict()
   .refine(distinct, DISTINCT_MSG)
 
-// A fast breakpoint card: an attack of a type (melee / ranged) and the enemies it kills fast
+// One hit of a breakpoint: a kind of hit (heavy / light / charged) landing on a zone (head / body).
+// The ids are checked against breakpoint-attacks.json in validateBuildData.
+const hitSchema = z.object({ kind: id, zone: id }).strict()
+
+// A fast breakpoint card: 1 or 2 hits with a weapon type (melee / ranged), an optional crit and boosters,
+// and the enemies it kills fast
 const breakpointSchema = z
   .object({
     type: id,
-    attack: id,
+    hits: z.array(hitSchema).min(1, 'A breakpoint needs a hit').max(2, 'A breakpoint has 2 hits at most'),
+    crit: z.boolean().default(false),
+    boosters: z.array(id).max(10).default([]),
     enemyIds: z.array(id).min(1, 'A breakpoint needs at least one enemy').max(50),
   })
   .strict()
 
 // A recommended teammate: a career of ANOTHER hero (checked in validateBuildData)
-const teammateSchema = z.object({ heroId: id, careerId: id }).strict()
+// `buildId` = a build recommended for that teammate (optional; checked against the database in the routes)
+const teammateSchema = z.object({ heroId: id, careerId: id, buildId: z.number().int().positive().optional() }).strict()
 const buildSchema = z.object({
   title: z
     .string()
@@ -67,6 +76,7 @@ const buildSchema = z.object({
       equipment: z.record(id, gearSchema), // necklace / charm / trinket
       breakpoints: z.array(breakpointSchema).max(50).default([]), // fast breakpoint cards (optional)
       teammates: z.array(teammateSchema).max(MAX_TEAMMATES).default([]), // recommended teammates (optional)
+      teamDescription: z.string().trim().max(TEAM_DESCRIPTION_MAX).default(''), // a few words about the team (optional)
     })
     .strict(),
 })
@@ -98,6 +108,30 @@ export const toBuild = (r) => ({
   updatedAt: r.updated_at,
   commentCount: r.comment_count,
 })
+
+// The recommended builds of a team must exist and be for the teammate's career. Returns an error message or null.
+function checkTeamBuilds(data) {
+  const get = db.prepare('SELECT career_id FROM builds WHERE id = ?')
+  for (const t of data.teammates) {
+    if (t.buildId === undefined) continue
+    if (get.get(t.buildId)?.career_id !== t.careerId)
+      return 'Teammate: the recommended build does not exist or is for another career'
+  }
+  return null
+}
+// The recommended builds still in the database, by id (a deleted one is simply missing)
+function teamBuildsOf(data) {
+  const out = {}
+  const get = db.prepare(
+    'SELECT b.id, b.title, b.hero_id, b.career_id, u.username AS author FROM builds b JOIN users u ON u.id = b.user_id WHERE b.id = ?',
+  )
+  for (const t of data.teammates ?? []) {
+    const r = t.buildId ? get.get(t.buildId) : null
+    if (r && r.career_id === t.careerId)
+      out[r.id] = { id: r.id, title: r.title, heroId: r.hero_id, careerId: r.career_id, author: r.author }
+  }
+  return out
+}
 
 const viewer = (req) => req.userId ?? 0 // user ids start at 1, so 0 matches nobody
 const str = (v) => (typeof v === 'string' && v ? v : null)
@@ -206,13 +240,14 @@ buildsRouter.get('/me/builds', requireAuth, (req, res) => {
 buildsRouter.get('/builds/:id', (req, res) => {
   const row = findOne(req.params.id, req)
   if (!row) return res.status(404).json({ error: 'Build not found' })
-  res.json(toBuild(row))
+  const build = toBuild(row)
+  res.json({ ...build, teammateBuilds: teamBuildsOf(build.data) })
 })
 
 // Create
 buildsRouter.post('/builds', requireAuth, (req, res) => {
   const b = buildSchema.parse(req.body)
-  const gameError = validateBuildData(b)
+  const gameError = validateBuildData(b) ?? checkTeamBuilds(b.data)
   if (gameError) return res.status(400).json({ error: gameError })
   b.data.balance = BALANCE_VERSION
   const info = db
@@ -234,7 +269,7 @@ buildsRouter.put('/builds/:id', requireAuth, (req, res) => {
     return res.status(403).json({ error: 'You do not own this build' })
 
   const b = buildSchema.parse(req.body)
-  const gameError = validateBuildData(b)
+  const gameError = validateBuildData(b) ?? checkTeamBuilds(b.data)
   if (gameError) return res.status(400).json({ error: gameError })
   b.data.balance = BALANCE_VERSION // editing a build brings it up to the current balance version
   db.prepare(

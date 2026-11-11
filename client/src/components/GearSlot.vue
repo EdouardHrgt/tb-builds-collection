@@ -7,6 +7,8 @@ const props = defineProps({
   weapons: { type: Array, default: null }, // weapons to choose from; null = not a weapon slot
   traits: { type: Array, required: true },
   properties: { type: Array, required: true },
+  // Groups of properties of which only ONE can be picked, e.g. [['powervsskaven', 'powervschaos']] (weapons only)
+  exclusiveProperties: { type: Array, default: () => [] },
   readonly: { type: Boolean, default: false },
   // The choices open on the RIGHT of the slot (a floating panel) instead of below it.
   // Only from 1024px wide: on smaller screens there is no room on the side, so it opens below.
@@ -40,10 +42,12 @@ function setProperty(index, value) {
   ids[index] = value
   update({ propertyIds: ids })
 }
-// The other property select already uses one value: it cannot be picked twice
+// The other property select already uses one value: it cannot be picked twice, and neither can a property
+// that is exclusive with it (power vs skaven / power vs chaos on a weapon)
 const propertyChoices = (index) => {
   const other = model.value.propertyIds?.[1 - index] ?? ''
-  return props.properties.filter((p) => p.id !== other)
+  const rivals = props.exclusiveProperties.filter((g) => g.includes(other)).flat()
+  return props.properties.filter((p) => p.id !== other && !rivals.includes(p.id))
 }
 
 // --- Auto-collapse when the user leaves the slot ---

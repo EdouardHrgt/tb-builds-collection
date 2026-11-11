@@ -1,9 +1,10 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useGameData } from '../composables/useGameData.js'
+import { breakpointLabel, breakpointBoosterNames } from '../utils/breakpoints.js'
 
 const props = defineProps({
-  card: { type: Object, required: true }, // { type: 'ranged', attack: '1head', enemyIds: [...] }
+  card: { type: Object, required: true }, // { type: 'ranged', hits: [{ kind, zone }], crit, boosters: [...], enemyIds: [...] }
   removable: { type: Boolean, default: false },
 })
 const emit = defineEmits(['remove'])
@@ -14,10 +15,12 @@ const SHOW_ENEMY_NAMES = true
 // The card has a fixed height: it previews this many enemies, the rest shows when it is opened
 const PREVIEW_COUNT = 3
 
-const { getBreakpointType, getAttack, getEnemy } = useGameData()
+const gd = useGameData()
+const { getBreakpointType, getEnemy } = gd
 
 const type = computed(() => getBreakpointType(props.card.type))
-const attack = computed(() => getAttack(props.card.type, props.card.attack))
+const label = computed(() => breakpointLabel(props.card, gd))
+const boosters = computed(() => breakpointBoosterNames(props.card, gd))
 const enemies = computed(() => props.card.enemyIds.map((id) => getEnemy(id)).filter(Boolean))
 
 const open = ref(false)
@@ -48,8 +51,9 @@ const visibleEnemies = computed(() => (open.value ? enemies.value : enemies.valu
           width="45"
           height="40"
           class="bp-type" />
-        <strong class="bp-attack">{{ attack?.name ?? card.attack }}</strong>
+        <strong class="bp-attack">{{ label }}</strong>
       </div>
+      <p v-if="boosters.length" class="bp-boosters">Boosters: {{ boosters.join(', ') }}</p>
       <ul class="bp-enemies">
         <li v-for="e in visibleEnemies" :key="e.id" class="bp-enemy" :title="e.name">
           <img :src="e.icon" :alt="SHOW_ENEMY_NAMES ? '' : e.name" width="36" height="36" />
@@ -70,7 +74,7 @@ const visibleEnemies = computed(() => (open.value ? enemies.value : enemies.valu
       v-if="removable"
       type="button"
       class="bp-remove"
-      :aria-label="`Remove breakpoint: ${type?.name ?? card.type}, ${attack?.name ?? card.attack}`"
+      :aria-label="`Remove breakpoint: ${type?.name ?? card.type}, ${label}`"
       @click="emit('remove')">
       ×
     </button>
@@ -83,7 +87,7 @@ const visibleEnemies = computed(() => (open.value ? enemies.value : enemies.valu
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
-  height: 13rem; /* fixed: attack name + 3 enemies + the "more" line */
+  height: 15rem; /* fixed: attack name + boosters + 3 enemies + the "more" line */
   overflow: hidden;
   padding: 0.7rem 2.4rem 0.7rem 0.7rem;
   background: var(--panel);
@@ -92,7 +96,7 @@ const visibleEnemies = computed(() => (open.value ? enemies.value : enemies.valu
 }
 .bp-card.open {
   height: auto;
-  min-height: 13rem;
+  min-height: 15rem;
 }
 .bp-head {
   display: flex;
@@ -111,6 +115,11 @@ const visibleEnemies = computed(() => (open.value ? enemies.value : enemies.valu
 }
 .bp-attack {
   min-width: 0;
+}
+.bp-boosters {
+  margin: -0.2rem 0 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
 }
 .bp-enemies {
   display: flex;

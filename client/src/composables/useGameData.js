@@ -84,11 +84,16 @@ const ENEMY_CATEGORIES = enemiesData.categories.map((c) => ({
 const ENEMY_IDS = ENEMY_CATEGORIES.flatMap((c) => c.enemies.map((e) => e.id)) // catalog order
 const getEnemy = (id) => enemiesData.enemies.find((e) => e.id === id)
 
-// [{ id: 'ranged', name, icon, attacks: [{ id, name }] }, { id: 'melee', ... }] (order of the JSON file)
-const BREAKPOINT_TYPES = Object.entries(breakpointData).map(([id, type]) => ({ id, ...type }))
+// Ranged / Melee: [{ id, name, icon, kinds: [{ id, name }] }] (order of the JSON file). `kinds` are the kinds of
+// hit this type can do: ranged = charged / light shots, melee = heavy / light attacks.
+const BREAKPOINT_TYPES = breakpointData.types
+const BREAKPOINT_ZONES = breakpointData.zones // where the hit lands: [{ id: 'head', name: 'Head' }, ...]
+const BREAKPOINT_BOOSTERS = breakpointData.boosters // damage boosts a card can mention
 const getBreakpointType = (id) => BREAKPOINT_TYPES.find((t) => t.id === id)
-const getAttack = (typeId, attackId) =>
-  getBreakpointType(typeId)?.attacks.find((a) => a.id === attackId)
+const getBreakpointKind = (typeId, kindId) =>
+  getBreakpointType(typeId)?.kinds.find((k) => k.id === kindId)
+const getBreakpointZone = (id) => BREAKPOINT_ZONES.find((z) => z.id === id)
+const getBreakpointBooster = (id) => BREAKPOINT_BOOSTERS.find((b) => b.id === id)
 
 export function useGameData() {
   return {
@@ -99,6 +104,8 @@ export function useGameData() {
     ENEMY_CATEGORIES,
     ENEMY_IDS,
     BREAKPOINT_TYPES,
+    BREAKPOINT_ZONES,
+    BREAKPOINT_BOOSTERS,
     getHero,
     getCareer,
     heroName,
@@ -113,6 +120,8 @@ export function useGameData() {
     getWeaponOptions,
     getEnemy,
     getBreakpointType,
-    getAttack,
+    getBreakpointKind,
+    getBreakpointZone,
+    getBreakpointBooster,
   }
 }

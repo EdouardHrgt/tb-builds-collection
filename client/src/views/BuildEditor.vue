@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
+import { BALANCE } from '../utils/balance.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import CareerAbilities from '../components/CareerAbilities.vue'
 import GearSlot from '../components/GearSlot.vue'
@@ -33,6 +34,8 @@ const emptyGear = () => ({ traitId: '', propertyIds: ['', ''] })
 const emptyWeapon = () => ({ weaponId: '', ...emptyGear() })
 
 const editingId = route.params.id // undefined = creating
+// Balance version the edited build was saved with (the only place where the version of an old build is shown)
+const savedBalance = ref('')
 // /builds/new?from=<id>: a new build that starts as a copy of that build (nothing is saved before "Save")
 const copyFrom = !editingId && /^\d+$/.test(String(route.query.from ?? '')) ? String(route.query.from) : ''
 const form = ref({
@@ -45,7 +48,15 @@ const form = ref({
   equipment: Object.fromEntries(EQUIPMENT_SLOTS.map((s) => [s.id, emptyGear()])),
   breakpoints: [],
   teammates: [],
+  teamDescription: '',
 })
+// The team description only makes sense with a team: it is emptied when the last teammate is removed
+watch(
+  () => form.value.teammates.length,
+  (count) => {
+    if (!count) form.value.teamDescription = ''
+  },
+)
 // New build only: the necklace starts with the usual choice (Barkskin, +20% Health, +30% BCR).
 // Applied only if these ids exist in equipment-options.json.
 const necklace = EQUIPMENT_SLOTS.find((s) => s.id === 'necklace')
@@ -148,6 +159,8 @@ onMounted(async () => {
       error.value = `This build uses an outdated format and cannot be ${copyFrom ? 'duplicated' : 'edited'} (sorry not sorry :p).`
       return
     }
+    teamBuilds.value = b.teammateBuilds ?? {}
+    if (editingId) savedBalance.value = b.data.balance ?? ''
     form.value = {
       title: copyFrom ? `Copy of ${b.title}`.slice(0, TITLE_MAX) : b.title,
       description: b.description,
@@ -160,20 +173,32 @@ onMounted(async () => {
       equipment: Object.fromEntries(
         EQUIPMENT_SLOTS.map((s) => [s.id, fromGear(b.data.equipment?.[s.id])]),
       ),
-      breakpoints: (b.data.breakpoints ?? []).map((c) => ({ ...c, enemyIds: [...c.enemyIds] })),
-      teammates: (b.data.teammates ?? []).map((t) => ({ ...t })),
+      breakpoints: (b.data.breakpoints ?? []).map((c) => ({
+        ...c,
+        hits: c.hits.map((h) => ({ ...h })),
+        boosters: [...c.boosters],
+        enemyIds: [...c.enemyIds],
+      })),
+      // a recommended build deleted since then is dropped
+      teammates: (b.data.teammates ?? []).map((t) => {
+        const { buildId, ...mate } = t
+        return buildId && b.teammateBuilds?.[buildId] ? { ...mate, buildId } : mate
+      }),
+      teamDescription: b.data.teamDescription ?? '',
     }
   } catch (e) {
     error.value = e.message
   }
 })
 
+const teamBuilds = ref({}) // recommended builds that still exist (when editing / duplicating)
 const TITLE_MIN = 5
 const TITLE_MAX = 30
+const TEAM_DESCRIPTION_MAX = 150 // keep in sync with the server (routes/builds.js)
 
 // Returns the first problem found (a sentence for the player), or '' when the build can be saved.
 // Required: the title, one talent on each level, and every equipment slot fully configured
-// (item + trait + 2 properties). Optional: description, breakpoints, teammates.
+// (item + trait + 2 properties). Optional: description, breakpoints, teammates (and their description).
 // The server does not enforce the "complete build" rules, so that older incomplete builds stay editable.
 function validate() {
   const f = form.value
@@ -220,6 +245,7 @@ async function save() {
       equipment: mapValues(f.equipment, cleanGear),
       breakpoints: f.breakpoints,
       teammates: f.teammates,
+      teamDescription: f.teammates.length ? f.teamDescription.trim() : '',
     },
   }
   try {
@@ -245,6 +271,12 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
 <template>
   <section class="align-section">
     <h1>{{ editingId ? 'Edit build' : copyFrom ? 'Duplicate build' : 'New build' }}</h1>
+    <p v-if="editingId && savedBalance" class="tb-note">
+      Made for {{ BALANCE.name }} {{ savedBalance }}.
+      <template v-if="savedBalance !== BALANCE.version">
+        It is outdated: saving it updates it to {{ BALANCE.version }}, so check the talents, weapons and traits first.
+      </template>
+    </p>
     <form class="form wide" :style="careerStyle" novalidate @submit.prevent="save">
       <div class="measure">
         <label>
@@ -303,7 +335,8 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
               :label="slot.label"
               :weapons="availableWeapons(slot)"
               :traits="traitsFor(slot)"
-              :properties="slotOptions(slot).properties" />
+              :properties="slotOptions(slot).properties"
+              :exclusive-properties="slotOptions(slot).exclusiveProperties" />
             <GearSlot
               v-for="slot in EQUIPMENT_SLOTS"
               :key="slot.id"
@@ -318,7 +351,19 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
 
         <fieldset>
           <legend>Ideal team</legend>
-          <TeammatePicker v-model="form.teammates" :hero-id="form.heroId" />
+          <TeammatePicker v-model="form.teammates" :hero-id="form.heroId" :build-id="Number(editingId) || 0" :known="teamBuilds" />
+          <label class="team-note">
+            Team description (optional)
+            <textarea
+              v-model="form.teamDescription"
+              rows="3"
+              :maxlength="TEAM_DESCRIPTION_MAX"
+              :disabled="!form.teammates.length"
+              :placeholder="
+                form.teammates.length ? 'Why this team? A few words.' : 'Select at least one teammate first.'
+              " />
+            <small class="team-note-count">{{ form.teamDescription.length }}/{{ TEAM_DESCRIPTION_MAX }}</small>
+          </label>
         </fieldset>
       </div>
 
@@ -352,6 +397,10 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
 </template>
 
 <style scoped>
+.tb-note {
+  margin: -0.4rem 0 1rem;
+  color: var(--muted);
+}
 section {
   padding-right: var(--side-padding);
 }
@@ -445,6 +494,25 @@ section {
   .gear-layout {
     grid-template-columns: 1fr;
   }
+}
+/* The note under the team picker: smaller than the section titles, same text font as the description */
+.team-note {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.8rem;
+  color: var(--muted);
+}
+.team-note textarea:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.team-note textarea {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+.team-note-count {
+  justify-self: end;
 }
 /* What the user types uses the normal text font, not the title font of the label */
 .description-label textarea {

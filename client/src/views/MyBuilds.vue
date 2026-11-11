@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import BuildCard from '../components/BuildCard.vue'
@@ -11,6 +11,7 @@ import FollowedUserCard from '../components/FollowedUserCard.vue'
 import FollowingModal from '../components/FollowingModal.vue'
 import { SHIELD } from '../utils/shield.js'
 import AccountSettings from '../components/AccountSettings.vue'
+import { BALANCE } from '../utils/balance.js'
 
 const auth = useAuth()
 
@@ -38,6 +39,11 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
+// Builds saved for an older Tourney Balance version: listed in a notice, so their owner can check them
+const outdated = computed(() => builds.value.filter((b) => b.data?.balance && b.data.balance !== BALANCE.version))
+const onlyOutdated = ref(false)
+const shownBuilds = computed(() => (onlyOutdated.value && outdated.value.length ? outdated.value : builds.value))
 
 const toggleSettings = () => (settingsOpen.value = !settingsOpen.value)
 const avatarsOpen = ref(false) // the avatar list is hidden until "Change avatar" is clicked
@@ -211,9 +217,18 @@ async function setAvatar(id) {
           You don't have any builds yet.
           <RouterLink to="/builds/new">Create your first one</RouterLink>
         </p>
-        <div v-else class="cards builds-cards">
-          <BuildCard v-for="b in builds" :key="b.id" :build="b" />
-        </div>
+        <template v-else>
+          <p v-if="outdated.length" class="notice">
+            {{ plural(outdated.length, 'build') }} made for an older {{ BALANCE.name }} version (the current one is
+            {{ BALANCE.version }}). Check the talents, weapons and traits, then open Edit and Save to update them.
+            <button type="button" class="link-btn" @click="onlyOutdated = !onlyOutdated">
+              {{ onlyOutdated ? 'Show all my builds' : 'Show only these' }}
+            </button>
+          </p>
+          <div class="cards builds-cards">
+            <BuildCard v-for="b in shownBuilds" :key="b.id" :build="b" />
+          </div>
+        </template>
       </section>
 
       <section class="bookmarks" aria-labelledby="bookmarks-title">
@@ -254,18 +269,24 @@ async function setAvatar(id) {
 .gear {
   display: grid;
   place-items: center;
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 3.2rem;
+  height: 3.2rem;
   padding: 0;
   color: var(--accent);
-  background: transparent;
-  border: 1px solid var(--line);
+  background: var(--panel);
+  border: 2px solid var(--accent); /* always visible: it is the only way to reach the settings */
   border-radius: 50%;
-  transition: transform 0.4s, border-color 0.3s;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: transform 0.4s, background 0.3s, box-shadow 0.3s;
+}
+.gear svg {
+  width: 28px;
+  height: 28px;
 }
 .gear:hover,
 .gear.open {
-  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--panel));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 .gear.open {
   transform: rotate(60deg);
@@ -356,6 +377,23 @@ async function setAvatar(id) {
 .bookmarks {
   padding-top: 1.5rem;
   border-top: 1px solid var(--line); /* stacked layout: a line above the bookmarks */
+}
+.notice {
+  margin: 0 0 0.9rem;
+  padding: 0.6rem 0.8rem;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.notice .link-btn {
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
 }
 .cards {
   display: grid;

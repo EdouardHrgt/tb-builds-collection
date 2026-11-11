@@ -106,7 +106,7 @@
     },
     {
       "id": "repeaterhandgun",
-      "name": "Handgun",
+      "name": "Repeater Handgun",
       "heroId": "kruber",
       "type": "ranged",
       "icon": "/images/kruber/weapons/repeaterhandgun.webp",

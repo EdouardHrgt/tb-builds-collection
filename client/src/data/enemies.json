@@ -1,7 +1,8 @@
 {
   "categories": [
     { "id": "specials", "name": "Specials" },
-    { "id": "elites", "name": "Elites" }
+    { "id": "elites", "name": "Elites" },
+    { "id": "hordes", "name": "Hordes" }
   ],
   "enemies": [
     {
@@ -87,6 +88,24 @@
       "name": "Bestigor",
       "category": "elites",
       "icon": "/shared/breakpoints/enemies/bestigor.webp"
+    },
+    {
+      "id": "skavenslave",
+      "name": "Skaven Slave",
+      "category": "hordes",
+      "icon": "/shared/breakpoints/enemies/skavenslave.webp"
+    },
+    {
+      "id": "fanatic",
+      "name": "Fanatic",
+      "category": "hordes",
+      "icon": "/shared/breakpoints/enemies/fanatic.webp"
+    },
+    {
+      "id": "raider",
+      "name": "Raider",
+      "category": "hordes",
+      "icon": "/shared/breakpoints/enemies/raider.webp"
     }
   ]
 }

@@ -7,11 +7,13 @@
 //   EQUIPMENT:
 //     NECKLACE | trait | property 1 | property 2
 //   BREAKPOINTS:
-//     ATTACK: ENEMIES_LIST
+//     ATTACK [BOOSTERS]: ENEMIES_LIST
 //   DESCRIPTION:
 //   BUILD DESCRIPTION
 //
 // `gd` is the game data (the object returned by useGameData()): this function stays pure and testable.
+import { breakpointLabel, breakpointBoosterNames } from './breakpoints.js'
+
 export function buildToText(build, gd) {
   const data = build.data ?? {}
   const nameOf = (list, id) => list?.find((x) => x.id === id)?.name ?? '-'
@@ -35,9 +37,9 @@ export function buildToText(build, gd) {
   if (data.breakpoints?.length) {
     lines.push('BREAKPOINTS:')
     for (const card of data.breakpoints) {
-      const attack = gd.getAttack(card.type, card.attack)?.name ?? card.attack
+      const boosters = breakpointBoosterNames(card, gd)
       const enemies = card.enemyIds.map((id) => gd.getEnemy(id)?.name ?? id).join(', ')
-      lines.push(`  ${attack}: ${enemies}`)
+      lines.push(`  ${breakpointLabel(card, gd)}${boosters.length ? ` [${boosters.join(', ')}]` : ''}: ${enemies}`)
     }
   }
 

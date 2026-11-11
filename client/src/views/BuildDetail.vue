@@ -14,6 +14,7 @@ import BreakpointCard from '../components/BreakpointCard.vue'
 import UserAvatar from '../components/UserAvatar.vue'
 import CommentSection from '../components/CommentSection.vue'
 import { buildToText } from '../utils/buildText.js'
+import { breakpointKey } from '../utils/breakpoints.js'
 import { copyText } from '../utils/clipboard.js'
 import { BALANCE } from '../utils/balance.js'
 
@@ -34,6 +35,13 @@ const router = useRouter()
 const auth = useAuth()
 
 const build = ref(null)
+// Recommended builds of the ideal team that still exist (a deleted one is simply not listed)
+const teamLinks = computed(() =>
+  (build.value?.data.teammates ?? [])
+    .map((t) => ({ t, b: t.buildId ? build.value.teammateBuilds?.[t.buildId] : null }))
+    .filter((x) => x.b)
+    .map(({ t, b }) => ({ id: b.id, title: b.title, author: b.author, career: careerName(t.heroId, t.careerId) })),
+)
 const error = ref('')
 const isOwner = computed(() => build.value && auth.user?.id === build.value.authorId)
 const isCurrentFormat = computed(() => build.value?.data?.v === 2)
@@ -50,7 +58,7 @@ const weaponSlots = computed(() => getWeaponSlots(build.value.heroId, build.valu
 const slotWeapons = (slot) => slot.types.flatMap((type) => getHeroWeapons(build.value.heroId, type))
 const slotOptions = (slot) => getSlotOptions(build.value.heroId, slot, weaponSel(slot.key).weaponId)
 
-// "Share" copies the address of the page, "Export" a text version of the build.
+// "Share" copies the address of the page, "Copy as text" a text version of the build (to paste in Discord, a forum...).
 // The button shows a short confirmation (or the failure) for 2 seconds.
 const shareNotice = ref('') // empty = the normal label
 const exportNotice = ref('')
@@ -118,9 +126,11 @@ async function remove() {
             :title="
               build.data.balance === BALANCE.version
                 ? `Made for ${BALANCE.name} ${build.data.balance}`
-                : `Made for ${BALANCE.name} ${build.data.balance} (current: ${BALANCE.version}). Edit and save the build to update it.`
+                : `Made for an older ${BALANCE.name} version`
             "
-            >{{ BALANCE.short }} {{ build.data.balance }}</span
+            >{{
+              build.data.balance === BALANCE.version ? `${BALANCE.short} ${build.data.balance}` : 'Outdated'
+            }}</span
           >
         </p>
         <RouterLink :to="`/u/${build.author}`" class="author-row" title="See profile">
@@ -145,12 +155,23 @@ async function remove() {
           width="120"
           height="147" />
         <div class="share-actions">
-          <button type="button" class="btn" @click="share">{{ shareNotice || 'Share' }}</button>
-          <button v-if="isCurrentFormat" type="button" class="btn" @click="exportBuild">
-            {{ exportNotice || 'Export' }}
+          <button type="button" class="btn" title="Copy the link of this build" @click="share">
+            {{ shareNotice || 'Share' }}
+          </button>
+          <button
+            v-if="isCurrentFormat"
+            type="button"
+            class="btn"
+            title="Copy the whole build as plain text, to paste in Discord or a forum"
+            @click="exportBuild">
+            {{ exportNotice || 'Copy as text' }}
           </button>
           <!-- Opens the editor with a copy of this build (anyone can copy a build; it is saved as a new build of yours) -->
-          <RouterLink v-if="isCurrentFormat" :to="`/builds/new?from=${build.id}`" class="btn">
+          <RouterLink
+            v-if="isCurrentFormat"
+            :to="`/builds/new?from=${build.id}`"
+            class="btn"
+            title="Start a new build of yours from a copy of this one">
             Duplicate
           </RouterLink>
         </div>
@@ -203,7 +224,7 @@ async function remove() {
           <div class="bp-list">
             <BreakpointCard
               v-for="c in build.data.breakpoints"
-              :key="`${c.type}-${c.attack}`"
+              :key="breakpointKey(c)"
               :card="c" />
           </div>
         </section>
@@ -223,6 +244,13 @@ async function remove() {
                 height="79" />
             </li>
           </ul>
+          <ul v-if="teamLinks.length" class="team-builds">
+            <li v-for="l in teamLinks" :key="l.id">
+              <RouterLink :to="`/builds/${l.id}`">{{ l.career }}: {{ l.title }}</RouterLink>
+              <span class="by"> by {{ l.author }}</span>
+            </li>
+          </ul>
+          <p v-if="build.data.teamDescription" class="team-desc">{{ build.data.teamDescription }}</p>
         </section>
       </div>
     </template>
@@ -392,6 +420,25 @@ async function remove() {
   border-radius: 6px;
   margin: 0;
   list-style: none;
+}
+.team-builds {
+  max-width: 16rem;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+  overflow-wrap: anywhere;
+}
+.team-builds li + li {
+  margin-top: 0.3rem;
+}
+.team-builds .by {
+  color: var(--muted);
+}
+.team-desc {
+  max-width: 16rem;
+  margin: 0.6rem 0 0;
+  overflow-wrap: anywhere;
+  color: var(--muted);
 }
 .teammates img {
   display: block;

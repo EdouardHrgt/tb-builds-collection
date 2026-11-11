@@ -1,5 +1,6 @@
 {
   "melee": {
+    "exclusiveProperties": [["powervsskaven", "powervschaos"]],
     "traits": [
       {
         "id": "swiftslaying",
@@ -74,6 +75,7 @@
     ]
   },
   "ranged": {
+    "exclusiveProperties": [["powervsskaven", "powervschaos"]],
     "traits": [
       {
         "id": "conservativeshooter",

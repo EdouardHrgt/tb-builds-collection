@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useGameData } from '../composables/useGameData.js'
 import LikeButton from './LikeButton.vue'
 import BookmarkButton from './BookmarkButton.vue'
+import { BALANCE } from '../utils/balance.js'
 
 const props = defineProps({ build: { type: Object, required: true } })
 const emit = defineEmits(['liked', 'bookmarked'])
@@ -13,6 +14,12 @@ const career = computed(() => getCareer(props.build.heroId, props.build.careerId
 
 // The career color (heroes.json) colors the top edge of the card
 const careerStyle = computed(() => (career.value?.color ? { '--career-color': career.value.color } : {}))
+
+// Made for an older Tourney Balance version than the current one: a small tag in the corner
+const oldVersion = computed(() => {
+  const v = props.build.data?.balance
+  return v && v !== BALANCE.version ? v : ''
+})
 
 const comments = computed(() => props.build.commentCount ?? 0)
 const commentsShown = computed(() => (comments.value > 99 ? '99+' : comments.value))
@@ -53,6 +60,12 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
 
       <h3 :title="build.title">{{ build.title }}</h3>
       <p class="meta author" :title="build.author">by {{ build.author }}</p>
+      <span
+        v-if="oldVersion"
+        class="old-tag"
+        :title="`Made for an older ${BALANCE.name} version`">
+        Outdated
+      </span>
     </RouterLink>
 
     <LikeButton class="like-corner" :build="build" @changed="emit('liked')" />
@@ -122,6 +135,15 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
   position: absolute;
   top: calc(0.8rem + 1px);
   right: 0.4rem;
+}
+/* Older balance version: a dimmed tag under the author (same look as the tag on the build page) */
+.old-tag {
+  margin-top: 0.4rem;
+  padding: 0 0.45rem;
+  font-size: 0.68rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
 }
 .bookmark-corner {
   position: absolute;

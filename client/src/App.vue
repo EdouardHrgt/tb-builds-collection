@@ -90,6 +90,19 @@ async function logout() {
   .balance-tag .short {
     display: inline;
   }
+  /* Phones: everything is centered, one line each: the logo, the balance tag under it, then the links */
+  .top {
+    justify-content: center;
+  }
+  .brand-row {
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+  }
+  nav {
+    justify-content: center;
+    width: 100%;
+  }
 }
 /* The logo with the golden ornament line (global .ornament) under it, as wide as the logo */
 .brand-block {

@@ -1,16 +1,35 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useGameData } from '../composables/useGameData.js'
+import BuildPickerModal from './BuildPickerModal.vue'
 
 // Hero of the build: a team has one of each hero, so it can never be a teammate
-const props = defineProps({ heroId: { type: String, required: true } })
-// [{ heroId, careerId }], kept in the order of heroes.json
+const props = defineProps({
+  heroId: { type: String, required: true },
+  buildId: { type: Number, default: 0 }, // the build being edited (0 = new): it cannot recommend itself
+  known: { type: Object, default: () => ({}) }, // already recommended builds { id: { title } } (editing)
+})
+// [{ heroId, careerId, buildId? }], kept in the order of heroes.json
 const teammates = defineModel({ type: Array, required: true })
 
 // Keep in sync with MAX_TEAMMATES in the server (routes/builds.js)
 const MAX_TEAMMATES = 3
 
 const { heroes } = useGameData()
+
+// Recommended build: the window is open for one teammate at a time
+const picking = ref(null) // the teammate being edited, or null
+const titles = ref({}) // titles of the builds chosen here
+const buildTitle = (id) => titles.value[id] ?? props.known[id]?.title ?? `Build #${id}`
+function pickBuild(b) {
+  titles.value = { ...titles.value, [b.id]: b.title }
+  teammates.value = teammates.value.map((t) => (t === picking.value ? { ...t, buildId: b.id } : t))
+  picking.value = null
+}
+function clearBuild(mate) {
+  teammates.value = teammates.value.map((t) => (t === mate ? { heroId: t.heroId, careerId: t.careerId } : t))
+}
+const careerOf = (mate) => heroes.find((h) => h.id === mate.heroId)?.careers.find((c) => c.id === mate.careerId)
 
 const otherHeroes = computed(() => heroes.filter((h) => h.id !== props.heroId))
 
@@ -52,6 +71,26 @@ function toggle(heroId, careerId) {
         </button>
       </div>
     </div>
+
+    <ul v-if="teammates.length" class="tm-builds">
+      <li v-for="mate in teammates" :key="mate.heroId">
+        <img :src="careerOf(mate)?.icon" :alt="careerOf(mate)?.name" width="30" height="37" />
+        <span v-if="mate.buildId" class="tm-chosen">
+          {{ buildTitle(mate.buildId) }}
+          <button type="button" class="tm-x" title="Remove the recommended build" aria-label="Remove the recommended build" @click="clearBuild(mate)">✕</button>
+        </span>
+        <button type="button" class="tm-recommend" @click="picking = mate">
+          {{ mate.buildId ? 'Change build' : 'Recommend a build' }}
+        </button>
+      </li>
+    </ul>
+    <BuildPickerModal
+      v-if="picking"
+      :career-id="picking.careerId"
+      :career-name="careerOf(picking)?.name"
+      :exclude-id="buildId"
+      @pick="pickBuild"
+      @close="picking = null" />
   </div>
 </template>
 
@@ -112,5 +151,53 @@ function toggle(heroId, careerId) {
   cursor: not-allowed;
   opacity: 0.35;
   filter: grayscale(1);
+}
+.tm-builds {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0.3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tm-builds li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tm-builds img {
+  border-radius: 5px;
+  aspect-ratio: 154 / 189;
+  object-fit: cover;
+}
+.tm-chosen {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.3rem 0.2rem 0.6rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.tm-x {
+  padding: 0 0.3rem;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.tm-x:hover {
+  color: var(--accent);
+  background: transparent;
+}
+.tm-recommend {
+  padding: 0.25rem 0.7rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+.tm-recommend:hover {
+  border-color: var(--accent);
 }
 </style>

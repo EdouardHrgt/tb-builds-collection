@@ -1,30 +1,32 @@
 {
-  "ranged": {
-    "name": "Ranged",
-    "icon": "/shared/breakpoints/ranged.svg",
-    "attacks": [
-      { "id": "1head", "name": "1 head" },
-      { "id": "2head", "name": "2 head" },
-      { "id": "1headcrit", "name": "1 head + crit" },
-      { "id": "1body", "name": "1 body" },
-      { "id": "2body", "name": "2 body" },
-      { "id": "1bodycrit", "name": "1 body + crit" },
-      { "id": "1head1body", "name": "1 head + 1 body" },
-      { "id": "1chargedhead1fastbody", "name": "1 charged head + 1 fast body" }
-    ]
-  },
-  "melee": {
-    "name": "Melee",
-    "icon": "/shared/breakpoints/melee.svg",
-    "attacks": [
-      { "id": "1headheavy", "name": "1 head heavy" },
-      { "id": "1bodyheavy", "name": "1 body heavy" },
-      { "id": "1headheavycrit", "name": "1 head heavy + crit" },
-      { "id": "1bodyheavycrit", "name": "1 body heavy + crit" },
-      { "id": "1headlight", "name": "1 head light" },
-      { "id": "1bodylight", "name": "1 body light" },
-      { "id": "1headlightcrit", "name": "1 head light + crit" },
-      { "id": "1bodylightcrit", "name": "1 body light + crit" }
-    ]
-  }
+  "types": [
+    {
+      "id": "ranged",
+      "name": "Ranged",
+      "icon": "/shared/breakpoints/ranged.svg",
+      "kinds": [
+        { "id": "charged", "name": "Charged" },
+        { "id": "light", "name": "Light" }
+      ]
+    },
+    {
+      "id": "melee",
+      "name": "Melee",
+      "icon": "/shared/breakpoints/melee.svg",
+      "kinds": [
+        { "id": "heavy", "name": "Heavy" },
+        { "id": "light", "name": "Light" }
+      ]
+    }
+  ],
+  "zones": [
+    { "id": "head", "name": "Head" },
+    { "id": "body", "name": "Body" }
+  ],
+  "boosters": [
+    { "id": "gkquest", "name": "GK quest" },
+    { "id": "whctag", "name": "WHC tag" },
+    { "id": "careerult", "name": "Career ultimate" },
+    { "id": "dot", "name": "DoT" }
+  ]
 }
