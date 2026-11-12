@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
+import { useFeed } from '../stores/feed.js'
 import { useGameData } from '../composables/useGameData.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import CareerAbilities from '../components/CareerAbilities.vue'
@@ -34,6 +35,7 @@ const {
 const route = useRoute()
 const router = useRouter()
 const auth = useAuth()
+const feed = useFeed()
 
 const build = ref(null)
 // The build recommended for a teammate, if it still exists (a deleted one is simply not shown)
@@ -79,6 +81,7 @@ const equipmentSel = (key) => build.value.data.equipment?.[key] ?? {}
 onMounted(async () => {
   try {
     build.value = await api(`/builds/${route.params.id}`)
+    if (auth.user) feed.refresh() // opening a build makes it "seen": the counter of the menu goes down now
   } catch (e) {
     error.value = e.message
   }
@@ -346,8 +349,10 @@ async function remove() {
   vertical-align: 1px;
 }
 .tb-tag.old {
-  color: var(--muted);
-  border-color: var(--line);
+  font-weight: 700;
+  color: #1a1a1a;
+  background: var(--flashy);
+  border-color: var(--flashy);
 }
 /* Three columns from 1280px: equipment | breakpoints | ideal team (right next to the breakpoint cards).
    1024-1279px: equipment | breakpoints, ideal team below. Under 1024px: one column.

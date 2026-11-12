@@ -5,7 +5,10 @@ import LikeButton from './LikeButton.vue'
 import BookmarkButton from './BookmarkButton.vue'
 import { BALANCE } from '../utils/balance.js'
 
-const props = defineProps({ build: { type: Object, required: true } })
+const props = defineProps({
+  build: { type: Object, required: true },
+  isNew: { type: Boolean, default: false }, // published since the person last looked (followed people)
+})
 const emit = defineEmits(['liked', 'bookmarked'])
 
 const { getCareer } = useGameData()
@@ -60,6 +63,7 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
 
       <h3 :title="build.title">{{ build.title }}</h3>
       <p class="meta author" :title="build.author">by {{ build.author }}</p>
+      <span v-if="isNew" class="new-tag" title="Published since your last visit">New</span>
       <span
         v-if="oldVersion"
         class="old-tag"
@@ -136,13 +140,31 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
   top: calc(0.8rem + 1px);
   right: 0.4rem;
 }
-/* Older balance version: a dimmed tag under the author (same look as the tag on the build page) */
-.old-tag {
-  margin-top: 0.4rem;
+/* New build from a followed person: gold tag in the bottom left corner, level with the bookmark. It is out of the
+   flow (position: absolute) so a card with the tag is as high as one without it. */
+.new-tag {
+  position: absolute;
+  bottom: calc(0.5rem + 6px); /* the bookmark button is about 32px high: the tag (18px) is centered on it */
+  left: 0.5rem;
   padding: 0 0.45rem;
+  line-height: 18px;
   font-size: 0.68rem;
-  color: var(--muted);
-  border: 1px solid var(--line);
+  font-weight: 700;
+  color: #1a1a1a;
+  background: var(--accent);
+  border-radius: 999px;
+}
+/* Older balance version: under the comment count, out of the flow so the card keeps its height */
+.old-tag {
+  position: absolute;
+  top: calc(0.8rem + 36px);
+  left: 0.5rem;
+  padding: 0 0.45rem;
+  line-height: 18px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  background: var(--flashy);
   border-radius: 999px;
 }
 .bookmark-corner {

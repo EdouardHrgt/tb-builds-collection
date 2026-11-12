@@ -3,11 +3,12 @@ import { avatarSrc } from '../utils/avatars.js'
 import { SHIELD } from '../utils/shield.js'
 
 // A followed account as a shield: only its outline is drawn, the avatar fills it (cropped on its top),
-// name / builds / followers are on its lower half, and a small unfollow icon sits astride its edge.
+// name / builds / followers are on its lower half, a small unfollow icon sits astride its top right edge and,
+// opposite, a white disc shows how many of his builds are new (not opened yet).
 // The shapes it uses (#shield-clip, #shield-fade) are defined once by the page (see MyBuilds.vue).
 //   <FollowedUserCard :user="u" @unfollow="(username) => ..." />
 defineProps({
-  user: { type: Object, required: true }, // { username, avatar, buildCount, followerCount (null = hidden) }
+  user: { type: Object, required: true }, // { username, avatar, buildCount, newBuilds, followerCount (null = hidden) }
 })
 defineEmits(['unfollow'])
 
@@ -33,6 +34,14 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
         <span v-if="user.followerCount !== null" class="meta">{{ plural(user.followerCount, 'follower') }}</span>
       </RouterLink>
     </div>
+    <span
+      v-if="user.newBuilds"
+      class="new-badge"
+      role="img"
+      :aria-label="plural(user.newBuilds, 'new build')"
+      :title="plural(user.newBuilds, 'new build')">
+      {{ user.newBuilds > 9 ? '9+' : user.newBuilds }}
+    </span>
     <button
       type="button"
       class="unfollow"
@@ -121,6 +130,27 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   cursor: pointer;
   border-radius: 50%;
   transition: transform 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
+}
+/* New builds: disc in the --flashy color on the sloping top left edge, symmetrical to the unfollow icon */
+.new-badge {
+  position: absolute;
+  top: 2.5%;
+  left: 17%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-width: 1.9rem;
+  height: 1.9rem;
+  padding: 0 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #1a1a1a;
+  background: var(--flashy);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  pointer-events: none; /* the whole card stays a link */
 }
 /* hover: the icon grows, gets a light red background and a brighter red */
 .unfollow:hover,

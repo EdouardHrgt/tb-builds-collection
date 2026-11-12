@@ -6,8 +6,9 @@ import { breakpointLabel, breakpointBoosterNames } from '../utils/breakpoints.js
 const props = defineProps({
   card: { type: Object, required: true }, // { type: 'ranged', hits: [{ kind, zone }], crit, boosters: [...], enemyIds: [...] }
   removable: { type: Boolean, default: false },
+  editable: { type: Boolean, default: false }, // shows the pencil that loads the card back into the form
 })
-const emit = defineEmits(['remove'])
+const emit = defineEmits(['remove', 'edit'])
 
 // TODO: set to false once the real enemy icons exist. Names are only a stand-in while every
 // enemy uses the same placeholder icon (they stay available as a tooltip and for screen readers).
@@ -77,6 +78,15 @@ const visibleEnemies = computed(() => (open.value ? enemies.value : enemies.valu
       :aria-label="`Remove breakpoint: ${type?.name ?? card.type}, ${label}`"
       @click="emit('remove')">
       ×
+    </button>
+    <button
+      v-if="editable"
+      type="button"
+      class="bp-edit"
+      title="Edit this breakpoint"
+      :aria-label="`Edit breakpoint: ${type?.name ?? card.type}, ${label}`"
+      @click="emit('edit')">
+      ✎
     </button>
   </article>
 </template>
@@ -157,6 +167,25 @@ const visibleEnemies = computed(() => (open.value ? enemies.value : enemies.valu
 }
 .bp-more:hover {
   text-decoration: underline;
+}
+.bp-edit {
+  position: absolute;
+  top: 2.3rem;
+  right: 0.3rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+.bp-edit:hover {
+  color: var(--career-color, var(--accent));
+  background: transparent;
+  border-color: var(--career-color, var(--accent));
 }
 .bp-remove {
   position: absolute;

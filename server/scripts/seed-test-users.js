@@ -7,6 +7,14 @@
 //   --follow NAME   also makes the existing account NAME follow every test user (and the test users
 //                   follow NAME back), so the "Followed users" carousel and the follower counts have content.
 //
+//   --new-builds NAME  to try the "new builds from people I follow" counter: NAME (an existing account) follows every test
+//                   user since a day ago, has opened none of their builds, and each test user gets 1-2 builds
+//                   published in the last hour. Log in as NAME: the Builds link shows the counter, and a build stops
+//                   being "new" when NAME opens it. Can be run several times (each run adds builds and makes
+//                   everything new again). Dev database only.
+//   --outdated NAME    gives the existing account NAME 2 builds made for an older Tourney Balance version (V37.0), to
+//                   see the "Outdated" tag and the notice of the profile page. Each run adds 2 builds. Dev only.
+//
 // Safe to run again: users that already exist are skipped (their avatar and privacy setting are still applied). All test accounts use the password below.
 // The builds are generated from the real game data and checked with the same validation as the API.
 import fs from 'node:fs'
@@ -126,6 +134,10 @@ function randomBuild() {
 const hash = bcrypt.hashSync(PASSWORD, 10)
 const followIndex = process.argv.indexOf('--follow')
 const followName = followIndex > -1 ? process.argv[followIndex + 1] : null
+const outdatedIndex = process.argv.indexOf('--outdated')
+const outdatedName = outdatedIndex > -1 ? process.argv[outdatedIndex + 1] : null
+const newIndex = process.argv.indexOf('--new-builds')
+const newName = newIndex > -1 ? process.argv[newIndex + 1] : null
 
 const insertUser = db.prepare('INSERT INTO users (email, username, password_hash) VALUES (?, ?, ?)')
 const findUser = db.prepare('SELECT id FROM users WHERE username = ?')
@@ -188,6 +200,48 @@ db.transaction(() => {
         follow.run(id, me.id)
       }
       console.log(`${followName} and the test users now follow each other`)
+    }
+  }
+
+  if (outdatedName) {
+    const me = findUser.get(outdatedName)
+    if (!me) console.warn(`--outdated: no account named "${outdatedName}"`)
+    else {
+      for (let n = 2; n > 0; ) {
+        const b = randomBuild()
+        if (validateBuildData(b)) continue
+        b.data.balance = 'V37.0' // an older version than the current one (client/src/data/balance.json)
+        const age = `-${1 + int(5)} minutes`
+        insertBuild.run(me.id, `${pick(TITLES)} #${1 + int(99)} (old TB)`, 'Made for an older Tourney Balance version.', b.heroId, b.careerId, JSON.stringify(b.data), age, age)
+        n--
+      }
+      console.log(`${outdatedName} now has 2 builds made for Tourney Balance V37.0`)
+    }
+  }
+
+  if (newName) {
+    const me = findUser.get(newName)
+    if (!me) console.warn(`--new-builds: no account named "${newName}"`)
+    else {
+      let added = 0
+      for (const u of USERS) {
+        const id = findUser.get(u.username)?.id
+        if (!id || id === me.id) continue
+        follow.run(me.id, id)
+        db.prepare("UPDATE follows SET created_at = datetime('now', '-1 day') WHERE follower_id = ? AND followed_id = ?").run(me.id, id)
+        for (let n = 1 + int(2); n > 0; ) {
+          const b = randomBuild()
+          if (validateBuildData(b)) continue
+          const age = `-${1 + int(59)} minutes`
+          const title = `${pick(TITLES)} #${1 + int(99)}`
+          insertBuild.run(id, title, pick(DESCRIPTIONS), b.heroId, b.careerId, JSON.stringify(b.data), age, age)
+          added++
+          n--
+        }
+      }
+      // nothing opened yet: everything published since the follow is new for NAME
+      db.prepare('DELETE FROM build_seen WHERE user_id = ?').run(me.id)
+      console.log(`${newName} follows the test users, ${added} new build(s) published: log in as ${newName} to see the counter`)
     }
   }
 })()

@@ -240,6 +240,8 @@ buildsRouter.get('/me/builds', requireAuth, (req, res) => {
 buildsRouter.get('/builds/:id', (req, res) => {
   const row = findOne(req.params.id, req)
   if (!row) return res.status(404).json({ error: 'Build not found' })
+  // A logged-in person who opens a build has seen it (it stops being "new" in the feed of the people he follows)
+  if (req.userId) db.prepare('INSERT OR IGNORE INTO build_seen (user_id, build_id) VALUES (?, ?)').run(req.userId, row.id)
   const build = toBuild(row)
   res.json({ ...build, teammateBuilds: teamBuildsOf(build.data) })
 })

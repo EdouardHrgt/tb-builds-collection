@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { useGameData } from '../composables/useGameData.js'
 import { breakpointKey, MAX_HITS } from '../utils/breakpoints.js'
 import BreakpointCard from './BreakpointCard.vue'
@@ -16,6 +16,8 @@ const {
   getBreakpointType,
 } = useGameData()
 
+const editingIndex = ref(-1) // index of the card loaded in the form (-1 = a new card is being made)
+const formEl = ref(null)
 const typeId = ref(BREAKPOINT_TYPES[0].id)
 const hits = ref([{ kind: '', zone: '' }]) // 1 or 2 hits, in the order they are done
 const crit = ref(false)
@@ -34,8 +36,11 @@ const draft = computed(() => ({
 }))
 const hitsDone = computed(() => hits.value.every((h) => h.kind && h.zone))
 // Same hits, crit and boosters as a card of the build: only its enemies would differ
+// (the card being edited is not compared with itself)
 const alreadyAdded = computed(
-  () => hitsDone.value && cards.value.some((c) => breakpointKey(c) === breakpointKey(draft.value)),
+  () =>
+    hitsDone.value &&
+    cards.value.some((c, i) => i !== editingIndex.value && breakpointKey(c) === breakpointKey(draft.value)),
 )
 const canAdd = computed(() => hitsDone.value && enemyIds.value.length > 0 && !alreadyAdded.value)
 const hint = computed(() => {
@@ -75,21 +80,48 @@ function toggleBooster(id) {
     : [...boosterIds.value, id]
 }
 
-function addCard() {
-  if (!canAdd.value) return
-  cards.value = [...cards.value, draft.value]
+function resetForm() {
+  editingIndex.value = -1
   hits.value = [{ kind: '', zone: '' }]
   crit.value = false
   boosterIds.value = []
   enemyIds.value = []
 }
 
-const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== index))
+// Add a new card, or save the changes of the card being edited (it keeps its place in the list)
+function addCard() {
+  if (!canAdd.value) return
+  cards.value =
+    editingIndex.value >= 0
+      ? cards.value.map((c, i) => (i === editingIndex.value ? draft.value : c))
+      : [...cards.value, draft.value]
+  resetForm()
+}
+
+// The pencil of a card: its values go back into the form, the form is scrolled into view
+async function editCard(index) {
+  const c = cards.value[index]
+  editingIndex.value = index
+  typeId.value = c.type
+  hits.value = c.hits.map((h) => ({ kind: h.kind, zone: h.zone }))
+  crit.value = !!c.crit
+  boosterIds.value = [...(c.boosters ?? [])]
+  enemyIds.value = [...c.enemyIds]
+  await nextTick()
+  formEl.value?.scrollIntoView?.({ block: 'start', behavior: 'smooth' })
+}
+
+function removeCard(index) {
+  cards.value = cards.value.filter((_, i) => i !== index)
+  if (editingIndex.value === index) resetForm()
+  else if (editingIndex.value > index) editingIndex.value--
+}
 </script>
 
 <template>
   <div class="bp-builder">
-    <div class="bp-form">
+    <div ref="formEl" class="bp-form">
+      <p v-if="editingIndex >= 0" class="bp-editing" role="status">Editing breakpoint {{ editingIndex + 1 }}</p>
       <!-- Melee / Ranged icons -->
       <div class="bp-types" role="radiogroup" aria-label="Weapon type">
         <label v-for="t in BREAKPOINT_TYPES" :key="t.id" class="bp-type-option" :title="t.name">
@@ -191,8 +223,9 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
 
       <div class="bp-actions">
         <button type="button" class="btn add" :disabled="!canAdd" @click="addCard">
-          Add Breakpoint
+          {{ editingIndex >= 0 ? 'Save changes' : 'Add Breakpoint' }}
         </button>
+        <button v-if="editingIndex >= 0" type="button" class="btn ghost" @click="resetForm">Cancel</button>
         <small v-if="!canAdd" class="bp-hint">{{ hint }}</small>
       </div>
     </div>
@@ -202,7 +235,10 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
         v-for="(card, i) in cards"
         :key="breakpointKey(card)"
         :card="card"
+        :class="{ 'is-editing': i === editingIndex }"
         removable
+        editable
+        @edit="editCard(i)"
         @remove="removeCard(i)" />
     </div>
   </div>
@@ -388,5 +424,19 @@ const removeCard = (index) => (cards.value = cards.value.filter((_, i) => i !== 
   gap: 0.8rem;
   align-items: start;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.bp-editing {
+  margin: 0;
+  color: var(--career-color, var(--accent));
+  font-weight: 600;
+}
+.is-editing {
+  outline: 2px solid var(--career-color, var(--accent));
+  outline-offset: 2px;
+}
+.ghost {
+  color: #fff;
+  background: transparent;
+  border: 1px solid var(--line);
 }
 </style>

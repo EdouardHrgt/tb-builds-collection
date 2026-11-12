@@ -1,11 +1,22 @@
 <script setup>
-import { useRouter } from 'vue-router'
+import { watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useAuth } from './stores/auth.js'
+import { useFeed } from './stores/feed.js'
 import FooterCard from './components/FooterCard.vue'
 import { BALANCE } from './utils/balance.js'
 
 const auth = useAuth()
 const router = useRouter()
+const route = useRoute()
+const feed = useFeed()
+
+// The counter of new builds from followed people is refreshed at each page change (and cleared on logout)
+watch(
+  () => [route.path, auth.user?.id],
+  () => (auth.user ? feed.refresh() : feed.reset()),
+  { immediate: true },
+)
 
 async function logout() {
   await auth.logout()
@@ -32,7 +43,14 @@ async function logout() {
       </a>
     </div>
     <nav>
-      <RouterLink to="/">Builds</RouterLink>
+      <RouterLink to="/"
+        >Builds<span
+          v-if="auth.user && feed.count"
+          class="new-count"
+          :title="`${feed.count} new build${feed.count === 1 ? '' : 's'} from people you follow`"
+          >{{ feed.count > 9 ? '9+' : feed.count }}</span
+        ></RouterLink
+      >
       <template v-if="auth.user">
         <RouterLink to="/builds/new">New build</RouterLink>
         <RouterLink to="/me" class="who">{{ auth.user.username }}</RouterLink>
@@ -49,6 +67,23 @@ async function logout() {
 </template>
 
 <style scoped>
+/* Counter of new builds from followed people, on the Builds link */
+.new-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  margin-left: 0.35rem;
+  padding: 0 0.3rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif; /* the text font of the site: the digit stays readable */
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #1a1a1a;
+  background: var(--flashy); /* it stands out on the dark header */
+  border-radius: 999px;
+  vertical-align: middle;
+}
 .brand-row {
   display: flex;
   align-items: center;

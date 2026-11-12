@@ -76,6 +76,14 @@ db.exec(`
   );
   CREATE INDEX IF NOT EXISTS idx_bookmarks_build ON bookmarks(build_id);
 
+  -- Builds a person has opened: a build of a followed person stays "new" until the person opens it
+  CREATE TABLE IF NOT EXISTS build_seen (
+    user_id  INTEGER NOT NULL REFERENCES users(id)  ON DELETE CASCADE,
+    build_id INTEGER NOT NULL REFERENCES builds(id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, build_id)
+  );
+  CREATE INDEX IF NOT EXISTS idx_build_seen_build ON build_seen(build_id);
+
   CREATE INDEX IF NOT EXISTS idx_comments_build  ON comments(build_id, parent_id, created_at);
   CREATE INDEX IF NOT EXISTS idx_comments_parent ON comments(parent_id);
   CREATE INDEX IF NOT EXISTS idx_comments_user   ON comments(user_id);

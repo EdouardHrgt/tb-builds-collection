@@ -89,7 +89,10 @@ usersRouter.get('/me/following', requireAuth, (req, res) => {
   const rows = db
     .prepare(
       `SELECT u.id, u.username, u.avatar, u.hide_followers, f.created_at AS followed_at,
-              (SELECT COUNT(*) FROM builds b WHERE b.user_id = u.id) AS build_count
+              (SELECT COUNT(*) FROM builds b WHERE b.user_id = u.id) AS build_count,
+              (SELECT COUNT(*) FROM builds b
+                WHERE b.user_id = u.id AND b.created_at > f.created_at
+                  AND NOT EXISTS (SELECT 1 FROM build_seen s WHERE s.user_id = f.follower_id AND s.build_id = b.id)) AS new_count
        FROM follows f JOIN users u ON u.id = f.followed_id
        WHERE f.follower_id = ?
        ORDER BY u.username COLLATE NOCASE`,
@@ -102,9 +105,29 @@ usersRouter.get('/me/following', requireAuth, (req, res) => {
       avatar: avatarFor(r.id, r.avatar),
       followedAt: r.followed_at,
       buildCount: r.build_count,
+      newBuilds: r.new_count, // published since I followed him, not opened yet
       followerCount: visibleCount(r, req.userId), // null when this user hides his follower count
     })),
   })
+})
+
+// "New builds from people I follow". The feed shows the latest build of each followed user; it is NEW when it was
+// published after I followed him and I have not opened it yet (opening it = GET /builds/:id, which fills build_seen).
+usersRouter.get('/me/following/new', requireAuth, (req, res) => {
+  const { n } = db
+    .prepare(
+      `SELECT COUNT(*) AS n FROM (
+         SELECT b.id, b.created_at, f.created_at AS followed_at,
+                ROW_NUMBER() OVER (PARTITION BY b.user_id ORDER BY b.created_at DESC, b.id DESC) AS rk
+         FROM builds b
+         JOIN follows f ON f.followed_id = b.user_id AND f.follower_id = @uid
+         WHERE b.created_at >= datetime('now', @since)
+       ) t
+       WHERE t.rk = 1 AND t.created_at > t.followed_at
+         AND NOT EXISTS (SELECT 1 FROM build_seen s WHERE s.user_id = @uid AND s.build_id = t.id)`,
+    )
+    .get({ uid: req.userId, since: `-${FEED_MAX_AGE_DAYS} days` })
+  res.json({ count: n })
 })
 
 // "Latest builds from followed users": only the most recent build of each followed user
@@ -138,7 +161,18 @@ usersRouter.get('/me/following/builds', requireAuth, (req, res) => {
   `,
     )
     .all({ uid: req.userId, me: req.userId, hero: str(req.query.hero), career: str(req.query.career), weapon: str(req.query.weapon)?.slice(0, 60) || null, limit: size + 1, offset, since: `-${FEED_MAX_AGE_DAYS} days` })
-  res.json({ items: rows.slice(0, size).map(toBuild), hasMore: rows.length > size })
+  const items = rows.slice(0, size)
+  // isNew: published after I followed the author and not opened yet
+  const followedAt = new Map(
+    db.prepare('SELECT followed_id, created_at FROM follows WHERE follower_id = ?').all(req.userId).map((f) => [f.followed_id, f.created_at]),
+  )
+  const seen = new Set(
+    db.prepare('SELECT build_id FROM build_seen WHERE user_id = ?').all(req.userId).map((s) => s.build_id),
+  )
+  res.json({
+    items: items.map((r) => ({ ...toBuild(r), isNew: r.created_at > (followedAt.get(r.user_id) ?? '9') && !seen.has(r.id) })),
+    hasMore: rows.length > size,
+  })
 })
 
 // My settings: hide my follower count from other users, pick my avatar. Every field is optional,

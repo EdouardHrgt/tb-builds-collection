@@ -20,6 +20,12 @@ const error = ref('')
 const message = ref('')
 const busy = ref(false)
 
+// The email is blurred (someone may be watching: stream, screen share...). The eye shows it only WHILE it is pressed:
+// as soon as the click / touch / key is released (or the pointer leaves the button) it is blurred again.
+const reveal = ref(false)
+const show = () => (reveal.value = true)
+const hide = () => (reveal.value = false)
+
 function clear() {
   current.value = email.value = next.value = again.value = typed.value = error.value = ''
 }
@@ -92,7 +98,31 @@ async function deleteAccount() {
 <template>
   <div class="account">
     <p class="meta">
-      Email: <strong>{{ auth.user.email }}</strong>
+      Email:
+      <strong class="mail" :class="{ blurred: !reveal }">{{ auth.user.email }}</strong>
+      <button
+        type="button"
+        class="eye"
+        title="Hold to show your email"
+        aria-label="Hold to show your email"
+        @pointerdown.prevent="show"
+        @pointerup="hide"
+        @pointerleave="hide"
+        @pointercancel="hide"
+        @blur="hide"
+        @keydown.enter.space.prevent="show"
+        @keyup.enter.space="hide"
+        @contextmenu.prevent>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path
+            d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round" />
+          <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </button>
     </p>
 
     <div class="actions">
@@ -153,7 +183,34 @@ async function deleteAccount() {
 
 <style scoped>
 .meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
   margin: 0 0 0.8rem;
+}
+.mail.blurred {
+  filter: blur(6px);
+  user-select: none; /* a blurred email must not be copyable either */
+}
+.eye {
+  display: grid;
+  place-items: center;
+  padding: 0.25rem;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  touch-action: none; /* a long press on a phone is not a scroll or a context menu */
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.eye:hover,
+.eye:active {
+  color: var(--accent);
+  background: transparent;
+  border-color: var(--accent);
 }
 .actions {
   display: flex;

@@ -128,7 +128,8 @@ async function loadFollowed() {
     return
   }
   try {
-    followed.value = (await api('/me/following/builds?' + heroCareerQuery())).items
+    const res = await api('/me/following/builds?' + heroCareerQuery())
+    followed.value = res.items
   } catch {
     followed.value = [] // an optional section: never blocks the page
   } finally {
@@ -260,7 +261,13 @@ onMounted(() => {
       v-model:hidden="hideFollowed"
       @open="openList = 'followed'" />
     <CardCarousel v-if="!hideFollowed && followed.length" label="From people I follow">
-      <BuildCard v-for="b in followed" :key="b.id" :build="b" @liked="refresh" @bookmarked="refresh" />
+      <BuildCard
+        v-for="b in followed"
+        :key="b.id"
+        :build="b"
+        :is-new="b.isNew"
+        @liked="refresh"
+        @bookmarked="refresh" />
     </CardCarousel>
     <p v-else-if="!hideFollowed" class="empty-note">
       No {{ filterLabel }} builds published in the last {{ FEED_DAYS }} days by people you follow.
