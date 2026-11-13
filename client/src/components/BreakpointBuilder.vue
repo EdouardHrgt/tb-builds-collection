@@ -1,10 +1,10 @@
 <script setup>
 import { ref, computed, nextTick } from 'vue'
 import { useGameData } from '../composables/useGameData.js'
-import { breakpointKey, MAX_HITS } from '../utils/breakpoints.js'
+import { breakpointKey, hitCrit, MAX_HITS } from '../utils/breakpoints.js'
 import BreakpointCard from './BreakpointCard.vue'
 
-// The cards of the build: [{ type, hits: [{ kind, zone }], crit, boosters, enemyIds }]
+// The cards of the build: [{ type, hits: [{ kind, zone, crit }], boosters, enemyIds }]
 const cards = defineModel({ type: Array, required: true })
 
 const {
@@ -19,8 +19,7 @@ const {
 const editingIndex = ref(-1) // index of the card loaded in the form (-1 = a new card is being made)
 const formEl = ref(null)
 const typeId = ref(BREAKPOINT_TYPES[0].id)
-const hits = ref([{ kind: '', zone: '' }]) // 1 or 2 hits, in the order they are done
-const crit = ref(false)
+const hits = ref([{ kind: '', zone: '', crit: false }]) // 1 or 2 hits, in the order they are done
 const boosterIds = ref([])
 const enemyIds = ref([])
 
@@ -29,13 +28,12 @@ const kinds = computed(() => getBreakpointType(typeId.value).kinds)
 // The card being built, in the format of a finished card
 const draft = computed(() => ({
   type: typeId.value,
-  hits: hits.value.map((h) => ({ kind: h.kind, zone: h.zone })),
-  crit: crit.value,
+  hits: hits.value.map((h) => ({ kind: h.kind, zone: h.zone, crit: !!h.crit })),
   boosters: BREAKPOINT_BOOSTERS.map((b) => b.id).filter((id) => boosterIds.value.includes(id)), // catalog order
   enemyIds: ENEMY_IDS.filter((id) => enemyIds.value.includes(id)), // always stored in catalog order
 }))
 const hitsDone = computed(() => hits.value.every((h) => h.kind && h.zone))
-// Same hits, crit and boosters as a card of the build: only its enemies would differ
+// Same hits (and their crits) and boosters as a card of the build: only its enemies would differ
 // (the card being edited is not compared with itself)
 const alreadyAdded = computed(
   () =>
@@ -54,10 +52,10 @@ function setType(id) {
   typeId.value = id
   // Melee has heavy attacks and ranged has charged ones: a kind that does not exist for the new type is cleared
   const valid = new Set(getBreakpointType(id).kinds.map((k) => k.id))
-  hits.value = hits.value.map((h) => ({ kind: valid.has(h.kind) ? h.kind : '', zone: h.zone }))
+  hits.value = hits.value.map((h) => ({ kind: valid.has(h.kind) ? h.kind : '', zone: h.zone, crit: h.crit }))
 }
 const addHit = () => {
-  if (hits.value.length < MAX_HITS) hits.value = [...hits.value, { kind: '', zone: '' }]
+  if (hits.value.length < MAX_HITS) hits.value = [...hits.value, { kind: '', zone: '', crit: false }]
 }
 const removeHit = (index) => (hits.value = hits.value.filter((_, i) => i !== index))
 
@@ -82,8 +80,7 @@ function toggleBooster(id) {
 
 function resetForm() {
   editingIndex.value = -1
-  hits.value = [{ kind: '', zone: '' }]
-  crit.value = false
+  hits.value = [{ kind: '', zone: '', crit: false }]
   boosterIds.value = []
   enemyIds.value = []
 }
@@ -103,8 +100,7 @@ async function editCard(index) {
   const c = cards.value[index]
   editingIndex.value = index
   typeId.value = c.type
-  hits.value = c.hits.map((h) => ({ kind: h.kind, zone: h.zone }))
-  crit.value = !!c.crit
+  hits.value = c.hits.map((h) => ({ kind: h.kind, zone: h.zone, crit: hitCrit(c, h) })) // an old card-level crit goes onto each hit
   boosterIds.value = [...(c.boosters ?? [])]
   enemyIds.value = [...c.enemyIds]
   await nextTick()
@@ -169,16 +165,16 @@ function removeCard(index) {
             </button>
           </div>
         </div>
+        <label class="bp-check bp-hit-crit">
+          <input v-model="hit.crit" type="checkbox" />
+          Critical hit
+        </label>
         <button v-if="i > 0" type="button" class="link-btn" @click="removeHit(i)">Remove</button>
       </div>
       <div class="bp-options">
         <button v-if="hits.length < MAX_HITS" type="button" class="link-btn" @click="addHit">
           + Add a second hit
         </button>
-        <label class="bp-check">
-          <input v-model="crit" type="checkbox" />
-          Critical hit
-        </label>
       </div>
 
       <div class="bp-category">
@@ -304,6 +300,9 @@ function removeCard(index) {
   min-width: 3.2rem;
   padding: calc(0.35rem + 2px) 0; /* same height as the buttons beside it, so the text lines up with theirs */
   color: var(--muted);
+}
+.bp-hit-crit {
+  padding: calc(0.35rem + 2px) 0;
 }
 .bp-hit > .link-btn {
   padding: calc(0.35rem + 2px) 0;

@@ -4,7 +4,7 @@ import { useGameData } from '../composables/useGameData.js'
 import { breakpointLabel, breakpointBoosterNames } from '../utils/breakpoints.js'
 
 const props = defineProps({
-  card: { type: Object, required: true }, // { type: 'ranged', hits: [{ kind, zone }], crit, boosters: [...], enemyIds: [...] }
+  card: { type: Object, required: true }, // { type: 'ranged', hits: [{ kind, zone, crit }], boosters: [...], enemyIds: [...] }
   removable: { type: Boolean, default: false },
   editable: { type: Boolean, default: false }, // shows the pencil that loads the card back into the form
 })
@@ -54,7 +54,7 @@ const visibleEnemies = computed(() => (open.value ? enemies.value : enemies.valu
           class="bp-type" />
         <strong class="bp-attack">{{ label }}</strong>
       </div>
-      <p v-if="boosters.length" class="bp-boosters">Boosters: {{ boosters.join(', ') }}</p>
+      <p v-if="boosters.length" class="bp-boosters">Requires: {{ boosters.join(', ') }}</p>
       <ul class="bp-enemies">
         <li v-for="e in visibleEnemies" :key="e.id" class="bp-enemy" :title="e.name">
           <img :src="e.icon" :alt="SHOW_ENEMY_NAMES ? '' : e.name" width="36" height="36" />

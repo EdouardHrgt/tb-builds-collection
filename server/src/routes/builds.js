@@ -41,15 +41,17 @@ const weaponSchema = z
 
 // One hit of a breakpoint: a kind of hit (heavy / light / charged) landing on a zone (head / body).
 // The ids are checked against breakpoint-attacks.json in validateBuildData.
-const hitSchema = z.object({ kind: id, zone: id }).strict()
+// `crit`: this hit is a critical one. Cards saved before that existed carry one `crit` on the card instead
+// (= all hits are crits), so the card keeps accepting it.
+const hitSchema = z.object({ kind: id, zone: id, crit: z.boolean().optional() }).strict()
 
-// A fast breakpoint card: 1 or 2 hits with a weapon type (melee / ranged), an optional crit and boosters,
+// A fast breakpoint card: 1 or 2 hits with a weapon type (melee / ranged), a crit flag per hit and boosters,
 // and the enemies it kills fast
 const breakpointSchema = z
   .object({
     type: id,
     hits: z.array(hitSchema).min(1, 'A breakpoint needs a hit').max(2, 'A breakpoint has 2 hits at most'),
-    crit: z.boolean().default(false),
+    crit: z.boolean().optional(), // legacy, see hitSchema
     boosters: z.array(id).max(10).default([]),
     enemyIds: z.array(id).min(1, 'A breakpoint needs at least one enemy').max(50),
   })

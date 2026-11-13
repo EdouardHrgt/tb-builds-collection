@@ -110,7 +110,7 @@ export function validateBuildData({ heroId, careerId, data }) {
   }
 
   // Fast breakpoint cards: 1 or 2 hits (the schema limits that), each a kind of hit of the card's type landing on a
-  // known zone; known boosters and enemies, none listed twice. Two cards with the same hits, crit and boosters
+  // known zone; known boosters and enemies, none listed twice. Two cards with the same hits (with their crits) and boosters
   // would only differ by their enemies: the second one is refused.
   // Keep the key in sync with breakpointKey in the client (utils/breakpoints.js).
   const usedCards = new Set()
@@ -129,8 +129,7 @@ export function validateBuildData({ heroId, careerId, data }) {
     }
     const key = [
       card.type,
-      card.hits.map((h) => `${h.kind}:${h.zone}`).join('>'),
-      card.crit ? 'crit' : '',
+      card.hits.map((h) => `${h.kind}:${h.zone}${(h.crit ?? !!card.crit) ? ':crit' : ''}`).join('>'),
       [...card.boosters].sort().join(','),
     ].join('|')
     if (usedCards.has(key)) return 'Breakpoint: two cards are identical'

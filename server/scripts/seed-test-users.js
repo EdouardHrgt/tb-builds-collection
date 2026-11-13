@@ -115,14 +115,13 @@ function randomBuild() {
   const used = new Set()
   for (let i = int(4); i > 0; i--) {
     const type = pick(breakpointOptions.types)
-    const hits = Array.from({ length: 1 + int(2) }, () => ({ kind: pick(type.kinds).id, zone: pick(breakpointOptions.zones).id }))
-    const crit = rnd() < 0.3
+    const hits = Array.from({ length: 1 + int(2) }, () => ({ kind: pick(type.kinds).id, zone: pick(breakpointOptions.zones).id, crit: rnd() < 0.3 }))
     const boosters = rnd() < 0.3 ? [pick(breakpointOptions.boosters).id] : []
-    const key = JSON.stringify([type.id, hits, crit, boosters])
+    const key = JSON.stringify([type.id, hits, boosters])
     if (used.has(key)) continue
     used.add(key)
     const chosen = new Set(sample(enemies, 1 + int(6)).map((e) => e.id))
-    data.breakpoints.push({ type: type.id, hits, crit, boosters, enemyIds: enemies.filter((e) => chosen.has(e.id)).map((e) => e.id) }) // catalog order
+    data.breakpoints.push({ type: type.id, hits, boosters, enemyIds: enemies.filter((e) => chosen.has(e.id)).map((e) => e.id) }) // catalog order
   }
   for (const h of sample(heroes.filter((x) => x.id !== hero.id), int(4))) {
     data.teammates.push({ heroId: h.id, careerId: pick(h.careers).id })

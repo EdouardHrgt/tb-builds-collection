@@ -5,6 +5,7 @@ import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
 import { BALANCE } from '../utils/balance.js'
+import { hitCrit } from '../utils/breakpoints.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import CareerAbilities from '../components/CareerAbilities.vue'
 import GearSlot from '../components/GearSlot.vue'
@@ -175,7 +176,8 @@ onMounted(async () => {
       ),
       breakpoints: (b.data.breakpoints ?? []).map((c) => ({
         ...c,
-        hits: c.hits.map((h) => ({ ...h })),
+        // an old card-level crit is moved onto each hit
+        hits: c.hits.map((h) => ({ kind: h.kind, zone: h.zone, crit: hitCrit(c, h) })),
         boosters: [...c.boosters],
         enemyIds: [...c.enemyIds],
       })),
@@ -369,7 +371,7 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
       </div>
 
       <fieldset>
-        <legend>Breakpoints</legend>
+        <legend>Breakpoints <small class="legend-note">C3DW</small></legend>
         <BreakpointBuilder v-model="form.breakpoints" />
       </fieldset>
 
@@ -584,5 +586,15 @@ legend,
   font-family: 'New Rocker', system-ui;
   letter-spacing: 1px;
   font-size: 1.5rem;
+}
+/* Small note after a legend title, centered on the title line */
+.legend-note {
+  margin-left: 0.4rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.5em;
+  font-weight: 400;
+  letter-spacing: normal;
+  color: var(--career-color, var(--muted)); /* the color of the selected career */
+  vertical-align: middle;
 }
 </style>

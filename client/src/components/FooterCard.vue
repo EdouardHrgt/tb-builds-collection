@@ -15,11 +15,6 @@ import { BALANCE } from '../utils/balance.js'
         >
       </div>
       <div class="wrap">
-        <a href="https://discord.gg/C5HST8upJC" target="_blank" rel="noopener noreferrer"
-          >Sigmar's Arsenal discord</a
-        >
-      </div>
-      <div class="wrap">
         <RouterLink to="/privacy">Privacy &amp; rules</RouterLink>
       </div>
     </section>

@@ -3,6 +3,7 @@ import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
+import IconSelect from '../components/IconSelect.vue'
 import BuildCard from '../components/BuildCard.vue'
 import CardCarousel from '../components/CardCarousel.vue'
 import SectionTitle from '../components/SectionTitle.vue'
@@ -12,9 +13,15 @@ const { heroes, getHeroWeapons } = useGameData()
 const auth = useAuth()
 
 // Filters (the list shows 20 builds per page)
-const hero = ref('')
-const career = ref('')
-const weapon = ref('') // id of a weapon of the picked hero (melee or ranged slot)
+const career = ref('') // careers of all heroes in one list: nobody looks for a hero, always for a career
+// A weapon is stored as "heroId:weaponId" because some weapon ids exist for several heroes (sword, axe, ...)
+const weapon = ref('') // '' = no weapon filter
+const weaponHero = computed(() => weapon.value.split(':')[0])
+const weaponId = computed(() => weapon.value.split(':')[1] ?? '')
+// The hero the server filters on: the one of the picked career, or else the one of the picked weapon
+const hero = computed(
+  () => heroes.find((h) => h.careers.some((c) => c.id === career.value))?.id ?? weaponHero.value,
+)
 const username = ref('')
 const sort = ref('newest') // newest (default) | oldest | likes
 const page = ref(1)
@@ -44,26 +51,34 @@ const SORTS = [
   { value: 'likes', label: 'Most liked' },
 ]
 
-const careers = computed(() => heroes.find((h) => h.id === hero.value)?.careers ?? [])
-// Weapons of the picked hero (limited to the ones the career can use once a career is picked), by kind
+// Weapons grouped by hero (melee and ranged together). Once a career is picked: only its hero, only its weapons.
 const weaponGroups = computed(() =>
-  hero.value
-    ? [
-        { type: 'melee', label: 'Melee' },
-        { type: 'ranged', label: 'Ranged' },
-      ]
-        .map((g) => ({
-          ...g,
-          weapons: getHeroWeapons(hero.value, g.type).filter(
-            (w) => !career.value || w.availableFor.includes(career.value),
-          ),
-        }))
-        .filter((g) => g.weapons.length)
-    : [],
+  heroes
+    .filter((h) => !career.value || h.id === hero.value)
+    .map((h) => ({
+      hero: h,
+      weapons: ['melee', 'ranged']
+        .flatMap((type) => getHeroWeapons(h.id, type))
+        .filter((w) => !career.value || w.availableFor.includes(career.value)),
+    }))
+    .filter((g) => g.weapons.length),
+)
+// Options of the two icon drop-downs
+const careerGroups = computed(() =>
+  heroes.map((h) => ({
+    label: h.name,
+    items: h.careers.map((c) => ({ value: c.id, label: c.name, icon: c.icon, round: true })),
+  })),
+)
+const weaponOptions = computed(() =>
+  weaponGroups.value.map((g) => ({
+    label: g.hero.name,
+    items: g.weapons.map((w) => ({ value: `${g.hero.id}:${w.id}`, label: capitalize(w.name), icon: w.icon })),
+  })),
 )
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 const weaponName = computed(() => {
-  const w = weaponGroups.value.flatMap((g) => g.weapons).find((x) => x.id === weapon.value)
+  const w = weaponGroups.value.flatMap((g) => g.weapons).find((x) => x.heroId === weaponHero.value && x.id === weaponId.value)
   return w ? capitalize(w.name) : ''
 })
 // A new career may not be able to use the picked weapon: then the weapon filter is cleared
@@ -71,25 +86,24 @@ function onCareerChange() {
   if (weapon.value && !weaponName.value) weapon.value = ''
 }
 const hasFilters = computed(
-  () => hero.value || career.value || weapon.value || username.value.trim() || sort.value !== 'newest',
+  () => career.value || weapon.value || username.value.trim() || sort.value !== 'newest',
 )
 
-// Name of the hero / career in the filters, for the message of an empty "From people I follow"
+// Name of the career in the filters, for the message of an empty "From people I follow"
 const filterLabel = computed(() => {
-  const base =
-    careers.value.find((c) => c.id === career.value)?.name ?? heroes.find((h) => h.id === hero.value)?.name ?? ''
-  return weaponName.value ? `${base} (${weaponName.value})` : base
+  const base = heroes.flatMap((h) => h.careers).find((c) => c.id === career.value)?.name ?? ''
+  return base && weaponName.value ? `${base} (${weaponName.value})` : base || weaponName.value
 })
 // That list is shown even when empty, but only to explain a filter (otherwise an empty list just stays hidden)
 const showFollowed = computed(
-  () => followed.value.length > 0 || (!!auth.user && followedLoaded.value && !!(hero.value || career.value || weapon.value)),
+  () => followed.value.length > 0 || (!!auth.user && followedLoaded.value && !!(career.value || weapon.value)),
 )
 
 const heroCareerQuery = () => {
   const q = new URLSearchParams()
   if (hero.value) q.set('hero', hero.value)
   if (career.value) q.set('career', career.value)
-  if (weapon.value) q.set('weapon', weapon.value)
+  if (weaponId.value) q.set('weapon', weaponId.value)
   return q
 }
 
@@ -150,13 +164,12 @@ function applyFilters() {
   loadList()
 }
 
-// Only the hero, the career and the weapon also change the two carousels (top rated, followed).
-// (The career reset when the hero changes is done in the select's @change, so this runs only once.)
-watch([hero, career, weapon], () => {
+// Only the career and the weapon also change the two carousels (top rated, followed).
+watch([career, weapon], () => {
   loadTop()
   loadFollowed()
 })
-watch([hero, career, weapon, sort], applyFilters)
+watch([career, weapon, sort], applyFilters)
 
 // The author search waits for the end of the typing (300 ms) before asking the server
 let typing = null
@@ -170,7 +183,6 @@ onBeforeUnmount(() => {
 })
 
 function resetFilters() {
-  hero.value = ''
   career.value = ''
   weapon.value = ''
   username.value = ''
@@ -205,20 +217,8 @@ onMounted(() => {
   <h1>Builds</h1>
 
   <div class="filters">
-    <select v-model="hero" aria-label="Hero" @change="((career = ''), (weapon = ''))">
-      <option value="">All heroes</option>
-      <option v-for="h in heroes" :key="h.id" :value="h.id">{{ h.name }}</option>
-    </select>
-    <select v-model="career" aria-label="Career" :disabled="!hero" @change="onCareerChange">
-      <option value="">All careers</option>
-      <option v-for="c in careers" :key="c.id" :value="c.id">{{ c.name }}</option>
-    </select>
-    <select v-model="weapon" aria-label="Weapon" :disabled="!hero">
-      <option value="">All weapons</option>
-      <optgroup v-for="g in weaponGroups" :key="g.type" :label="g.label">
-        <option v-for="w in g.weapons" :key="w.id" :value="w.id">{{ capitalize(w.name) }}</option>
-      </optgroup>
-    </select>
+    <IconSelect v-model="career" :groups="careerGroups" placeholder="Careers" aria-label="Career" @change="onCareerChange" />
+    <IconSelect v-model="weapon" :groups="weaponOptions" placeholder="Weapons" aria-label="Weapon" />
     <input
       v-model="username"
       class="search"
