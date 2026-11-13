@@ -134,7 +134,11 @@ async function remove() {
           >
         </p>
         <RouterLink :to="`/u/${build.author}`" class="author-row" title="See profile">
-          <UserAvatar :id="build.authorAvatar" />
+          <!-- the portrait sits in the hole of the frame, which is drawn over it -->
+          <span class="framed">
+            <UserAvatar :id="build.authorAvatar" />
+            <img src="/shared/frame.png" alt="" class="frame" width="119" height="137" />
+          </span>
           <span class="meta">by <span class="author">{{ build.author }}</span></span>
         </RouterLink>
         <!-- Owner only: Edit / Delete, right under the title -->
@@ -336,6 +340,29 @@ async function remove() {
 }
 .author-row .meta {
   margin: 0;
+}
+/* frame.png is 119x137 px and its hole is a circle of about 72 px centred at (54.5, 69.5): the portrait is
+   centred on that point and a little wider than the hole, so its edge hides under the ring */
+.framed {
+  --frame-w: 90px;
+  --avatar-size: calc(var(--frame-w) * 0.622);
+  position: relative;
+  flex: none;
+  width: var(--frame-w);
+  aspect-ratio: 119 / 137;
+}
+.framed :deep(.avatar) {
+  position: absolute;
+  left: 45.8%;
+  top: 50.7%;
+  transform: translate(-50%, -50%);
+}
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 /* Balance version the build was saved with; dimmed when it is not the current one */
 .tb-tag {

@@ -193,7 +193,8 @@ async function setAvatar(id) {
           </linearGradient>
         </defs>
       </svg>
-      <CardCarousel label="People I follow" item-width="180px">
+      <!-- smaller shields on a phone: 36% of the screen width, between 125 and 180 px -->
+      <CardCarousel label="People I follow" item-width="clamp(125px, 36vw, 180px)">
         <FollowedUserCard v-for="u in following" :key="u.id" :user="u" @unfollow="unfollow" />
       </CardCarousel>
       <p v-if="followError" class="error" role="alert">{{ followError }}</p>
