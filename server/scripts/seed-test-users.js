@@ -15,6 +15,11 @@
 //   --outdated NAME    gives the existing account NAME 2 builds made for an older Tourney Balance version (V37.0), to
 //                   see the "Outdated" tag and the notice of the profile page. Each run adds 2 builds. Dev only.
 //
+//   --new-comments NAME  to try the unread comments: two test users comment the latest build of the existing account NAME,
+//                   and, when NAME has already commented a build, a test user answers in that thread. Log in as NAME: the
+//                   menu shows a counter, the profile page lists the builds and the comments are marked "New" until
+//                   NAME opens the build. Each run adds comments. Dev database only.
+//
 // Safe to run again: users that already exist are skipped (their avatar and privacy setting are still applied). All test accounts use the password below.
 // The builds are generated from the real game data and checked with the same validation as the API.
 import fs from 'node:fs'
@@ -135,6 +140,8 @@ const followIndex = process.argv.indexOf('--follow')
 const followName = followIndex > -1 ? process.argv[followIndex + 1] : null
 const outdatedIndex = process.argv.indexOf('--outdated')
 const outdatedName = outdatedIndex > -1 ? process.argv[outdatedIndex + 1] : null
+const commentsIndex = process.argv.indexOf('--new-comments')
+const commentsName = commentsIndex > -1 ? process.argv[commentsIndex + 1] : null
 const newIndex = process.argv.indexOf('--new-builds')
 const newName = newIndex > -1 ? process.argv[newIndex + 1] : null
 
@@ -215,6 +222,35 @@ db.transaction(() => {
         n--
       }
       console.log(`${outdatedName} now has 2 builds made for Tourney Balance V37.0`)
+    }
+  }
+
+  if (commentsName) {
+    const me = findUser.get(commentsName)
+    const others = USERS.map((u) => findUser.get(u.username)?.id).filter((id) => id && id !== me?.id)
+    const mine = me && db.prepare('SELECT id FROM builds WHERE user_id = ? ORDER BY id DESC LIMIT 1').get(me.id)
+    if (!me) console.warn(`--new-comments: no account named "${commentsName}"`)
+    else if (!mine) console.warn(`--new-comments: ${commentsName} has no build to comment`)
+    else {
+      let added = 0
+      for (const id of sample(others, 2)) {
+        comment.run(mine.id, id, pick(COMMENTS))
+        added++
+      }
+      // an answer in a thread where NAME wrote (a comment on somebody else's build)
+      const thread = db
+        .prepare('SELECT id, build_id FROM comments WHERE user_id = ? AND parent_id IS NULL ORDER BY id DESC LIMIT 1')
+        .get(me.id)
+      if (thread) {
+        db.prepare('INSERT INTO comments (build_id, user_id, parent_id, body) VALUES (?, ?, ?, ?)').run(
+          thread.build_id,
+          pick(others),
+          thread.id,
+          pick(COMMENTS),
+        )
+        added++
+      }
+      console.log(`${added} unread comment(s) for ${commentsName}: log in as ${commentsName} to see the counter`)
     }
   }
 

@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
+import { useNotifications } from '../stores/notifications.js'
 import BuildCard from '../components/BuildCard.vue'
 import UserAvatar from '../components/UserAvatar.vue'
 import { AVATARS, avatarSrc } from '../utils/avatars.js'
@@ -14,6 +15,7 @@ import AccountSettings from '../components/AccountSettings.vue'
 import { BALANCE } from '../utils/balance.js'
 
 const auth = useAuth()
+const notif = useNotifications()
 
 const builds = ref([])
 const bookmarks = ref([]) // my favorites (private)
@@ -174,6 +176,21 @@ async function setAvatar(id) {
       <p v-if="settingError" class="error" role="alert">{{ settingError }}</p>
     </div>
 
+    <!-- Unread comments: on my builds, and replies to my comments (the list goes away when they are opened) -->
+    <section v-if="!loading && !error && notif.items.length" class="block" aria-labelledby="notif-title">
+      <h2 id="notif-title" class="list-title with-icon"><SectionIcon name="comments" />New comments</h2>
+      <ul class="notif-list">
+        <li v-for="n in notif.items" :key="n.buildId">
+          <RouterLink :to="`/builds/${n.buildId}`" class="notif-link">
+            <span class="notif-count">{{ n.count > 9 ? '9+' : n.count }}</span>
+            <strong class="notif-title">{{ n.title }}</strong>
+            <span class="meta">{{ n.mine ? 'on your build' : `replies, build by ${n.author}` }}</span>
+          </RouterLink>
+        </li>
+      </ul>
+    </section>
+    <div v-if="!loading && !error && notif.items.length" class="ornament" aria-hidden="true">◆</div>
+
     <!-- People I follow: name, number of builds and of followers, unfollow button -->
     <section v-if="!loading && !error && following?.length" class="block" aria-labelledby="following-title">
       <h2 id="following-title" class="list-title with-icon">
@@ -227,7 +244,7 @@ async function setAvatar(id) {
             </button>
           </p>
           <div class="cards builds-cards">
-            <BuildCard v-for="b in shownBuilds" :key="b.id" :build="b" />
+            <BuildCard v-for="b in shownBuilds" :key="b.id" :build="b" :new-comments="notif.byBuild[b.id] ?? 0" />
           </div>
         </template>
       </section>
@@ -242,6 +259,7 @@ async function setAvatar(id) {
             v-for="b in bookmarks"
             :key="b.id"
             :build="b"
+            :new-comments="notif.byBuild[b.id] ?? 0"
             @bookmarked="(res) => onBookmarkChanged(b, res)"
           />
         </div>
@@ -304,6 +322,46 @@ async function setAvatar(id) {
 }
 .block {
   margin-bottom: 1.5rem;
+}
+/* Unread comments: one line per build, with the number in a --flashy disc */
+.notif-list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.notif-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.7rem;
+  padding: 0.6rem 0.9rem;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.notif-link:hover {
+  border-color: var(--accent);
+  opacity: 1;
+}
+.notif-link .meta {
+  margin: 0;
+}
+.notif-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  padding: 0 0.35rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  background: var(--flashy);
+  border-radius: 999px;
 }
 /* The title of the list is a button: click = the window with everyone (same look as SectionTitle) */
 .title-btn {

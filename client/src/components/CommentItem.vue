@@ -8,6 +8,7 @@ const props = defineProps({
   isBuildAuthor: { type: Boolean, default: false }, // this comment was written by the author of the build
   canReply: { type: Boolean, default: false },
   canDelete: { type: Boolean, default: false },
+  isNew: { type: Boolean, default: false }, // the viewer had not seen it yet
 })
 defineEmits(['reply', 'delete'])
 
@@ -24,6 +25,7 @@ const iso = computed(() => parseDbDate(props.comment.createdAt).toISOString())
         <strong>{{ comment.author }}</strong>
       </RouterLink>
       <span v-if="isBuildAuthor" class="badge">Author</span>
+      <span v-if="isNew" class="new-tag">New</span>
       <time :datetime="iso" :title="fullDate(comment.createdAt)">{{ ago }}</time>
     </header>
 
@@ -85,6 +87,16 @@ const iso = computed(() => parseDbDate(props.comment.createdAt).toISOString())
   color: #1a1405;
   background: var(--accent);
   border-radius: 4px;
+}
+.new-tag {
+  padding: 0.05rem 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  background: var(--flashy);
+  border-radius: 999px;
 }
 .comment-body {
   margin: 0.3rem 0;

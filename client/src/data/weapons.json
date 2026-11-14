@@ -154,7 +154,7 @@
     },
     {
       "id": "axeandshield",
-      "name": "axeandshield",
+      "name": "axe and shield",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/axeandshield.webp",
@@ -482,7 +482,7 @@
     },
     {
       "id": "skullsplitterandshield",
-      "name": "skullsplitterandshield",
+      "name": "skullsplitter and shield",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/skullsplitterandshield.webp",

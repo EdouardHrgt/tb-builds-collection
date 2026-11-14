@@ -3,6 +3,7 @@ import { ref, reactive, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
+import { useNotifications } from '../stores/notifications.js'
 import CommentForm from './CommentForm.vue'
 import CommentItem from './CommentItem.vue'
 import SectionIcon from './SectionIcon.vue'
@@ -13,6 +14,7 @@ const props = defineProps({
 })
 
 const auth = useAuth()
+const notif = useNotifications()
 const route = useRoute()
 
 const root = ref(null)
@@ -21,6 +23,7 @@ const loading = ref(true)
 const error = ref('')
 const expanded = reactive({}) // thread id -> its replies are shown
 const replyTo = ref(null) // { threadId, commentId, author, isReply } while a reply form is open
+const newIds = reactive(new Set()) // comments the viewer had not seen: stay marked "New" until the page is left
 
 const loginLink = computed(() => ({ path: '/login', query: { redirect: route.fullPath } }))
 
@@ -28,6 +31,14 @@ async function load(page = data.value?.page ?? 1) {
   error.value = ''
   try {
     data.value = await api(`/builds/${props.buildId}/comments?page=${page}`)
+    if (data.value.newIds.length) {
+      data.value.newIds.forEach((id) => newIds.add(id))
+      notif.refresh() // the server has just marked them as read: the counter of the menu goes down
+    }
+    // a thread with a new reply opens by itself (the replies are folded otherwise)
+    for (const thread of data.value.items) {
+      if (thread.replies.some((r) => newIds.has(r.id))) expanded[thread.id] = true
+    }
   } catch (e) {
     error.value = e.message
   } finally {
@@ -98,6 +109,9 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
     <p v-if="loading">Loading comments…</p>
 
     <template v-else-if="data">
+      <p v-if="newIds.size" class="new-banner">
+        {{ newIds.size }} new {{ newIds.size === 1 ? 'comment' : 'comments' }}
+      </p>
       <p v-if="!data.items.length" class="meta">No comments yet.</p>
 
       <ul v-else class="threads">
@@ -107,6 +121,7 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
             :is-build-author="thread.authorId === buildAuthorId"
             :can-reply="!!auth.user"
             :can-delete="canDelete(thread)"
+            :is-new="newIds.has(thread.id)"
             @reply="startReply(thread, thread)"
             @delete="remove(thread)"
           />
@@ -129,6 +144,7 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
                   :is-build-author="reply.authorId === buildAuthorId"
                   :can-reply="!!auth.user"
                   :can-delete="canDelete(reply)"
+                  :is-new="newIds.has(reply.id)"
                   @reply="startReply(thread, reply)"
                   @delete="remove(reply)"
                 />
@@ -178,6 +194,16 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
 .comments .count {
   font-size: 1rem;
   color: var(--muted);
+}
+.new-banner {
+  display: inline-block;
+  margin: 0.8rem 0 0;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  background: var(--flashy);
+  border-radius: 999px;
 }
 .threads,
 .reply-list {

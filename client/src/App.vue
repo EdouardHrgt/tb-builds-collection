@@ -3,6 +3,7 @@ import { watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuth } from './stores/auth.js'
 import { useFeed } from './stores/feed.js'
+import { useNotifications } from './stores/notifications.js'
 import FooterCard from './components/FooterCard.vue'
 import { BALANCE } from './utils/balance.js'
 
@@ -10,11 +11,21 @@ const auth = useAuth()
 const router = useRouter()
 const route = useRoute()
 const feed = useFeed()
+const notif = useNotifications()
 
-// The counter of new builds from followed people is refreshed at each page change (and cleared on logout)
+// The counters of new builds from followed people and of unread comments are refreshed at each page change
+// (and cleared on logout)
 watch(
   () => [route.path, auth.user?.id],
-  () => (auth.user ? feed.refresh() : feed.reset()),
+  () => {
+    if (auth.user) {
+      feed.refresh()
+      notif.refresh()
+    } else {
+      feed.reset()
+      notif.reset()
+    }
+  },
   { immediate: true },
 )
 
@@ -53,7 +64,15 @@ async function logout() {
       >
       <template v-if="auth.user">
         <RouterLink to="/builds/new">New build</RouterLink>
-        <RouterLink to="/me" class="who">{{ auth.user.username }}</RouterLink>
+        <RouterLink to="/me" class="who"
+          >{{ auth.user.username
+          }}<span
+            v-if="notif.total"
+            class="new-count"
+            :title="`${notif.total} unread comment${notif.total === 1 ? '' : 's'}`"
+            >{{ notif.total > 9 ? '9+' : notif.total }}</span
+          ></RouterLink
+        >
         <button class="link" @click="logout">Log out</button>
       </template>
       <template v-else>
@@ -67,7 +86,7 @@ async function logout() {
 </template>
 
 <style scoped>
-/* Counter of new builds from followed people, on the Builds link */
+/* Counters (new builds from followed people on the Builds link, unread comments on the profile link) */
 .new-count {
   display: inline-grid;
   place-items: center;

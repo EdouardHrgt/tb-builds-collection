@@ -8,6 +8,7 @@ import { BALANCE } from '../utils/balance.js'
 const props = defineProps({
   build: { type: Object, required: true },
   isNew: { type: Boolean, default: false }, // published since the person last looked (followed people)
+  newComments: { type: Number, default: 0 }, // unread comments for the person (on their build, or replies to them)
 })
 const emit = defineEmits(['liked', 'bookmarked'])
 
@@ -26,7 +27,11 @@ const oldVersion = computed(() => {
 
 const comments = computed(() => props.build.commentCount ?? 0)
 const commentsShown = computed(() => (comments.value > 99 ? '99+' : comments.value))
-const commentsLabel = computed(() => `${comments.value} comment${comments.value === 1 ? '' : 's'}`)
+const commentsLabel = computed(
+  () =>
+    `${comments.value} comment${comments.value === 1 ? '' : 's'}` +
+    (props.newComments ? `, ${props.newComments} unread` : ''),
+)
 </script>
 
 <template>
@@ -37,7 +42,7 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
   <div class="card-wrap">
     <RouterLink :to="`/builds/${build.id}`" class="card" :style="careerStyle">
       <div class="top-row">
-        <span class="comment-count" role="img" :aria-label="commentsLabel" :title="commentsLabel">
+        <span class="comment-count" :class="{ unread: newComments > 0 }" role="img" :aria-label="commentsLabel" :title="commentsLabel">
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
             <path
               d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
@@ -133,6 +138,13 @@ const commentsLabel = computed(() => `${comments.value} comment${comments.value 
   border: 1px solid transparent;
   font-size: 0.9rem;
   color: var(--muted);
+}
+/* Unread comments: the counter turns into a --flashy pill (same size as the border box, so the card does not change) */
+.comment-count.unread {
+  color: #1a1a1a;
+  font-weight: 700;
+  background: var(--flashy);
+  border-radius: 999px;
 }
 /* Like: in the right cell of the top row, level with the top of the portrait */
 .like-corner {

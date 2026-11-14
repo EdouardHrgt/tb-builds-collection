@@ -84,6 +84,14 @@ db.exec(`
   );
   CREATE INDEX IF NOT EXISTS idx_build_seen_build ON build_seen(build_id);
 
+  -- Unread comments: the last comment (its id) a person has seen on a build. See notifications in comments.js.
+  CREATE TABLE IF NOT EXISTS comment_seen (
+    user_id  INTEGER NOT NULL REFERENCES users(id)  ON DELETE CASCADE,
+    build_id INTEGER NOT NULL REFERENCES builds(id) ON DELETE CASCADE,
+    seen_id  INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (user_id, build_id)
+  );
+
   CREATE INDEX IF NOT EXISTS idx_comments_build  ON comments(build_id, parent_id, created_at);
   CREATE INDEX IF NOT EXISTS idx_comments_parent ON comments(parent_id);
   CREATE INDEX IF NOT EXISTS idx_comments_user   ON comments(user_id);
@@ -135,3 +143,15 @@ if (
   db.exec('ALTER TABLE builds DROP COLUMN is_public')
 }
 db.exec('CREATE INDEX IF NOT EXISTS idx_builds_filter ON builds(hero_id, career_id)')
+
+// comment_seen was added after the first comments: the comments that exist when it appears count as read
+// (otherwise everybody would find a pile of "new" comments). Only done once, when the table is still empty.
+if (!db.prepare('SELECT 1 FROM comment_seen LIMIT 1').get()) {
+  db.exec(`
+    INSERT OR IGNORE INTO comment_seen (user_id, build_id, seen_id)
+    SELECT b.user_id, b.id, COALESCE((SELECT MAX(id) FROM comments WHERE build_id = b.id), 0) FROM builds b;
+    INSERT OR IGNORE INTO comment_seen (user_id, build_id, seen_id)
+    SELECT c.user_id, c.build_id, (SELECT MAX(id) FROM comments WHERE build_id = c.build_id)
+    FROM comments c GROUP BY c.user_id, c.build_id;
+  `)
+}

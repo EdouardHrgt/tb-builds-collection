@@ -12,7 +12,7 @@ import GearSlot from '../components/GearSlot.vue'
 import LikeButton from '../components/LikeButton.vue'
 import BookmarkButton from '../components/BookmarkButton.vue'
 import BreakpointCard from '../components/BreakpointCard.vue'
-import UserAvatar from '../components/UserAvatar.vue'
+import AvatarFrame from '../components/AvatarFrame.vue'
 import RichText from '../components/RichText.vue'
 import CommentSection from '../components/CommentSection.vue'
 import { buildToText } from '../utils/buildText.js'
@@ -134,11 +134,7 @@ async function remove() {
           >
         </p>
         <RouterLink :to="`/u/${build.author}`" class="author-row" title="See profile">
-          <!-- the portrait sits in the hole of the frame, which is drawn over it -->
-          <span class="framed">
-            <UserAvatar :id="build.authorAvatar" />
-            <img src="/shared/frame.png" alt="" class="frame" width="119" height="137" />
-          </span>
+          <AvatarFrame :id="build.authorAvatar" class="author-frame" />
           <span class="meta">by <span class="author">{{ build.author }}</span></span>
         </RouterLink>
         <!-- Owner only: Edit / Delete, right under the title -->
@@ -194,7 +190,7 @@ async function remove() {
       <h2 class="with-icon"><SectionIcon name="talents" />Talents</h2>
       <TalentGrid :model-value="build.data.talents" :tiers="talentTiers" readonly />
 
-      <!-- Equipment on the left, breakpoints in the middle, synergies on the far right -->
+      <!-- Equipment, on the left: the two weapons, then necklace | charm | trinket. Under it: breakpoints | ideal team -->
       <div
         class="gear-layout"
         :class="{ 'no-bp': !build.data.breakpoints?.length }"
@@ -202,6 +198,7 @@ async function remove() {
         <section class="area-gear">
           <h2 class="with-icon"><SectionIcon name="equipment" />Equipment</h2>
           <div class="gear-column">
+           <div class="gear-row weapons">
             <GearSlot
               v-for="slot in weaponSlots"
               :key="slot.key"
@@ -211,6 +208,8 @@ async function remove() {
               :traits="slotOptions(slot).traits"
               :properties="slotOptions(slot).properties"
               readonly />
+           </div>
+           <div class="gear-row equipment">
             <GearSlot
               v-for="slot in EQUIPMENT_SLOTS"
               :key="slot.id"
@@ -220,9 +219,11 @@ async function remove() {
               :traits="slot.traits"
               :properties="slot.properties"
               readonly />
+           </div>
           </div>
         </section>
 
+        <div class="gear-bottom">
         <section v-if="build.data.breakpoints?.length" class="area-bp">
           <h2 class="with-icon"><SectionIcon name="breakpoints" />Breakpoints</h2>
           <div class="bp-list">
@@ -256,6 +257,7 @@ async function remove() {
             <p v-if="build.data.teamDescription" class="team-desc">{{ build.data.teamDescription }}</p>
           </div>
         </section>
+        </div>
       </div>
     </template>
     <CommentSection :build-id="build.id" :build-author-id="build.authorId" />
@@ -341,28 +343,9 @@ async function remove() {
 .author-row .meta {
   margin: 0;
 }
-/* frame.png is 119x137 px and its hole is a circle of about 72 px centred at (54.5, 69.5): the portrait is
-   centred on that point and a little wider than the hole, so its edge hides under the ring */
-.framed {
+/* size of the frame around the author's portrait (see AvatarFrame.vue) */
+.author-frame {
   --frame-w: 90px;
-  --avatar-size: calc(var(--frame-w) * 0.622);
-  position: relative;
-  flex: none;
-  width: var(--frame-w);
-  aspect-ratio: 119 / 137;
-}
-.framed :deep(.avatar) {
-  position: absolute;
-  left: 45.8%;
-  top: 50.7%;
-  transform: translate(-50%, -50%);
-}
-.frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
 }
 /* Balance version the build was saved with; dimmed when it is not the current one */
 .tb-tag {
@@ -386,47 +369,51 @@ async function remove() {
    Without breakpoints (.no-bp), from 1024px: equipment | ideal team, side by side. */
 .gear-layout {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0 2rem;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
 }
 .area-gear,
 .area-bp,
 .area-team {
   min-width: 0;
 }
+/* Equipment, against the left edge of the page like the rest. Row 1: the two weapons; row 2: necklace | charm | trinket
+   (as many per row as fit, a slot is at least 240px wide). */
 .gear-column {
   display: grid;
   gap: 0.8rem;
+  width: 100%;
+  max-width: 980px;
+}
+.gear-row {
+  display: grid;
+  gap: 0.8rem;
+  align-items: start; /* an opened slot does not stretch its neighbours */
+}
+.gear-row.weapons {
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+.gear-row.equipment {
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+}
+/* Under the equipment: breakpoints | ideal team, side by side on wide screens, against the left edge of the page
+   like the equipment; stacked on small ones */
+.gear-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0 2rem;
 }
 @media (min-width: 1024px) {
-  .gear-layout {
-    grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
-    grid-template-areas:
-      'gear bp'
-      'gear team';
+  .gear-bottom {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start; /* the ideal team stays right next to the breakpoints */
   }
-  .gear-layout.no-bp {
-    grid-template-columns: minmax(300px, 380px) auto;
-    grid-template-areas: 'gear team';
+  /* the breakpoints column is only as wide as its cards need (up to 320px each, within the free width) */
+  .area-bp {
+    flex: 0 1 calc(var(--bp-n, 1) * 320px + (var(--bp-n, 1) - 1) * 0.8rem);
   }
-  .area-gear { grid-area: gear; }
-  .area-bp { grid-area: bp; }
-  .area-team { grid-area: team; }
-}
-@media (min-width: 1280px) {
-  /* The middle column is only as wide as its cards need (up to 320px each, within the free width): with
-     1 or 2 breakpoints the ideal team stays next to them instead of drifting to the far right. */
-  .gear-layout {
-    grid-template-columns:
-      minmax(300px, 380px)
-      minmax(0, max(0px, calc(var(--bp-n, 1) * 320px + (var(--bp-n, 1) - 1) * 0.8rem)))
-      auto;
-    grid-template-areas: 'gear bp team';
-  }
-  .gear-layout.no-bp {
-    grid-template-columns: minmax(300px, 380px) auto;
-    grid-template-areas: 'gear team';
+  .area-team {
+    flex: none;
   }
   .bp-list {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* few cards: no empty column */

@@ -6,7 +6,7 @@ import { useAuth } from '../stores/auth.js'
 import { parseDbDate } from '../utils/time.js'
 import BuildCard from '../components/BuildCard.vue'
 import FollowButton from '../components/FollowButton.vue'
-import UserAvatar from '../components/UserAvatar.vue'
+import AvatarFrame from '../components/AvatarFrame.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -51,11 +51,7 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   <template v-else-if="profile">
     <header class="profile-head">
       <div class="profile-who">
-        <!-- the portrait sits in the hole of the frame, which is drawn over it -->
-        <span class="framed">
-          <UserAvatar :id="profile.avatar" />
-          <img src="/shared/frame.png" alt="" class="frame" width="119" height="137" />
-        </span>
+        <AvatarFrame :id="profile.avatar" class="profile-frame" />
         <div>
         <h1>{{ profile.username }}</h1>
         <p class="meta">
@@ -105,28 +101,9 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   align-items: center;
   gap: 1rem;
 }
-/* frame.png is 119x137 px and its hole is a circle of about 72 px centred at (54.5, 69.5): the portrait is
-   centred on that point and a little wider than the hole, so its edge hides under the ring */
-.framed {
+/* size of the frame around the portrait (see AvatarFrame.vue) */
+.profile-frame {
   --frame-w: 140px;
-  --avatar-size: calc(var(--frame-w) * 0.622);
-  position: relative;
-  flex: none;
-  width: var(--frame-w);
-  aspect-ratio: 119 / 137;
-}
-.framed :deep(.avatar) {
-  position: absolute;
-  left: 45.8%;
-  top: 50.7%;
-  transform: translate(-50%, -50%);
-}
-.frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
 }
 /* Phone: everything in one centred column, with a smaller frame */
 @media (max-width: 600px) {
@@ -139,7 +116,7 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
     flex-direction: column;
     gap: 0.4rem;
   }
-  .framed {
+  .profile-frame {
     --frame-w: 100px;
   }
 }
