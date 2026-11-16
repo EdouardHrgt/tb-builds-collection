@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanchenjunga:wght@400;500;600;700&family=MedievalSharp&family=New+Rocker&family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanchenjunga:wght@400;500;600;700&family=MedievalSharp&family=New+Rocker&family=Permanent+Marker&family=Lexend+Deca:wght@100..900&family=Quintessential&family=Rubik+Marker+Hatch&display=swap');
 :root {
   --bg: #181a20;
   --panel: #22252e;
@@ -113,6 +113,15 @@ main {
   box-shadow: 0 0 40px rgb(0 0 0 / 0.6);
   position: relative;
   z-index: 1; /* its shadow falls on both the header and the footer, darkening them the same way */
+}
+/* Pages with their own look (Changelogs): no solid panel, full width, no stacking context (their modals go above the header) */
+main.wide {
+  max-width: none;
+  margin-top: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  z-index: auto;
 }
 .icons-size {
   height: auto;

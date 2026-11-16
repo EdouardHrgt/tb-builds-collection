@@ -24,6 +24,16 @@ const router = createRouter({
       component: () => import('./views/AuthForm.vue'),
       props: { mode: 'register' },
     },
+    {
+      // The former VT2 changelogs app: own look (wide page, own background), see views/changelogs/
+      path: '/changelogs',
+      component: () => import('./views/changelogs/ChangelogsLayout.vue'),
+      meta: { wide: true },
+      children: [
+        { path: '', component: () => import('./views/changelogs/ChangelogsHome.vue') },
+        { path: ':career', component: () => import('./views/changelogs/ChangelogsCareer.vue') },
+      ],
+    },
     { path: '/privacy', component: () => import('./views/PrivacyPolicy.vue') },
     { path: '/forgot-password', component: () => import('./views/ForgotPassword.vue') },
     { path: '/reset-password', component: () => import('./views/ResetPassword.vue') },

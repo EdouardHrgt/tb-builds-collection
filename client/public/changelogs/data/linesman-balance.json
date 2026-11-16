@@ -1,0 +1,465 @@
+{
+  "kruber": {
+    "careers": {
+      "mercenary": {
+        "name": "mercenary",
+        "icon": "/images/kruber/kruber-mercenary.webp",
+        "passives": [
+          "'Battle Buddy': Whenever Kruber receives temporary health, the closest ally within 50 units also gains 50% of the temporary health",
+          "Can now use the Bretonnian Sword and Shield."
+        ],
+        "talents": [
+          {
+            "name": "Stand Clear",
+            "level": 25,
+            "changes": [
+              "On Paced Strike trigger, increase party dodge distance, dodge speed, movement speed, damage reduction by 10% and dodge count by 1."
+            ]
+          },
+          {
+            "name": "Black Market Supplies",
+            "level": 25,
+            "changes": ["Party gains 10% reload speed and max ammunition."]
+          },
+          {
+            "name": "Paced Strike",
+            "level": 25,
+            "changes": [
+              "Paced Strikes and Battle Buddy now spreads to nearby allies.",
+              "Battle Buddy radius reduced to 20 units and temporary health given reduced to 17.5%."
+            ]
+          },
+          {
+            "name": "Ready for Action",
+            "level": 30,
+            "changes": [
+              "Each enemy hit with Morale Boost grants Markus 1% melee power for 10 seconds, max 25%."
+            ]
+          },
+          {
+            "name": "On Yer Feet, Mates!",
+            "level": 30,
+            "changes": [
+              "Morale Boost now revives knocked down allies and gives the party 15% attack speed for 10 seconds.",
+              "Temporary Health given reduced to 15."
+            ]
+          }
+        ]
+      },
+      "huntsman": {
+        "name": "huntsman",
+        "icon": "/images/kruber/kruber-huntsman.webp",
+        "passives": ["Can now use the Bretonnian Sword and Shield."],
+        "talents": []
+      },
+      "foot-knight": {
+        "name": "foot knight",
+        "icon": "/images/kruber/kruber-foot-knight.webp",
+        "passives": [
+          "Can now use the Bretonnian Sword and Shield.",
+          "Can now use the Tuskgor spear."
+        ],
+        "talents": []
+      },
+      "grail-knight": {
+        "name": "grail knight",
+        "icon": "/images/kruber/kruber-grail-knight.webp",
+        "passives": ["Can now use the Halberd."],
+        "talents": [
+          {
+            "name": "Virtue of the Ideal",
+            "level": 10,
+            "changes": ["Killing enemies now increases power level by 10%."]
+          },
+          {
+            "name": "Virtue of the Penitent",
+            "level": 20,
+            "changes": ["Strength pot requirements increased (400 kills)"]
+          },
+          {
+            "name": "Virtue of Stoicism",
+            "level": 25,
+            "changes": ["50% > 25%."]
+          },
+          {
+            "name": "Virtue of Impetuous Knight",
+            "level": 30,
+            "changes": ["now grants 10% attack speed for 15 seconds.", "Reduces cooldown to 40s."]
+          },
+          {
+            "name": "Virtue of Confidence",
+            "level": 30,
+            "changes": [
+              "now cleaves and staggers enemies, up to 6 elites or 1 chaos warrior.",
+              "Increases cooldown to 75s."
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "bardin": {
+    "careers": {
+      "ranger-veteran": {
+        "name": "ranger veteran",
+        "icon": "/images/bardin/bardin-ranger-veteran.webp",
+        "passives": [],
+        "talents": [
+          {
+            "name": "Last Resort",
+            "level": 10,
+            "changes": ["Bardin gains 100% cooldown regen and 10% movement speed when out of ammo."]
+          },
+          {
+            "name": "Foe-Feller",
+            "level": 10,
+            "changes": [
+              "When Bardin kills an elite or special with a ranged weapon, he refills 10% ammunition, gains 10% reload speed and attack speed for 4 seconds."
+            ]
+          },
+          {
+            "name": "Drunken Brawler",
+            "level": 20,
+            "changes": [
+              "Bardin no longer drops ammo pouches, instead killing a special now drops ale which grants 5% healing effectiveness and 33% cooldown regen for 3 minutes when consumed.",
+              "Stacks for 3 times.",
+              "15% healing effectiveness and 99% cooldown regen"
+            ]
+          },
+          {
+            "name": "Scavenger",
+            "level": 20,
+            "changes": [
+              "No longer drops Ammunition.",
+              "For every monster killed, Bardin drops a healing item which he does not have currently.",
+              "For every 12 specials killed, Bardin drops a potion which he does not have currently.",
+              "For every 40 elites killed, Bardrin drops a bomb which he does not have currently."
+            ]
+          },
+          {
+            "name": "Surprise Guest",
+            "level": 30,
+            "changes": [
+              "Disengaging stealth does not break beyond the smoke cloud.",
+              "Now also conceals allies in the area granting them 25% movement."
+            ]
+          }
+        ]
+      },
+      "ironbreaker": {
+        "name": "iron breaker",
+        "icon": "/images/bardin/bardin-iron-breaker.webp",
+        "untouched": true,
+        "passives": [],
+        "talents": []
+      },
+      "slayer": {
+        "name": "slayer",
+        "icon": "/images/bardin/bardin-slayer.webp",
+        "passives": [],
+        "talents": [
+          {
+            "name": "Hack and Slash",
+            "level": 10,
+            "changes": [
+              "Headshot damage -50% and random crits disabled.",
+              "+20% attack speed, +10% melee power and +30% cleave power.",
+              "Melee attacks can now directly break shields."
+            ]
+          },
+          {
+            "name": "Impatience",
+            "level": 20,
+            "changes": ["Each stack of Trophy Hunter increased attack speed by 5%."]
+          },
+          {
+            "name": "Adrenaline Surge",
+            "level": 20,
+            "changes": ["Increases cooldown regeneration by 67% per stack."]
+          },
+          {
+            "name": "Barge",
+            "level": 25,
+            "changes": [
+              "Effective dodges pushes nearby small enemies out of the way.",
+              "Increases dodge range by 10%."
+            ]
+          },
+          {
+            "name": "Crunch",
+            "level": 30,
+            "changes": [
+              "increases stagger effect when landing on infantry enemies using Leap by 200%."
+            ]
+          },
+          {
+            "name": "Dawi Drop",
+            "level": 30,
+            "changes": [
+              "Attack damage increased by 150% while airborne during leap.",
+              "Leap can be activated a second time within 10 seconds."
+            ]
+          },
+          {
+            "name": "No Escape",
+            "level": 30,
+            "changes": [
+              "Leap now gives 40% attack speed.",
+              "Also increasing movement speed and power level by 20% for the duration."
+            ]
+          }
+        ]
+      },
+      "outcast-engineer": {
+        "name": "outcast engineer",
+        "icon": "/images/bardin/bardin-outcast-engineer.webp",
+        "untouched": true,
+        "passives": [],
+        "talents": []
+      }
+    }
+  },
+  "kerillian": {
+    "careers": {
+      "waystalker": {
+        "name": "waystalker",
+        "icon": "/images/kerillian/kerillian-waystalker.webp",
+        "passives": [],
+        "talents": [
+          {
+            "name": "Piercing Shot",
+            "level": 30,
+            "changes": ["Headshot cooldown refund made more consistent."]
+          },
+          {
+            "name": "Loaded Bow",
+            "level": 30,
+            "changes": ["Fires 2 additional arrows (5 total).", "automatically targeting specials."]
+          }
+        ]
+      },
+      "handmaiden": {
+        "name": "handmaiden",
+        "icon": "/images/kerillian/kerillian-handmaiden.webp",
+        "untouched": true,
+        "passives": [],
+        "talents": []
+      },
+      "shade": {
+        "name": "shade",
+        "icon": "/images/kerillian/kerillian-shade.webp",
+        "passives": ["Free Parry"],
+        "talents": [
+          {
+            "name": "Cruelty",
+            "level": 10,
+            "changes": ["Increases critical strike damage bonus by 70%."]
+          },
+          {
+            "name": "Exploit Weakness",
+            "level": 10,
+            "changes": [
+              "Successive Backstabs increase backstab damage by 30% and damage dealt by 5% for 5 seconds.",
+              "Stacks up to 4 times."
+            ]
+          },
+          {
+            "name": "Bloodfletcher",
+            "level": 20,
+            "changes": [
+              "After backstabbing an enemy, the next ranged shot does not consume ammunition.",
+              "increase ranged power and critical chance by 10%.",
+              "If the enemy killed is an elite or special, activate blur."
+            ]
+          },
+          {
+            "name": "Hungry Wind",
+            "level": 30,
+            "changes": [
+              "Infiltrate no longer grants bonus damage.",
+              "Undetectable duration reduced to 1 second.",
+              "Leaving infiltrate grants 20% movement speed, 20% critical power and guaranteed melee critical strike chance for 6 seconds."
+            ]
+          },
+          {
+            "name": "Cloak of Pain",
+            "level": 30,
+            "changes": [
+              "Infiltrate no longer grants undetectable.",
+              "When the initial infiltrate ends, a second infiltrate is triggered.",
+              "When the second infiltrate ends, a third (and final) infiltrate is triggered."
+            ]
+          }
+        ]
+      },
+      "sister-of-the-thorn": {
+        "name": "sister of the thorn",
+        "icon": "/images/kerillian/kerillian-sister-of-the-thorn.webp",
+        "passives": [],
+        "talents": [
+          {
+            "name": "Surge of Malic",
+            "level": 10,
+            "changes": ["Kerillian deals 25% extra damage to enemies who are bleeding or poisoned."]
+          },
+          {
+            "name": "Atharti’s Delight",
+            "level": 10,
+            "changes": [
+              "Melee strikes against Blackvenomed targets make them bleed three times per stack."
+            ]
+          },
+          {
+            "name": "Briar’s Malice",
+            "level": 10,
+            "changes": [
+              "When a party member uses his ability, grant Kerillian 2 guaranteed Critical Strikes."
+            ]
+          },
+          {
+            "name": "Recursive Toxin",
+            "level": 10,
+            "changes": ["Blackvenom effects now stack 3 times."]
+          },
+          {
+            "name": "Lingering Blackvenom",
+            "level": 10,
+            "changes": ["AoE range increased by 2 times."]
+          }
+        ]
+      }
+    }
+  },
+  "saltzpyre": {
+    "careers": {
+      "witch-hunter-captain": {
+        "name": "witch hunter captain",
+        "icon": "/images/saltzpyre/saltzpyre-witch-hunter-captain.webp",
+        "passives": ["Free Parry", "Can now use the Holy Great Hammer."],
+        "talents": [
+          {
+            "name": "Templar’s Knowledge",
+            "level": 20,
+            "changes": [
+              "Tagged enemies take 30% more damage.",
+              "When Victor kills an elite or special, grant 30% cooldown regeneration and 10% damage reduction to the entire party for 10 seconds."
+            ]
+          },
+          {
+            "name": "I Shall Judge you All!",
+            "level": 30,
+            "changes": [
+              "No longer grants 25% critical strike chance. Instead, grant 10% damage, critical strike chance, attack speed and damage reduction."
+            ]
+          }
+        ]
+      },
+      "bounty-hunter": {
+        "name": "bounty hunter",
+        "icon": "/images/saltzpyre/saltzpyre-bounty-hunter.webp",
+        "passives": ["Can now use the Holy Great Hammer."],
+        "talents": []
+      },
+      "zealot": {
+        "name": "zealot",
+        "icon": "/images/saltzpyre/saltzpyre-zealot.webp",
+        "passives": [
+          "HP bar is converted to THP upon ult.",
+          "Cooldown on Damage Taken 0.2 > 0.15."
+        ],
+        "talents": [
+          {
+            "name": "Faith’s Flurry",
+            "level": 30,
+            "changes": [
+              "Melee attacks during Holy Fervour increases melee damage by 5% for 5 seconds.",
+              "Stacks up to 10 times."
+            ]
+          },
+          {
+            "name": "Feel Nothing",
+            "level": 30,
+            "changes": [
+              "Health cannot be reduced below 1 for the duration of Holy Fervour.",
+              "Victor no longer charges forward.",
+              "When Holy Fervour is finished, heal 25% of the damage taken during Holy Fervour."
+            ]
+          },
+          {
+            "name": "Flagellant’s Zeal",
+            "level": 30,
+            "changes": ["During Holy Fervour, Victor gains 30% movement speed and power level."]
+          }
+        ]
+      },
+      "warrior-priest": {
+        "name": "warrior priest",
+        "icon": "/images/saltzpyre/saltzpyre-warrior-priest.webp",
+        "passives": [],
+        "talents": [
+          {
+            "name": "Blazing Bright",
+            "level": 20,
+            "changes": [
+              "Taking damage grants Victor 300% Fury.",
+              "Entering Righteous Fury grants Victor Shield of Faith."
+            ]
+          },
+          {
+            "name": "From Fury, Fortitude",
+            "level": 20,
+            "changes": [
+              "Each kill grants an additional 2 fury.",
+              "During Righteous Fury, each kill restores health to the party and gives Victor 2 THP."
+            ]
+          },
+          {
+            "name": "United in Prayer",
+            "level": 30,
+            "changes": ["Shield of Faith affects the whole party for 3 seconds."]
+          }
+        ]
+      }
+    }
+  },
+  "sienna": {
+    "careers": {
+      "battle-wizard": {
+        "name": "battle wizard",
+        "icon": "/images/sienna/sienna-battle-wizard.webp",
+        "untouched": true,
+        "passives": [],
+        "talents": []
+      },
+      "pyromancer": {
+        "name": "pyromancer",
+        "icon": "/images/sienna/sienna-pyromancer.webp",
+        "passives": [],
+        "talents": [
+          {
+            "name": "Flamestrike’s Tutelage",
+            "level": 25,
+            "changes": [
+              "Melee critical hits reduce the cooldown of The Burning Head by 3%.",
+              "Can only be triggered every second."
+            ]
+          }
+        ]
+      },
+      "unchained": {
+        "name": "unchained",
+        "icon": "/images/sienna/sienna-unchained.webp",
+        "untouched": true,
+        "passives": [],
+        "talents": []
+      },
+      "necromancer": {
+        "name": "necromancer",
+        "icon": "/images/sienna/sienna-necromancer.webp",
+        "untouched": true,
+        "passives": [],
+        "talents": []
+      }
+    }
+  }
+}

@@ -7,12 +7,7 @@ import { BALANCE } from '../utils/balance.js'
     <h3>Usefull links</h3>
     <section class="links">
       <div class="wrap">
-        <a
-          href="https://vermintide-2-balance-changelogs.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >changelogs app</a
-        >
+        <RouterLink to="/changelogs">Changelogs</RouterLink>
       </div>
       <div class="wrap">
         <RouterLink to="/privacy">Privacy &amp; rules</RouterLink>

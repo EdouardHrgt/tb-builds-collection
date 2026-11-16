@@ -1,0 +1,148 @@
+/* Styles of the Changelogs section (ported from the VT2 changelogs app).
+   Everything is limited to .vt2cl (or to :root variables that do not clash with the rest of the site). */
+/* (the fonts Lexend Deca, Quintessential and Rubik Marker Hatch are loaded by the font import of style.css) */
+
+:root {
+  /* COLORS */
+  --black-900: #000000;
+  --black-100: rgba(0, 0, 0, 0.3);
+  --black-400: rgba(0, 0, 0, 0.8);
+  --white-900: #ffffff;
+  --white-100: rgba(255, 255, 255, 0.3);
+  --grey-400: #e6d4bf;
+  --red-900: #c91e10;
+  --yellow-900: #f1e500;
+  --yellow-400: rgb(255, 176, 72);
+
+  /* SPACING */
+  --p-block-spacing: 2rem;
+  --box-block-padding: 1.5rem;
+  --global-inline-padding: max(2rem, calc((100vw - 1440px) / 2));
+
+  /* FONT SIZES */
+  --fs-1: 32px;
+  --fs-2: 24px;
+  --fs-3: 18px;
+  --fs-4: 14px;
+  --fs-5: 10px;
+  --fs-mega: 38px;
+  --fs-body: 16px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --fs-1: 24px;
+    --fs-2: 18px;
+    --fs-3: 16px;
+    --fs-4: 12px;
+    --fs-mega: 28px;
+    --fs-body: 14px;
+  }
+}
+
+.vt2cl {
+  width: 100%;
+  min-height: calc(100vh - var(--cl-top, 0px)); /* the page fills the window under the site header */
+  background-color: black;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 1rem;
+  position: relative;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  color: initial;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .vt2cl {
+    interpolate-size: allow-keywords;
+  }
+}
+
+.vt2cl *,
+:where(.vt2cl) *::before,
+:where(.vt2cl) *::after {
+  box-sizing: border-box;
+}
+
+:where(.vt2cl) * {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: #920101 #2b2b2b;
+}
+
+:where(.vt2cl) img,
+:where(.vt2cl) picture,
+:where(.vt2cl) video,
+:where(.vt2cl) canvas,
+:where(.vt2cl) svg {
+  display: block;
+  max-width: 100%;
+}
+
+:where(.vt2cl) input,
+:where(.vt2cl) button,
+:where(.vt2cl) textarea,
+:where(.vt2cl) select {
+  font: inherit;
+}
+
+:where(.vt2cl) p,
+:where(.vt2cl) h1,
+:where(.vt2cl) h2,
+:where(.vt2cl) h3,
+:where(.vt2cl) h4,
+:where(.vt2cl) h5,
+:where(.vt2cl) h6 {
+  overflow-wrap: break-word;
+  font-family: 'Lexend Deca', sans-serif;
+  color: var(--white-900);
+  /* The rest of the site styles headings (size, weight, spacing, margins): back to the browser defaults, as in the original app */
+  font-size: revert;
+  font-weight: revert;
+  letter-spacing: normal;
+  margin: 0;
+}
+
+:where(.vt2cl) p {
+  text-wrap: pretty;
+}
+
+:where(.vt2cl) h1,
+:where(.vt2cl) h2,
+:where(.vt2cl) h3,
+:where(.vt2cl) h4,
+:where(.vt2cl) h5,
+:where(.vt2cl) h6 {
+  text-wrap: balance;
+}
+
+:where(.vt2cl) li {
+  list-style: none;
+}
+
+/* The links of this section are styled by the components: neutralise the global link style of the site */
+:where(.vt2cl) a,
+:where(.vt2cl) a:hover {
+  color: revert;
+  opacity: 1;
+}
+
+.blur-box {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 750px) {
+  .blur-box {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,2341 @@
+{
+  "kruber": {
+    "careers": {
+      "mercenary": {
+        "name": "mercenary",
+        "icon": "/images/kruber/kruber-mercenary.webp",
+        "passives": ["Can now equip the Empire Longbow and Bretonnian Sword & Shield."],
+        "talents": [
+          {
+            "name": "Limb-Splitter",
+            "level": 10,
+            "changes": ["Now increases cleave power by 80%."]
+          },
+          {
+            "name": "Helborg’s Tutelage",
+            "level": 10,
+            "changes": [
+              "The guaranteed critical hits now only apply to melee attacks.",
+              "Critical hits can still occur randomly."
+            ]
+          },
+          {
+            "name": "Reikland Reaper",
+            "level": 20,
+            "changes": ["Increases the power by 10% for every player when paced strikes is active."]
+          },
+          {
+            "name": "Enhanced Training",
+            "level": 20,
+            "changes": ["Hitting 3 or more enemies increases power by 20% for 6 seconds."]
+          },
+          {
+            "name": "Black Market Supplies",
+            "level": 25,
+            "changes": [
+              "Every 6th melee kill (2nd for shotguns) reloads Kruber’s ranged weapon.",
+              "Every 15th melee kill (10th for shotguns) makes Kruber’s next ranged attack consume no ammo."
+            ]
+          },
+          {
+            "name": "On Yer Feet, Mates!",
+            "level": 30,
+            "changes": [
+              "Now also frees allies from ledges, hooks and revives allies waiting for rescue.",
+              "Whenever an ally is downed, 40% of Kruber’s ultimate cooldown is refunded.",
+              "Revived allies now receive 50% increased stamina regeneration, 40% block cost reduction, block angle increased by 80%, 3 stamina shields, and significantly increased power for 2 seconds."
+            ]
+          }
+        ]
+      },
+      "huntsman": {
+        "name": "huntsman",
+        "icon": "/images/kruber/kruber-huntsman.webp",
+        "passives": [
+          "Gives a buff based on the ranged weapon Huntsman is wielding:",
+          "Handgun: +25% reload speed.",
+          "Blunderbuss: +20% crit power and +7.5% crit chance.",
+          "Repeater Handgun: -40% reload speed, -20% damage, +1 extra projectile fired with every shot.",
+          "Aura size increased to 10.",
+          "Can now equip the Bretonnian Sword & Shield."
+        ],
+        "talents": [
+          {
+            "name": "Keep It Coming",
+            "level": 10,
+            "changes": ["Every 7 seconds, Huntsman gets a free shot."]
+          },
+          {
+            "name": "Blend In",
+            "level": 30,
+            "changes": ["Reduced duration from 6 to 4 seconds."]
+          },
+          {
+            "name": "Concealed Strikes",
+            "level": 30,
+            "changes": [
+              "Increases the power against the armor type of the first enemy hit by 30% for 10 seconds."
+            ]
+          }
+        ]
+      },
+      "foot-knight": {
+        "name": "foot knight",
+        "icon": "/images/kruber/kruber-foot-knight.webp",
+        "passives": [
+          "Valiant Charge now has the highest stagger value in the game, Other, non-Foot Knight, stagger sources will not overwrite it.",
+          "New additional passive: Living Bulwark. Foot Knight now breaks shields with every melee attack, Stormvermin shields can only be broken with heavy melee attacks.",
+          "Protective Presence: Aura size increased to 10.",
+          "Can now equip the Tuskgor Spear, Empire Longbow and Bretonnian Sword & Shield."
+        ],
+        "talents": [
+          {
+            "name": "Have at Thee!",
+            "level": 10,
+            "changes": ["Now also applies when staggering specials and bosses."]
+          },
+          {
+            "name": "Rock of the Reikland",
+            "level": 20,
+            "changes": [
+              "No longer doubles Protective Presence’s aura size.",
+              "Now grants two additional stamina shields instead of 20% block cost reduction."
+            ]
+          },
+          {
+            "name": "That’s Bloody Teamwork",
+            "level": 20,
+            "changes": [
+              "Replaced the additional damage reduction aura with an aura that increases all healing received: Stacks up to 15% increased healing received (5% per ally within 10 units).",
+              "Protective Presence’s base aura effect (15% damage reduction) is still active."
+            ]
+          },
+          {
+            "name": "It’s Hero Time",
+            "level": 25,
+            "changes": [
+              "Increases Foot Knight’s cooldown regeneration rate by 333% whilst an ally is incapacitated or downed until the ally is freed or Foot Knight’s ultmitate is ready.",
+              "Can stack 3 times."
+            ]
+          },
+          {
+            "name": "Counter Punch",
+            "level": 25,
+            "changes": [
+              "Every 10 seconds, Foot Knight gains massive stagger and cleave power for his next melee attack."
+            ]
+          },
+          {
+            "name": "Inspiring Blow",
+            "level": 25,
+            "changes": [
+              "Replaced with new talent “Inspiring Presence”: Increases the amount of wounds for all players by 1.",
+              "Foot Knight gains 15% increased cooldown regeneration rate."
+            ]
+          },
+          {
+            "name": "Numb to Pain",
+            "level": 30,
+            "changes": [
+              "Replaced with new talent “Excruciating Pain”: Every enemy Foot Knight staggers with his ultimate takes 20% more damage for 8 seconds.",
+              "This effect does not stack."
+            ]
+          }
+        ]
+      },
+      "grail-knight": {
+        "name": "grail knight",
+        "icon": "/images/kruber/kruber-grail-knight.webp",
+        "passives": [
+          "Cooldown regen quest: Increased base value to 20% (up from 10%), improved value now goes up to 30% (up from 20%).",
+          "Damage reduction quest: Increased base value to 12% (up from 10%), improved value now goes up to 18% (up from 15%).",
+          "Changed proc condition from collecting a tome to scoring 500 headshots.",
+          "Health regen quest: Changed proc condition from collecting a grimoire to generating 2000 health (green HP or temp HP).",
+          "Strength potion quest: Increased the amount of kills required to drop a potion to 300 on Cataclysm 3 (up from 200).",
+          "Can now equip the Tuskgor Spear and Halberd."
+        ],
+        "talents": [
+          {
+            "name": "Virtue of the Ideal",
+            "level": 10,
+            "changes": ["Changed to 5 stacks of 6% power (from 3 stacks of 8% power)."]
+          },
+          {
+            "name": "Virtue of Heroism",
+            "level": 10,
+            "changes": [
+              "Now increases melee damage, ultimate included, based on Grail Knight’s current health."
+            ]
+          },
+          {
+            "name": "Virtue of the Penitent",
+            "level": 20,
+            "changes": ["Now only grants one additional quest instead of two."]
+          },
+          {
+            "name": "Virtue of Stoicism",
+            "level": 25,
+            "changes": [
+              "Now stores up to 6 instances of damage taken instead of just one.",
+              "Conversion of health lost and regained as temp HP is reduced to 25% (down from 50%)."
+            ]
+          },
+          {
+            "name": "Virtue of Discipline",
+            "level": 25,
+            "changes": [
+              "Replaced with new talent “Virtue of Agility”: Increases dodge distance by 20%."
+            ]
+          },
+          {
+            "name": "Virtue of Audacity",
+            "level": 30,
+            "changes": ["The second stab now deals the same damage as the first."]
+          },
+          {
+            "name": "Virtue of Confidence",
+            "level": 30,
+            "changes": ["Reduced damage but significantly increased damage cleave."]
+          }
+        ]
+      }
+    },
+    "weapons": [
+      {
+        "name": "Bretonnian longsword",
+        "icon": "/images/kruber/weapons/bretonnianlongsword.webp",
+        "changes": [
+          "Swapped the damage profiles of Light 1 and Light 2 to address L1-block cancel shenanigans.",
+          "Light 2: Increased headshot multiplier from 1.5 to 2.",
+          "Heavy 3: Increased headshot multiplier from 0.75 to 1.29.",
+          "Push attack: Now uses the same damage profile as Light 3."
+        ]
+      },
+      {
+        "name": "Bretonnian Sword & Shield",
+        "icon": "/images/kruber/weapons/bretonnianswordandshield.webp",
+        "changes": [
+          "All attacks except the shield bashes (Light 3, Heavy 2) now have 10% crit chance.",
+          "Light 1: Changed to be an overhead.",
+          "Light 2: Changed to be a stab.",
+          "Light 3: Removed.",
+          "Heavy 1: Changed to be a shield-bash.",
+          "Heavy 2: Changed to be stab.",
+          "Heavy 3: Changed to be an overhead, downward swing.",
+          "Push: Now chains into Heavy 2.",
+          "Push attack: Now a shield-bash."
+        ]
+      },
+      {
+        "name": "Executioner Sword",
+        "icon": "/images/kruber/weapons/executionersword.webp",
+        "changes": [
+          "Chaining from Heavy 1 into Heavy 2 is now faster.",
+          "Reduced dodge count from 3 to 2.",
+          "Light attacks: Increased attack speed by 10% to 14%."
+        ]
+      },
+      {
+        "name": "Greatsword",
+        "icon": "/images/kruber/weapons/greatsword.webp",
+        "changes": [
+          "Added a new attack chain with two attacks: two light overheads.",
+          "The Push Attack can now chain into two additional light overhead attacks.",
+          "Push-attacking is the only way of starting the new attack chain.",
+          "Both light overheads have the same damage profile as the Push Attack.",
+          "Light 1:Changed animation into that of Bretonnian Longsword’s Light 1, Added 10% crit chance, Reduced overall damage against the 1st enemy cleaved by 0.025, from 0.25 to 0.225, Reduced overall damage against the 2nd enemy cleaved by 0.095, from 0.22 to 0.125, Reduced overall damage against the 3rd enemy cleaved by 0.08, from 0.18 to 0.1.",
+          "Heavy attacks: Now breaks shields, Reduced overall damage against the 1st enemy cleaved by 0.05, from 0.5 to 0.45, Reduced overall damage against the 2nd enemy cleaved by 0.1, from 0.35 to 0.25, Reduced overall damage against the 3rd enemy cleaved by 0.1, from 0.25 to 0.15, Reduced overall damage against the 4th enemy cleaved by 0.055, from 0.18 to 0.125.",
+          "Push attack: Increased attack speed by 20%, Increased armour and super-armor damage by 20%, Now chains into two overhead light attacks that both have the same damage profile as the Push Attack, Increased Armour damage by 0.3, from 0.5 to 0.8, Increased Monster damage by 0.25, from 1.5 to 1.75, Reduced Stagger against Armoured enemies by 0.4, from 1 to 0.6, Increased Armour Crit damage by 0.3, from 0.5 to 0.8, Increased Monster Crit damage by 1, from 1.5 to 2.5, Reduced Crit Stagger against Armoured enemies by 0.2, Reduced Crit Stagger against Berserkers/Monks by 0.5, Now counts as a Light attack, Increased headshot multiplier from 0.75 to 2, Reduced overall damage against the 1st enemy cleaved by 0.25, from 0.65 to 0.4, Reduced overall damage against the 2nd enemy cleaved by 0.1, from 0.2 to 0.1."
+        ]
+      },
+      {
+        "name": "Great Hammer",
+        "icon": "/images/kruber/weapons/twohandedhammer.webp",
+        "changes": [
+          "Light 3: Increased stagger significantly.",
+          "Heavy attacks: Increased damage cleave by 0.2, from 0.3(8.95 in-game) to 0.5(14.92 in-game), Increased overall damage against 1st enemy cleaved by 0.15, from 0.275 to 0.425, Reduced overall damage against the 2nd enemy cleaved by 0.05, from 0.35 to 3, Increased overall damage against 3rd enemy cleaved by 0.1, from 0.075 to 0.075, Increased infantry crit damage from 1 to 1.2, Decreased Armour damage by 0.135, from 0.5 to 0.365, Reduced Berserker/Monk damage by 0.25, from 0.75 to 0.5.",
+          "Push attack: Added 12.5% crit chance."
+        ]
+      },
+      {
+        "name": "Halberd",
+        "icon": "/images/kruber/weapons/halberd.webp",
+        "changes": [
+          "Increased dodge distance from 0% to 7.5%.",
+          "Light 2: Increased Berserker/Monk damage by 27%.",
+          "Heavy 1: Increased Berserker/Monk damage by 33%, Increased cleave by 16%, Increased stagger from 0.05 to 0.75",
+          "Heavy 2: Reduced Super-armour damage by 15%, Increased Berserker/Monk damage by 15%, Decreased charge up time slightly, Added armor-sliding.",
+          "Push attack: Increased armor damage by 38%, Reduced Super-armour damage by 10%.",
+          "Weapon special (new): Wide sweep attack with lots of stagger power that breaks shields, Chains into Heavy 2."
+        ]
+      },
+      {
+        "name": "Mace",
+        "icon": "/images/kruber/weapons/mace.webp",
+        "changes": [
+          "Reduced stamina count from 4.5 shields to 3.",
+          "Increased stagger for all attacks.",
+          "Increased headshot multipliers slightly for all attacks.",
+          "Light attacks: Now break shields.",
+          "Light 3: Same damage profile as Light 1.",
+          "Heavy 1: Now chains into Light 4.",
+          "Heavy 2: Now a horizontal attack.",
+          "Push: Increased cost from 1 to 2 stamina.",
+          "Weapon special (new): Uppercut with lots of stagger power, Costs 2 stamina (1 shield), has a 2 second cooldown."
+        ]
+      },
+      {
+        "name": "Mace & Shield",
+        "icon": "/images/kruber/weapons/maceandshield.webp",
+        "changes": [
+          "Weapon special (new): Super shield bash with lots of stagger power, has a 4 second cooldown."
+        ]
+      },
+      {
+        "name": "Mace & Sword",
+        "icon": "/images/kruber/weapons/maceandsword.webp",
+        "changes": [
+          "Heavy 1: Removed Linesman hit mass count.",
+          "Heavy 2: Removed Linesman hit mass count."
+        ]
+      },
+      {
+        "name": "1H Sword",
+        "icon": "/images/kruber/weapons/sword.webp",
+        "changes": [
+          "Light 1: Increased overall damage against the 2nd enemy cleaved by 0.015, from 0.21 to 0.225, Reduced overall damage against the 3rd enemy cleaved by 0.01, from 0.185 to 0.175, Increased Armour damage by 0.3, from 0 to 0.3.",
+          "Light 2: Increased overall damage against the 2nd enemy cleaved by 0.015, from 0.21 to 0.225, Reduced overall damage against the 3rd enemy cleaved by 0.01, from 0.185 to 0.175.",
+          "Light 3: Now breaks shields, Increased crit armour damage from 0.75 to 0.8, Increased armour damage by 7%.",
+          "Heavy 1: Increased damage cleave by 0.45, from 0.3(8.95 in-game) to 0.75(22.38 in-game), Reduced overall damage against the 1st enemy hit by 0.02, from 0.32 to 0.3, Increased overall damage against the 2nd enemy cleaved by 0.02, from 0.18 to 0.2, Reduced overall stagger against the 2nd enemy cleaved by 0.03, from 0.18 to 0.15, Reduced overall stagger against the 3rd enemy cleaved by 0.05, from 0.15 to 0.1, Reduced Armour damage by 0.25, from 0.6 to 0.35.",
+          "Heavy 2: Now an overhead attack, Breaks shields. Increased armour damage from 0.5 to 0.75, Increased crit armour damage from 0.5 to 0.65, Reduced time to chain into Light 3 from 0.5 to 0.4.",
+          "Push attack: Increased damage against the 2nd and 3rd enemy cleaved by 22% and 29% respectively, Increased headshot multiplier from 1.5 to 2.5.",
+          "Push: Increased cost from 1 to 2 stamina.",
+          "Weapon special (new): Thrust attack, Has good stagger against most enemies, costs 2 stamina (1 shield), Chains into Light 3, or into Heavy 2, Increased QQ-cancel chain timer by 0.15 seconds, from 0.5 to 0.65 seconds."
+        ]
+      },
+      {
+        "name": "Spear & Shield",
+        "icon": "/images/kruber/weapons/spearandshield.webp",
+        "changes": [
+          "Can now chain earlier into either Light or Heavy attacks after any of the weapon special attacks.",
+          "Light 2: Added Tank hit mass count.",
+          "Heavy 1: Added armour-sliding.",
+          "Heavy 2: Now uses the Heavy 2’s damage profile from the Elf’s Spear & Shield."
+        ]
+      },
+      {
+        "name": "Sword & Shield",
+        "icon": "/images/kruber/weapons/swordandshield.webp",
+        "changes": [
+          "Heavy 1: Can now reach a second charge state which has a lot more stagger power but leaves you somewhat open (charge up works similar to Rapier’s heavies)."
+        ]
+      },
+      {
+        "name": "Tuskgor Spear",
+        "icon": "/images/kruber/weapons/tuskgorspear.webp",
+        "changes": [
+          "Light 1: Increased cleave by 500%, Now breaks shields.",
+          "Light 2: Increased attack speed by 25%, Increased armour damage by 15%, Increased cleave by 500%, Now breaks shields, Now chains into Heavy 1.",
+          "Light 4: Increased armour damage by 15%, Increased cleave by 500%, Now breaks shields.",
+          "Heavy 1: Increased infantry damage by 10%, Increased armour damage by 117%, Increased crit armour damage by 30%, Increased cleave by 500%."
+        ]
+      },
+      {
+        "name": "Blunderbuss",
+        "icon": "/images/kruber/weapons/blunderbuss.webp",
+        "changes": [
+          "Weapon special (new): Fires an armor penetrating bullet that deals heavy single target damage, Little to no cleave and very wide spread to incentivize close range use."
+        ]
+      },
+      {
+        "name": "Empire Longbow",
+        "icon": "/images/kruber/weapons/longbow.webp",
+        "changes": [
+          "Reload time reduced to 0.1, and made the weapon overall faster to use, Increased close range infantry bodyshot damage to kill Assassins with one bodyshot when fully charged or with two bodyshots when partially charged (at 20% Skaven/Chaos, 20% Infantry), Reduced its damage dropoff range (Kruber’s fast sniper for close/mid range).",
+          "Weapon special: Enables a second zoom level when aiming down sights."
+        ]
+      },
+      {
+        "name": "Handgun",
+        "icon": "/images/kruber/weapons/handgun.webp",
+        "changes": [
+          "Removed damage drop off.",
+          "Increased cleave and added the ability to always cleave through one additional enemy.",
+          "Increased reload speed from 1.8s to 1.875s.",
+          "Increased Infantry damage by 25%",
+          "Increased Super-armour damage by 33%.",
+          "Increased Berserker/Monk damage by 67%.",
+          "Can no longer shoot through shields without aiming down sights.",
+          "Weapon special (new): Enables a second zoom level when aiming down sights."
+        ]
+      }
+    ]
+  },
+  "bardin": {
+    "careers": {
+      "ranger-veteran": {
+        "name": "ranger veteran",
+        "icon": "/images/bardin/bardin-ranger-veteran.webp",
+        "passives": [
+          "Survivalist: Added an 8 second cooldown to ammo drops, This cooldown can be bypassed by bursting down a specific number of specials within the 8 second window: 4 (Cata 3), 3 (Cata 1), and 2 below.",
+          "Added a blue buff icon that shows the cooldown window.",
+          "Increased the amount of ammo gained from Survivalist pouches to 15% (from 10%).",
+          "Can now equip the Trollhammer Torpedo and Dual Axes."
+        ],
+        "talents": [
+          {
+            "name": "Last Resort",
+            "level": 10,
+            "changes": [
+              "Replaced with new talent Bombardment: Grants a free bomb throw every 120 seconds."
+            ]
+          },
+          {
+            "name": "Foe-Feller",
+            "level": 10,
+            "changes": [
+              "Replaced with a new version of Ranger’s Parting Gift: Allows to use a healing item for free every 4 minutes, The free heal also heals nearby allies for 15% of their max health and clears wounds when Ranger Veteran heals himself."
+            ]
+          },
+          {
+            "name": "Drunken Brawler",
+            "level": 20,
+            "changes": [
+              "Ales grant 2.5% attack speed and 4% damage reduction for 4 minutes.",
+              "Can stack 5 times."
+            ]
+          },
+          {
+            "name": "Grungni’s Cunning",
+            "level": 20,
+            "changes": [
+              "Lowered the increasement to ammo gained from Survivalist pouches to 25% (down from 30%)."
+            ]
+          },
+          {
+            "name": "Scavenger",
+            "level": 20,
+            "changes": [
+              "Changed the proc condition: Now drops either a potion or a bomb after killing a specific amount of specials: 11 (Cata 3), 8 (Cata 1), and 6 below.",
+              "Chaos Wastes potions have been added to the drop pool with a lower chance."
+            ]
+          },
+          {
+            "name": "No Dawdling!",
+            "level": 25,
+            "changes": [
+              "Ranged headshots give Bardin 5 stacks.",
+              "ranged bodyshots remove 2 stacks.",
+              "missed shots do not consume stacks: Every stack increases ranged power by 1%, max 25 stacks.",
+              "Still increases movement speed by 10%."
+            ]
+          },
+          {
+            "name": "Exhilarating Vapours",
+            "level": 30,
+            "changes": [
+              "Replaced with new talent Neutralizing Vapours: Allies within Bardin’s smoke are immune to gas and gain 3 temp HP per second."
+            ]
+          },
+          {
+            "name": "Surprise Guest",
+            "level": 30,
+            "changes": [
+              "Replaced with new talent “Stimulating Vapours”.",
+              "Bardin’s smoke no longer conceals him from enemies, Bardin gains 25% cooldown reduction, 20% increased reload speed, and does not lose ammo when he hits an enemy with a ranged weapon."
+            ]
+          },
+          {
+            "name": "Ranger’s Parting Gift",
+            "level": 30,
+            "changes": [
+              "Replaced with new talent “Destructive Vapours”.",
+              "Bardin applies the effect of the potion he is carrying to his closest ally (needs to have a potion in his inventory).",
+              "Allies within Bardin’s smoke gain 1.5 temp HP per second."
+            ]
+          }
+        ]
+      },
+      "ironbreaker": {
+        "name": "iron breaker",
+        "icon": "/images/bardin/bardin-iron-breaker.webp",
+        "passives": [
+          "New additional perk: Ironbreaker is no longer slowed from being overcharged.",
+          "Can now equip the Dual Axes."
+        ],
+        "talents": [
+          {
+            "name": "Under Pressure",
+            "level": 10,
+            "changes": ["Every nearby ally increases stagger power by 15%."]
+          },
+          {
+            "name": "Rune-Etched Shield",
+            "level": 10,
+            "changes": [
+              "Grants 10% attack speed, halves the effect of Dwarf-Forged.",
+              "Reduces max HP by 10%."
+            ]
+          },
+          {
+            "name": "Vengeance",
+            "level": 20,
+            "changes": [
+              "Now adds a Vengeance stack every 3 seconds (up to 8 stacks).",
+              "When proc’ed, grants 4% attack speed per stack for 10 seconds.",
+              "Ironbreaker is immune to friendly fire while Gromril Armour is active."
+            ]
+          },
+          {
+            "name": "Miner’s Rhythm",
+            "level": 25,
+            "changes": [
+              "Every 10 seconds, Ironbreaker’s next heavy attack will taunt enemies in close proximity for 4 seconds.",
+              "Does not proc when Impenetrable is active.",
+              "Can taunt bosses when Oi! Wazzok! is selected as well."
+            ]
+          },
+          {
+            "name": "Booming Taunt",
+            "level": 30,
+            "changes": ["Taunt duration reduced to 12.5 seconds (down from 15 seconds)."]
+          }
+        ]
+      },
+      "slayer": {
+        "name": "slayer",
+        "icon": "/images/bardin/bardin-slayer.webp",
+        "passives": [
+          "Added Adrenalin Surge with reduced effectiveness to Trophy Hunter:",
+          "Ultimate cooldown rate is increased by 150% (down from 200%) when at max Trophy Hunter stacks.",
+          "Leap: Old Crunch! stagger level is baseline now for Slayer’s Leap.",
+          "Using the CB toggle keybind forces Slayer to always jump when activating Leap, no matter the distance."
+        ],
+        "talents": [
+          {
+            "name": "A Thousand Cuts",
+            "level": 10,
+            "changes": [
+              "Merged with Skull-Splitter to create new talent “A Thousand-Spliter”:",
+              "Wielding two 1-handed weapons increases attack speed by 10%.",
+              "Wielding two 2-handed weapons increases power by 20% (up from 15%)."
+            ]
+          },
+          {
+            "name": "Skull-Splitter",
+            "level": 10,
+            "changes": [
+              "Replaced with new talent “No Fear”:",
+              "Increases the power level against armored enemies and bosses by 25%."
+            ]
+          },
+          {
+            "name": "Hack and Slash",
+            "level": 10,
+            "changes": ["Decreases the mass of enemies by 50%."]
+          },
+          {
+            "name": "Adrenaline Surge",
+            "level": 20,
+            "changes": ["Trophy Hunter also increases attack speed by 2.5% per stack."]
+          },
+          {
+            "name": "Barge",
+            "level": 25,
+            "changes": ["Increases dodge distance by 20%."]
+          },
+          {
+            "name": "(Heavy) Crunch!",
+            "level": 30,
+            "changes": ["Now grants even more stagger power, within a decreased radius."]
+          },
+          {
+            "name": "Dawi-Drop",
+            "level": 30,
+            "changes": ["Now grants 75% weapon bonus damage for 3 seconds after ulting."]
+          }
+        ]
+      },
+      "outcast-engineer": {
+        "name": "outcast engineer",
+        "icon": "/images/bardin/bardin-outcast-engineer.webp",
+        "passives": [
+          "Gunsmith: Added new mechanic: Killing a special or elite with the Crank Gun activates Innovative Recycling, which then allows Engi to regain 12.5% of his max ammo when landing at least 15 shots with the Crank Gun (10 for Gromril-Plated Shot), Has a cooldown of 15 seconds",
+          "New perk Added “old Bombardier”: Engi’s bombs get the effect of both regular and incendiary bombs.",
+          "Steam-Assisted Crank Gun: Increased Engi’s base ultimate cooldown to 75 seconds, Increased dodge count to 2."
+        ],
+        "talents": [
+          {
+            "name": "Ingenious Ordnance",
+            "level": 10,
+            "changes": [
+              "Replaced with old talent Armour Piercing Slugs.",
+              "Non-explosive ranged attacks pierce 1 additional enemy."
+            ]
+          },
+          {
+            "name": "Combined Arms",
+            "level": 10,
+            "changes": [
+              "Ranged kills increase weapon damage by 2% for 10 seconds.",
+              "Max 15 stacks."
+            ]
+          },
+          {
+            "name": "Full Head of Steam",
+            "level": 20,
+            "changes": ["Grants 15% power at 5 Pressure Stacks instead of attack speed."]
+          },
+          {
+            "name": "Perilous Overclock",
+            "level": 20,
+            "changes": [
+              "Killing a special or elite with a ranged weapon grants 10% ultimate cooldown reduction.",
+              "Can proc every second.",
+              "Pressure stacks are reduced to a maximum of 2."
+            ]
+          },
+          {
+            "name": "Superior Gaskets",
+            "level": 20,
+            "changes": [
+              "Pressure stacks last for 25 seconds, granting 2.5% attack speed each.",
+              "Pressure stacks are reduced to a maximum of 4."
+            ]
+          },
+          {
+            "name": "Bombardier",
+            "level": 25,
+            "changes": [
+              "Each Crank Gun hit reduces damage taken by 2% for 3 seconds.",
+              "Max 25 stacks."
+            ]
+          },
+          {
+            "name": "Piston Power",
+            "level": 25,
+            "changes": ["Increases movement speed by 10% and dodge distance by 20%."]
+          },
+          {
+            "name": "Gromril-Plated Shot",
+            "level": 30,
+            "changes": [
+              "More cleave and ability to attack through shields.",
+              "Increased damage to super-armored enemies and bosses.",
+              "Increased effective range.",
+              "Increased headshot multiplier.",
+              "Innovative Ammo Hoppers.",
+              "Reduced the bonus to Crank Gun ultimate cooldown to 25%."
+            ]
+          }
+        ]
+      }
+    },
+    "weapons": [
+      {
+        "name": "Axe & Shield",
+        "icon": "/images/bardin/weapons/axeandshield.webp",
+        "changes": [
+          "Light 1: Now has the same damage profile as the Push Attack.",
+          "Light 2: Now has the same damage profile as the Push Attack.",
+          "Heavy 1: Can now reach a second charge state which has a lot more stagger power but leaves you somewhat open (charge up works similar to Rapier’s heavies).",
+          "Push attack: Now a move-tech."
+        ]
+      },
+      {
+        "name": "Cog Hammer",
+        "icon": "/images/bardin/weapons/coghammer.webp",
+        "changes": ["It is now possible to buffer heavy attacks."]
+      },
+      {
+        "name": "Dual Axes",
+        "icon": "/images/bardin/weapons/dualaxes.webp",
+        "changes": [
+          "Push cost reduced from 2 stamina to 1 (half a shield).",
+          "Heavy 1: Chaining into Heavy 2 is now 0.15s faster.",
+          "Heavy 2: Attack Speed increase by 14%, Chaining into Heavy 3 is now 0.2s faster.",
+          "Heavy 3: Attack Speed increase by 14%."
+        ]
+      },
+      {
+        "name": "Dual Hammers",
+        "icon": "/images/bardin/weapons/dualhammers.webp",
+        "changes": [
+          "Light attacks: Reduced window to chain into light attacks by 0.2 seconds, from 0.4 to 0.2 seconds.",
+          "Light 4: Increased overall damage to 0.3 (from 0.25), Reduced the time to chain into heavy attacks from Light 4 from 1s to 0.8s.",
+          "Push attack: Increased headshot multiplier to 2.5 (from 2), Increased Infantry damage to 1.25 (from 1), Increased overall damage to 0.225 (from 0.2), Reduced time to chain into light attacks by 0.12s, from 0.45 to 0.33 seconds."
+        ]
+      },
+      {
+        "name": "Great Axe",
+        "icon": "/images/bardin/weapons/greataxe.webp",
+        "changes": [
+          "Light attacks: Increased Armour damage by 0.06, from 0.8 to 0.86.",
+          "Light 2: Reduced chain timer by 0.05 seconds, 0.65 to 0.6 seconds.",
+          "Heavy attacks: Increased damage cleave and stagger cleave by 0.2, from 0.35 (10.45 in-game) to 0.54289(16.2 in-game), The 1st and 2nd enemy cleaved are dealt increased headshot damage by 0.25, from 0.75 to 1, Reduced stagger and damage cleave to 0.5428(16.2 in-game) from 0.9(26.86), Reduced the overall damage dealt to the 2nd enemy by 0.2, from 0.45 to 0.25, Reduced the overall damage dealt to the 3rd enemy by 0.3, from 0.45 to 0.15, Reduced the overall damage dealt to the 4rd enemy by 0.35, from 0.45 to 0.1.",
+          "Push attack: Increased attack speed by 10%, Reduced chain timer by 0.1 seconds, from 0.75 to 0.65 seconds, Increased Infantry damage by 0.2, from 1 to 1.2, Increased Armour damage by 0.8, from 0.3 to 1.1, Increased overall damage against the 2nd cleaved by 0.05, from 0.15 to 0., Increased overall stagger against the 2nd enemy cleaved by 0.05, from 0.125, to 0.175, Increased overall damage against the 3rd cleaved by 0.05, from 0.1 to 0.15, Increased overall stagger against the 3rd enemy cleaved by 0.05, from 0.1 to 0.15."
+        ]
+      },
+      {
+        "name": "Great Hammer",
+        "icon": "/images/bardin/weapons/greathammer.webp",
+        "changes": [
+          "Light 3: Increased stagger significantly.",
+          "Heavy attacks: Increased damage cleave by 0.2, from 0.3(8.95 in-game) to 0.5(14.92 in-game), Increased overall damage against 1st enemy cleaved by 0.15, from 0.275 to 0.425, Reduced overall damage against the 2nd enemy cleaved by 0.05, from 0.35 to 3, Increased overall damage against 3rd enemy cleaved by 0.1, from 0.075 to 0.075, Increased Infantry Crit damage from 1 to 1.2, Decreased Armour damage by 0.135, from 0.5 to 0.365, Reduced Berserker/Monk damage by 0.25, from 0.75 to 0.5.",
+          "Push attack: Added 12.5% crit chance."
+        ]
+      },
+      {
+        "name": "Hammer & Shield",
+        "icon": "/images/bardin/weapons/hammerandshield.webp",
+        "changes": [
+          "Weapon special (new):  Super shield bash with lots of stagger power, has a 4 second cooldown."
+        ]
+      },
+      {
+        "name": "1h Axe",
+        "icon": "/images/bardin/weapons/axe.webp",
+        "changes": [
+          "Increased headshot multipliers for all attacks.",
+          "Light attacks: Increased attack speed by ~10%, Reduced range slightly, Increased armor damage, berserker damage slightly, Reduced super-armor damage.",
+          "Light 3: Increased cleave.",
+          "Heavy attacks: Increased super-armor damage, Increased headshot damage significantly, Reduced crit bonus damage.",
+          "Push: Increased cost from 1 to 2 stamina."
+        ]
+      },
+      {
+        "name": "1H Hammer",
+        "icon": "/images/bardin/weapons/hammer.webp",
+        "changes": [
+          "Reduced stamina count from 4.5 shields to 3.",
+          "Increased stagger for all attacks.",
+          "Heavy 1: Now chains into Light 4.",
+          "Heavy 2: Now a horizontal attack.",
+          "Push: Increased cost from 1 to 2 stamina.",
+          "Weapon special (new): Uppercut with lots of stagger power, Costs 2 stamina (1 shield), has a 2 second cooldown."
+        ]
+      },
+      {
+        "name": "War Pick",
+        "icon": "/images/bardin/weapons/pickaxe.webp",
+        "changes": [
+          "Light attacks: Now break shields.",
+          "Heavy attacks: When fully charged, now explode on hit (use Flaming Flail’s Heavy 1 explosion template).",
+          "Push attack: Something is fucked here. This needs checking…"
+        ]
+      },
+      {
+        "name": "Crossbow",
+        "icon": "/images/bardin/weapons/crossbow.webp",
+        "changes": ["Weapon special (new): Enables a second zoom level when aiming down sights."]
+      },
+      {
+        "name": "Drakefire Pistols",
+        "icon": "/images/bardin/weapons/drakefirepistols.webp",
+        "changes": [
+          "Left click: Holding down left click fires the pistols as fast as quickly pressing left click does, Increased damage cleave from 0.15 (4.48 in-game) to 0.23 (6.86 in-game), Increased heat cost from 2.5 to 4.62.",
+          "Dual shot: Now breaks shields, Reduced infantry damage from 1 to 0.5, Increased heat cost from 4.62 to 12."
+        ]
+      },
+      {
+        "name": "Grudge-Raker",
+        "icon": "/images/bardin/weapons/grudgeraker.webp",
+        "changes": [
+          "Increased base ammo capacity from 18 to 20.",
+          "Weapon special (new): Fires both barrels at once."
+        ]
+      },
+      {
+        "name": "Handgun",
+        "icon": "/images/bardin/weapons/handgun.webp",
+        "changes": [
+          "Clip size increased from 1 to 2.",
+          "Reduced reload time from 1.8s to 1.65s.",
+          "Added the ability to always cleave through one additional enemy.",
+          "Can no longer shoot through shields without aiming down sights."
+        ]
+      },
+      {
+        "name": "Masterwork Pistol",
+        "icon": "/images/bardin/weapons/masterworkpistol.webp",
+        "changes": [
+          "Increased base ammo capacity from 24 to 27.",
+          "Left click: Decreased weapon swap time from a total of 0.9s to 0.6s, Now twice as accurate, Increased Super-Armour damage at close range by 0.5, from 0 to 0.5, Increased Mauler headshot damage by 0.8, Increased Chaos Warrior headshot damage by 0.6.",
+          "Fast shot: Decreased fire rate by ~33%, Increased Monster damage by 0.4, from 2.1 to 2.5."
+        ]
+      },
+      {
+        "name": "Throwing Axes",
+        "icon": "/images/bardin/weapons/throwingaxes.webp",
+        "changes": [
+          "The time required to begin recalling the axes has been halved. Reduced from 0.5 to 0.25 seconds.",
+          "Increased reload speed by 20%.",
+          "Swapping weapons after a normal and charged throw can now be done earlier.",
+          "Timers have been reduced from 0.6 to 0.4 seconds and from 0.5 to 0.35 seconds respectively.",
+          "Charged Throw: Increased headshot multiplier from 1 to 2."
+        ]
+      },
+      {
+        "name": "Trollhammer Torpedo",
+        "icon": "/images/bardin/weapons/trollhammertorpedo.webp",
+        "changes": [
+          "Now uses energy as a resource instead of regular ammo: Max energy pool is 30. ",
+          "Each shot drains 10 energy. Must have at least 10 energy to shoot.",
+          "Each shot incurs a 4 second delay before another shot can be fired.",
+          "The energy pool recharges at a rate of 0.5/s (i.e. 1 shot every 20s). ",
+          "You no longer have to reload actively.",
+          "Shifted the main damage from the explosion to the projectile.",
+          "Lowered the damage radius of the explosion.",
+          "Increased the projectile’s headshot multiplier.",
+          "Critical hits deal no bonus damage."
+        ]
+      },
+      {
+        "name": "Drakegun",
+        "icon": "/images/bardin/weapons/drakegun.webp",
+        "changes": [
+          "Flame Burst Increased duration.",
+          "The increased duration means that the heat cost comes in two intervals, This can blow you up if you are already on high heat.",
+          "Charged Flame Stream: Now fires a slow, fireball-like projectile that staggers in a small AoE, The AoE also removes Infantry shields, On direct hit, the projectile destroys banners, any shield and staggers bosses.",
+          "Uninterruptible during charge up."
+        ]
+      }
+    ]
+  },
+  "kerillian": {
+    "careers": {
+      "waystalker": {
+        "name": "waystalker",
+        "icon": "/images/kerillian/kerillian-waystalker.webp",
+        "passives": [
+          "Amaranthe Health regen remains active up to 80% of max health, This also affects Rejuvenating Locus.",
+          "Every tick of Amaranthe additionally restores 2% of Kerillian’s max ammo. ",
+          "Can now equip the Elven Volley Crossbow."
+        ],
+        "talents": [
+          {
+            "name": "Blood Shot",
+            "level": 10,
+            "changes": [
+              "Every 8 seconds Kerillian fires an additional projectile.",
+              "Melee kills reset the cooldown."
+            ]
+          },
+          {
+            "name": "Serrated Shots",
+            "level": 10,
+            "changes": [
+              "Reduced bleed armor damage.",
+              "Stacks up to 15 times now.",
+              "lasts for 5 seconds and ticks every 0.8 seconds."
+            ]
+          },
+          {
+            "name": "Drakira’s Alacrity",
+            "level": 10,
+            "changes": [
+              "Replaced with Asrai Focus",
+              "Every 15 seconds, Kerillian’s next ranged attack explodes on impact."
+            ]
+          },
+          {
+            "name": "Isha’s Embrace",
+            "level": 20,
+            "changes": [
+              "Every tick of Amaranthe gives 1 ammo to Kerillian.",
+              "Every third tick also gives 1 ammo to teammates."
+            ]
+          },
+          {
+            "name": "Spirit Arrows",
+            "level": 20,
+            "changes": ["Cooldown reduction granted per tick is increased to 10%."]
+          },
+          {
+            "name": "Fervent Huntress",
+            "level": 25,
+            "changes": ["Now grants aim-punch immunity."]
+          },
+          {
+            "name": "Ricochet",
+            "level": 25,
+            "changes": [
+              "Ranged headshots increase headshot bonus damage by 20% for 15 seconds.",
+              "Can stack 3 times."
+            ]
+          },
+          {
+            "name": "Asrai Focus",
+            "level": 25,
+            "changes": [
+              "Replaced with Drakira’s Alacrity",
+              "Ranged headshots increase attack speed by 15% for 12.5 seconds."
+            ]
+          },
+          {
+            "name": "Piercing Shot",
+            "level": 30,
+            "changes": [
+              "Still grants full refund when hitting an ally before scoring a headshot on an enemy."
+            ]
+          },
+          {
+            "name": "Loaded Bow",
+            "level": 30,
+            "changes": ["Now adds 3 additional arrows to Trueflight Volley."]
+          }
+        ]
+      },
+      "handmaiden": {
+        "name": "handmaiden",
+        "icon": "/images/kerillian/kerillian-handmaiden.webp",
+        "passives": [
+          "Ariel’s Benison Now also applies when rescuing respawned allies, freeing them from hooks, or pulling them up from ledges.",
+          "Renewal Aura size increased to 10.",
+          "Lowered stamina regeneration rate to 60%.",
+          "The Dance of Seasons Handmaiden now also deals up to 25% more melee damage based on the enemies’ health (no more bonus damage at 10% enemy health).",
+          "Dash Using the CB toggle keybind forces Handmaiden to stay in place when activating Dash.",
+          "Can now equip the Elven Volley Crossbow."
+        ],
+        "talents": [
+          {
+            "name": "Focused Spirit",
+            "level": 10,
+            "changes": [
+              "Not taking damage for 20 seconds, increases Kerillian’s power by 15% and her damage against non-mansized enemies by 25%.",
+              "Now resets when taking more than 80 damage in 100 seconds."
+            ]
+          },
+          {
+            "name": "Oak Stance",
+            "level": 10,
+            "changes": [
+              "Scoring 10 headshots grants 20% increased heavy attack damage and 15% increased attack speed for 20 seconds.",
+              "Can be refreshed after 10 seconds."
+            ]
+          },
+          {
+            "name": "Dance of Blades",
+            "level": 20,
+            "changes": ["Dodging while not blocking now grants 20% power for 2 seconds."]
+          },
+          {
+            "name": "Wraith-Walk",
+            "level": 20,
+            "changes": [
+              "Replaced with new talent “Static Charge”",
+              "Dodging while not blocking increases melee cleave by 30%.",
+              "Dodging while blocking increases stagger power by 30%.",
+              "Can stack 2 times each."
+            ]
+          },
+          {
+            "name": "Heart of Oak",
+            "level": 25,
+            "changes": ["Renewal aura also increases melee and ranged weapon damage by 10%."]
+          },
+          {
+            "name": "Birch Stance",
+            "level": 25,
+            "changes": ["Renewal aura also reduces damage taken from gas by 35%."]
+          },
+          {
+            "name": "Quiver of Plenty",
+            "level": 25,
+            "changes": [
+              "Renewal also increases potion duration and potion effect by 30% for allies.",
+              "Increases effectiveness of potion traits:",
+              "Proxy now affects two close allies.",
+              "Decanter increases potion duration by 75%.",
+              "Concoction reduces potion duration by 25%."
+            ]
+          },
+          {
+            "name": "Gift of Ladrielle",
+            "level": 30,
+            "changes": [
+              "Replaced with new talent “Coconut Skin”",
+              "Kerillian can’t dash through enemies anymore.",
+              "staggers infantry and berserker-type enemies instead.",
+              "Hitting enemies for 3.5 seconds after dashing gives stacks (up to 8).",
+              "Each stack applies 5% damage reduction.",
+              "Lasts for 12 seconds."
+            ]
+          },
+          {
+            "name": "Bladedancer",
+            "level": 30,
+            "changes": [
+              "Bleed now also applies to armored and super-armored enemies.",
+              "Reviving an ally resets the cooldown of Dash."
+            ]
+          },
+          {
+            "name": "Power from Pain",
+            "level": 30,
+            "changes": [
+              "Hitting enemies for 3.5 seconds after dashing gives stacks (up to 7).",
+              "Each stack grants 5% crit chance.",
+              "lasts for 5 seconds."
+            ]
+          }
+        ]
+      },
+      "shade": {
+        "name": "shade",
+        "icon": "/images/kerillian/kerillian-shade.webp",
+        "passives": [
+          "New Passive: 'Assassin’s Blade' replaced with Size Matters Modifies weapon damage based on the size of the enemy.",
+          "Tier 1 Infantry -20% (Slaverats, Clanrats, Fanatics, Ungors, Archers).",
+          "Tier 2 Infantry -7.5% (Marauders, Gors) .",
+          "Elites +12.5% (Stormvermin, Maulers, Monks, Savages, Bestigors).",
+          "Big Elites +17.5%, (Chaos Warriors, Wargors).",
+          "Monsters +25%, (Rat Ogre, Stormfiend, Troll, Chaos Spawn, Minotaur).",
+          "Lords 35% (Skarrik, Bödvarr, Halescourge, Rasknitt, Deathrattler, Nurgloth).",
+          "New additional passive “Bloodlust” For every kill, Kerillian is granted 1% crit chance, stacking up to 10 times and lasting 7 seconds. The number of crit chance stacks granted upon kill is based on enemy types  Horde Infantry 1 stack, Elites 2 stacks, Monsters/Lords 7 stacks.",
+          "Infiltrate Lowered the duration of being invisible to 3 seconds, Removed the ability to pass through enemies while being invisible, Increased damage by reverting a nerf introduced in patch 5.2.3.",
+          "Blur Removed.",
+          "Murderous Prowess Removed.",
+          "Can now equip the Spear & Shield."
+        ],
+        "talents": [
+          {
+            "name": "Cruelty",
+            "level": 10,
+            "changes": ["Now also grants 5% crit chance."]
+          },
+          {
+            "name": "Exploit Weakness",
+            "level": 10,
+            "changes": [
+              "Replaced with “Glazed Armor”.",
+              "Increases power by 12.5% and the damage taken by 5% when above 40% health.",
+              "This effect is doubled when above 70% health."
+            ]
+          },
+          {
+            "name": "Exquisite Huntress",
+            "level": 10,
+            "changes": ["Headshots increase headshot damage bonus by 5% for 5 seconds."]
+          },
+          {
+            "name": "Chain Killer",
+            "level": 20,
+            "changes": ["Bloodlust additionally grants Kerillian 1% attack speed per kill stack."]
+          },
+          {
+            "name": "Focused Slaying",
+            "level": 20,
+            "changes": ["Increases the effect of Bloodlust by 50%."]
+          },
+          {
+            "name": "Bloodfletcher",
+            "level": 20,
+            "changes": [
+              "Bloodlust additionally grants Kerillian 1.5% heavy attack damage per kill stack."
+            ]
+          },
+          {
+            "name": "Blood Drinker",
+            "level": 25,
+            "changes": ["Replaced by “Fleet Footed”", "Increases dodge distance by 20%."]
+          },
+          {
+            "name": "Shimmer Strike",
+            "level": 30,
+            "changes": [
+              "Infiltrate no longer grants bonus damage.",
+              "Now creates an AoE around the first target Kerillian hits with her ultimate.",
+              "This AoE can be applied with either a melee or ranged weapon for different effects.",
+              "Melee Bigger radius, more stagger, applies poison to enemies in that radius.",
+              "Ranged Small radius, less stagger (still boss stagger), applies burn to enemies."
+            ]
+          },
+          {
+            "name": "Hungry Wind",
+            "level": 30,
+            "changes": [
+              "Leaving Infiltrate grants Kerillian 10% movement speed for 10 seconds.",
+              "Additionally, Kerillian gets 5 seconds to score hits.",
+              "Each hit grants her 5% power for 8 seconds.",
+              "Max 10 stacks.",
+              "Lowers Infiltrate damage."
+            ]
+          },
+          {
+            "name": "Cloak of Pain",
+            "level": 30,
+            "changes": ["The second instance of Infiltrate does not grant stealth."]
+          }
+        ]
+      },
+      "sister-of-the-thorn": {
+        "name": "sister of the thorn",
+        "icon": "/images/kerillian/kerillian-sister-of-the-thorn.webp",
+        "passives": [
+          "New passive “A Murder of Sprites” Replaces former passive Blackvenom Blades Kerillian deals up to 35% bonus damage to wounded enemies depending on their remaining health.",
+          "A Sustenance of Leechlings Reduced its effectiveness by 70%.",
+          "Can now equip the Elven Volley Crossbow."
+        ],
+        "talents": [
+          {
+            "name": "Surge of Malice",
+            "level": 10,
+            "changes": [
+              "Now applies to all players.",
+              "While over 70% health (including temp HP), Kerillian and her allies gain 7.5% attack speed."
+            ]
+          },
+          {
+            "name": "Atharti’s Delight",
+            "level": 10,
+            "changes": [
+              "Reworked and renamed to “Blackvenom Blades”.",
+              "Melee critical strikes make targets bleed."
+            ]
+          },
+          {
+            "name": "Briar’s Malice",
+            "level": 10,
+            "changes": [
+              "Replaced with “Isha’s Bounty”.",
+              "Gaining health grants 5% melee power for 8 seconds, max 3 stacks."
+            ]
+          },
+          {
+            "name": "Incandescence",
+            "level": 20,
+            "changes": ["Using Radiance grants all players 20% max health for 60 seconds."]
+          },
+          {
+            "name": "Bonded Spirit",
+            "level": 20,
+            "changes": [
+              "Downed allies near Kerillian are invincible.",
+              "Disabled allies near Kerillian take 80% less damage."
+            ]
+          },
+          {
+            "name": "Radiant Inheritance",
+            "level": 20,
+            "changes": [
+              "Consuming Radiance grants Kerillian and nearby allies 10% power, 5% attack speed, 5% crit chance, and 15% crit power for 8 seconds.",
+              "Effects can stack 5 times.",
+              "Duration can stack up to 32 seconds."
+            ]
+          },
+          {
+            "name": "Recursive Toxin",
+            "level": 25,
+            "changes": [
+              "Replaced with original talent “The Pale Queen’s Choosing”:",
+              "Every 8 seconds Kerillian’s next ranged attack consumes no resource.",
+              "Dealing damage with that attack grants all players 2 green HP."
+            ]
+          },
+          {
+            "name": "Lingering Blackvenom",
+            "level": 25,
+            "changes": [
+              "Replaced with “exhumed talent Morai-Heg’s Doomsight”:",
+              "Gain 2 guaranteed melee critical strikes each time a career skill is used.",
+              "Max 10 stacks.",
+              "Missed attacks do not consume stacks."
+            ]
+          },
+          {
+            "name": "Repel",
+            "level": 30,
+            "changes": [
+              "Replaced with “Lingering Blackvenom”:",
+              "A merged talent that combines the effects of old Lingering Blackvenom, former passive Blackvenom Blades and Recursive Toxin",
+              "Critical strikes apply Blackvenom to enemies near the target.",
+              "Blackvenom deals damage over time and increases damage taken by 12% for 10 seconds.",
+              "Blackvenom stacks 2 times."
+            ]
+          },
+          {
+            "name": "Tanglegrasp Thicket",
+            "level": 30,
+            "changes": ["Does not push back elites anymore."]
+          },
+          {
+            "name": "Blackvenom Thicket",
+            "level": 30,
+            "changes": ["Reduced the radius.", "Increased the stagger.", "Can stagger bosses."]
+          }
+        ]
+      }
+    },
+    "weapons": [
+      {
+        "name": "Dual Daggers",
+        "icon": "/images/kerillian/weapons/dualdaggers.webp",
+        "changes": [
+          "Reduced dodge distance from 35% to 20%.",
+          "Light 4 The time to chain back into Light 1 has been reduced by 0.3 seconds, from 0.67 to 0.37 seconds.",
+          "Heavy 1 Chaining into Heavy 1 from any light attack is now 0.2 seconds faster (down to 0.3s from 0.5s), Increased boss damage by 0.4, from 2.1 to 2.5, Removed the 10% innate crit chance.",
+          "Heavy 2 Now ignores shields, Increased range by 10%, Increased attack speed by 20%, Pushed back the damage window by 0.05 seconds, Increased boss damage by 0.4, from 2.1 to 2.5, Removed the 10% innate crit chance. ",
+          "Push attack Increased armor damage from 0.25 to 0.8, Increased crit armor damage from 0.5 to 0.8."
+        ]
+      },
+      {
+        "name": "Dual Swords",
+        "icon": "/images/kerillian/weapons/dualswords.webp",
+        "changes": [
+          "Light attacks: Attack speed and damage progressively increase from Lights 1 to 4, Now all apply bleed.",
+          "Light 2: Added 10% Crit chance.",
+          "Heavy 1: Removed Heavy Linesman hit mass count, Increased Armour damage by 0.3, from 0.4 to 0.7.",
+          "Heavy 2: Increased Cleave from 0.2 (5.97 in-game) to 0.5 (14.92)",
+          "Push attack: Increased Armour damage by 0.5, from 0.5 to 1, Now chains into a thrust Light attack Uses the Push-Attack’s animation and damage profile with a 32% increase to attack speed."
+        ]
+      },
+      {
+        "name": "Elven Axe",
+        "icon": "/images/kerillian/weapons/elvenaxe.webp",
+        "changes": [
+          "Light 1: Increased Attack speed by 10%, Reduced Armour damage by 0.25, from 0.65 to 0.4, Reduced Monster damage by 1, from 2.5 to 1.5, Increased Super-Armour damage by 0.05, from 0.75 to 0.8, Reduced Berserker damage by 0.4, from 0.6 to 0.2, Reduced Crit Armour damage by 0.15, from 0.75 to 0.6, Reduced Crit Monster damage by 1, from 2.75 to 1.75, Reduced Crit Berserker/Monk damage by 0.6, from 1 to 0.4, Increased Cleave from 0.075(2.24 in-game) by 0.155 to 0.23(6.86 in-game), Increased Stagger from 0.075(2.24 in-game) by 0.105 to 0.18(6.86 in-game), Reduced headshot multiplier against the 1st enemy hit by 0.1, from 1.5 to 1.4, Increased overall damage against the 2nd enemy hit by 0.125, from 0.075 to 0.2, Increased overall stagger against the 2nd enemy hit by 0.075, from 0.075 to 0.15.",
+          "Light 2: Increased Attack speed by 10%, Reduced Armour damage by 0.25, from 0.65 to 0.4, Reduced Monster damage by 1, from 2.5 to 1.5, Increased Super-Armour damage by 0.05, from 0.75 to 0.8, Reduced Berserker/Monk damage by 0.4, from 0.6 to 0.2, Reduced Crit Armour damage by 0.15, from 0.75 to 0.6, Reduced Crit Monster damage by 1, from 2.75 to 1.75, Reduced Crit Berserker damage by 0.6, from 1 to 0.4, Increased Cleave from 0.075(2.24 in-game) by 0.155 to 0.23(6.86 in-game), Increased Stagger from 0.075(2.24 in-game) by 0.105 to 0.18(6.86 in-game), Increased headshot multiplier against the 1st enemy hit by 0.4, from 1 to 1.4, Reduced the overall damage against the 1st enemy hit by 0.03, from 0.25 to 0.22, Increased overall damage against the 2nd enemy hit by 0.125, from 0.075 to 0.2, Increased overall stagger against the 2nd enemy hit by 0.075, from 0.075 to 0.15.",
+          "Light 3: Increased Attack speed by 10%,Now breaks shields, Increased Armour damage by 0.225, from 0.65 to 0.875, Reduced Super-Armour damage by 0.25, from 0.75 to 0.5, Reduced Berserker/Monk damage by 0.1, from 0.6 to 0.5, Increased Crit Armour damage by 0.125, from 0.75 to 0.875, Reduced Crit Super-Armour damage by 0.5, from 1 to 0.5, Reduced Crit Berserker/Monk damage by 0.5, from 1 to 0.5, Increased headshot multiplier against the 1st enemy hit by 0.2, from 2 to 2.2, Increased overall damage against the 1st enemy hit by 0.03, from 0.25 to 0.28, Reduced headshot multiplier against the 2nd enemy hit 1, from 2 to 1, This technically doesn’t affect the attack since you do not have the cleave to hit a 2nd enemy but it is noted here nonetheless. ",
+          "Light 4: Increased Attack speed by 10%, Now breaks shields, Increased Armour damage by 0.225, from 0.65 to 0.875, Reduced Super-Armour damage by 0.25, from 0.75 to 0.5, Reduced Berserker/Monk damage by 0.1, from 0.6 to 0.5, Increased Crit Armour damage by 0.125, from 0.75 to 0.875, Reduced Crit Berserker/Monk damage by 0.5, from 1 to 0.5. Increased Crit stagger against all enemy types barring Berserkers/Monks by 0.5, from 1 to 1.5, Increased headshot multiplier against the 1st enemy hit by 2, from 2 to 4, Increased overall damage against the 1st enemy hit by 0.05, from 0.25 to 0.3, Increased overall stagger against the 1st enemy by 0.105, from 0.1.75 to 0.28, Reduced headshot multiplier against the 2nd enemy hit 1, from 2 to 1, This technically doesn’t affect the attack since you do not have the cleave to hit a 2nd enemy but it is noted here nonetheless, Heavy attacks Increased Super-Armour damage by 0.25, from 0.75 to 1, Reduced stagger against Armour by 0.2, from 0.8 to 0.6, Reduced Crit stagger against Armour by 0.2, from 1 to 0.8, Increased headshot multiplier against the 1st enemy hit by 2, from 1.5 to 3.5.",
+          "Push: Increased cost from 1 to 2 stamina.",
+          "Push attack: Reduced Armour damage by 0.1, from 0.65 to 0.55, Increased Super-Armour damage by 0.05, from 0.75 to 0.8, Reduced Berserker/Monk damage by 0.4, from 0.6 to 0.2, Reduced Crit Armour damage by 0.15, from 0.75 to 0.6, Reduced Crit Berserker damage by 0.6, from 1 to 0.4, Increased overall Cleave from 0.075(2.24 in-game) by 0.155 to 0.23(6.86 in-game), Increased overall Stagger from 0.075(2.24 in-game) by 0.105 to 0.18(6.86 in-game), Increased headshot multiplier against the 1st enemy hit by 0.7, from 1 to 1.7, Increased overall damage to the 1st enemy hit by 0.02, from 0.25, to 0.27."
+        ]
+      },
+      {
+        "name": "Elven Spear",
+        "icon": "/images/kerillian/weapons/spear.webp",
+        "changes": [
+          "Reduced effective block angle from 180 to 120.",
+          "Attacks which chain into Heavy 1 are now 0.1 seconds faster.",
+          "Lowered crit damage against every enemy for all attacks (except Heavy 1).",
+          "Light attacks: Crit headshots now deal more damage to Armour than non-crit headshots (bug fix).",
+          "Light 1: Removed Linesman hit mass count, Increased headshot multiplier from 2 to 2.5, Increased cleave from 0.075 (2.24 in-game) to 0.25 (7.46 in-game), The 0.04 second long damage window from 0.31 to 0.35 seconds is changed to start at 0.347 seconds and end at 0.39 seconds, Reduced damage against Maulers by 0.2, Reduced damage against Chaos Warriors by 0.25.",
+          "Light 2: Increased headshot multiplier from 2 to 2.5, Increased cleave from 0.075 (2.24 in-game) to 0.25 (7.46 in-game), The 0.1 second long damage window from 0.2 to 0.3 seconds is changed to start at 0.223 seconds, Reduced damage against Maulers by 0.2, Reduced damage against Chaos Warriors by 0.25.",
+          "Light 3: Increased stagger by 25, Now chains into Heavy 1, Reduced damage against Maulers by 0.1.",
+          "Light 4: Increased headshot multiplier from 2 to 2.5, Increased cleave from 0.075 (2.24 in-game) to 0.25 (7.46 in-game), A 0.15 second damage window lasting from 0.15 to 0.3 seconds has been reduced by 0.01 seconds but pushed up to start at 0.19 seconds and finish at 0.34 seconds, Reduced damage against Maulers by 0.2, Reduced damage against Chaos Warriors by 0.25.",
+          "Heavy 1: Increased attack speed by ~10%, Now chains into Light 3.",
+          "Heavy 2: Increased Armour damage by 0.095, from 0.405 to 0.5, Reduced Monster damage by 0.6, from 2 to 1.4, Increased Super-Armor damage by 0.205, from 0.405 to 0.65, Reduced damage against Chaos Warriors specifically by 0.2, Reduced Crit-Monster damage by 0.75, from 2.5 to 1.75, Reduced Crit-Berserker/Monk damage by 0.1, from 1 to 0.9, Increased Crit-Super-Armour damage by 0.15, from 0.5 to 0.65, Increased Headshot multiplier from 2 to 3.33, Increased Cleave from 0.075 (2.24 in-game) to 0.375 (11.94 in-game), Increased range from 1.35 to 1.4, Slowed down by ~0.2 seconds.",
+          "Push attack: Now has the same animation as Heavy 1."
+        ]
+      },
+      {
+        "name": "Glaive",
+        "icon": "/images/kerillian/weapons/glaive.webp",
+        "changes": [
+          "Light attacks Now break shields.",
+          "Heavy 1 Increased attack speed by 41%.",
+          "Heavy 2 Increased attack speed by 14%, Added 10% crit chance.",
+          "Push attack Now breaks shields."
+        ]
+      },
+      {
+        "name": "1h Sword",
+        "icon": "/images/kerillian/weapons/sword.webp",
+        "changes": [
+          "Added a new light attack horizontal swipe, Push-attacking is the only way of chaining into it.",
+          "All attacks now have reduced movement speed penalty during attacks.",
+          "Reduced dodge range by 10%, from 25% to 15%.",
+          "Light 3 Now breaks shields, Increased headshot multiplier from 2 to 2.5, Increased Berserker/Monk damage from 0.75 to 1.",
+          "Heavy attacks The time to chain into any of the heavy attacks is reduced to 0.45 seconds.",
+          "Heavy 2 Added Heavy Linesman hit mass count, Added Armour-sliding, Increased damage and crit damage against everything by 20%, Increased damage and stagger against the 2nd enemy cleaved from from 0.1 to 0.35 and 0.2, respectively. Damage and stagger on the 3rd enemy cleaved was set to 0.3 and 0.15, respectively. ",
+          "Push Increased cost from 1 to 2 stamina, Now Chains into Heavy 2.",
+          "Push attack Now chains into a horizontal light attack, Uses regular 1h Sword’s Light 2 damage profile and animation."
+        ]
+      },
+      {
+        "name": "Sword & Dagger",
+        "icon": "/images/kerillian/weapons/swordanddagger.webp",
+        "changes": ["Reduced dodge distance from 25% to 10%."]
+      },
+      {
+        "name": "Two-handed Sword",
+        "icon": "/images/kerillian/weapons/twohandedsword.webp",
+        "changes": [
+          "Reduced dodge distance from 10% to 0%.",
+          "Light attacks Increased damage, damage cleave, stagger cleave.",
+          "Light 2 Now chains into ‘Heavy’ 2, then back into Light 1.",
+          "Heavy 1 Now breaks shields, Increased damage, Increased headshot damage.",
+          "Heavy 2 Added Heavy Linesman hit mass count, Increased damage."
+        ]
+      },
+      {
+        "name": "Briar Javelin ",
+        "icon": "/images/kerillian/weapons/briarjavelin.webp",
+        "changes": [
+          "Increased base ammo capacity from 3 to 4.",
+          "Reduced reload speed when you have 1 or more Javelins left by 0.2 seconds, from 1 to 0.8 seconds.",
+          "Decreased chain timers to allow for earlier weapon swapping for both melee and throwing attacks.",
+          "Heavy Stab Time to chain into the Throw is reduced by 0.3 seconds, from 0.8 to 0.5 seconds.",
+          "Throw Increased cleave and stagger from 0.15(4.48 in-game) to 0.75(22.38 in-game) and 0.65(19.40 in-game), respectively, Reduced Stagger against Berserkers/Monks by 0.5 to 0, Reduced Crit Stagger against Berserkers/Monks by 0.75 to 0, Reduced Infantry Crit damage by 0.25, from 1 to 0.75, Reduced Armour Crit damage by 0.42, from 1 to 0.58, Reduced Monster Crit damage by 0.5, from 1.3 to 0.8, Reduced Friendly Fire Crit damage by 0.35, from 1 to 0.65, Reduced Super Armour Crit damage by 0.15, from 0.75 to 0.6, Reduced Berserker/Monk Crit damage by 0.35, from 0.75 to 0.4, Increased Infantry damage by 0.07, from 0.63 to 0.7, Reduced Friendly Fire by 0.35, from 1 to 0.65, Reduced Super Armour damage by 0.17, from 0.75 to 0.58, Increased headshot multiplier by 0.1, from 1.5 to 1.6, Increased overall damage against enemies that are near by 0.04, from 0.76 to 0.8, Reduced overall stagger against enemies that are near by 0.4, from 0.8 to 0.4, Increased overall damage against enemies that are far by 0.35, from 0.55 to 0.8, Increased min-max drop-off range from 15-30 units to sniper drop-off range.",
+          "Weapon special(new) Enables a second zoom level when aiming down sights."
+        ]
+      },
+      {
+        "name": "Deepwood Staff",
+        "icon": "/images/kerillian/weapons/deepwoodstaff.webp",
+        "changes": [
+          "Reduced vortex cast range. Now lines up with left click’s effective range.",
+          "Increased vortex cast cost from 10 to 15.",
+          "Lowered default vortex duration from 8 to 4 seconds, This duration is further reduced to 2 ",
+          "seconds for Chaos Warriors, Hook Rats, Assassins, and Leeches."
+        ]
+      },
+      {
+        "name": "Hagbane Shortbow",
+        "icon": "/images/kerillian/weapons/hagbaneshortbow.webp",
+        "changes": ["Charged Shot Decreased weapon swap time from 0.66 to 0.5 seconds."]
+      },
+      {
+        "name": "Longbow",
+        "icon": "/images/kerillian/weapons/longbow.webp",
+        "changes": [
+          "Left click A quick shot after a charged shot is pushed past the timing of a weapon swap to make sure these two do not overlap.",
+          "Charged Shot Can now swap weapons earlier after a charged shot.",
+          "Weapon special(new) Enables a second zoom level when aiming down sights."
+        ]
+      },
+      {
+        "name": "Moonfire Bow",
+        "icon": "/images/kerillian/weapons/moonfirebow.webp",
+        "changes": [
+          "Moonfire Bow is now a railgun. (!highly experimental!)",
+          "Left click Reduced damage and cleave significantly, Uncharged shots create an explosion which applies a DoT, Increased fire rate.",
+          "Charged Shot Cleaves up to 80 enemies of any kind (also armor/bosses etc.), Increased the impact damage significantly, Increased the charge up time, Increased the energy cost to 15 (half the bar), Increased recoil, Removed the explosion.",
+          "Stagger breakpoints Stormvermin 3 properties or 2 properties + EP lets you stagger them out of all attacks (except overheads), Chaos Warriors (headshot only) 3 properties or 2 properties + EP lets you stagger them out of their normal attacks.",
+          "Weapon special(new) Enables a second zoom level when aiming down sights, There is a sound bug when you draw the bow."
+        ]
+      }
+    ]
+  },
+  "saltzpyre": {
+    "careers": {
+      "witch-hunter-captain": {
+        "name": "witch hunter captain",
+        "icon": "/images/saltzpyre/saltzpyre-witch-hunter-captain.webp",
+        "passives": [
+          "Killing Shot Does not proc on light attacks, Instead, light attacks deal 20% more damage on critical headshots.",
+          "Power of Sigmar Increases headshot bonus damage by 80% (up from 25%).",
+          "Can now equip the Holy Great Hammer, Dual Skull-Splitters, and Skull-Splitter Hammer."
+        ],
+        "talents": [
+          {
+            "name": "Riposte",
+            "level": 10,
+            "changes": [
+              "Replaced with new talent “Hunter’s Fury”",
+              "Every time an elite enemy dies, Victor gains a stack of fury.",
+              "Upon reaching 4 stacks, the next enemy he kills with a heavy attack  explodes dealing area damage.",
+              "Stack gain has an internal cooldown of 1.75 seconds.q"
+            ]
+          },
+          {
+            "name": "Deathknell",
+            "level": 10,
+            "changes": ["Allows Killing Shot to apply to light attacks."]
+          },
+          {
+            "name": "Flense",
+            "level": 10,
+            "changes": [
+              "Strength of bleed DoTs now depends on where the enemy is hit.",
+              "Headshots apply the highest bleed damage (same as live).",
+              "Body hits apply a lower damage bleed."
+            ]
+          },
+          {
+            "name": "Templar’s Knowledge",
+            "level": 20,
+            "changes": [
+              "When Victor scores a headshot he shares Templar’s Knowledge with his allies which allows each player to gain 50% headshot bonus damage for 10 seconds after individually scoring 5 headshots."
+            ]
+          },
+          {
+            "name": "Heretic Sighted",
+            "level": 20,
+            "changes": [
+              "Now grants 8.5% attack speed to all players when a taggable enemy dies.",
+              "Lasts 5 seconds."
+            ]
+          },
+          {
+            "name": "Always Prepared",
+            "level": 25,
+            "changes": [
+              "Killing elites and monsters gives 1 stack and adds 85% worth of kill temp HP to an over-health shield up to 200 temp HP max.",
+              "This shield activates upon reaching 4 kill stacks absorbing incoming damage until depleted."
+            ]
+          },
+          {
+            "name": "I Shall Judge You All!",
+            "level": 30,
+            "changes": [
+              "Creates an aura around Victor for 10 seconds.",
+              "Each enemy hit by his aura takes 20% increased damage for 2 seconds (can be refreshed).",
+              "This effect does not stack."
+            ]
+          },
+          {
+            "name": "Fervency",
+            "level": 30,
+            "changes": [
+              "Now also grants Animosity to Victor’s allies but reduces the crit chance they receive from Animosity to 20%."
+            ]
+          },
+          {
+            "name": "Unending Hunt",
+            "level": 30,
+            "changes": [
+              "After using his ultimate, Victor has 5 seconds to kill enemies, Each enemy killed grants 4% cooldown reduction.",
+              "Max 10 stacks."
+            ]
+          }
+        ]
+      },
+      "bounty-hunter": {
+        "name": "bounty hunter",
+        "icon": "/images/saltzpyre/saltzpyre-bounty-hunter.webp",
+        "passives": [
+          "Blessed Shots Now grants 1 free shot every 10 seconds which does not consume ammo.",
+          "Can now equip the Holy Great Hammer, Dual Skull-Splitters, and Skull-Splitter Hammer."
+        ],
+        "talents": [
+          {
+            "name": "Steel Crescendo",
+            "level": 10,
+            "changes": [
+              "Ranged kills grant Victor 15% melee power and 7.5% attack speed for 10 seconds.",
+              "Effects can stack 3 times.",
+              "Each additional stack increases duration by 5 seconds to a maximum of 35 seconds.",
+              "Duration after another stack has been added can't lower than base duration."
+            ]
+          },
+          {
+            "name": "Weight of Fire",
+            "level": 10,
+            "changes": ["Max stacks increased to 30."]
+          },
+          {
+            "name": "Blessed Combat",
+            "level": 20,
+            "changes": [
+              "Swapped places with a new version of Rile the Mob.",
+              "Victor’s ranged weapon fires additional projectiles based on the clip size, up to a maximum of 5 additional projectiles.",
+              "Reduces the cooldown of Blessed Shots by 2 seconds."
+            ]
+          },
+          {
+            "name": "Cruel Fortune",
+            "level": 20,
+            "changes": ["Grants Victor a guaranteed ranged critical hit every 6 seconds."]
+          },
+          {
+            "name": "Prize Bounty",
+            "level": 20,
+            "changes": [
+              "Grants Victor 1 guaranteed ranged critical hit for each melee kill, can store up to 3 critical hits.",
+              "Stored crits are consumed upon firing."
+            ]
+          },
+          {
+            "name": "Rile the Mob",
+            "level": 25,
+            "changes": ["Swapped places with unchanged Blessed Combat."]
+          },
+          {
+            "name": "Salvaged Ammunition",
+            "level": 25,
+            "changes": [
+              "Melee kills reload 1 ammo into Victor’s ranged weapon and give 1 kill stack (elite melee kills give 5 kill stacks).",
+              "Upon reaching 20 kill stacks, Victor regains 35% of his max ammo.",
+              "Has a 25 second cooldown.",
+              "Killing a boss grants Victor 50% of his max ammo."
+            ]
+          },
+          {
+            "name": "Just Reward",
+            "level": 30,
+            "changes": [
+              "Every 10 seconds, an enemy will be marked as a target.",
+              "Marked targets do not appear when Victor’s ultimate is ready.",
+              "Killing a marked target reduces Victor’s ultimate cooldown by 10% and increases his next ultimate’s damage.",
+              "Killing taggable enemies with Victor’s ultimate grants him an amount of green HP, and all players 5% attack speed, 7.5% power, and 10% damage reduction for 15 seconds."
+            ]
+          },
+          {
+            "name": "Double-shotted",
+            "level": 30,
+            "changes": [
+              "Reverted to old behavior.",
+              "Scoring a headshot with Victor’s ultimate reduces the cooldown of Locked and Loaded by 40% per bullet.",
+              "Made behavior consistent between host and clients.",
+              "When the first bullet kills the target, 40% is refundend.",
+              "Only when both bullets hit the target, 80% is refundend."
+            ]
+          },
+          {
+            "name": "Indiscriminate Blast",
+            "level": 30,
+            "changes": [
+              "Grants a 10% base cooldown reduction.",
+              "Each subsequent use of Victor’s ultimate grants 10% cooldown reduction, up to a maximum of 70%.",
+              "Additionally, each subsequent use of Victor’s ultimate increases the shotgun pellet count by 2.",
+              "Upon reaching 10 stacks subsequent ults increase the shotgun pellet count by 1, up to a maximum of 30",
+              "Pellet count stacks and cooldown reduction gained reset upon death."
+            ]
+          }
+        ]
+      },
+      "zealot": {
+        "name": "zealot",
+        "icon": "/images/saltzpyre/saltzpyre-zealot.webp",
+        "passives": [
+          "New additional passive Using the CB toggle keybind, Zealot can now choose to take damage for his allies who, in turn, take 25% reduced damage, Zealot will not take damage from downed allies but if he chooses to tank too much damage, he can go down himself.",
+          "Holy Fervour Activating Zealot’s ultimate converts green HP to temp HP (11). Instead of green HP, he always gains temp HP.",
+          "Fiery Faith Stacks gained from losing health only affect Zealot’s melee power.",
+          "Heart of Iron Optimized the way it works so that it should proc more reliably for clients."
+        ],
+        "talents": [
+          {
+            "name": "Castigate",
+            "level": 10,
+            "changes": [
+              "Increases attack speed by 10%.",
+              "Killing 10 enemies (elites count as 3, bosses as 10) within 15 seconds grants Victor another 10% attack speed for 10 seconds."
+            ]
+          },
+          {
+            "name": "Smite",
+            "level": 10,
+            "changes": [
+              "The guaranteed critical hits now only apply to melee attacks, Critical hits can still occur randomly."
+            ]
+          },
+          {
+            "name": "Unbending Purpose",
+            "level": 10,
+            "changes": [
+              "Every 15 damage taken increases melee power by 5% and ranged power by 1.5% for 20 seconds.",
+              "Max 7 stacks."
+            ]
+          },
+          {
+            "name": "Crusade",
+            "level": 20,
+            "changes": [
+              "Replaced with new talent One True Armor.",
+              "Every 20 seconds, the next hit Zealot takes for more than 40 damage will be absorbed and reflected back to the attacker (reflected damage is multiplied by 12 for bosses).",
+              "No more temp HP decay."
+            ]
+          },
+          {
+            "name": "Armour of Faith",
+            "level": 20,
+            "changes": [
+              "Reduces damage taken by 10%.",
+              "Each subsequent melee hit suffered reduces damage taken by 1% within 5 seconds.",
+              "Max 40 stacks."
+            ]
+          },
+          {
+            "name": "Devotion",
+            "level": 25,
+            "changes": [
+              "Taking damage increases movement speed by 15% (down from 30%) for 2 seconds.",
+              "Getting attacked no longer slows movement speed.",
+              "Proccing Heart of Iron grants 40 temp HP after the duration of invincibility is over."
+            ]
+          },
+          {
+            "name": "Calloused Without and Within",
+            "level": 25,
+            "changes": [
+              "Reduces the cooldown of Heart of Iron by 30 seconds.",
+              "Proccing Heart of Iron grants 20% power for 5 seconds and unleashes a burst of energy that knocks enemies back."
+            ]
+          },
+          {
+            "name": "Faith’s Flurry",
+            "level": 30,
+            "changes": [
+              "Increases the duration of Holy Fervour to 7 seconds.",
+              "Attacks during Holy Fervour increase power by 2% for 5 seconds.",
+              "Max 10 stacks."
+            ]
+          },
+          {
+            "name": "Flagellant’s Zeal",
+            "level": 30,
+            "changes": [
+              "Each hit during Holy Fervour grants a stack up to 25 (up from 10).",
+              "Each stack reduces the cooldown of Holy Fervour by 1.5 seconds (changed from 5% cooldown reduction per stack).",
+              "Also increases the stagger power of Zealot’s dash."
+            ]
+          },
+          {
+            "name": "Second Chances",
+            "level": 30,
+            "changes": [
+              "Holy Fervour grants 6 seconds of 35% damage reduction along with the ability to teleport back to your starting position by pressing the Ult key within this time frame, If Victor’s disabled, he’s freed and forcefully teleported back to the starting position."
+            ]
+          }
+        ]
+      },
+      "warrior-priest": {
+        "name": "warrior priest",
+        "icon": "/images/saltzpyre/saltzpyre-warrior-priest.webp",
+        "passives": [
+          "New additional passive Added From Fury, Fortitude as a passive at 30% effectiveness Kills during Righteous Fury restore health to the party based on the health of the slain enemy.",
+          "Righteous Fury Optimized fury economy Base Fury no longer decays.",
+          "Righteous Fury decay halts if Warrior Priest, or a nearby ally, has not hit an enemy for 2 seconds.",
+          "Righteous Fury decay rate increased to 8 per second (up from 6 per second).",
+          "Health Reduced Warrior Priest’s base health to 125 (down from 150).",
+          "Can now equip the Axe & Falchion, 1h Axe, Billhook, Falchion, Flail, Greatsword, and Rapier."
+        ],
+        "talents": [
+          {
+            "name": "Unstoppable Force",
+            "level": 10,
+            "changes": ["Victor’s actions can not be interrupted, He can still get disabled."]
+          },
+          {
+            "name": "Rising Judgement",
+            "level": 10,
+            "changes": [
+              "Light attack hits make up to the next 6 heavy attacks deal 15% more damage.",
+              "Heavy attack hits make up to the next 6 light attacks deal 15% more damage.",
+              "Heavy attacks grant 2 stacks at once."
+            ]
+          },
+          {
+            "name": "Blazing Bright",
+            "level": 20,
+            "changes": [
+              "Replaced with the old talent “Divine Excoriation.”",
+              "During Righteous Fury pushing sends out a holy shockwave around Victor staggering nearby enemies.",
+              "Increased the stagger power granted to pushes.",
+              "Added an internal cooldown of 4 seconds."
+            ]
+          },
+          {
+            "name": "See My Wrath",
+            "level": 20,
+            "changes": [
+              "Reverted functionality to that of old talent Empowered Smite.",
+              "Smite now triggers twice per hit after 1 second, gains increased stagger strength and deals 30% of the attack’s damage per instance."
+            ]
+          },
+          {
+            "name": "From Fury, Fortitude",
+            "level": 20,
+            "changes": ["During Righteous Fury, every instance of damage taken is reduced to 15."]
+          },
+          {
+            "name": "Prayer of Vengeance",
+            "level": 25,
+            "changes": ["Bless the party with 60% increased stagger duration."]
+          },
+          {
+            "name": "Unyielding Blessing",
+            "level": 30,
+            "changes": [
+              "Base version of Shield of Faith.",
+              "Grants an invincibility shield to the target for 8 seconds and allows to trample through lesser enemies and knockback effects.",
+              "Additionally grants 10% power to the target for the duration.",
+              "Increased the stagger power of the explosion.",
+              "Can now stagger elites out of their attacks (except Chaos Warriors), bosses, and knocks back hook rats.",
+              "Togglable version of Shield of Faith:",
+              "Does not grant an invincibility shield to the target.",
+              "Instead grants 40% power, 25% crit chance, and 35% increased dodge distance for 12 seconds."
+            ]
+          },
+          {
+            "name": "United in Prayer",
+            "level": 30,
+            "changes": [
+              "Base version of Shield of Faith.",
+              "Grants an invincibility shield to Warrior Priest and his target for 5 seconds.",
+              "Additionally grants 5% attack speed to Warrior Priest and his target for the duration.",
+              "Increased the stagger power of the explosion.",
+              "Can now stagger smaller enemies and Stormvermin (non-overhead) attacks.",
+              "Togglable version of Shield of Faith:",
+              "Does not grant an invincibility shield to Warrior Priest and his target.",
+              "Instead grants 15% attack speed, 75% stagger power, and 35% mass reduction against enemies for 8 seconds."
+            ]
+          },
+          {
+            "name": "The Comet’s Gift",
+            "level": 30,
+            "changes": [
+              "Base version of Shield of Faith.",
+              "Revives an ally and heals an amount equal to all damage suffered in the last 3 seconds, Grants an invincibility shield to the target for 5 seconds.",
+              "Additionally always heals 15 green HP.",
+              "Togglable version of Shield of Faith:",
+              "Still revives and recoups an ally’s health but does not grant an invincibility shield.",
+              "Always heals 30 green HP and grants 35% damage reduction, 50% increased stamina recovery, and 3 stamina shields for 8 seconds."
+            ]
+          }
+        ]
+      }
+    },
+    "weapons": [
+      {
+        "name": "Axe & Falchion",
+        "icon": "/images/saltzpyre/weapons/axeandfalchion.webp",
+        "changes": [
+          "Light 1 Now chains into Heavy 2.",
+          "Light 2 Added Linesman hit mass count.",
+          "Light 3 Added Linesman hit mass count.",
+          "Light 4 Increased headshot multiplier by 1, from 2 to 3.",
+          "Heavy 1 Now chains into Light 4. Time to chain into Light 4 reduced from 0.4s to 0.3s, Increased armour damage by 0.1, from 0.9 to 1, Increased headshot crit multiplier from 1.6 to 2.",
+          "Heavy 2 Increased stagger cleave from 0.075 (2.24 in-game) to 0.375 (11.19 in-game), Added Linesman hit mass count."
+        ]
+      },
+      {
+        "name": "Falchion",
+        "icon": "/images/saltzpyre/weapons/falchion.webp",
+        "changes": [
+          "Light 1 Added Heavy Linesman hit mass count.",
+          "Light 2 Added Heavy Linesman hit mass count.",
+          "Heavy 1 Now chains into Light 3, The time to chain into Heavy 1 is reduced by 0.15 seconds, from 0.6 to 0.45 seconds.",
+          "Heavy 2 The time to chain into Heavy 1 is reduced by 0.15 seconds, from 0.6 to 0.45 seconds.",
+          "Push attack”Added Heavy Linesman hit mass count, The time to chain into Heavy 1 is reduced by 0.1 seconds, from 0.75 to 0.65 seconds, The time to chain into Light 1 is reduced by 0.2 seconds, from 0.75 to 0.55 seconds.",
+          "Push Now chains into Light 3, Increased cost from 1 to 2 stamina."
+        ]
+      },
+      {
+        "name": "Flail",
+        "icon": "/images/saltzpyre/weapons/flail.webp",
+        "changes": [
+          "Heavy 1 Increased cleave, Reduced armor damage.",
+          "Heavy 2 Increased cleave, Reduced armor damage.",
+          "Push Increased cost from 1 to 2 stamina."
+        ]
+      },
+      {
+        "name": "Flail & Shield",
+        "icon": "/images/saltzpyre/weapons/flailandshield.webp",
+        "changes": [
+          "Light 1 Increased bodyshot damage slightly, Increased headshot multiplier to 2, Increased infantry damage on headshot by ~30%, Doubled armor damage on headshot, Doubled berserker damage on headshot, Increased boss damage on headshot by ~5%, Nearly doubled super-armor damage on headshot.",
+          "Light 2 Increased bodyshot damage slightly, Increased headshot multiplier to 2, Increased infantry damage on headshot by ~30%, Doubled armor damage on headshot, Doubled berserker damage on headshot, Increased boss damage on headshot by ~5%, Nearly doubled super-armor damage on headshot.",
+          "Light 4 Added Tank hit mass count, Increased attack speed by ~15%.",
+          "Light 5 Added Tank hit mass count, Increased attack speed by ~15%.",
+          "Heavy attacks No longer block automatically whilst charging.",
+          "Weapon special (new) Super shield bash with lots of stagger power, has a 4 second cooldown."
+        ]
+      },
+      {
+        "name": "Greatsword",
+        "icon": "/images/saltzpyre/weapons/greatsword.webp",
+        "changes": [
+          "Added a new attack chain with two attacks two light overheads.",
+          "The Push Attack can now chain into two additional light overhead attacks. ",
+          "Push-attacking is the only way of starting the new attack chain.",
+          "Both light overheads have the same damage profile as the Push Attack.",
+          "Light 1 Changed animation into that of Bretonnian Longsword’s Light 1, upward sweep from the right, Added 10% crit chance.",
+          "Heavy attacks Now break shields.",
+          "Push attack Increased attack speed by 20%, Increased armour and super-armor damage slightly, Now chains into two overhead light attacks that both have the same damage profile as the Push Attack."
+        ]
+      },
+      {
+        "name": "Hammer & Tome",
+        "icon": "/images/saltzpyre/weapons/skullsplitterandshield.webp",
+        "changes": [
+          "Added a new light attack horizontal swipe.",
+          "Push-attacking is the only way of chaining into it.",
+          "Light 2 Increased crit chance from 10% to 15%.",
+          "Light 3 Increased crit chance from 15% to 20%.",
+          "Heavy 1 Lunge duration lasts twice as long.",
+          "Heavy 2 Start of the damage window has been changed from 0.22 to 0.1.",
+          "Push attack Now chains into a horizontal light attack, Uses regular 1h Hammer’s Push Attack damage profile and animation."
+        ]
+      },
+      {
+        "name": "Holy Great Hammer",
+        "icon": "/images/saltzpyre/weapons/holygreathammer.webp",
+        "changes": [
+          "Light 2 Increased overall damage by 0.15, from 0.4 to 0.55, Increased Infantry damage by 0.15, from 1 to 1.15.",
+          "Light 3 Reduced overall Stagger from 0.3(8.95 in-game) by 0.1 to 0.2(5.97 in-game), Increased overall damage against the 1st enemy cleaved by 0.1, from 0.1 to 0.2, Increased overall damage against the 2nd enemy cleaved by 0.075, from 0.1 to 0.175, Increased overall damage against the 3rd enemy cleaved by 0.05, from 0.1 to 0.15, Reduced movement speed penalty at the end of the attack.",
+          "Heavy 1 Increased Berserker/Monk damage by 0.25, from 0.75 to 1.",
+          "Heavy 2 Increased overall damage against the 1st enemy cleaved by 0.15, from 0.275 to 0.425, Increased overall damage against the 2nd enemy cleaved by 0.11, from 0.225 to 0.335, Increased overall damage against the 3rd enemy cleaved by 0.1, from 0.075 to 0.175, Increased cleave to match Two-handed Hammer heavy attacks, Increased Berserker/Monk damage by 0.25, from 0.75 to 1.",
+          "Heavy 3 Added Hammer & Tome’s Heavy 2 explosion template, Increased Armour and super-armor damage by 20%, Increased Infantry damage by 0.1, from 1 to 1.1, Increased Armoured damage by 0.2, from 1 to 1.2, Increased Monster damage by 0.17, from 1.75 to 1.92, Increased Super-Armour damage by 0.08, from 0.75 to 0.83, Increased Berserker/Monk damage by 0.1, from 1 to 1.1.",
+          "Weapon special Added an explosion with massive stagger power, has a 4 second cooldown. The explosion itself deals no damage, Depletes all stamina on hit, Increased range slightly and the duration of the animation.",
+          "Push attack Added an explosion that staggers infantry. The explosion itself deals no damage."
+        ]
+      },
+      {
+        "name": "1h Axe",
+        "icon": "/images/saltzpyre/weapons/axe.webp",
+        "changes": [
+          "Increased headshot multipliers for all attacks.",
+          "Light attacks Increased attack speed by ~10%, Reduced range slightly, Increased armor damage, berserker damage slightly, Reduced super-armor damage.",
+          "Light 3 Increased cleave.",
+          "Heavy attacks Increased super-armor damage, Increased headshot damage significantly, Reduced crit bonus damage.",
+          "Push Increased cost from 1 to 2 stamina."
+        ]
+      },
+      {
+        "name": "1h Hammer",
+        "icon": "/images/saltzpyre/weapons/skullsplitterhammer.webp",
+        "changes": [
+          "Reduced stamina count from 4.5 shields to 3.",
+          "Increased stagger for all attacks.",
+          "Increased headshot multipliers slightly for all attacks.",
+          "Light attacks Now break shields.",
+          "Light 3 Same damage profile as Light 1.",
+          "Heavy 1 Now chains into Light 4.",
+          "Heavy 2 Now a horizontal attack.",
+          "Push Increased cost from 1 to 2 stamina.",
+          "Weapon special (new) Uppercut with lots of stagger power, Costs 2 stamina (1 shield), has a 2 second cooldown."
+        ]
+      },
+      {
+        "name": "Rapier",
+        "icon": "/images/saltzpyre/weapons/rapier.webp",
+        "changes": [
+          "Partially charged heavy attacks now count as light attacks.",
+          "Light attacks Homogenised the time to chain into Pistol Shot across all light attacks, and the push-attack, to an effective chain timer of 0.5 seconds.",
+          "Heavy attacks Reduced the effective time to chain into the Pistol Shot by 0.3s, from 0.9s to 0.6s, Set baked sweep to nil to remove hitbox weirdness.",
+          "Charged Heavy attacks Increased Armour damage by 0.21, from 0.4 to 0.61, Increased Monster damage by 0.5, from 1.5 to 2, Increased Crit-Monster damage by 0.5, from 2 to 2.5, Increased Super-Armour damage by 0.175, from 0.25 to 0.425, Set baked sweep to nil to remove hitbox weirdness, Increased range by 0.05, from 1.25 to 1.3 to match the uncharged Heavy's range.",
+          "Push Can now chain into Pistol Shot.",
+          "Pistol Shot Reduced time to chain from one Pistol Shot to the next by 0.1s, from 0.8s to 0.7s, Follow up attacks had their chain timers reduced by 0.2s, from 0.8s to 0.6s."
+        ]
+      },
+      {
+        "name": "Brace of Pistols",
+        "icon": "/images/saltzpyre/weapons/braceofpistols.webp",
+        "changes": [
+          "Increased base ammo capacity from 30 to 40.",
+          "Increased clip size from 12 to 30.",
+          "Now reloads 3 bullets per instance.",
+          "Fast Shot Increased recoil."
+        ]
+      },
+      {
+        "name": "Crossbow",
+        "icon": "/images/saltzpyre/weapons/crossbow.webp",
+        "changes": ["Weapon special (new) Enables a second zoom level when aiming down sights."]
+      },
+      {
+        "name": "Griffon-foot",
+        "icon": "/images/saltzpyre/weapons/griffonfoot.webp",
+        "changes": [
+          "Weapon swapping and right-clicking in quick succession is less likely to result in a bash.",
+          "Reduced bash weapon swap time from 0.4 to 0.3 seconds.",
+          "Reduced bash stagger radius from 2.5 to 1.5."
+        ]
+      },
+      {
+        "name": "Repeater Pistol",
+        "icon": "/images/saltzpyre/weapons/repeaterpistol.webp",
+        "changes": [
+          "Changed damage drop off to be more punishing beyond close range.",
+          "Increased close range armor damage and super-armor damage significantly."
+        ]
+      },
+      {
+        "name": "Volley Crossbow",
+        "icon": "/images/saltzpyre/weapons/volleycrossbow.webp",
+        "changes": [
+          "Reduced the reload time by 1 second, from 4s to 3s.",
+          "Volley shot Changed the spread pattern to a burst identical to the Elven Volley Crossbow, Reduced Friendly Fire damage by 0.1, from 1 to 0.9, Reduced Crit Friendly Fire damage by 0.1, from 1 to 0.9, Reduced spread by 0.03 from 0.045 to 0.0015."
+        ]
+      }
+    ]
+  },
+  "sienna": {
+    "careers": {
+      "battle-wizard": {
+        "name": "battle wizard",
+        "icon": "/images/sienna/sienna-battle-wizard.webp",
+        "passives": ["Fire Walk No longer leaves a fire trail."],
+        "talents": [
+          {
+            "name": "Famished Flames",
+            "level": 10,
+            "changes": [
+              "Burning damage over time is increased by 120%.",
+              "All non-burning damage is reduced by 30% (up from 15%)."
+            ]
+          },
+          {
+            "name": "Lingering Flames",
+            "level": 10,
+            "changes": ["Increases spell charge speed by 30%."]
+          },
+          {
+            "name": "Centred",
+            "level": 20,
+            "changes": [
+              "Tranquillity stops the next spell from generating overcharge.",
+              "Using Sienna’s ultimate resets the cooldown of Tranquillity."
+            ]
+          },
+          {
+            "name": "Soot Shield",
+            "level": 25,
+            "changes": [
+              "Igniting enemies or killing an elite or special reduces damage taken by 3% for 5 seconds.",
+              "Max 10 stacks",
+              "Only grants 1 stack per attack."
+            ]
+          },
+          {
+            "name": "Fires From Ash",
+            "level": 25,
+            "changes": ["No longer slowed from being overcharged."]
+          },
+          {
+            "name": "Immersive Immolation",
+            "level": 25,
+            "changes": [
+              "Hitting an enemy increases attack speed by 5% for 5 seconds.",
+              "Max 3 stacks."
+            ]
+          },
+          {
+            "name": "Kaboom!",
+            "level": 30,
+            "changes": ["Now also halves Sienna’s current amount of overcharge."]
+          },
+          {
+            "name": "Burnout",
+            "level": 30,
+            "changes": [
+              "No longer leaves a fire trail.",
+              "Impact explosion deals no damage.",
+              "Stagger power against hook rats is reduced."
+            ]
+          }
+        ]
+      },
+      "pyromancer": {
+        "name": "pyromancer",
+        "icon": "/images/sienna/sienna-pyromancer.webp",
+        "passives": [
+          "The Burning Head The time to chain into follow up actions after releasing The Burning Head is reduced by 0.45 seconds, from 1 to 0.55 seconds."
+        ],
+        "talents": [
+          {
+            "name": "Ride the Fire Wind",
+            "level": 10,
+            "changes": [
+              "Pyro gets different buffs based on the number of targets hit:",
+              "2 targets hit give 10% ranged power for 10 seconds (10 second cooldown).",
+              "4 targets hit give 25% reduced spell charge speed for 8 seconds (15 second cooldown).",
+              "6 targets hit give an additional projectile and 50% less overcharge generated for 5 seconds (20 second cooldown).",
+              "8 targets hit give 100% additional burn damage for 10 seconds (25 second cooldown)."
+            ]
+          },
+          {
+            "name": "Martial Study",
+            "level": 10,
+            "changes": [
+              "Ranged critical hits increase stagger power by 50%.",
+              "Max 2 stacks.",
+              "Also grants 5% crit chance."
+            ]
+          },
+          {
+            "name": "Spirit-Casting",
+            "level": 10,
+            "changes": [
+              "Critical hits create a chain lightning which can hit up to 3 enemies.",
+              "The first target takes 50% of the attack’s damage, the second target takes 60% of that damage, and the third target takes 60% of the second.",
+              "Has a 3s cooldown."
+            ]
+          },
+          {
+            "name": "Deathly Dissipation",
+            "level": 20,
+            "changes": ["Killing a special stops spells from generating overcharge for 5 seconds."]
+          },
+          {
+            "name": "On the Precipice",
+            "level": 20,
+            "changes": [
+              "Increases ranged power by 10%.",
+              "Further increases ranged power by 10% when at or above 50% overcharge."
+            ]
+          },
+          {
+            "name": "Soul Siphon",
+            "level": 25,
+            "changes": ["Reduces overcharge generated by 15%."]
+          },
+          {
+            "name": "Flamestrike’s Tutelage",
+            "level": 25,
+            "changes": [
+              "Replaced with functionality from Unchained’s talent Conduit.",
+              "Increases rate of venting overcharge by 30% and reduces damage taken from venting by 50%."
+            ]
+          },
+          {
+            "name": "Fleetflame",
+            "level": 25,
+            "changes": ["Increases max health by 10% on critical hit.", "Max 3 stacks."]
+          },
+          {
+            "name": "Dissipating Rictus",
+            "level": 30,
+            "changes": [
+              "Replaced with a reworked version of old talent Exhaust.",
+              "The Burning Head now explodes for area damage on first impact."
+            ]
+          },
+          {
+            "name": "Blazing Echo",
+            "level": 30,
+            "changes": ["Hitting an enemy with The Burning Head grants a second ultimate charge."]
+          }
+        ]
+      },
+      "unchained": {
+        "name": "unchained",
+        "icon": "/images/sienna/sienna-unchained.webp",
+        "passives": [
+          "Added Abandon as a passive When overcharging Unchained exchanges, 4 times per second, 115 of her health for 10% ability cooldown.",
+          "Now also increases overcharge generated by 30%."
+        ],
+        "talents": [
+          {
+            "name": "Outburst",
+            "level": 10,
+            "changes": [
+              "Melee attacks (changed from pushes) apply a burning DoT and make the next push arc 70% wider.",
+              "DoTs can stack."
+            ]
+          },
+          {
+            "name": "Chain Reaction",
+            "level": 10,
+            "changes": [
+              "Swapped places with reworked Natural Talent.",
+              "Every non-critical melee hit increases crit chance by 5%.",
+              "Resets on successful critical hit."
+            ]
+          },
+          {
+            "name": "Dissipate",
+            "level": 20,
+            "changes": ["Increases the received ability cooldown from Slave to Aqshy to 15%."]
+          },
+          {
+            "name": "Conduit",
+            "level": 20,
+            "changes": [
+              "Replaced with new talent “On the Edge”.",
+              "Each kill reduces overcharge decay rate by 15% for 8 seconds.",
+              "Max 5 stacks."
+            ]
+          },
+          {
+            "name": "Enfeebling Flames",
+            "level": 25,
+            "changes": ["Increases Sienna’s melee damage against burning enemies by 15%."]
+          },
+          {
+            "name": "Abandon",
+            "level": 25,
+            "changes": [
+              "Adds another stack of Unstable Strength.",
+              "Reduces the amount of overcharge required to reach Unstable Strength max stacks to 70%."
+            ]
+          },
+          {
+            "name": "Natural Talent",
+            "level": 25,
+            "changes": [
+              "Swapped places with Chain Reaction.",
+              "Explosions triggered by enemies dying now deal more damage."
+            ]
+          },
+          {
+            "name": "Fuel for the Fire",
+            "level": 30,
+            "changes": [
+              "Increased Infantry stagger",
+              "Now also grants 20% damage reduction to all players for 40 seconds and sets Sienna’s overcharge to 60%."
+            ]
+          },
+          {
+            "name": "Wildfire",
+            "level": 30,
+            "changes": [
+              "Increased Infantry stagger.",
+              "Now also gives 8 seconds to kill enemies.",
+              "Each kill grants 1 stack of 7% increased healing received to all players for 30 seconds.",
+              "Max 5 stacks."
+            ]
+          },
+          {
+            "name": "Bomb Balm",
+            "level": 30,
+            "changes": [
+              "Increased Infantry stagger.",
+              "Restores 40 temp HP to just Sienna herself."
+            ]
+          }
+        ]
+      },
+      "necromancer": {
+        "name": "necromancer",
+        "icon": "/images/sienna/sienna-necromancer.webp",
+        "passives": [
+          "Raise Dead All types of skeletons are immune to friendly fire.",
+          "Malediction of Nagash Moved the damage increase against burning enemies to the talent, Withering Touch.",
+          "Mistress of Death Sacrificing skeletons now has an alternative effect that can be toggled Venting overcharge (default), Venting a skeleton now reduces overcharged by only 25%, Causing an explosion with high stagger (toggled).",
+          "Lifetaker Increased duration from 4s to 5s.",
+          "New additional perk Every missing skeleton increases your cooldown regeneration by 10% up to 60%, Army of the Dead changes this to give 6.5% per missing cooldown up to 78%, Increased melee stagger by 25%."
+        ],
+        "talents": [
+          {
+            "name": "Vanhel's Danse Macabre",
+            "level": 10,
+            "changes": ["Each Skeleton increases attack speed by 2%."]
+          },
+          {
+            "name": "Death Ascendent",
+            "level": 10,
+            "changes": [
+              "Cold Flames' DoT duration increased by 50% from 100% to 150%.",
+              "Time between ticks is not affected for the extra 50%."
+            ]
+          },
+          {
+            "name": "Smiter changed to “Death Mark”",
+            "level": 15,
+            "changes": [
+              "All heroes take 10% less damage from enemies affected by Malediction of Nagash.",
+              "Sienna deals 10% more damage to enemies affected by Malediction of Nagash."
+            ]
+          },
+          {
+            "name": "Mainstay changed to “Unholy Connection”",
+            "level": 15,
+            "changes": [
+              "All heroes deal 5% more damage to enemies affected by Malediction of Nagash."
+            ]
+          },
+          {
+            "name": "Enhanced Power changed to “Power of Death”",
+            "level": 15,
+            "changes": [
+              "Increases total power 7.5%.",
+              "Sienna deals 10% more damage to enemies affected by Malediction of Nagash."
+            ]
+          },
+          {
+            "name": "Cursed Blood",
+            "level": 20,
+            "changes": [
+              "Critical strikes against enemies afflicted by Malediction of Nagash cause them to burst.",
+              "Now staggering nearby enemies instead of damaging them."
+            ]
+          },
+          {
+            "name": "Withering Touch",
+            "level": 20,
+            "changes": [
+              "Added the damage increase against burning enemies from Malediction of Nagash passive.",
+              "Sienna deals 20% increased damage against burning enemies."
+            ]
+          },
+          {
+            "name": "Spirit Leech",
+            "level": 25,
+            "changes": [
+              "Replaced with new talent “Empowered”",
+              "Now improves skeletons based on which Lv 30 talent is chosen:",
+              "Army of the Dead Increases skeleton health by 25% and makes additional skeletons last for 30s.",
+              "Barrow Blades Skeletons apply a debuff to enemies which reduces their damage dealt by 10% for 8s, max 3 stacks.",
+              "Dread Seneschal Skeletons reflect 60% of their damage taken back to the attacker."
+            ]
+          },
+          {
+            "name": "The Curse of Undeath",
+            "level": 25,
+            "changes": [
+              "Casting Raise Dead now reduces damage inflicted on Sienna by 50% for the next 5 hits."
+            ]
+          },
+          {
+            "name": "Lost Souls",
+            "level": 25,
+            "changes": [
+              "Venting 20% overcharge unleashes a soul that steals health from a nearby enemy, restoring 2 temporary HP.",
+              "The soul now staggers the target on impact and applies a burn DoT.",
+              "Elites and specials are prioritized."
+            ]
+          },
+          {
+            "name": "Army of the Dead",
+            "level": 30,
+            "changes": [
+              "Raise Dead now reanimates 6 skeletons that decay after 20s.",
+              "Additionally to the base 6 skeletons (so 12 total initially after casting)."
+            ]
+          },
+          {
+            "name": "Dread Seneschal",
+            "level": 30,
+            "changes": ["Reduced the increase to skeleton health to 25%."]
+          }
+        ]
+      }
+    },
+    "weapons": [
+      {
+        "name": "Crowbill",
+        "icon": "/images/sienna/weapons/crowbill.webp",
+        "changes": [
+          "Anti-horde combo Heavy 1 > Heavy 2 > Light 2 > Heavy 2 > Light 2…",
+          "Anti-armor combo Light 1 > Heavy 3 > Light 4.",
+          "Light 1 Increased armor damage.",
+          "Light 2 Increased cleave.",
+          "Light 4 Increased armor damage significantly, Increased headshot multiplier.",
+          "Heavy 1 Now breaks shields, Increased cleave.",
+          "Heavy 2 Increased cleave.",
+          "Heavy 3 Increased armor damage.",
+          "Push Increased cost from 1 to 2 stamina."
+        ]
+      },
+      {
+        "name": "Dagger",
+        "icon": "/images/sienna/weapons/dagger.webp",
+        "changes": [
+          "Light attacks Increased headshot multiplier to 3.3, Increased infantry crit damage.",
+          "Light 3 Now ignores shields, Now chains into Heavy 2, Gave 10% innate crit chance.",
+          "Heavy 1 Now chains into Light 4.",
+          "Heavy 2 Now ignores shields, Gave 10% innate crit chance.",
+          "Push attack Now chains into Heavy 2 or Light 3, Now ignores shields, Gave 10% innate crit chance, Changed the Bleed to a Burn."
+        ]
+      },
+      {
+        "name": "Ensorcelled Reaper",
+        "icon": "/images/sienna/weapons/ensorcelledreaper.webp",
+        "changes": [
+          "Light 1 Reduced the time to chain into Heavy 2 from Light 1 by 0.04 seconds, from 0.39 to 0.35 seconds.",
+          "Light 3 Now breaks shields.",
+          "Heavy attacks Reduced the time to chain into heavy attacks from 1 second to 0.7 seconds.",
+          "Increased time to chain into weapon swap from a heavy attack by 0.1s (up from 0.5s to 0.6s).",
+          "Heavy 2 Increased attack speed by 11%.",
+          "Heavy 3 Increased attack speed by 28%.",
+          "Push attack Now breaks shields.",
+          "Weapon special Increased the time to chain into weapon special by 0.1s from Heavy 1, and by 0.05s from Heavy 2 and Heavy 3. Thus setting the chain timer to 0.7s for all of these attacks,Added a weak DoT that lasts for 7.5 seconds."
+        ]
+      },
+      {
+        "name": "Fire Sword",
+        "icon": "/images/sienna/weapons/firesword.webp",
+        "changes": [
+          "Light attacks Now apply burn.",
+          "Light 1 Now an overhead attack that deals the same damage as Light 3.",
+          "Light 2 Increased headshot multiplier from 1.5 to 2.",
+          "Heavy 2 Doubled the cleave, halved the stagger, Reduced armor damage."
+        ]
+      },
+      {
+        "name": "Flaming Flail",
+        "icon": "/images/sienna/weapons/flamingflail.webp",
+        "changes": [
+          "Light attack chain now starts with Light 3.",
+          "Light 2 Changed chain timers to reduce the delay after the attack inorder to smoothly chain into the following Light.",
+          "Swapped Heavy attack order.",
+          "Heavy 2 Damage window has been changed from 0.37 to 0.25. Still getting phantom swings. More testing needed…"
+        ]
+      },
+      {
+        "name": "Mace",
+        "icon": "/images/sienna/weapons/mace.webp",
+        "changes": [
+          "Single target combo Heavy 1 > Light 3 > Light 4 > Heavy 1…",
+          "Horde clear combo Light 1 > Light 2 > block cancel; or Light 1 > Heavy 2 > Heavy 3 > Heavy 2…",
+          "Light 1 Increased damage cleave, Reduced stagger cleave significantly, Reduced berserker damage",
+          "Light 2 Now applies burn, Increased damage cleave, Reduced stagger cleave significantly, Reduced berserker damage.",
+          "Light 3 Increased armor damage significantly.",
+          "Light 4 Increased armor damage significantly, Increased super-armor damage significantly, Increased monster damage.",
+          "Heavy 1Reduced super-armor damage by 10%.",
+          "Heavy 2 Added armor-sliding, Increased damage cleave, Reduced infantry damage.",
+          "Heavy 3 Added armor-sliding, Increased damage cleave, Reduced infantry damage.",
+          "Push attack Now applies burn, Reduced berserker damage."
+        ]
+      },
+      {
+        "name": "1h Sword",
+        "icon": "/images/sienna/weapons/sword.webp",
+        "changes": [
+          "Light 1 Increased overall damage against the 2nd enemy cleaved by 0.015, from 0.21 to 0.225, Reduced overall damage against the 3rd enemy cleaved by 0.01, from 0.185 to 0.175, Increased Armour damage by 0.3, from 0 to 0.3.",
+          "Light 2 Increased overall damage against the 2nd enemy cleaved by 0.015, from 0.21 to 0.225, Reduced overall damage against the 3rd enemy cleaved by 0.01, from 0.185 to 0.175.",
+          "Light 3 Now breaks shields, Increased crit armour damage from 0.75 to 0.8, Increased armour damage by 7%.",
+          "Heavy 1 Increased damage cleave by 0.45(8.95 in-game), from 0.3 to 0.75(22.38 in-game), Reduced overall damage against the 1st enemy cleaved by 0.02, from 0.32 to 0.3, Increased overall damage against the 2nd enemy cleaved by 0.02, from 0.18 to 0.2, Reduced overall stagger against the 2nd enemy cleaved by 0.03, from 0.18 to 0.15, Reduced overall stagger against the 3rd enemy cleaved by 0.05, from 0.15 to 0.1, Reduced Armour damage by 0.25, from 0.6 to 0.35",
+          "Heavy 2 Anti-armor combo Light 1 > Heavy 2 > Light 3 > Light 1… Breaks shields, Increased armour damage from 0.5 to 0.75, Increased crit armour damage from 0.5 to 0.65, Reduced time to chain into Light 3 from 0.5 to 0.4.",
+          "Push Increased cost from 1 to 2 stamina.",
+          "Push attack Increased damage against the 2nd and 3rd enemy cleaved by 22% and 29% respectively, Increased headshot multiplier from 1.5 to 2.5.",
+          "Weapon special (new) Thrust attack (uses Elven 1h Sword’s Light 3 animation), Has good stagger against most enemies, costs 2 stamina (1 shield), Chains into Light 3, or into Heavy 2, Increased QQ-cancel chain timer by 0.15 seconds, from 0.5 to 0.65 seconds."
+        ]
+      },
+      {
+        "name": "Beam Staff",
+        "icon": "/images/sienna/weapons/beamstaff.webp",
+        "changes": [
+          "Left click (hold) Increased effective range to 100, Increased infantry damage by 13%, Increased armor damage by 28%.",
+          "Left click (blast) Increased infantry damage from 1 to 1.3, Increased infantry crit damage.",
+          "Right click Blast cone shortened and narrowed."
+        ]
+      },
+      {
+        "name": "Bolt Staff",
+        "icon": "/images/sienna/weapons/boltstaff.webp",
+        "changes": ["Weapon special (new) Enables a second zoom level when charging shots."]
+      },
+      {
+        "name": "Conflagration Staff",
+        "icon": "/images/sienna/weapons/conflagrationstaff.webp",
+        "changes": [
+          "Adjusted fully charged explosion VFX to be less visually impairing.",
+          "Left click Tightened spread, Removed damage drop-off."
+        ]
+      },
+      {
+        "name": "Coruscation Staff",
+        "icon": "/images/sienna/weapons/coruscationstaff.webp",
+        "changes": [
+          "Weapon swap time from Geyser now instantaneous.",
+          "Left click Reduced infantry damage slightly, Overcharge cost reduced by 1, from 8 to 7.",
+          "Geyser Reduced fire patch duration to 3 seconds, Burning DoT now stacks up to 3 max, ticks every second, Partially charged Geyser overcharge cost reduced by 3, from 9 to 6, Fully charged Geyser overcharge cost reduced by 3, from 11 to 8."
+        ]
+      },
+      {
+        "name": "Fireball Staff",
+        "icon": "/images/sienna/weapons/fireballstaff.webp",
+        "changes": [
+          "Adjusted fully charged explosion VFX to be less visually impairing.",
+          "Right click Increased Berserker/Monk damage by 1.2, from 0.1 to 1.3, Increase Monster damage and Crit-Monster damage by 0.5, from 4 to 4.5."
+        ]
+      },
+      {
+        "name": "Flamestorm Staff",
+        "icon": "/images/sienna/weapons/flamestormstaff.webp",
+        "changes": [
+          "Flamestorm Staff is now a sniping weapon. (!highly experimental!)",
+          "Left click Lowered damage but increased stagger, Applies a long lasting burn.",
+          "Charged Shot Now releases a fast projectile with slightly higher damage."
+        ]
+      },
+      {
+        "name": "Soulstealer Staff",
+        "icon": "/images/sienna/weapons/soulstealerstaff.webp",
+        "changes": [
+          "Soul Rip Targeting now prioritizes specials over elites Target priority is specials > elites > everything else, Reduced start delay (from 0.25s to 0.125s).",
+          "Number of repeated attacks increased by 1, from 4 to 5.",
+          "The repeated attacks now proc Barrage",
+          "Reduced final damage tick’s delay by 0.2s (from 0.5s to 0.3s).",
+          "Increased Blightstormer damage by 0.25",
+          "Increased Leech damage by 0.25."
+        ]
+      }
+    ]
+  }
+}

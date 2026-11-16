@@ -73,7 +73,22 @@ async function logout() {
             >{{ notif.total > 9 ? '9+' : notif.total }}</span
           ></RouterLink
         >
-        <button class="link" @click="logout">Log out</button>
+        <button class="link logout" title="Log out" aria-label="Log out" @click="logout">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <path d="m16 17 5-5-5-5" />
+            <path d="M21 12H9" />
+          </svg>
+        </button>
       </template>
       <template v-else>
         <RouterLink to="/login">Log in</RouterLink>
@@ -81,11 +96,55 @@ async function logout() {
       </template>
     </nav>
   </header>
-  <main><RouterView :key="$route.path + ($route.query.from ?? '')" /></main>
-  <FooterCard />
+  <!-- Banner under the header: leads to the Changelogs section (hidden on that section itself) -->
+  <RouterLink v-if="!route.meta.wide" to="/changelogs" class="cl-banner">
+    Visit Balance Mods Changelogs <span aria-hidden="true">&rarr;</span>
+  </RouterLink>
+  <main :class="{ wide: route.meta.wide }"
+    ><RouterView :key="route.meta.wide ? 'wide' : $route.path + ($route.query.from ?? '')"
+  /></main>
+  <!-- Pages with their own look (Changelogs) have their own footer -->
+  <FooterCard v-if="!route.meta.wide" />
 </template>
 
 <style scoped>
+/* "Log out" is an icon, always red */
+.top nav button.logout {
+  display: inline-flex;
+  align-items: center;
+  color: var(--danger);
+}
+.top nav button.logout:hover {
+  color: color-mix(in srgb, var(--danger) 75%, white);
+}
+/* Banner under the header */
+.cl-banner {
+  display: block;
+  padding: 0.85rem var(--side-padding);
+  text-align: center;
+  font-family: 'New Rocker', system-ui;
+  font-size: 1.5rem;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  color: var(--accent);
+  /* Same background as the build cards */
+  background: linear-gradient(135deg, var(--panel), color-mix(in srgb, var(--panel) 82%, #000));
+  border-bottom: 2px solid var(--accent);
+  transition:
+    color 0.3s ease-out,
+    filter 0.3s ease-out;
+}
+.cl-banner:hover {
+  opacity: 1;
+  color: var(--text);
+  filter: brightness(1.15);
+}
+@media (max-width: 600px) {
+  .cl-banner {
+    font-size: 1.15rem;
+    padding-block: 0.7rem;
+  }
+}
 /* Counters (new builds from followed people on the Builds link, unread comments on the profile link) */
 .new-count {
   display: inline-grid;
