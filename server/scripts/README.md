@@ -19,6 +19,7 @@ If your host gives you environment variables instead of a `.env` file, run the s
 | `reset-password <user>` | Sets a new random password, prints it, logs the user out everywhere. Send it to them privately: they change it in *My builds > Account* |
 | `logout <user>` | Logs the user out of every device |
 | `admin-avatar <user> [off]` | Gives the admin-only avatar (`avatar-admin` in `avatars.json`, image `client/public/profile/avatar-admin.webp`) to an account; users cannot pick it. `off` takes it back (default avatar). If that user picks another avatar later, run the command again |
+| `rename-user <user> <new name>` | Changes the username (3-24 characters, letters, numbers, `_` and `-`, unique ignoring case). Builds, comments and follows are kept and nobody is logged out; only the profile URL `/u/<name>` changes |
 | `delete-user <user>` | Deletes the account and everything it owns: builds, comments, likes, follows |
 | `builds <user>` | Lists the builds of a user (ids, titles, likes) |
 | `delete-build <id>` | Deletes a build with its likes, bookmarks and comments |

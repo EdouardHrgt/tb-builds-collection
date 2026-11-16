@@ -4,37 +4,37 @@
     "traits": [
       {
         "id": "swiftslaying",
-        "name": "swift slaying",
+        "name": "Swift Slaying",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/melee/swiftslaying.webp"
       },
       {
         "id": "parry",
-        "name": "parry",
+        "name": "Parry",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/melee/parry.webp"
       },
       {
         "id": "resourcefulcombatant",
-        "name": "resourceful combatant",
+        "name": "Resourceful Combatant",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/melee/resourcefulcombatant.webp"
       },
       {
         "id": "opportunist",
-        "name": "opportunist",
+        "name": "Opportunist",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/melee/opportunist.webp"
       },
       {
         "id": "offbalance",
-        "name": "off balance",
+        "name": "Off Balance",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/melee/offbalance.webp"
       },
       {
         "id": "heroicintervention",
-        "name": "heroic intervention",
+        "name": "Heroic Intervention",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/melee/heroicintervention.webp"
       }
@@ -42,11 +42,11 @@
     "properties": [
       {
         "id": "attackspeed",
-        "name": "+5% attack speed"
+        "name": "+5% Attack Speed"
       },
       {
         "id": "criticalchance",
-        "name": "+5% crit chance"
+        "name": "+5% Crit Chance"
       },
       {
         "id": "blockcostreduction",
@@ -54,23 +54,23 @@
       },
       {
         "id": "criticalpower",
-        "name": "+20% crit power"
+        "name": "+20% Crit Power"
       },
       {
         "id": "stamina",
-        "name": "+2 stamina"
+        "name": "+2 Stamina"
       },
       {
         "id": "powervsskaven",
-        "name": "+10% power vs skaven"
+        "name": "+10% Power vs Skaven"
       },
       {
         "id": "powervschaos",
-        "name": "+10% power vs chaos"
+        "name": "+10% Power vs Chaos"
       },
       {
         "id": "pushandblockangle",
-        "name": "+30% push and block angle"
+        "name": "+30% Push and Block Angle"
       }
     ]
   },
@@ -79,7 +79,7 @@
     "traits": [
       {
         "id": "conservativeshooter",
-        "name": "conservative shooter",
+        "name": "Conservative Shooter",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/ranged/conservativeshooter.webp",
         "excludedWeaponIds": [
@@ -99,19 +99,19 @@
       },
       {
         "id": "barrage",
-        "name": "barrage",
+        "name": "Barrage",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/ranged/barrage.webp"
       },
       {
         "id": "hunter",
-        "name": "hunter",
+        "name": "Hunter",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/ranged/hunter.webp"
       },
       {
         "id": "scrounger",
-        "name": "scrounger",
+        "name": "Scrounger",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/ranged/scrounger.webp",
         "excludedWeaponIds": [
@@ -131,7 +131,7 @@
       },
       {
         "id": "thermalequalizer",
-        "name": "thermal equalizer",
+        "name": "Thermal Equalizer",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/ranged/thermalequalizer.webp",
         "onlyWeaponIds": [
@@ -149,7 +149,7 @@
       },
       {
         "id": "heatsink",
-        "name": "heat sink",
+        "name": "Heat Sink",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/ranged/heatsink.webp",
         "onlyWeaponIds": [
@@ -167,19 +167,19 @@
       },
       {
         "id": "inspirationalshot",
-        "name": "inspirational shot",
+        "name": "Inspirational Shot",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/ranged/inspirationalshot.webp"
       },
       {
         "id": "resourcefulsharpshooter",
-        "name": "resourceful sharpshooter",
+        "name": "Resourceful Sharpshooter",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/ranged/resourcefulsharpshooter.webp"
       },
       {
         "id": "parry",
-        "name": "parry",
+        "name": "Parry",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/melee/parry.webp",
         "onlyWeaponIds": [
@@ -188,7 +188,7 @@
       },
       {
         "id": "offbalance",
-        "name": "off balance",
+        "name": "Off Balance",
         "description": "The Empire awaits Sigmar's divine revelation.",
         "icon": "/shared/traits/melee/offbalance.webp",
         "onlyWeaponIds": [
@@ -199,35 +199,35 @@
     "properties": [
       {
         "id": "powervsskaven",
-        "name": "+10% power vs skaven"
+        "name": "+10% Power vs Skaven"
       },
       {
         "id": "powervschaos",
-        "name": "+10% power vs chaos"
+        "name": "+10% Power vs Chaos"
       },
       {
         "id": "powervsmonsters",
-        "name": "+10% power vs monsters"
+        "name": "+10% Power vs Monsters"
       },
       {
         "id": "powervsinfantry",
-        "name": "+10% power vs infantry"
+        "name": "+10% Power vs Infantry"
       },
       {
         "id": "powervsberserkers",
-        "name": "+10% power vs berserkers"
+        "name": "+10% Power vs Berserkers"
       },
       {
         "id": "powervsarmored",
-        "name": "+10% power vs armored"
+        "name": "+10% Power vs Armored"
       },
       {
         "id": "criticalchance",
-        "name": "+5% crit chance"
+        "name": "+5% Crit Chance"
       },
       {
         "id": "criticalpower",
-        "name": "+20% crit power"
+        "name": "+20% Crit Power"
       }
     ]
   }

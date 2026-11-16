@@ -2,7 +2,7 @@
   "weapons": [
     {
       "id": "sword",
-      "name": "sword",
+      "name": "Sword",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/sword.webp",
@@ -10,7 +10,7 @@
     },
     {
       "id": "mace",
-      "name": "mace",
+      "name": "Mace",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/mace.webp",
@@ -18,7 +18,7 @@
     },
     {
       "id": "maceandsword",
-      "name": "mace and sword",
+      "name": "Mace and Sword",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/maceandsword.webp",
@@ -26,7 +26,7 @@
     },
     {
       "id": "executionersword",
-      "name": "executioner sword",
+      "name": "Executioner Sword",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/executionersword.webp",
@@ -34,7 +34,7 @@
     },
     {
       "id": "swordandshield",
-      "name": "sword and shield",
+      "name": "Sword and Shield",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/swordandshield.webp",
@@ -42,7 +42,7 @@
     },
     {
       "id": "maceandshield",
-      "name": "mace and shield",
+      "name": "Mace and Shield",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/maceandshield.webp",
@@ -50,7 +50,7 @@
     },
     {
       "id": "bretonnianlongsword",
-      "name": "bretonnian longsword",
+      "name": "Bretonnian Longsword",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/bretonnianlongsword.webp",
@@ -58,7 +58,7 @@
     },
     {
       "id": "spearandshield",
-      "name": "spear and shield",
+      "name": "Spear and Shield",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/spearandshield.webp",
@@ -66,7 +66,7 @@
     },
     {
       "id": "tuskgorspear",
-      "name": "tuskgor spear",
+      "name": "Tuskgor Spear",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/tuskgorspear.webp",
@@ -74,7 +74,7 @@
     },
     {
       "id": "halberd",
-      "name": "halberd",
+      "name": "Halberd",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/halberd.webp",
@@ -82,7 +82,7 @@
     },
     {
       "id": "greatsword",
-      "name": "greatsword",
+      "name": "Greatsword",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/greatsword.webp",
@@ -90,7 +90,7 @@
     },
     {
       "id": "twohandedhammer",
-      "name": "two handed hammer",
+      "name": "Two Handed Hammer",
       "heroId": "kruber",
       "type": "melee",
       "icon": "/images/kruber/weapons/twohandedhammer.webp",
@@ -122,7 +122,7 @@
     },
     {
       "id": "blunderbuss",
-      "name": "blunderbuss",
+      "name": "Blunderbuss",
       "heroId": "kruber",
       "type": "ranged",
       "icon": "/images/kruber/weapons/blunderbuss.webp",
@@ -130,7 +130,7 @@
     },
     {
       "id": "dualaxes",
-      "name": "dual axes",
+      "name": "Dual Axes",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/dualaxes.webp",
@@ -138,7 +138,7 @@
     },
     {
       "id": "hammer",
-      "name": "hammer",
+      "name": "Hammer",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/hammer.webp",
@@ -146,7 +146,7 @@
     },
     {
       "id": "pickaxe",
-      "name": "pickaxe",
+      "name": "Pickaxe",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/pickaxe.webp",
@@ -154,7 +154,7 @@
     },
     {
       "id": "axeandshield",
-      "name": "axe and shield",
+      "name": "Axe and Shield",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/axeandshield.webp",
@@ -162,7 +162,7 @@
     },
     {
       "id": "axe",
-      "name": "axe",
+      "name": "Axe",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/axe.webp",
@@ -170,7 +170,7 @@
     },
     {
       "id": "hammerandshield",
-      "name": "hammer and shield",
+      "name": "Hammer and Shield",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/hammerandshield.webp",
@@ -178,7 +178,7 @@
     },
     {
       "id": "dualhammers",
-      "name": "dual hammers",
+      "name": "Dual Hammers",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/dualhammers.webp",
@@ -186,7 +186,7 @@
     },
     {
       "id": "greataxe",
-      "name": "great axe",
+      "name": "Great Axe",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/greataxe.webp",
@@ -194,7 +194,7 @@
     },
     {
       "id": "coghammer",
-      "name": "cog hammer",
+      "name": "Cog Hammer",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/coghammer.webp",
@@ -202,7 +202,7 @@
     },
     {
       "id": "greathammer",
-      "name": "great hammer",
+      "name": "Great Hammer",
       "heroId": "bardin",
       "type": "melee",
       "icon": "/images/bardin/weapons/greathammer.webp",
@@ -210,7 +210,7 @@
     },
     {
       "id": "throwingaxes",
-      "name": "throwing axes",
+      "name": "Throwing Axes",
       "heroId": "bardin",
       "type": "ranged",
       "icon": "/images/bardin/weapons/throwingaxes.webp",
@@ -218,7 +218,7 @@
     },
     {
       "id": "handgun",
-      "name": "handgun",
+      "name": "Handgun",
       "heroId": "bardin",
       "type": "ranged",
       "icon": "/images/bardin/weapons/handgun.webp",
@@ -226,7 +226,7 @@
     },
     {
       "id": "crossbow",
-      "name": "crossbow",
+      "name": "Crossbow",
       "heroId": "bardin",
       "type": "ranged",
       "icon": "/images/bardin/weapons/crossbow.webp",
@@ -234,7 +234,7 @@
     },
     {
       "id": "masterworkpistol",
-      "name": "masterwork pistol",
+      "name": "Masterwork Pistol",
       "heroId": "bardin",
       "type": "ranged",
       "icon": "/images/bardin/weapons/masterworkpistol.webp",
@@ -242,7 +242,7 @@
     },
     {
       "id": "grudgeraker",
-      "name": "grudge-raker",
+      "name": "Grudge-Raker",
       "heroId": "bardin",
       "type": "ranged",
       "icon": "/images/bardin/weapons/grudgeraker.webp",
@@ -250,7 +250,7 @@
     },
     {
       "id": "drakegun",
-      "name": "drakegun",
+      "name": "Drakegun",
       "heroId": "bardin",
       "type": "ranged",
       "icon": "/images/bardin/weapons/drakegun.webp",
@@ -258,7 +258,7 @@
     },
     {
       "id": "drakefirepistols",
-      "name": "drakefire pistols",
+      "name": "Drakefire Pistols",
       "heroId": "bardin",
       "type": "ranged",
       "icon": "/images/bardin/weapons/drakefirepistols.webp",
@@ -266,7 +266,7 @@
     },
     {
       "id": "trollhammertorpedo",
-      "name": "trollhammer torpedo",
+      "name": "Trollhammer Torpedo",
       "heroId": "bardin",
       "type": "ranged",
       "icon": "/images/bardin/weapons/trollhammertorpedo.webp",
@@ -274,7 +274,7 @@
     },
     {
       "id": "sword",
-      "name": "sword",
+      "name": "Sword",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/sword.webp",
@@ -282,7 +282,7 @@
     },
     {
       "id": "dualswords",
-      "name": "dual swords",
+      "name": "Dual Swords",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/dualswords.webp",
@@ -290,7 +290,7 @@
     },
     {
       "id": "swordanddagger",
-      "name": "sword and dagger",
+      "name": "Sword and Dagger",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/swordanddagger.webp",
@@ -298,7 +298,7 @@
     },
     {
       "id": "elvenaxe",
-      "name": "elven axe",
+      "name": "Elven Axe",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/elvenaxe.webp",
@@ -306,7 +306,7 @@
     },
     {
       "id": "dualdaggers",
-      "name": "dual daggers",
+      "name": "Dual Daggers",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/dualdaggers.webp",
@@ -314,7 +314,7 @@
     },
     {
       "id": "twohandedsword",
-      "name": "two handed sword",
+      "name": "Two Handed Sword",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/twohandedsword.webp",
@@ -322,7 +322,7 @@
     },
     {
       "id": "glaive",
-      "name": "glaive",
+      "name": "Glaive",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/glaive.webp",
@@ -330,7 +330,7 @@
     },
     {
       "id": "spear",
-      "name": "spear",
+      "name": "Spear",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/spear.webp",
@@ -338,7 +338,7 @@
     },
     {
       "id": "spearandshield",
-      "name": "spear and shield",
+      "name": "Spear and Shield",
       "heroId": "kerillian",
       "type": "melee",
       "icon": "/images/kerillian/weapons/spearandshield.webp",
@@ -346,7 +346,7 @@
     },
     {
       "id": "deepwoodstaff",
-      "name": "deepwood staff",
+      "name": "Deepwood Staff",
       "heroId": "kerillian",
       "type": "ranged",
       "icon": "/images/kerillian/weapons/deepwoodstaff.webp",
@@ -354,7 +354,7 @@
     },
     {
       "id": "moonfirebow",
-      "name": "moonfire bow",
+      "name": "Moonfire Bow",
       "heroId": "kerillian",
       "type": "ranged",
       "icon": "/images/kerillian/weapons/moonfirebow.webp",
@@ -362,7 +362,7 @@
     },
     {
       "id": "hagbaneshortbow",
-      "name": "hagbane shortbow",
+      "name": "Hagbane Shortbow",
       "heroId": "kerillian",
       "type": "ranged",
       "icon": "/images/kerillian/weapons/hagbaneshortbow.webp",
@@ -370,7 +370,7 @@
     },
     {
       "id": "briarjavelin",
-      "name": "briar javelin",
+      "name": "Briar Javelin",
       "heroId": "kerillian",
       "type": "ranged",
       "icon": "/images/kerillian/weapons/briarjavelin.webp",
@@ -378,7 +378,7 @@
     },
     {
       "id": "swiftbow",
-      "name": "swift bow",
+      "name": "Swift Bow",
       "heroId": "kerillian",
       "type": "ranged",
       "icon": "/images/kerillian/weapons/swiftbow.webp",
@@ -386,7 +386,7 @@
     },
     {
       "id": "longbow",
-      "name": "longbow",
+      "name": "Longbow",
       "heroId": "kerillian",
       "type": "ranged",
       "icon": "/images/kerillian/weapons/longbow.webp",
@@ -394,7 +394,7 @@
     },
     {
       "id": "volleycrossbow",
-      "name": "volleycrossbow",
+      "name": "Volleycrossbow",
       "heroId": "kerillian",
       "type": "ranged",
       "icon": "/images/kerillian/weapons/volleycrossbow.webp",
@@ -402,7 +402,7 @@
     },
     {
       "id": "greatsword",
-      "name": "greatsword",
+      "name": "Greatsword",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/greatsword.webp",
@@ -410,7 +410,7 @@
     },
     {
       "id": "billhook",
-      "name": "billhook",
+      "name": "Billhook",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/billhook.webp",
@@ -418,7 +418,7 @@
     },
     {
       "id": "flail",
-      "name": "flail",
+      "name": "Flail",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/flail.webp",
@@ -426,7 +426,7 @@
     },
     {
       "id": "rapier",
-      "name": "rapier",
+      "name": "Rapier",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/rapier.webp",
@@ -434,7 +434,7 @@
     },
     {
       "id": "falchion",
-      "name": "falchion",
+      "name": "Falchion",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/falchion.webp",
@@ -442,7 +442,7 @@
     },
     {
       "id": "axe",
-      "name": "axe",
+      "name": "Axe",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/axe.webp",
@@ -450,7 +450,7 @@
     },
     {
       "id": "axeandfalchion",
-      "name": "axe and falchion",
+      "name": "Axe and Falchion",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/axeandfalchion.webp",
@@ -458,7 +458,7 @@
     },
     {
       "id": "skullsplitterhammer",
-      "name": "skull-splitter hammer",
+      "name": "Skull-Splitter Hammer",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/skullsplitterhammer.webp",
@@ -466,7 +466,7 @@
     },
     {
       "id": "pairedskullsplitters",
-      "name": "paired skull-splitters",
+      "name": "Paired Skull-Splitters",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/pairedskullsplitters.webp",
@@ -474,7 +474,7 @@
     },
     {
       "id": "holygreathammer",
-      "name": "holy great hammer",
+      "name": "Holy Great Hammer",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/holygreathammer.webp",
@@ -482,7 +482,7 @@
     },
     {
       "id": "skullsplitterandshield",
-      "name": "skullsplitter and shield",
+      "name": "Skullsplitter and Shield",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/skullsplitterandshield.webp",
@@ -490,7 +490,7 @@
     },
     {
       "id": "skullsplitterandblessedtome",
-      "name": "skull-splitter and blessed tome",
+      "name": "Skull-Splitter and Blessed Tome",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/skullsplitterandblessedtome.webp",
@@ -498,7 +498,7 @@
     },
     {
       "id": "flailandshield",
-      "name": "flail and shield",
+      "name": "Flail and Shield",
       "heroId": "saltzpyre",
       "type": "melee",
       "icon": "/images/saltzpyre/weapons/flailandshield.webp",
@@ -506,7 +506,7 @@
     },
     {
       "id": "crossbow",
-      "name": "crossbow",
+      "name": "Crossbow",
       "heroId": "saltzpyre",
       "type": "ranged",
       "icon": "/images/saltzpyre/weapons/crossbow.webp",
@@ -514,7 +514,7 @@
     },
     {
       "id": "braceofpistols",
-      "name": "brace of pistols",
+      "name": "Brace of Pistols",
       "heroId": "saltzpyre",
       "type": "ranged",
       "icon": "/images/saltzpyre/weapons/braceofpistols.webp",
@@ -522,7 +522,7 @@
     },
     {
       "id": "repeaterpistol",
-      "name": "repeater pistol",
+      "name": "Repeater Pistol",
       "heroId": "saltzpyre",
       "type": "ranged",
       "icon": "/images/saltzpyre/weapons/repeaterpistol.webp",
@@ -530,7 +530,7 @@
     },
     {
       "id": "griffonfoot",
-      "name": "griffon-foot",
+      "name": "Griffon-Foot",
       "heroId": "saltzpyre",
       "type": "ranged",
       "icon": "/images/saltzpyre/weapons/griffonfoot.webp",
@@ -538,7 +538,7 @@
     },
     {
       "id": "volleycrossbow",
-      "name": "volley crossbow",
+      "name": "Volley Crossbow",
       "heroId": "saltzpyre",
       "type": "ranged",
       "icon": "/images/saltzpyre/weapons/volleycrossbow.webp",
@@ -546,7 +546,7 @@
     },
     {
       "id": "crowbill",
-      "name": "crowbill",
+      "name": "Crowbill",
       "heroId": "sienna",
       "type": "melee",
       "icon": "/images/sienna/weapons/crowbill.webp",
@@ -554,7 +554,7 @@
     },
     {
       "id": "sword",
-      "name": "sword",
+      "name": "Sword",
       "heroId": "sienna",
       "type": "melee",
       "icon": "/images/sienna/weapons/sword.webp",
@@ -562,7 +562,7 @@
     },
     {
       "id": "firesword",
-      "name": "fire sword",
+      "name": "Fire Sword",
       "heroId": "sienna",
       "type": "melee",
       "icon": "/images/sienna/weapons/firesword.webp",
@@ -570,7 +570,7 @@
     },
     {
       "id": "dagger",
-      "name": "dagger",
+      "name": "Dagger",
       "heroId": "sienna",
       "type": "melee",
       "icon": "/images/sienna/weapons/dagger.webp",
@@ -578,7 +578,7 @@
     },
     {
       "id": "mace",
-      "name": "mace",
+      "name": "Mace",
       "heroId": "sienna",
       "type": "melee",
       "icon": "/images/sienna/weapons/mace.webp",
@@ -586,7 +586,7 @@
     },
     {
       "id": "flamingflail",
-      "name": "flaming flail",
+      "name": "Flaming Flail",
       "heroId": "sienna",
       "type": "melee",
       "icon": "/images/sienna/weapons/flamingflail.webp",
@@ -594,7 +594,7 @@
     },
     {
       "id": "ensorcelledreaper",
-      "name": "ensorcelled reaper",
+      "name": "Ensorcelled Reaper",
       "heroId": "sienna",
       "type": "melee",
       "icon": "/images/sienna/weapons/ensorcelledreaper.webp",
@@ -602,7 +602,7 @@
     },
     {
       "id": "fireballstaff",
-      "name": "fireball staff",
+      "name": "Fireball Staff",
       "heroId": "sienna",
       "type": "ranged",
       "icon": "/images/sienna/weapons/fireballstaff.webp",
@@ -610,7 +610,7 @@
     },
     {
       "id": "beamstaff",
-      "name": "beamstaff",
+      "name": "Beamstaff",
       "heroId": "sienna",
       "type": "ranged",
       "icon": "/images/sienna/weapons/beamstaff.webp",
@@ -618,7 +618,7 @@
     },
     {
       "id": "boltstaff",
-      "name": "bolt staff",
+      "name": "Bolt Staff",
       "heroId": "sienna",
       "type": "ranged",
       "icon": "/images/sienna/weapons/boltstaff.webp",
@@ -626,7 +626,7 @@
     },
     {
       "id": "conflagrationstaff",
-      "name": "conflagration staff",
+      "name": "Conflagration Staff",
       "heroId": "sienna",
       "type": "ranged",
       "icon": "/images/sienna/weapons/conflagrationstaff.webp",
@@ -634,7 +634,7 @@
     },
     {
       "id": "coruscationstaff",
-      "name": "coruscation staff",
+      "name": "Coruscation Staff",
       "heroId": "sienna",
       "type": "ranged",
       "icon": "/images/sienna/weapons/coruscationstaff.webp",
@@ -642,7 +642,7 @@
     },
     {
       "id": "flamestormstaff",
-      "name": "flamestorm staff",
+      "name": "Flamestorm Staff",
       "heroId": "sienna",
       "type": "ranged",
       "icon": "/images/sienna/weapons/flamestormstaff.webp",
@@ -650,7 +650,7 @@
     },
     {
       "id": "soulstealerstaff",
-      "name": "soulstealer staff",
+      "name": "Soulstealer Staff",
       "heroId": "sienna",
       "type": "ranged",
       "icon": "/images/sienna/weapons/soulstealerstaff.webp",

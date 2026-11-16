@@ -8,6 +8,7 @@
 //   reset-password <user>   sets a new random password and prints it (the user is logged out everywhere)
 //   logout <user>           logs the user out of every device
 //   admin-avatar <user> [off]  gives the admin-only avatar to an account ("off" takes it back: default avatar)
+//   rename-user <user> <new name>  changes the username (same rules as sign-up; the profile URL /u/<name> changes)
 //   delete-user <user>      deletes the account AND everything it owns (builds, comments, likes, follows)
 //   builds <user>           list the builds of a user
 //   delete-build <id>       deletes a build (its likes, bookmarks and comments go with it)
@@ -154,6 +155,19 @@ switch (command) {
     console.log(off ? `${u.username} has the default avatar again.` : `${u.username} now has the admin avatar.`)
     break
   }
+  case 'rename-user': {
+    // Only users.username changes: builds, comments, follows... point to the user id, and sessions use the id too
+    if (rest.length !== 2) fail('Usage: rename-user <user> <new name>   (usernames contain no spaces)')
+    const u = findUser(rest[0])
+    const name = rest[1]
+    if (!/^[a-zA-Z0-9_-]{3,24}$/.test(name)) fail('Invalid name: 3-24 characters, letters, numbers, _ and - only.')
+    const taken = db.prepare('SELECT id FROM users WHERE username = ? AND id != ?').get(name, u.id)
+    if (taken) fail(`"${name}" is already taken.`)
+    await confirm(`Rename "${u.username}" to "${name}"? Their profile URL changes.`)
+    db.prepare('UPDATE users SET username = ? WHERE id = ?').run(name, u.id)
+    console.log(`${u.username} is now ${name}. Nobody is logged out.`)
+    break
+  }
   case 'delete-user': {
     const u = findUser(target)
     const nb = count('SELECT COUNT(*) AS n FROM builds WHERE user_id = ?', u.id)
@@ -210,7 +224,7 @@ switch (command) {
   }
   default:
     console.log(
-      'Commands: users [text] | user <u> | export <u> | reset-password <u> | logout <u> | admin-avatar <u> [off] | delete-user <u> | builds <u> | delete-build <id> | comments <build id> | delete-comment <id>   (add --yes to skip confirmations)',
+      'Commands: users [text] | user <u> | export <u> | reset-password <u> | logout <u> | admin-avatar <u> [off] | rename-user <u> <new name> | delete-user <u> | builds <u> | delete-build <id> | comments <build id> | delete-comment <id>   (add --yes to skip confirmations)',
     )
 }
 db.close()

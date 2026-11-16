@@ -7,31 +7,31 @@
       "traits": [
         {
           "id": "barkskin",
-          "name": "barkskin",
+          "name": "Barkskin",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/necklace/barkskin.webp"
         },
         {
           "id": "boonofshallya",
-          "name": "boon of shallya",
+          "name": "Boon of Shallya",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/necklace/boonofshallya.webp"
         },
         {
           "id": "handofshallya",
-          "name": "hand of shallya",
+          "name": "Hand of Shallya",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/necklace/handofshallya.webp"
         },
         {
           "id": "naturalbond",
-          "name": "natural bond",
+          "name": "Natural Bond",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/necklace/naturalbond.webp"
         },
         {
           "id": "healerstouch",
-          "name": "healer's touch",
+          "name": "Healer's Touch",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/necklace/healerstouch.webp"
         }
@@ -74,25 +74,25 @@
       "traits": [
         {
           "id": "decanter",
-          "name": "decanter",
+          "name": "Decanter",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/charm/decanter.webp"
         },
         {
           "id": "concoction",
-          "name": "concoction",
+          "name": "Concoction",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/charm/concoction.webp"
         },
         {
           "id": "proxy",
-          "name": "proxy",
+          "name": "Proxy",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/charm/proxy.webp"
         },
         {
           "id": "homebrewer",
-          "name": "home brewer",
+          "name": "Home Brewer",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/charm/homebrewer.webp"
         }
@@ -116,15 +116,15 @@
         },
         {
           "id": "powervsinfantry",
-          "name": "+10% Power vs infantry"
+          "name": "+10% Power vs Infantry"
         },
         {
           "id": "powervsberserkers",
-          "name": "+10% Power vs berserkers"
+          "name": "+10% Power vs Berserkers"
         },
         {
           "id": "powervsmonsters",
-          "name": "+10% Power vs monsters"
+          "name": "+10% Power vs Monsters"
         },
         {
           "id": "criticalpower",
@@ -139,19 +139,19 @@
       "traits": [
         {
           "id": "explosiveordnance",
-          "name": "explosive ordnance",
+          "name": "Explosive Ordnance",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/trinket/explosiveordnance.webp"
         },
         {
           "id": "grenadier",
-          "name": "grenadier",
+          "name": "Grenadier",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/trinket/grenadier.webp"
         },
         {
           "id": "shrapnel",
-          "name": "shrapnel",
+          "name": "Shrapnel",
           "description": "Trait description.",
           "icon": "/shared/traits/equipment/trinket/shrapnel.webp"
         }
@@ -171,15 +171,15 @@
         },
         {
           "id": "revivespeed",
-          "name": "+30% revive speed"
+          "name": "+30% Revive Speed"
         },
         {
           "id": "movementspeed",
-          "name": "+5% movement speed"
+          "name": "+5% Movement Speed"
         },
         {
           "id": "respawnspeed",
-          "name": "+30% respawn speed"
+          "name": "+30% Respawn Speed"
         },
         {
           "id": "curseresistance",
