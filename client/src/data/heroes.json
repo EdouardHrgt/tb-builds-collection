@@ -1531,7 +1531,7 @@
         "id": "shade",
         "name": "Shade",
         "icon": "/images/kerillian/kerillian-shade.webp",
-        "color": "#9f04ff",
+        "color": "#8902db",
         "perks": [
           {
             "name": "Dagger in the Dark",

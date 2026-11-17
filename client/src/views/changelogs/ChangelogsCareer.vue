@@ -228,7 +228,7 @@ h1,
   justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
-  margin-bottom: 18rem;
+  margin-bottom: 3rem; /* (was 18rem to leave room for the former absolute footer) */
   margin-inline: auto;
   width: 14rem;
   padding: 1rem 2rem;

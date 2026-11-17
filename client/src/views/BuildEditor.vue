@@ -36,6 +36,26 @@ const emptyGear = () => ({ traitId: '', propertyIds: ['', ''] })
 const emptyWeapon = () => ({ weaponId: '', ...emptyGear() })
 
 const editingId = route.params.id // undefined = creating
+
+// One-time notice on a new build: the data comes from the Tourney Balance mod. "Got it" is remembered in
+// this browser (localStorage), so the notice does not come back. Storage can be blocked: then it just shows.
+const NOTICE_KEY = 'tbNoticeDismissed'
+const readDismissed = () => {
+  try {
+    return localStorage.getItem(NOTICE_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+const showNotice = ref(!editingId && !readDismissed())
+function dismissNotice() {
+  showNotice.value = false
+  try {
+    localStorage.setItem(NOTICE_KEY, '1')
+  } catch {
+    /* private mode or blocked storage: the notice will simply come back next time */
+  }
+}
 // Balance version the edited build was saved with (the only place where the version of an old build is shown)
 const savedBalance = ref('')
 // /builds/new?from=<id>: a new build that starts as a copy of that build (nothing is saved before "Save")
@@ -288,6 +308,13 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
         It is outdated: saving it updates it to {{ BALANCE.version }}, so check the talents, weapons and traits first.
       </template>
     </p>
+    <div v-if="showNotice" class="tb-banner" role="note">
+      <p>
+        <strong>Builds here are made for the {{ BALANCE.name }} mod ({{ BALANCE.version }}).</strong>
+        Talents, weapons, traits and breakpoints follow that mod, not the official game balance.
+      </p>
+      <button type="button" @click="dismissNotice">Got it</button>
+    </div>
     <form class="form wide" :style="careerStyle" novalidate @submit.prevent="save">
       <div class="measure">
         <label>
@@ -434,6 +461,32 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
 </template>
 
 <style scoped>
+.tb-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--accent);
+  border-left-width: 4px;
+  border-radius: 6px;
+  background: rgb(201 162 74 / 0.08);
+}
+.tb-banner p {
+  margin: 0;
+}
+.tb-banner button {
+  flex: none;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .tb-banner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+}
 .tb-note {
   margin: -0.4rem 0 1rem;
   color: var(--muted);

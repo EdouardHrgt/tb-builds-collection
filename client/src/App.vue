@@ -38,10 +38,11 @@ async function logout() {
 <template>
   <header class="top">
     <div class="brand-row">
-      <div class="brand-block">
+      <!-- The logo leads to the home page -->
+      <RouterLink to="/" class="brand-block" aria-label="Sigmar's Arsenal, home page">
         <strong id="main__logo">Sigmar's Arsenal</strong>
         <div class="ornament" aria-hidden="true">◆</div>
-      </div>
+      </RouterLink>
       <!-- Tells visitors which balance the builds are based on (the Tourney Balance mod, not the official game) -->
       <a
         class="balance-tag"
@@ -49,11 +50,13 @@ async function logout() {
         target="_blank"
         rel="noopener noreferrer"
         :title="`Builds are based on the ${BALANCE.name} mod ${BALANCE.version}, not on the official game balance`">
-        <span class="long">{{ BALANCE.name }}</span
-        ><span class="short">{{ BALANCE.short }}</span> {{ BALANCE.version }}
+        Made for {{ BALANCE.name }} {{ BALANCE.version }}
       </a>
     </div>
     <nav>
+      <!-- Stays highlighted on every page of the Changelogs section (/changelogs/<hero>) -->
+      <RouterLink to="/changelogs" :class="{ 'router-link-exact-active': route.meta.wide }" title="Balance mods changelogs: what each mod changes">Balance Changelogs</RouterLink>
+      <span class="nav-sep" aria-hidden="true">|</span>
       <RouterLink to="/"
         >Builds<span
           v-if="auth.user && feed.count"
@@ -96,15 +99,11 @@ async function logout() {
       </template>
     </nav>
   </header>
-  <!-- Banner under the header: leads to the Changelogs section (hidden on that section itself) -->
-  <RouterLink v-if="!route.meta.wide" to="/changelogs" class="cl-banner">
-    Visit Balance Mods Changelogs <span aria-hidden="true">&rarr;</span>
-  </RouterLink>
   <main :class="{ wide: route.meta.wide }"
     ><RouterView :key="route.meta.wide ? 'wide' : $route.path + ($route.query.from ?? '')"
   /></main>
   <!-- Pages with their own look (Changelogs) have their own footer -->
-  <FooterCard v-if="!route.meta.wide" />
+  <FooterCard :flush="route.meta.wide" />
 </template>
 
 <style scoped>
@@ -116,34 +115,6 @@ async function logout() {
 }
 .top nav button.logout:hover {
   color: color-mix(in srgb, var(--danger) 75%, white);
-}
-/* Banner under the header */
-.cl-banner {
-  display: block;
-  padding: 0.85rem var(--side-padding);
-  text-align: center;
-  font-family: 'New Rocker', system-ui;
-  font-size: 1.5rem;
-  letter-spacing: 1.5px;
-  text-decoration: none;
-  color: var(--accent);
-  /* Same background as the build cards */
-  background: linear-gradient(135deg, var(--panel), color-mix(in srgb, var(--panel) 82%, #000));
-  border-bottom: 2px solid var(--accent);
-  transition:
-    color 0.3s ease-out,
-    filter 0.3s ease-out;
-}
-.cl-banner:hover {
-  opacity: 1;
-  color: var(--text);
-  filter: brightness(1.15);
-}
-@media (max-width: 600px) {
-  .cl-banner {
-    font-size: 1.15rem;
-    padding-block: 0.7rem;
-  }
 }
 /* Counters (new builds from followed people on the Builds link, unread comments on the profile link) */
 .new-count {
@@ -167,7 +138,7 @@ async function logout() {
   align-items: center;
   gap: 0.9rem;
 }
-/* Small tag next to the logo: "Tourney Balance V28.2" (the long name is shortened to "TB" on phones) */
+/* Small tag next to the logo: "Made for Tourney Balance V28.2" */
 .balance-tag {
   padding: 0.15rem 0.55rem;
   border: 1px solid var(--line);
@@ -183,12 +154,9 @@ async function logout() {
   border-color: var(--accent);
   opacity: 1;
 }
-.balance-tag .short {
-  display: none;
-}
 /* Wide screens: the tag sits in the middle of the header (the header is the positioned parent).
-   Below 1100px there is no room: it stays next to the logo. */
-@media (min-width: 1100px) {
+   Below 1400px there is no room (the logged-in menu is wide): it stays next to the logo. */
+@media (min-width: 1400px) {
   .balance-tag {
     position: absolute;
     top: 50%;
@@ -197,12 +165,6 @@ async function logout() {
   }
 }
 @media (max-width: 600px) {
-  .balance-tag .long {
-    display: none;
-  }
-  .balance-tag .short {
-    display: inline;
-  }
   /* Phones: everything is centered, one line each: the logo, the balance tag under it, then the links */
   .top {
     justify-content: center;
@@ -218,9 +180,20 @@ async function logout() {
   }
 }
 /* The logo with the golden ornament line (global .ornament) under it, as wide as the logo */
+.nav-sep {
+  color: var(--muted, #8a8a8a);
+  opacity: 0.6;
+  user-select: none;
+}
 .brand-block {
   display: flex;
   flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+.brand-block:hover {
+  opacity: 1;
+  filter: brightness(1.25);
 }
 .brand-block .ornament {
   margin: 0.1rem 0 0;
@@ -234,13 +207,13 @@ async function logout() {
   letter-spacing: 1.7px;
   background: linear-gradient(
     90deg,
-    #462523 0%,
-    #cb9b51 21%,
+    #86553f 0%,
+    #dcac5c 21%,
     #f6e27a 45%,
     #f6f2c0 50%,
     #f6e27a 55%,
-    #cb9b51 79%,
-    #462523 100%
+    #dcac5c 79%,
+    #86553f 100%
   );
   background-clip: text;
   -webkit-background-clip: text;

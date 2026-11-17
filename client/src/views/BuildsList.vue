@@ -24,6 +24,7 @@ const hero = computed(
 )
 const username = ref('')
 const sort = ref('newest') // newest (default) | oldest | likes
+const upToDate = ref(false) // true = hide the builds made for an older balance version ("Outdated" ones)
 const page = ref(1)
 
 // Lists hidden with the eye button (remembered by SectionTitle)
@@ -86,7 +87,7 @@ function onCareerChange() {
   if (weapon.value && !weaponName.value) weapon.value = ''
 }
 const hasFilters = computed(
-  () => career.value || weapon.value || username.value.trim() || sort.value !== 'newest',
+  () => career.value || weapon.value || username.value.trim() || sort.value !== 'newest' || upToDate.value,
 )
 
 // Name of the career in the filters, for the message of an empty "From people I follow"
@@ -122,6 +123,7 @@ async function loadList({ silent = false } = {}) {
   const q = heroCareerQuery()
   if (username.value.trim()) q.set('username', username.value.trim())
   q.set('sort', sort.value)
+  if (upToDate.value) q.set('upToDate', '1')
   q.set('page', page.value)
   try {
     const data = await api('/builds?' + q)
@@ -156,7 +158,7 @@ const refresh = () => Promise.all([loadTop(), loadList({ silent: true }), loadFo
 // Any filter change goes back to page 1. Nothing is reloaded if the filters did not really change
 // (for instance after "Reset filters", which changes several values at once).
 let lastKey = ''
-const filtersKey = () => [hero.value, career.value, weapon.value, username.value.trim(), sort.value].join('|')
+const filtersKey = () => [hero.value, career.value, weapon.value, username.value.trim(), sort.value, upToDate.value].join('|')
 function applyFilters() {
   if (filtersKey() === lastKey) return
   lastKey = filtersKey()
@@ -169,7 +171,7 @@ watch([career, weapon], () => {
   loadTop()
   loadFollowed()
 })
-watch([career, weapon, sort], applyFilters)
+watch([career, weapon, sort, upToDate], applyFilters)
 
 // The author search waits for the end of the typing (300 ms) before asking the server
 let typing = null
@@ -187,6 +189,7 @@ function resetFilters() {
   weapon.value = ''
   username.value = ''
   sort.value = 'newest'
+  upToDate.value = false
 }
 
 function goTo(p) {
@@ -230,6 +233,10 @@ onMounted(() => {
     <select v-model="sort" aria-label="Sort builds">
       <option v-for="s in SORTS" :key="s.value" :value="s.value">{{ s.label }}</option>
     </select>
+    <label class="uptodate" title="Hide the builds made for an older Tourney Balance version">
+      <input v-model="upToDate" type="checkbox" />
+      Up to date only
+    </label>
     <button v-if="hasFilters" type="button" class="reset" @click="resetFilters">Reset filters</button>
   </div>
 
@@ -324,6 +331,13 @@ onMounted(() => {
 .filters .search {
   width: auto;
   min-width: 14rem;
+}
+.uptodate {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  white-space: nowrap;
 }
 .empty-note {
   margin: 0.4rem 0 0;

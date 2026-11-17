@@ -165,12 +165,15 @@ buildsRouter.get('/builds', (req, res) => {
     career: str(req.query.career),
     weapon: str(req.query.weapon)?.slice(0, 60) || null,
     user: username ? `%${escapeLike(username)}%` : null, // the author name contains the text
+    // ?upToDate=1: only the builds made for the current balance version (a build without a version is not "outdated")
+    current: req.query.upToDate === '1' ? BALANCE_VERSION : null,
   }
   const WHERE = `
     WHERE (@hero   IS NULL OR b.hero_id   = @hero)
       AND (@career IS NULL OR b.career_id = @career)
       AND ${WEAPON_SQL}
-      AND (@user   IS NULL OR u.username LIKE @user ESCAPE '\\')`
+      AND (@user   IS NULL OR u.username LIKE @user ESCAPE '\\')
+      AND (@current IS NULL OR json_extract(b.data, '$.balance') IS NULL OR json_extract(b.data, '$.balance') = @current)`
   const order = Object.hasOwn(SORTS, req.query.sort) ? SORTS[req.query.sort] : SORTS.newest
 
   const total = db
