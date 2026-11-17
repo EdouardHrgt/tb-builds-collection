@@ -37,5 +37,8 @@ onBeforeUnmount(() => {
     :style="{ backgroundImage: `url(${backgroundImage})`, '--cl-top': top }">
     <Header />
     <RouterView :key="$route.path" />
+    <!-- Stable element right after the page: the modals are teleported into this wrapper, and without a fixed
+         neighbour Vue loses its place when the page is replaced (the next page then never appears) -->
+    <div hidden></div>
   </div>
 </template>

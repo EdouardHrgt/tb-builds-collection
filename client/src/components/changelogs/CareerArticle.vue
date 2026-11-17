@@ -182,7 +182,7 @@ li {
   display: block;
   position: absolute;
   top: 6rem;
-  background: linear-gradient(to left, #fdd90c, #ff5e00);
+  background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -195,7 +195,7 @@ li {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgb(24 26 32 / 0.88);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -205,7 +205,7 @@ li {
 
 .modal-content {
   position: relative;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 20, 0.95) 100%);
+  background: linear-gradient(135deg, rgb(34 37 46 / 0.97) 0%, rgb(24 26 32 / 0.97) 100%);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   max-width: 800px;
@@ -269,7 +269,7 @@ li {
   font-weight: 400;
   font-style: normal;
   letter-spacing: 1px;
-  background: linear-gradient(to right, #fdd90c, #ff5e00);
+  background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

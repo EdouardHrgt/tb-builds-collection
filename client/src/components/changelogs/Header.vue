@@ -42,7 +42,7 @@ p {
   position: absolute;
   bottom: 20px;
   font-size: 20px;
-  background: linear-gradient(to right, #fdd90c, #ff5e00);
+  background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

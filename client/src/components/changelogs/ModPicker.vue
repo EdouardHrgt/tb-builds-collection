@@ -58,10 +58,10 @@ p {
 }
 
 .mod-selected {
-  background: linear-gradient(to right, rgba(253, 217, 12, 0.3), rgba(255, 94, 0, 0.4)) !important;
-  border: 2px solid #fdd90c;
+  background: linear-gradient(to right, rgb(203 155 81 / 0.3), rgb(246 226 122 / 0.25)) !important;
+  border: 2px solid #dcac5c;
   transform: scale(1.05);
-  box-shadow: 0 6px 40px rgba(255, 145, 0, 0.4);
+  box-shadow: 0 6px 40px rgb(201 162 74 / 0.4);
 }
 
 @media (hover: hover) {

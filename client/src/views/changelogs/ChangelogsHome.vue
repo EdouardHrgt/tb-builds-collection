@@ -27,7 +27,7 @@ h1 {
 }
 
 .title-str {
-  background: linear-gradient(to right, #fdd90c, #ff5e00);
+  background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

@@ -16,7 +16,8 @@
     <div v-if="modName">
       <p class="err" v-if="errorMsg">... No Changelogs found for this Mod ...</p>
       <!-- WEAPONS -->
-      <WeaponsCarousel :weapons="modData.weapons" :mod="modName" v-if="modData.weapons" />
+      <!-- (modData is still null while the file of the mod is loading: without "?." the page crashes and the next navigation breaks) -->
+      <WeaponsCarousel :weapons="modData.weapons" :mod="modName" v-if="modData?.weapons" />
       <!-- CAREERS CHANGES -->
       <div class="articles-container" v-if="errorMsg == false">
         <GlobalChanges :modLabel="modName" />
@@ -146,10 +147,11 @@ const careersList = computed(() => {
 }
 
 .title-mods-scrolled {
-  background-color: var(--black-400);
+  /* same dark blue as the site header */
+  background: linear-gradient(rgb(0 0 0 / 0.09), rgb(0 0 0 / 0.24)), var(--panel);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   padding-block: 1rem;
-  border-bottom: 1px solid #38362a;
+  border-bottom: 1px solid var(--line);
 }
 
 .title-infos {
@@ -175,7 +177,7 @@ h1,
 }
 
 .title-mod-name {
-  background: linear-gradient(to right, #fdd90c, #ff5e00);
+  background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -210,7 +212,7 @@ h1,
   font-style: normal;
   text-align: center;
   font-size: var(--fs-1);
-  background: linear-gradient(to top, rgba(253, 217, 12, 0.3), rgba(255, 94, 0, 0.4));
+  background: linear-gradient(to top, rgb(203 155 81 / 0.3), rgb(246 226 122 / 0.25));
   margin-inline: auto;
   display: block;
   position: absolute;
@@ -236,18 +238,19 @@ h1,
   font-family: 'Lexend Deca', sans-serif;
   font-weight: 600;
   color: var(--black-400);
-  background: linear-gradient(to right, #fdd90c, #ff5e00);
+  background: linear-gradient(to right, #cb9b51, #f6e27a, #cb9b51);
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(253, 217, 12, 0.3);
+  box-shadow: 0 4px 12px rgb(246 226 122 / 0.3);
 }
 
 @media (hover: hover) {
   .back-to-top:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(253, 217, 12, 0.5);
+    filter: brightness(1.25); /* same hover as the site logo */
+    box-shadow: 0 6px 20px rgb(246 226 122 / 0.5);
   }
 }
 

@@ -9,10 +9,12 @@
   --black-400: rgba(0, 0, 0, 0.8);
   --white-900: #ffffff;
   --white-100: rgba(255, 255, 255, 0.3);
-  --grey-400: #e6d4bf;
+  --grey-400: var(--text); /* cream text of the site */
   --red-900: #c91e10;
+  /* Same gold gradient as the site logo (header of the site) */
+  --gold-gradient: linear-gradient(90deg, #86553f 0%, #dcac5c 21%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #dcac5c 79%, #86553f 100%);
   --yellow-900: #f1e500;
-  --yellow-400: rgb(255, 176, 72);
+  --yellow-400: var(--accent); /* the gold of the site */
 
   /* SPACING */
   --p-block-spacing: 2rem;
