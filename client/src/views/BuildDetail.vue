@@ -19,6 +19,8 @@ import { buildToText } from '../utils/buildText.js'
 import { breakpointKey } from '../utils/breakpoints.js'
 import { copyText } from '../utils/clipboard.js'
 import { BALANCE } from '../utils/balance.js'
+import { buildDifficultyLabel } from '../utils/difficulty.js'
+import { parseDbDate, fullDate } from '../utils/time.js'
 
 const gameData = useGameData()
 const {
@@ -101,6 +103,16 @@ async function remove() {
     error.value = e.message
   }
 }
+
+// Date under the author: when the build was last edited (Updated), else when it was created (Created)
+const dateText = (s) => parseDbDate(s).toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })
+const buildDate = computed(() => {
+  const b = build.value
+  if (!b?.createdAt) return null
+  const edited = b.updatedAt && parseDbDate(b.updatedAt) - parseDbDate(b.createdAt) > 60_000 // a minute: not a real edit
+  const when = edited ? b.updatedAt : b.createdAt
+  return { label: `${edited ? 'Updated' : 'Created'} ${dateText(when)}`, title: fullDate(when) }
+})
 </script>
 
 <template>
@@ -118,7 +130,8 @@ async function remove() {
           </div>
         </div>
         <p class="meta">
-          {{ heroName(build.heroId) }} | {{ careerName(build.heroId, build.careerId) }}
+          {{ heroName(build.heroId) }} | {{ careerName(build.heroId, build.careerId) }} |
+          <span class="difficulty" title="Difficulty of the breakpoints">{{ buildDifficultyLabel(build.data) }}</span>
           <span
             v-if="build.data.balance"
             class="tb-tag"
@@ -135,7 +148,10 @@ async function remove() {
         </p>
         <RouterLink :to="`/u/${build.author}`" class="author-row" title="See profile">
           <AvatarFrame :id="build.authorAvatar" class="author-frame" />
-          <span class="meta">by <span class="author">{{ build.author }}</span></span>
+          <span class="author-text">
+            <span class="meta">by <span class="author">{{ build.author }}</span></span>
+            <span v-if="buildDate" class="meta build-date" :title="buildDate.title">{{ buildDate.label }}</span>
+          </span>
         </RouterLink>
         <!-- Owner only: Edit / Delete, right under the title -->
         <div v-if="isOwner" class="owner-actions">
@@ -265,6 +281,14 @@ async function remove() {
 </template>
 
 <style scoped>
+/* Difficulty of the breakpoints, after the career name: big, in the color of the career */
+.difficulty {
+  margin: 0 0.5rem 0 0.2rem;
+  font-size: 1.35em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--career-color, var(--accent));
+}
 .build-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -342,6 +366,14 @@ async function remove() {
 }
 .author-row .meta {
   margin: 0;
+}
+.author-text {
+  display: grid;
+  gap: 0.15rem;
+}
+.build-date {
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 /* size of the frame around the author's portrait (see AvatarFrame.vue) */
 .author-frame {

@@ -6,6 +6,7 @@ import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
 import { BALANCE } from '../utils/balance.js'
 import { hitCrit } from '../utils/breakpoints.js'
+import { DIFFICULTIES, DEFAULT_DIFFICULTY, DEFAULT_DEATHWISH, difficultyLabel } from '../utils/difficulty.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import CareerAbilities from '../components/CareerAbilities.vue'
 import GearSlot from '../components/GearSlot.vue'
@@ -47,6 +48,8 @@ const form = ref({
   talents: emptyTalents(),
   weapons: Object.fromEntries(WEAPON_SLOTS.map((s) => [s.key, emptyWeapon()])),
   equipment: Object.fromEntries(EQUIPMENT_SLOTS.map((s) => [s.id, emptyGear()])),
+  difficulty: DEFAULT_DIFFICULTY,
+  deathwish: DEFAULT_DEATHWISH,
   breakpoints: [],
   teammates: [],
   teamDescription: '',
@@ -174,6 +177,9 @@ onMounted(async () => {
       equipment: Object.fromEntries(
         EQUIPMENT_SLOTS.map((s) => [s.id, fromGear(b.data.equipment?.[s.id])]),
       ),
+      // a build saved before the choice existed was made for C3DW
+      difficulty: b.data.difficulty ?? DEFAULT_DIFFICULTY,
+      deathwish: b.data.deathwish ?? DEFAULT_DEATHWISH,
       breakpoints: (b.data.breakpoints ?? []).map((c) => ({
         ...c,
         // an old card-level crit is moved onto each hit
@@ -246,6 +252,8 @@ async function save() {
       talents: f.talents,
       weapons: mapValues(f.weapons, cleanWeapon),
       equipment: mapValues(f.equipment, cleanGear),
+      difficulty: f.difficulty,
+      deathwish: f.deathwish,
       breakpoints: f.breakpoints,
       teammates: f.teammates,
       teamDescription: f.teammates.length ? f.teamDescription.trim() : '',
@@ -286,6 +294,20 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
           Title
           <input v-model="form.title" :maxlength="TITLE_MAX" required />
         </label>
+
+        <!-- Difficulty of the breakpoints: shown next to the "Breakpoints" title and under the career name on the build page -->
+        <div class="difficulty">
+          <label>
+            Breakpoints difficulty
+            <select v-model="form.difficulty">
+              <option v-for="d in DIFFICULTIES" :key="d.id" :value="d.id">{{ d.label }}</option>
+            </select>
+          </label>
+          <label class="check">
+            <input v-model="form.deathwish" type="checkbox" />
+            Deathwish
+          </label>
+        </div>
 
         <label>
           Hero
@@ -371,7 +393,7 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
       </div>
 
       <fieldset>
-        <legend>Breakpoints <small class="legend-note">C3DW</small></legend>
+        <legend>Breakpoints <small class="legend-note">{{ difficultyLabel(form.difficulty, form.deathwish) }}</small></legend>
         <BreakpointBuilder v-model="form.breakpoints" />
       </fieldset>
 
@@ -491,15 +513,30 @@ section {
 .saved h2 {
   margin-top: 0;
 }
-/* Equipment column on the left, teammates on the right (one column under 1024px) */
+/* Equipment column on the left, teammates on the right (one column under 1024px).
+   Side by side, both sections are as tall as the taller one; their content stays at the top. */
 .gear-layout {
   display: grid;
   grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
   gap: 1rem;
-  align-items: start;
+  align-items: stretch;
 }
 .gear-layout fieldset {
   min-width: 0;
+  align-content: start;
+}
+/* Difficulty of the breakpoints, right above their section */
+.difficulty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.8rem 1.5rem;
+}
+.difficulty select {
+  min-width: 9rem;
+}
+.difficulty .check {
+  padding-block: 0.5rem;
 }
 .gear-column {
   display: grid;

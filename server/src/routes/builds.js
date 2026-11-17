@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { z } from 'zod'
 import { db } from '../db.js'
 import { requireAuth } from '../auth.js'
-import { validateBuildData, BALANCE_VERSION } from '../gameData.js'
+import { validateBuildData, BALANCE_VERSION, DIFFICULTY_IDS, DEFAULT_DIFFICULTY, DEFAULT_DEATHWISH } from '../gameData.js'
 import { avatarFor } from '../avatars.js'
 
 export const buildsRouter = Router()
@@ -76,6 +76,8 @@ const buildSchema = z.object({
       talents: z.array(z.number().int().min(0).max(3)).length(6), // 0 = none, 1..3 = position in the tier
       weapons: z.record(id, weaponSchema), // melee / ranged
       equipment: z.record(id, gearSchema), // necklace / charm / trinket
+      difficulty: z.enum(DIFFICULTY_IDS).default(DEFAULT_DIFFICULTY), // difficulty of the breakpoints (data/difficulties.json)
+      deathwish: z.boolean().default(DEFAULT_DEATHWISH), // ... with Deathwish
       breakpoints: z.array(breakpointSchema).max(50).default([]), // fast breakpoint cards (optional)
       teammates: z.array(teammateSchema).max(MAX_TEAMMATES).default([]), // recommended teammates (optional)
       teamDescription: z.string().trim().max(TEAM_DESCRIPTION_MAX).default(''), // a few words about the team (optional)

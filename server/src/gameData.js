@@ -14,6 +14,7 @@ const FILES = [
   'equipment-options.json',
   'enemies.json',
   'breakpoint-attacks.json',
+  'difficulties.json',
 ]
 const missing = FILES.filter((f) => !fs.existsSync(path.join(DATA_DIR, f)))
 if (missing.length) {
@@ -30,6 +31,11 @@ const weaponOptions = load('weapon-options.json') // { melee: {traits, propertie
 const equipmentOptions = load('equipment-options.json').equipment // { necklace: {...}, charm: {...}, trinket: {...} }
 const enemies = load('enemies.json').enemies // [{ id, name, category, icon }]
 const breakpointOptions = load('breakpoint-attacks.json') // { types: [{ id, kinds }], zones, boosters }
+// Difficulties of the breakpoints (legend, c1, c2, c3) + the default of a build that does not say (c3, Deathwish)
+const difficultyData = load('difficulties.json')
+export const DIFFICULTY_IDS = difficultyData.difficulties.map((d) => d.id)
+export const DEFAULT_DIFFICULTY = difficultyData.defaultDifficulty
+export const DEFAULT_DEATHWISH = difficultyData.defaultDeathwish
 
 const TIERS = ['5', '10', '15', '20', '25', '30']
 const has = (obj, key) => Object.hasOwn(obj, key)

@@ -6,13 +6,14 @@
 //     WEAPON_NAME | trait | property 1 | property 2
 //   EQUIPMENT:
 //     NECKLACE | trait | property 1 | property 2
-//   BREAKPOINTS:
+//   BREAKPOINTS (C3DW):
 //     ATTACK [BOOSTERS]: ENEMIES_LIST
 //   DESCRIPTION:
 //   BUILD DESCRIPTION
 //
 // `gd` is the game data (the object returned by useGameData()): this function stays pure and testable.
 import { breakpointLabel, breakpointBoosterNames } from './breakpoints.js'
+import { buildDifficultyLabel } from './difficulty.js'
 
 export function buildToText(build, gd) {
   const data = build.data ?? {}
@@ -35,7 +36,7 @@ export function buildToText(build, gd) {
   }
 
   if (data.breakpoints?.length) {
-    lines.push('BREAKPOINTS:')
+    lines.push(`BREAKPOINTS (${buildDifficultyLabel(data)}):`)
     for (const card of data.breakpoints) {
       const boosters = breakpointBoosterNames(card, gd)
       const enemies = card.enemyIds.map((id) => gd.getEnemy(id)?.name ?? id).join(', ')

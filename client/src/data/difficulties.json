@@ -1,0 +1,9 @@
+{
+  "difficulties": [
+    { "id": "legend", "label": "Legend" },
+    { "id": "c1", "label": "Cata" },
+    { "id": "c3", "label": "Cata 3" }
+  ],
+  "defaultDifficulty": "c3",
+  "defaultDeathwish": true
+}
