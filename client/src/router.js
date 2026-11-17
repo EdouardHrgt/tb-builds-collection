@@ -34,6 +34,13 @@ const router = createRouter({
         { path: ':career', component: () => import('./views/changelogs/ChangelogsCareer.vue') },
       ],
     },
+    {
+      // What the difficulty mods change: same look as the changelogs, own page (linked from the header)
+      path: '/difficulties',
+      component: () => import('./views/changelogs/ChangelogsLayout.vue'),
+      meta: { wide: true, title: 'Difficulty Mods', home: '/difficulties' },
+      children: [{ path: '', component: () => import('./components/changelogs/Difficulties.vue') }],
+    },
     { path: '/privacy', component: () => import('./views/PrivacyPolicy.vue') },
     { path: '/forgot-password', component: () => import('./views/ForgotPassword.vue') },
     { path: '/reset-password', component: () => import('./views/ResetPassword.vue') },

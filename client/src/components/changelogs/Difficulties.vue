@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 const difficulties = {
   c3: {
     name: 'CATACLYSM 3',
@@ -87,161 +86,60 @@ const difficulties = {
   },
 }
 
-const isModalOpen = ref(false)
-
-const openModal = () => {
-  isModalOpen.value = true
-  document.body.style.overflow = 'hidden'
-}
-
-const closeModal = () => {
-  isModalOpen.value = false
-  document.body.style.overflow = ''
-}
 </script>
 
 <template>
-  <section class="main">
-    <button @click="openModal">
-      See Difficulties Details <br />(<span class="de">C3, DW, ONS...</span>)
-    </button>
+  <section class="page">
+    <h2 class="page-title">Difficulty Mods</h2>
+    <p class="intro">
+      What the community difficulty mods change, on top of the official Legend, Cataclysm and Cataclysm 3 levels.
+    </p>
 
-    <Teleport to=".vt2cl" defer>
-      <Transition name="modal">
-        <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
-          <div class="modal-content" @click.stop>
-            <button class="modal-close" @click="closeModal">
-              <span>&times;</span>
-            </button>
-
-            <div class="modal-body">
-              <div class="modal-header">
-                <h2 class="modal-title">Difficulties</h2>
-              </div>
-
-              <template v-if="difficulties">
-                <div v-for="(difficulty, key) in difficulties" :key="key" class="section">
-                  <h3 class="section-title">{{ difficulty.name }}</h3>
-                  <ul class="modal-list">
-                    <li v-for="(detail, idx) in difficulty.details" :key="idx">
-                      {{ detail }}
-                    </li>
-                  </ul>
-                  <a
-                    v-if="difficulty.link"
-                    :href="difficulty.link"
-                    class="documentation-link"
-                    target="blank"
-                    >See The Official Documentation For {{ difficulty.name }} Here</a
-                  >
-                </div>
-              </template>
-
-              <template v-else>
-                <p class="no-data">No data available.</p>
-              </template>
-            </div>
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
+    <div v-for="(difficulty, key) in difficulties" :key="key" class="section">
+      <h3 class="section-title">{{ difficulty.name }}</h3>
+      <ul class="modal-list">
+        <li v-for="(detail, idx) in difficulty.details" :key="idx">
+          {{ detail }}
+        </li>
+      </ul>
+      <a v-if="difficulty.link" :href="difficulty.link" class="documentation-link" target="_blank" rel="noopener noreferrer"
+        >See The Official Documentation For {{ difficulty.name }} Here</a
+      >
+    </div>
   </section>
 </template>
 
 <style scoped>
-button {
-  padding: 0.55rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: var(--white-900);
-  border-radius: 6px;
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: var(--fs-4);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-inline: auto;
-  display: block;
-}
-
-button .de {
-  font-weight: 700;
-  color: var(--yellow-400);
-}
-
-@media (hover: hover) {
-  button:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-  .documentation-link:hover {
-    color: var(--white-900);
-  }
-}
-
-/* Modal Overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgb(24 26 32 / 0.88);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 2rem;
-}
-
-/* Modal Content */
-.modal-content {
-  position: relative;
+/* The page is a dark blue card, like the former window */
+.page {
+  box-sizing: border-box;
+  max-width: 900px;
+  margin: 1.5rem auto 2rem;
+  padding: 3rem;
   background: linear-gradient(135deg, rgb(34 37 46 / 0.97) 0%, rgb(24 26 32 / 0.97) 100%);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  max-width: 900px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  padding: 3rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
 }
 
-/* Close button */
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 1;
-  padding: 0;
-  margin: 0;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--white-100);
-  font-size: 32px;
+.page-title {
+  margin: 0 0 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--yellow-400);
+  font-family: 'Quintessential', serif;
+  font-size: var(--fs-1);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white-900);
 }
 
-.modal-close span {
-  line-height: 1;
-  font-weight: 400;
-  position: relative;
-  top: -2px;
+.intro {
+  margin: 0 0 2rem;
+  color: var(--grey-400);
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.6;
 }
 
 .documentation-link {
@@ -250,48 +148,14 @@ button .de {
   font-family: 'Lexend Deca', sans-serif;
   font-size: var(--fs-body);
   overflow-wrap: break-word;
-  transition: all 0.3s ease;
 }
 
-@media (hover: hover) {
-  .modal-close:hover {
-    background: rgba(255, 255, 255, 0.2);
-    background-color: rgba(255, 255, 255, 0.2);
-    color: var(--white-100);
-  }
-}
-
-/* Modal Body */
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* Modal Header */
-.modal-header {
-  border-bottom: 2px solid var(--yellow-400);
-  padding-bottom: 1rem;
-}
-
-.modal-title {
-  font-family: 'Quintessential', serif;
-  font-size: var(--fs-1);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--white-900);
-  margin: 0;
-}
-
-/* Sections */
 .section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
-
 .section:last-child {
   margin-bottom: 0;
 }
-
 .section-title {
   font-family: 'Rubik Marker Hatch', system-ui;
   font-size: var(--fs-3);
@@ -347,79 +211,19 @@ button .de {
   color: var(--yellow-400);
 }
 
-/* No data */
-.no-data {
-  text-align: center;
-  color: var(--grey-400);
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: var(--fs-3);
-  padding: 2rem;
-}
-
-/* Modal Transitions */
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-}
-
-.modal-enter-active .modal-content,
-.modal-leave-active .modal-content {
-  transition: transform 0.3s ease;
-}
-
-.modal-enter-from .modal-content,
-.modal-leave-to .modal-content {
-  transform: scale(0.9);
-}
-
-/* Scrollbar */
-.modal-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-}
-
-@media (hover: hover) {
-  .modal-content::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-  .modal-content {
+  .page {
+    margin-inline: 1rem;
     padding: 2rem 1.5rem;
-    margin: 1rem;
-  }
-
-  .modal-close {
-    top: 0.5rem;
-    right: 0.5rem;
-    width: 25px;
-    height: 25px;
-    font-size: 20px;
   }
 }
 
 @media (max-width: 450px) {
-  .modal-content {
-    padding: 2rem 0.5rem;
+  .page {
+    padding: 2rem 0.8rem;
   }
 
-  .modal-title {
+  .page-title {
     font-size: 15px;
   }
 

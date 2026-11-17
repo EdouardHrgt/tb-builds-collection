@@ -291,6 +291,19 @@ buildsRouter.put('/builds/:id', requireAuth, (req, res) => {
   res.json(toBuild(findOne(req.params.id, req)))
 })
 
+// "No major changes": the owner confirms an outdated build is still good under the current balance version.
+// Only the version and the update date change: the build is not validated again or edited (owner only).
+buildsRouter.post('/builds/:id/refresh', requireAuth, (req, res) => {
+  const existing = db.prepare('SELECT user_id FROM builds WHERE id = ?').get(req.params.id)
+  if (!existing) return res.status(404).json({ error: 'Build not found' })
+  if (existing.user_id !== req.userId)
+    return res.status(403).json({ error: 'You do not own this build' })
+  db.prepare(
+    `UPDATE builds SET data = json_set(data, '$.balance', ?), updated_at = datetime('now') WHERE id = ?`,
+  ).run(BALANCE_VERSION, req.params.id)
+  res.json(toBuild(findOne(req.params.id, req)))
+})
+
 // Delete (owner only). Its likes are deleted with it (ON DELETE CASCADE).
 buildsRouter.delete('/builds/:id', requireAuth, (req, res) => {
   const existing = db.prepare('SELECT user_id FROM builds WHERE id = ?').get(req.params.id)

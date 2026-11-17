@@ -55,7 +55,8 @@ async function logout() {
     </div>
     <nav>
       <!-- Stays highlighted on every page of the Changelogs section (/changelogs/<hero>) -->
-      <RouterLink to="/changelogs" :class="{ 'router-link-exact-active': route.meta.wide }" title="Balance mods changelogs: what each mod changes">Balance Changelogs</RouterLink>
+      <RouterLink to="/changelogs" :class="{ 'router-link-exact-active': route.path.startsWith('/changelogs') }" title="Balance mods changelogs: what each mod changes">Balance Changelogs</RouterLink>
+      <RouterLink to="/difficulties" title="What the difficulty mods change (Cataclysm 3, Deathwish, Onslaught...)">Difficulty Mods</RouterLink>
       <span class="nav-sep" aria-hidden="true">|</span>
       <RouterLink to="/"
         >Builds<span

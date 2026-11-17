@@ -1,28 +1,27 @@
 <template>
   <header>
-  <Difficulties class="diff"/>
-    <RouterLink to="/changelogs">
+    <RouterLink :to="to">
       <img src="/changelogs/logo.webp" alt="logo Vermintide 2" />
-      <p>Balance Mods Changelogs</p>
+      <p>{{ title }}</p>
     </RouterLink>
   </header>
 </template>
 
 <script setup>
-import Difficulties from './Difficulties.vue'
+// Title written on the logo, and where the logo leads to (set per page, see the routes)
+defineProps({
+  title: { type: String, default: 'Balance Mods Changelogs' },
+  to: { type: String, default: '/changelogs' },
+})
 </script>
 
 <style scoped>
 header {
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding-top: 1rem;
   position: relative;
-}
-
-.diff {
-  position: absolute;
-  left: 2rem;
 }
 
 a {
@@ -55,10 +54,6 @@ p {
 }
 
 @media (max-width: 1024px) {
-  header {
-    flex-direction: column-reverse;
-
-  }
   img {
     width: 13rem;
   }
@@ -66,11 +61,5 @@ p {
     position: relative;
     bottom: 32px;
   }
-  .diff {
-  position: relative;
-  left: auto;
-  margin-top: -1rem;
-}
-
 }
 </style>

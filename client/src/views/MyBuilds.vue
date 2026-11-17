@@ -47,6 +47,23 @@ const outdated = computed(() => builds.value.filter((b) => b.data?.balance && b.
 const onlyOutdated = ref(false)
 const shownBuilds = computed(() => (onlyOutdated.value && outdated.value.length ? outdated.value : builds.value))
 
+// "No major changes": marks an outdated build as up to date without opening the editor
+const refreshing = ref(0) // id of the build being updated
+const refreshError = ref('')
+async function refreshBuild(b) {
+  refreshError.value = ''
+  refreshing.value = b.id
+  try {
+    const updated = await api(`/builds/${b.id}/refresh`, { method: 'POST' })
+    builds.value = builds.value.map((x) => (x.id === b.id ? { ...x, ...updated } : x))
+  } catch (e) {
+    refreshError.value = e.message
+  } finally {
+    refreshing.value = 0
+  }
+}
+const isOutdated = (b) => !!b.data?.balance && b.data.balance !== BALANCE.version
+
 const toggleSettings = () => (settingsOpen.value = !settingsOpen.value)
 const avatarsOpen = ref(false) // the avatar list is hidden until "Change avatar" is clicked
 
@@ -238,13 +255,25 @@ async function setAvatar(id) {
         <template v-else>
           <p v-if="outdated.length" class="notice">
             {{ plural(outdated.length, 'build') }} made for an older {{ BALANCE.name }} version (the current one is
-            {{ BALANCE.version }}). Check the talents, weapons and traits, then open Edit and Save to update them.
+            {{ BALANCE.version }}). Check the talents, weapons and traits, then open Edit and Save to update them, or use the button under a build if nothing important changed.
             <button type="button" class="link-btn" @click="onlyOutdated = !onlyOutdated">
               {{ onlyOutdated ? 'Show all my builds' : 'Show only these' }}
             </button>
           </p>
+          <p v-if="refreshError" class="error">{{ refreshError }}</p>
           <div class="cards builds-cards">
-            <BuildCard v-for="b in shownBuilds" :key="b.id" :build="b" :new-comments="notif.byBuild[b.id] ?? 0" />
+            <div v-for="b in shownBuilds" :key="b.id" class="build-item">
+              <BuildCard :build="b" :new-comments="notif.byBuild[b.id] ?? 0" />
+              <button
+                v-if="isOutdated(b)"
+                type="button"
+                class="refresh-btn"
+                :disabled="refreshing === b.id"
+                :title="`Marks this build as made for ${BALANCE.name} ${BALANCE.version}, without changing anything else`"
+                @click="refreshBuild(b)">
+                {{ refreshing === b.id ? 'Updating…' : 'No major changes, update this build' }}
+              </button>
+            </div>
           </div>
         </template>
       </section>
@@ -453,6 +482,26 @@ async function setAvatar(id) {
   border: 0;
   text-decoration: underline;
   cursor: pointer;
+}
+.build-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.build-item > :first-child {
+  flex: 1;
+}
+.refresh-btn {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.refresh-btn:hover:not(:disabled) {
+  background: rgb(201 162 74 / 0.12);
 }
 .cards {
   display: grid;
