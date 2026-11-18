@@ -9,6 +9,7 @@ import { AVATARS, avatarSrc } from '../utils/avatars.js'
 import CardCarousel from '../components/CardCarousel.vue'
 import SectionIcon from '../components/SectionIcon.vue'
 import FollowedUserCard from '../components/FollowedUserCard.vue'
+import BellIcon from '../components/BellIcon.vue'
 import FollowingModal from '../components/FollowingModal.vue'
 import { SHIELD } from '../utils/shield.js'
 import AccountSettings from '../components/AccountSettings.vue'
@@ -198,10 +199,13 @@ async function setAvatar(id) {
       <h2 id="notif-title" class="list-title with-icon"><SectionIcon name="comments" />New comments</h2>
       <ul class="notif-list">
         <li v-for="n in notif.items" :key="n.buildId">
-          <RouterLink :to="`/builds/${n.buildId}`" class="notif-link">
-            <span class="notif-count">{{ n.count > 9 ? '9+' : n.count }}</span>
+          <RouterLink
+            :to="{ path: `/builds/${n.buildId}`, hash: '#comments' }"
+            class="notif-link"
+            :title="`${n.count} unread ${n.count === 1 ? 'comment' : 'comments'}`">
+            <span class="notif-bell"><BellIcon /></span>
             <strong class="notif-title">{{ n.title }}</strong>
-            <span class="meta">{{ n.mine ? 'on your build' : `replies, build by ${n.author}` }}</span>
+            <span class="meta">{{ n.mine ? 'new comments on your build' : `new replies, build by ${n.author}` }}</span>
           </RouterLink>
         </li>
       </ul>
@@ -352,7 +356,7 @@ async function setAvatar(id) {
 .block {
   margin-bottom: 1.5rem;
 }
-/* Unread comments: one line per build, with the number in a --flashy disc */
+/* Unread comments: one line per build, with a --flashy bell (the number is in the tooltip) */
 .notif-list {
   display: grid;
   gap: 0.5rem;
@@ -379,18 +383,9 @@ async function setAvatar(id) {
 .notif-link .meta {
   margin: 0;
 }
-.notif-count {
-  display: inline-grid;
-  place-items: center;
-  min-width: 1.6rem;
-  height: 1.6rem;
-  padding: 0 0.35rem;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  background: var(--flashy);
-  border-radius: 999px;
+.notif-bell {
+  display: inline-flex;
+  color: var(--flashy);
 }
 /* The title of the list is a button: click = the window with everyone (same look as SectionTitle) */
 .title-btn {

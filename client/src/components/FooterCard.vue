@@ -39,9 +39,9 @@ const docs = [
         <RouterLink to="/privacy">Privacy &amp; rules</RouterLink>
         <div class="disclaimer">
           <p>
-            Talents, weapons and gear follow the <strong>{{ BALANCE.name }}</strong> mod ({{
-              BALANCE.version
-            }}), not the official game balance.
+            Talents, weapons and gear follow the
+            <strong>{{ BALANCE.name }} mod ({{ BALANCE.version }})</strong>, not the official game
+            balance.
           </p>
           <p>
             This is a personal project made for the Vermintide 2 Modded Realm community. It has no
@@ -53,7 +53,6 @@ const docs = [
 
       <section class="col">
         <h3>Changelogs</h3>
-        <p class="sub">Official documentation</p>
         <ul>
           <li v-for="doc in docs" :key="doc.url">
             <a :href="doc.url" target="_blank" rel="noopener noreferrer">{{ doc.label }}</a>
@@ -120,7 +119,7 @@ ul {
 }
 
 .disclaimer {
-  max-width: 22rem; /* narrower text block */
+  max-width: 25rem;
   margin-top: 0.8rem;
   font-size: 0.8rem;
   color: var(--muted);
@@ -132,6 +131,10 @@ ul {
 
 a {
   text-decoration: none;
+}
+
+strong {
+  color: rgb(201, 201, 201);
 }
 
 @media (max-width: 600px) {

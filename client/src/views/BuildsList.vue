@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { useRoute } from 'vue-router'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
@@ -11,6 +12,7 @@ import ListModal from '../components/ListModal.vue'
 
 const { heroes, getHeroWeapons } = useGameData()
 const auth = useAuth()
+const route = useRoute()
 
 // Filters (the list shows 20 builds per page)
 const career = ref('') // careers of all heroes in one list: nobody looks for a hero, always for a career
@@ -155,6 +157,18 @@ async function loadFollowed() {
 
 const refresh = () => Promise.all([loadTop(), loadList({ silent: true }), loadFollowed()])
 
+// The bell of the menu leads to /#followed: once the section is there, bring it into view
+const followedSection = ref(null)
+watch(
+  [followedLoaded, () => route.hash],
+  async ([loaded, hash]) => {
+    if (!loaded || hash !== '#followed') return
+    await nextTick()
+    followedSection.value?.scrollIntoView?.({ block: 'start', behavior: 'smooth' })
+  },
+  { flush: 'post' },
+)
+
 // Any filter change goes back to page 1. Nothing is reloaded if the filters did not really change
 // (for instance after "Reset filters", which changes several values at once).
 let lastKey = ''
@@ -258,7 +272,7 @@ onMounted(() => {
 
   <div v-if="top.length && showFollowed && !hideFollowed" class="ornament" aria-hidden="true">◆</div>
 
-  <section v-if="showFollowed" class="block" aria-labelledby="followed-title">
+  <section v-if="showFollowed" ref="followedSection" class="block followed-section" aria-labelledby="followed-title">
     <SectionTitle
       id="followed-title"
       icon="following"
@@ -325,6 +339,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.followed-section {
+  scroll-margin-top: 8rem; /* the header stays on top of the page: the title is not hidden under it */
+}
 .block {
   margin-bottom: 2rem;
 }

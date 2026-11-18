@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
@@ -45,7 +45,18 @@ async function load(page = data.value?.page ?? 1) {
     loading.value = false
   }
 }
-onMounted(() => load(1))
+// The bell of the menu leads to /builds/<id>#comments: once the comments are shown, bring them into view
+const scrollToComments = () =>
+  nextTick(() => root.value?.scrollIntoView?.({ block: 'start', behavior: 'smooth' }))
+onMounted(async () => {
+  await load(1)
+  if (route.hash === '#comments') scrollToComments()
+})
+// Already on this build and the bell is clicked: the page does not reload, only the hash changes
+watch(
+  () => route.hash,
+  (hash) => hash === '#comments' && !loading.value && scrollToComments(),
+)
 
 // Pager buttons: also bring the top of the comments back into view
 async function goTo(page) {
@@ -190,6 +201,7 @@ const repliesLabel = (n) => `${n} ${n === 1 ? 'reply' : 'replies'}`
 <style scoped>
 .comments {
   margin-top: 2.5rem;
+  scroll-margin-top: 8rem; /* the header stays on top of the page: the title is not hidden under it */
 }
 .comments .count {
   font-size: 1rem;

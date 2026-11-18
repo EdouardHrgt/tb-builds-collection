@@ -1,10 +1,11 @@
 <script setup>
 import { avatarSrc } from '../utils/avatars.js'
 import { SHIELD } from '../utils/shield.js'
+import BellIcon from './BellIcon.vue'
 
 // A followed account as a shield: only its outline is drawn, the avatar fills it (cropped on its top),
 // name / builds / followers are on its lower half, a small unfollow icon sits astride its top right edge and,
-// opposite, a white disc shows how many of his builds are new (not opened yet).
+// opposite, a bell shows that he has builds you have not opened yet (the number is in its tooltip).
 // The shapes it uses (#shield-clip, #shield-fade) are defined once by the page (see MyBuilds.vue).
 //   <FollowedUserCard :user="u" @unfollow="(username) => ..." />
 defineProps({
@@ -40,7 +41,7 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
       role="img"
       :aria-label="plural(user.newBuilds, 'new build')"
       :title="plural(user.newBuilds, 'new build')">
-      {{ user.newBuilds > 9 ? '9+' : user.newBuilds }}
+      <BellIcon :size="16" />
     </span>
     <button
       type="button"
@@ -131,7 +132,7 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   border-radius: 50%;
   transition: transform 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
 }
-/* New builds: disc in the --flashy color on the sloping top left edge, symmetrical to the unfollow icon */
+/* New builds: a bell on a --flashy disc, on the sloping top left edge, symmetrical to the unfollow icon */
 .new-badge {
   position: absolute;
   top: 2.5%;
@@ -140,12 +141,8 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
   display: grid;
   place-items: center;
   box-sizing: border-box;
-  min-width: 1.9rem;
+  width: 1.9rem;
   height: 1.9rem;
-  padding: 0 0.3rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  line-height: 1;
   color: #1a1a1a;
   background: var(--flashy);
   border: 1px solid var(--line);

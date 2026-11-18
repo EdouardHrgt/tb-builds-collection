@@ -202,6 +202,8 @@ const commentsLabel = computed(
   margin: 0.6rem 0 0.2rem;
   overflow: hidden;
   overflow-wrap: anywhere;
+  font-family: 'Quintessential', serif; /* same font as the "Talents" titles of the Changelogs */
+  font-weight: 400; /* this font only has one weight: a bold would be faked by the browser */
   line-height: 1.25;
   letter-spacing: 0.7px;
   -webkit-line-clamp: 2;
