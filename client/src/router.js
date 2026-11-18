@@ -38,7 +38,7 @@ const router = createRouter({
       // What the difficulty mods change: same look as the changelogs, own page (linked from the header)
       path: '/difficulties',
       component: () => import('./views/changelogs/ChangelogsLayout.vue'),
-      meta: { wide: true, title: 'Difficulty Mods', home: '/difficulties' },
+      meta: { wide: true, noHeader: true }, // no Vermintide logo here: the page has its own title
       children: [{ path: '', component: () => import('./components/changelogs/Difficulties.vue') }],
     },
     { path: '/privacy', component: () => import('./views/PrivacyPolicy.vue') },

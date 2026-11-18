@@ -1,12 +1,10 @@
 <script setup>
-// Wrapper of the "Changelogs" section (the former VT2 changelogs app): own background and header (the footer is the one of the whole site).
+// Wrapper of the "Changelogs" section (the former VT2 changelogs app): own header (the footer is the one of the whole site).
 // Its styles (changelogs.css) only apply inside .vt2cl, so the rest of the site is not affected.
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import Header from '../../components/changelogs/Header.vue'
 import '../../styles/changelogs.css'
 
-// One fixed background (the dark one goes best with the colours of the site header and footer)
-const backgroundImage = '/changelogs/background-2.webp'
 const top = ref('0px')
 
 // The site header is sticky: the sticky title bar of a career page sticks right under it
@@ -34,8 +32,8 @@ onBeforeUnmount(() => {
 <template>
   <div
     class="vt2cl"
-    :style="{ backgroundImage: `url(${backgroundImage})`, '--cl-top': top }">
-    <Header :title="$route.meta.title" :to="$route.meta.home" />
+    :style="{ '--cl-top': top }">
+    <Header v-if="!$route.meta.noHeader" />
     <RouterView :key="$route.path" />
     <!-- Stable element right after the page: the modals are teleported into this wrapper, and without a fixed
          neighbour Vue loses its place when the page is replaced (the next page then never appears) -->

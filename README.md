@@ -23,6 +23,10 @@ are printed in the server console. Restart the server after changing the JSON fi
 The server serves both the API and the built front end (`client/dist`): same origin, no CORS.
 Step-by-step guide for a VPS: **[DEPLOY.md](DEPLOY.md)**.
 
+## API
+
+Endpoints and build data format: **[docs/API.md](docs/API.md)**.
+
 ## Admin and maintenance
 
 Moderation, password reset and backups: **[server/scripts/README.md](server/scripts/README.md)**.

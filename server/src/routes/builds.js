@@ -39,13 +39,14 @@ const weaponSchema = z
   .strict()
   .refine(distinct, DISTINCT_MSG)
 
-// One hit of a breakpoint: a kind of hit (heavy / light / charged) landing on a zone (head / body).
+// One hit of a breakpoint: a kind of hit (heavy / light / charged...) landing on a zone (head / body).
+// A stagger breakpoint (type with zones: false) has no zone and no crit: just the kind of hit.
 // The ids are checked against breakpoint-attacks.json in validateBuildData.
 // `crit`: this hit is a critical one. Cards saved before that existed carry one `crit` on the card instead
 // (= all hits are crits), so the card keeps accepting it.
-const hitSchema = z.object({ kind: id, zone: id, crit: z.boolean().optional() }).strict()
+const hitSchema = z.object({ kind: id, zone: id.optional(), crit: z.boolean().optional() }).strict()
 
-// A fast breakpoint card: 1 or 2 hits with a weapon type (melee / ranged), a crit flag per hit and boosters,
+// A fast breakpoint card: 1 or 2 hits with a type (melee / ranged / stagger), a crit flag per hit and boosters,
 // and the enemies it kills fast
 const breakpointSchema = z
   .object({

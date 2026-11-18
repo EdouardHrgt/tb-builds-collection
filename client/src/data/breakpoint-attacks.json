@@ -17,6 +17,21 @@
         { "id": "heavy", "name": "Heavy" },
         { "id": "light", "name": "Light" }
       ]
+    },
+    {
+      "id": "stagger",
+      "name": "Stagger",
+      "icon": "/shared/breakpoints/stagger.svg",
+      "maxHits": 1,
+      "zones": false,
+      "crits": false,
+      "kinds": [
+        { "id": "push", "name": "Push" },
+        { "id": "pushattack", "name": "Push attack" },
+        { "id": "ultimate", "name": "Ultimate" },
+        { "id": "heavy", "name": "Heavy" },
+        { "id": "light", "name": "Light" }
+      ]
     }
   ],
   "zones": [

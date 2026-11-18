@@ -91,10 +91,6 @@ const difficulties = {
 <template>
   <section class="page">
     <h2 class="page-title">Difficulty Mods</h2>
-    <p class="intro">
-      What the community difficulty mods change, on top of the official Legend, Cataclysm and Cataclysm 3 levels.
-    </p>
-
     <div v-for="(difficulty, key) in difficulties" :key="key" class="section">
       <h3 class="section-title">{{ difficulty.name }}</h3>
       <ul class="modal-list">

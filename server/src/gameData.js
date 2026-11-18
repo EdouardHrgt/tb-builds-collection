@@ -123,11 +123,18 @@ export function validateBuildData({ heroId, careerId, data }) {
   for (const card of data.breakpoints ?? []) {
     const type = breakpointOptions.types.find((t) => t.id === card.type)
     if (!type) return 'Breakpoint: unknown attack type'
+    // Stagger: one hit, no zone, no crit (flags of the type in breakpoint-attacks.json)
+    const hasZones = type.zones !== false
+    const hasCrits = type.crits !== false
+    if (card.hits.length > (type.maxHits ?? 2)) return 'Breakpoint: too many hits for this type'
+    if (!hasCrits && card.crit) return 'Breakpoint: this type has no crit'
     for (const hit of card.hits) {
       if (!type.kinds.some((k) => k.id === hit.kind)) {
         return 'Breakpoint: this kind of hit does not exist for this type'
       }
-      if (!breakpointOptions.zones.some((z) => z.id === hit.zone)) return 'Breakpoint: unknown target'
+      if (hasZones && !breakpointOptions.zones.some((z) => z.id === hit.zone)) return 'Breakpoint: unknown target'
+      if (!hasZones && hit.zone !== undefined) return 'Breakpoint: this type has no target'
+      if (!hasCrits && hit.crit) return 'Breakpoint: this type has no crit'
     }
     if (new Set(card.boosters).size !== card.boosters.length) return 'Breakpoint: a booster is listed twice'
     if (!card.boosters.every((id) => breakpointOptions.boosters.some((b) => b.id === id))) {
@@ -135,7 +142,7 @@ export function validateBuildData({ heroId, careerId, data }) {
     }
     const key = [
       card.type,
-      card.hits.map((h) => `${h.kind}:${h.zone}${(h.crit ?? !!card.crit) ? ':crit' : ''}`).join('>'),
+      card.hits.map((h) => `${h.kind}:${h.zone ?? ''}${(h.crit ?? !!card.crit) ? ':crit' : ''}`).join('>'),
       [...card.boosters].sort().join(','),
     ].join('|')
     if (usedCards.has(key)) return 'Breakpoint: two cards are identical'

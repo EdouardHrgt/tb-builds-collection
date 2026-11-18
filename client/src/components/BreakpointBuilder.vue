@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, nextTick } from 'vue'
 import { useGameData } from '../composables/useGameData.js'
-import { breakpointKey, hitCrit, MAX_HITS } from '../utils/breakpoints.js'
+import { breakpointKey, hitCrit, typeRules } from '../utils/breakpoints.js'
 import BreakpointCard from './BreakpointCard.vue'
 
 // The cards of the build: [{ type, hits: [{ kind, zone, crit }], boosters, enemyIds }]
@@ -24,15 +24,17 @@ const boosterIds = ref([])
 const enemyIds = ref([])
 
 const kinds = computed(() => getBreakpointType(typeId.value).kinds)
+// Melee / ranged: 2 hits at most, each with a body part and a crit. Stagger: one plain hit (just the attack).
+const rules = computed(() => typeRules(getBreakpointType(typeId.value)))
 
 // The card being built, in the format of a finished card
 const draft = computed(() => ({
   type: typeId.value,
-  hits: hits.value.map((h) => ({ kind: h.kind, zone: h.zone, crit: !!h.crit })),
+  hits: hits.value.map((h) => (rules.value.hasZones ? { kind: h.kind, zone: h.zone, crit: !!h.crit } : { kind: h.kind })),
   boosters: BREAKPOINT_BOOSTERS.map((b) => b.id).filter((id) => boosterIds.value.includes(id)), // catalog order
   enemyIds: ENEMY_IDS.filter((id) => enemyIds.value.includes(id)), // always stored in catalog order
 }))
-const hitsDone = computed(() => hits.value.every((h) => h.kind && h.zone))
+const hitsDone = computed(() => hits.value.every((h) => h.kind && (!rules.value.hasZones || h.zone)))
 // Same hits (and their crits) and boosters as a card of the build: only its enemies would differ
 // (the card being edited is not compared with itself)
 const alreadyAdded = computed(
@@ -42,7 +44,7 @@ const alreadyAdded = computed(
 )
 const canAdd = computed(() => hitsDone.value && enemyIds.value.length > 0 && !alreadyAdded.value)
 const hint = computed(() => {
-  if (!hitsDone.value) return 'Pick the attack and the body part of each hit.'
+  if (!hitsDone.value) return rules.value.hasZones ? 'Pick the attack and the body part of each hit.' : 'Pick the attack.'
   if (alreadyAdded.value) return 'This breakpoint is already in the build: remove its card to change the enemies.'
   if (!enemyIds.value.length) return 'Pick at least one enemy.'
   return ''
@@ -52,10 +54,13 @@ function setType(id) {
   typeId.value = id
   // Melee has heavy attacks and ranged has charged ones: a kind that does not exist for the new type is cleared
   const valid = new Set(getBreakpointType(id).kinds.map((k) => k.id))
-  hits.value = hits.value.map((h) => ({ kind: valid.has(h.kind) ? h.kind : '', zone: h.zone, crit: h.crit }))
+  // The new type may allow fewer hits (stagger: one)
+  hits.value = hits.value
+    .slice(0, typeRules(getBreakpointType(id)).maxHits)
+    .map((h) => ({ kind: valid.has(h.kind) ? h.kind : '', zone: h.zone, crit: h.crit }))
 }
 const addHit = () => {
-  if (hits.value.length < MAX_HITS) hits.value = [...hits.value, { kind: '', zone: '', crit: false }]
+  if (hits.value.length < rules.value.maxHits) hits.value = [...hits.value, { kind: '', zone: '', crit: false }]
 }
 const removeHit = (index) => (hits.value = hits.value.filter((_, i) => i !== index))
 
@@ -100,7 +105,7 @@ async function editCard(index) {
   const c = cards.value[index]
   editingIndex.value = index
   typeId.value = c.type
-  hits.value = c.hits.map((h) => ({ kind: h.kind, zone: h.zone, crit: hitCrit(c, h) })) // an old card-level crit goes onto each hit
+  hits.value = c.hits.map((h) => ({ kind: h.kind, zone: h.zone ?? '', crit: hitCrit(c, h) })) // an old card-level crit goes onto each hit
   boosterIds.value = [...(c.boosters ?? [])]
   enemyIds.value = [...c.enemyIds]
   await nextTick()
@@ -118,7 +123,7 @@ function removeCard(index) {
   <div class="bp-builder">
     <div ref="formEl" class="bp-form">
       <p v-if="editingIndex >= 0" class="bp-editing" role="status">Editing breakpoint {{ editingIndex + 1 }}</p>
-      <!-- Melee / Ranged icons -->
+      <!-- Melee / Ranged / Stagger icons -->
       <div class="bp-types" role="radiogroup" aria-label="Weapon type">
         <label v-for="t in BREAKPOINT_TYPES" :key="t.id" class="bp-type-option" :title="t.name">
           <input
@@ -134,7 +139,7 @@ function removeCard(index) {
 
       <!-- One line per hit (1 or 2): the kind of hit, then where it lands -->
       <div v-for="(hit, i) in hits" :key="i" class="bp-hit">
-        <span class="bp-hit-label">Hit {{ i + 1 }}</span>
+        <span v-if="rules.maxHits > 1" class="bp-hit-label">Hit {{ i + 1 }}</span>
         <div class="bp-group">
           <span class="bp-sub">Attack</span>
           <div class="bp-seg" role="group" :aria-label="`Hit ${i + 1}: attack`">
@@ -150,7 +155,7 @@ function removeCard(index) {
             </button>
           </div>
         </div>
-        <div class="bp-group bp-group-sep">
+        <div v-if="rules.hasZones" class="bp-group bp-group-sep">
           <span class="bp-sub">Body part</span>
           <div class="bp-seg" role="group" :aria-label="`Hit ${i + 1}: body part`">
             <button
@@ -165,14 +170,14 @@ function removeCard(index) {
             </button>
           </div>
         </div>
-        <label class="bp-check bp-hit-crit">
+        <label v-if="rules.hasCrits" class="bp-check bp-hit-crit">
           <input v-model="hit.crit" type="checkbox" />
           Critical hit
         </label>
         <button v-if="i > 0" type="button" class="link-btn" @click="removeHit(i)">Remove</button>
       </div>
       <div class="bp-options">
-        <button v-if="hits.length < MAX_HITS" type="button" class="link-btn" @click="addHit">
+        <button v-if="hits.length < rules.maxHits" type="button" class="link-btn" @click="addHit">
           + Add a second hit
         </button>
       </div>

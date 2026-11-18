@@ -203,7 +203,10 @@ onMounted(async () => {
       breakpoints: (b.data.breakpoints ?? []).map((c) => ({
         ...c,
         // an old card-level crit is moved onto each hit
-        hits: c.hits.map((h) => ({ kind: h.kind, zone: h.zone, crit: hitCrit(c, h) })),
+        // (a stagger hit has no zone and no crit)
+        hits: c.hits.map((h) =>
+          h.zone === undefined ? { kind: h.kind } : { kind: h.kind, zone: h.zone, crit: hitCrit(c, h) },
+        ),
         boosters: [...c.boosters],
         enemyIds: [...c.enemyIds],
       })),

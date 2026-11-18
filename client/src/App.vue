@@ -155,16 +155,8 @@ async function logout() {
   border-color: var(--accent);
   opacity: 1;
 }
-/* Wide screens: the tag sits in the middle of the header (the header is the positioned parent).
-   Below 1400px there is no room (the logged-in menu is wide): it stays next to the logo. */
-@media (min-width: 1400px) {
-  .balance-tag {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
+/* The tag always stays next to the logo: the width of the menu changes (links, user name), so a tag centered
+   in the header ended up touching the links on some screen widths. */
 @media (max-width: 600px) {
   /* Phones: everything is centered, one line each: the logo, the balance tag under it, then the links */
   .top {
