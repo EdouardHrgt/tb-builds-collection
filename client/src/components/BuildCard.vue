@@ -89,7 +89,8 @@ const commentsLabel = computed(
 
       <h3 :title="build.title">{{ build.title }}</h3>
       <p class="meta author" :title="build.author">by {{ build.author }}</p>
-      <p v-if="rolesText" class="roles" :title="rolesText">{{ rolesText }}</p>
+      <!-- Always there (a non-breaking space when the build has no role): every card keeps the same height -->
+      <p class="roles" :title="rolesText || null" :aria-hidden="rolesText ? null : 'true'">{{ rolesText || '\u00A0' }}</p>
     </RouterLink>
 
     <!-- Top right corner: bookmark, then like (they are siblings of the link, see above) -->
@@ -243,6 +244,8 @@ const commentsLabel = computed(
   max-width: 100%;
   margin: 0.25rem 0 0;
   padding: 0;
+  line-height: 1.3;
+  min-height: 1.3em;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.2px;
