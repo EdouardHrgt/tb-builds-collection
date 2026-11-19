@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { api } from '../api.js'
 import { useAuth } from '../stores/auth.js'
 import { useGameData } from '../composables/useGameData.js'
+import { ROLES } from '../utils/roles.js'
 import IconSelect from '../components/IconSelect.vue'
 import BuildCard from '../components/BuildCard.vue'
 import CardCarousel from '../components/CardCarousel.vue'
@@ -26,6 +27,7 @@ const hero = computed(
 )
 const username = ref('')
 const sort = ref('newest') // newest (default) | oldest | likes
+const role = ref('') // '' = no role filter
 const upToDate = ref(false) // true = hide the builds made for an older balance version ("Outdated" ones)
 const page = ref(1)
 
@@ -89,7 +91,7 @@ function onCareerChange() {
   if (weapon.value && !weaponName.value) weapon.value = ''
 }
 const hasFilters = computed(
-  () => career.value || weapon.value || username.value.trim() || sort.value !== 'newest' || upToDate.value,
+  () => career.value || weapon.value || role.value || username.value.trim() || sort.value !== 'newest' || upToDate.value,
 )
 
 // Name of the career in the filters, for the message of an empty "From people I follow"
@@ -125,6 +127,7 @@ async function loadList({ silent = false } = {}) {
   const q = heroCareerQuery()
   if (username.value.trim()) q.set('username', username.value.trim())
   q.set('sort', sort.value)
+  if (role.value) q.set('role', role.value)
   if (upToDate.value) q.set('upToDate', '1')
   q.set('page', page.value)
   try {
@@ -172,7 +175,8 @@ watch(
 // Any filter change goes back to page 1. Nothing is reloaded if the filters did not really change
 // (for instance after "Reset filters", which changes several values at once).
 let lastKey = ''
-const filtersKey = () => [hero.value, career.value, weapon.value, username.value.trim(), sort.value, upToDate.value].join('|')
+const filtersKey = () =>
+  [hero.value, career.value, weapon.value, role.value, username.value.trim(), sort.value, upToDate.value].join('|')
 function applyFilters() {
   if (filtersKey() === lastKey) return
   lastKey = filtersKey()
@@ -185,7 +189,7 @@ watch([career, weapon], () => {
   loadTop()
   loadFollowed()
 })
-watch([career, weapon, sort, upToDate], applyFilters)
+watch([career, weapon, role, sort, upToDate], applyFilters)
 
 // The author search waits for the end of the typing (300 ms) before asking the server
 let typing = null
@@ -201,6 +205,7 @@ onBeforeUnmount(() => {
 function resetFilters() {
   career.value = ''
   weapon.value = ''
+  role.value = ''
   username.value = ''
   sort.value = 'newest'
   upToDate.value = false
@@ -236,6 +241,10 @@ onMounted(() => {
   <div class="filters">
     <IconSelect v-model="career" :groups="careerGroups" placeholder="Careers" aria-label="Career" @change="onCareerChange" />
     <IconSelect v-model="weapon" :groups="weaponOptions" placeholder="Weapons" aria-label="Weapon" />
+    <select v-model="role" aria-label="Role">
+      <option value="">All roles</option>
+      <option v-for="r in ROLES" :key="r.id" :value="r.id">{{ r.name }}</option>
+    </select>
     <input
       v-model="username"
       class="search"

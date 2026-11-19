@@ -20,6 +20,7 @@ import { breakpointKey } from '../utils/breakpoints.js'
 import { copyText } from '../utils/clipboard.js'
 import { BALANCE } from '../utils/balance.js'
 import { buildDifficultyLabel } from '../utils/difficulty.js'
+import { buildRoles } from '../utils/roles.js'
 import { parseDbDate, fullDate } from '../utils/time.js'
 
 const gameData = useGameData()
@@ -146,6 +147,10 @@ const buildDate = computed(() => {
             }}</span
           >
         </p>
+        <!-- Roles of the build (2 at most), under the career line -->
+        <ul v-if="buildRoles(build).length" class="roles" aria-label="Roles">
+          <li v-for="r in buildRoles(build)" :key="r.id" :title="r.description">{{ r.name }}</li>
+        </ul>
         <RouterLink :to="`/u/${build.author}`" class="author-row" title="See profile">
           <AvatarFrame :id="build.authorAvatar" class="author-frame" />
           <span class="author-text">
@@ -281,6 +286,24 @@ const buildDate = computed(() => {
 </template>
 
 <style scoped>
+/* Roles: small outlined chips in the color of the career */
+.roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.1rem 0 0.7rem;
+  padding: 0;
+  list-style: none;
+}
+.roles li {
+  padding: 0.15rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--career-color, var(--accent));
+  border: 1px solid var(--career-color, var(--accent));
+  border-radius: 999px;
+}
 /* Difficulty of the breakpoints, after the career name: big, in the color of the career */
 .difficulty {
   margin: 0 0.5rem 0 0.2rem;

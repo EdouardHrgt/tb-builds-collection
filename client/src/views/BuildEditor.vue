@@ -7,6 +7,7 @@ import { useGameData } from '../composables/useGameData.js'
 import { BALANCE } from '../utils/balance.js'
 import { hitCrit } from '../utils/breakpoints.js'
 import { DIFFICULTIES, DEFAULT_DIFFICULTY, DEFAULT_DEATHWISH, difficultyLabel } from '../utils/difficulty.js'
+import { ROLES, MAX_ROLES } from '../utils/roles.js'
 import TalentGrid from '../components/TalentGrid.vue'
 import CareerAbilities from '../components/CareerAbilities.vue'
 import GearSlot from '../components/GearSlot.vue'
@@ -62,6 +63,7 @@ const savedBalance = ref('')
 const copyFrom = !editingId && /^\d+$/.test(String(route.query.from ?? '')) ? String(route.query.from) : ''
 const form = ref({
   title: '',
+  roles: [],
   description: '',
   heroId: heroes[0].id,
   careerId: heroes[0].careers[0].id,
@@ -74,6 +76,12 @@ const form = ref({
   teammates: [],
   teamDescription: '',
 })
+// Roles: 2 at most, kept in the order of the list (so a build always shows them the same way)
+function toggleRole(id) {
+  const roles = form.value.roles
+  if (roles.includes(id)) form.value.roles = roles.filter((r) => r !== id)
+  else if (roles.length < MAX_ROLES) form.value.roles = ROLES.map((r) => r.id).filter((r) => r === id || roles.includes(r))
+}
 // The team description only makes sense with a team: it is emptied when the last teammate is removed
 watch(
   () => form.value.teammates.length,
@@ -198,6 +206,7 @@ onMounted(async () => {
         EQUIPMENT_SLOTS.map((s) => [s.id, fromGear(b.data.equipment?.[s.id])]),
       ),
       // a build saved before the choice existed was made for C3DW
+      roles: Array.isArray(b.data.roles) ? b.data.roles : [],
       difficulty: b.data.difficulty ?? DEFAULT_DIFFICULTY,
       deathwish: b.data.deathwish ?? DEFAULT_DEATHWISH,
       breakpoints: (b.data.breakpoints ?? []).map((c) => ({
@@ -275,6 +284,7 @@ async function save() {
       talents: f.talents,
       weapons: mapValues(f.weapons, cleanWeapon),
       equipment: mapValues(f.equipment, cleanGear),
+      roles: f.roles,
       difficulty: f.difficulty,
       deathwish: f.deathwish,
       breakpoints: f.breakpoints,
@@ -325,10 +335,29 @@ const openSaved = () => router.push(`/builds/${savedId.value}`)
           <input v-model="form.title" :maxlength="TITLE_MAX" required />
         </label>
 
+        <!-- Roles: optional, 2 at most (data/roles.json). Shown under the title of the build, and on its card -->
+        <div class="roles-field" role="group" aria-labelledby="roles-title">
+          <span id="roles-title" class="roles-title">Roles</span>
+          <div class="role-chips">
+            <button
+              v-for="r in ROLES"
+              :key="r.id"
+              type="button"
+              class="role-chip"
+              :class="{ on: form.roles.includes(r.id) }"
+              :aria-pressed="form.roles.includes(r.id)"
+              :disabled="!form.roles.includes(r.id) && form.roles.length >= MAX_ROLES"
+              :title="r.description"
+              @click="toggleRole(r.id)">
+              {{ r.name }}
+            </button>
+          </div>
+        </div>
+
         <!-- Difficulty of the breakpoints: shown next to the "Breakpoints" title and under the career name on the build page -->
         <div class="difficulty">
           <label>
-            Breakpoints difficulty
+            Difficulty
             <select v-model="form.difficulty">
               <option v-for="d in DIFFICULTIES" :key="d.id" :value="d.id">{{ d.label }}</option>
             </select>
@@ -580,6 +609,54 @@ section {
 .gear-layout fieldset {
   min-width: 0;
   align-content: start;
+}
+/* Roles: the same chips as the career list, but several can be selected (2 at most) */
+.roles-field {
+  display: grid;
+  gap: 0.3rem;
+}
+.role-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+/* On a screen wide enough: all the roles on one single line. The chips shrink a little (and cut a long name with "…")
+   rather than going to a second line. On a phone they wrap. */
+@media (min-width: 700px) {
+  .role-chips {
+    flex-wrap: nowrap;
+  }
+  .role-chip {
+    flex: 0 1 auto;
+    min-width: 0;
+    padding: 0.35rem 0.55rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+.role-chip {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.role-chip:hover:not(:disabled) {
+  border-color: var(--career-color, var(--accent));
+}
+.role-chip.on {
+  color: #1a1a1a;
+  font-weight: 700;
+  background: var(--career-color, var(--accent));
+  border-color: var(--career-color, var(--accent));
+}
+.role-chip:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 /* Difficulty of the breakpoints, right above their section */
 .difficulty {

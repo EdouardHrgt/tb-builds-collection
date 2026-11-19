@@ -15,6 +15,7 @@ const FILES = [
   'enemies.json',
   'breakpoint-attacks.json',
   'difficulties.json',
+  'roles.json',
 ]
 const missing = FILES.filter((f) => !fs.existsSync(path.join(DATA_DIR, f)))
 if (missing.length) {
@@ -36,6 +37,11 @@ const difficultyData = load('difficulties.json')
 export const DIFFICULTY_IDS = difficultyData.difficulties.map((d) => d.id)
 export const DEFAULT_DIFFICULTY = difficultyData.defaultDifficulty
 export const DEFAULT_DEATHWISH = difficultyData.defaultDeathwish
+
+// Roles of a build (2 at most, optional): data/roles.json
+const roleData = load('roles.json')
+export const ROLE_IDS = roleData.roles.map((r) => r.id)
+export const MAX_ROLES = roleData.maxRoles
 
 const TIERS = ['5', '10', '15', '20', '25', '30']
 const has = (obj, key) => Object.hasOwn(obj, key)
@@ -152,6 +158,10 @@ export function validateBuildData({ heroId, careerId, data }) {
     if (!card.enemyIds.every((id) => enemies.some((e) => e.id === id)))
       return 'Breakpoint: unknown enemy'
   }
+  // Roles: known, none listed twice (the schema limits how many)
+  const roles = data.roles ?? []
+  if (new Set(roles).size !== roles.length) return 'Roles: a role is listed twice'
+  if (roles.length > MAX_ROLES) return `Roles: pick ${MAX_ROLES} at most`
   // Recommended teammates: careers of OTHER heroes, at most one per hero (a team has one of each hero)
   const teamHeroes = new Set()
   for (const mate of data.teammates ?? []) {

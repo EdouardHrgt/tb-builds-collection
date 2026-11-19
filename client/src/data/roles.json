@@ -1,0 +1,12 @@
+{
+  "maxRoles": 2,
+  "roles": [
+    { "id": "meleedps", "name": "Melee DPS", "description": "Deals most of the team's damage up close" },
+    { "id": "rangeddps", "name": "Ranged DPS", "description": "Deals most of the team's damage from a distance" },
+    { "id": "hybriddps", "name": "Hybrid DPS", "description": "Deals strong damage both up close and from a distance" },
+    { "id": "tank", "name": "Tank", "description": "Takes the hits and holds the front line" },
+    { "id": "support", "name": "Support", "description": "Helps the team survive: healing, buffs, covering allies" },
+    { "id": "backliner", "name": "Backliner", "description": "Stays behind the team and covers it from the back" },
+    { "id": "objectiverunner", "name": "Objective runner", "description": "Takes care of the mission objectives and carried items" }
+  ]
+}

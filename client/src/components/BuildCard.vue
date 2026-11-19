@@ -4,6 +4,7 @@ import { useGameData } from '../composables/useGameData.js'
 import LikeButton from './LikeButton.vue'
 import BookmarkButton from './BookmarkButton.vue'
 import { BALANCE } from '../utils/balance.js'
+import { buildRoles } from '../utils/roles.js'
 
 const props = defineProps({
   build: { type: Object, required: true },
@@ -25,6 +26,13 @@ const oldVersion = computed(() => {
   return v && v !== BALANCE.version ? v : ''
 })
 
+// "Tank · Support": the roles of the build, in a single small line
+const rolesText = computed(() =>
+  buildRoles(props.build)
+    .map((r) => r.name)
+    .join(' · '),
+)
+
 const comments = computed(() => props.build.commentCount ?? 0)
 const commentsShown = computed(() => (comments.value > 99 ? '99+' : comments.value))
 const commentsLabel = computed(
@@ -37,48 +45,58 @@ const commentsLabel = computed(
 <template>
   <!-- The like and bookmark buttons are siblings of the link, not inside it: a button inside a link is invalid HTML.
        Layout (vertical):   COMMENTS   PORTRAIT   LIKE
+                                  [NEW]
                                      TITLE (2 lines max)
-                                  by AUTHOR            BOOKMARK -->
+                                  by AUTHOR
+                                      ROLES -->
   <div class="card-wrap">
     <RouterLink :to="`/builds/${build.id}`" class="card" :style="careerStyle">
       <div class="top-row">
-        <span class="comment-count" :class="{ unread: newComments > 0 }" role="img" :aria-label="commentsLabel" :title="commentsLabel">
-          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-            <path
-              d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linejoin="round" />
-          </svg>
-          {{ commentsShown }}
-        </span>
+        <div class="side left">
+          <span class="comment-count" :class="{ unread: newComments > 0 }" role="img" :aria-label="commentsLabel" :title="commentsLabel">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path
+                d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round" />
+            </svg>
+            {{ commentsShown }}
+          </span>
+        </div>
 
-        <img
-          v-if="career?.icon"
-          :src="career.icon"
-          :alt="career.name"
-          width="64"
-          height="79"
-          class="portrait"
-          loading="lazy" />
-        <span v-else class="portrait" aria-hidden="true"></span>
-        <!-- (the like button sits in this empty third cell, see .like-corner) -->
+        <!-- The tags sit on the lower half of the portrait (out of the flow: the card keeps its height) -->
+        <div class="portrait-box">
+          <img
+            v-if="career?.icon"
+            :src="career.icon"
+            :alt="career.name"
+            width="64"
+            height="79"
+            class="portrait"
+            loading="lazy" />
+          <span v-else class="portrait" aria-hidden="true"></span>
+          <div v-if="isNew || oldVersion" class="tags">
+            <span v-if="isNew" class="tag new-tag" title="Published since your last visit">New</span>
+            <span v-if="oldVersion" class="tag old-tag" :title="`Made for an older ${BALANCE.name} version`">Outdated</span>
+          </div>
+        </div>
+
+        <!-- (bookmark and like sit in the top of this cell, see .corner-actions) -->
+        <div class="side right"></div>
       </div>
 
       <h3 :title="build.title">{{ build.title }}</h3>
       <p class="meta author" :title="build.author">by {{ build.author }}</p>
-      <span v-if="isNew" class="new-tag" title="Published since your last visit">New</span>
-      <span
-        v-if="oldVersion"
-        class="old-tag"
-        :title="`Made for an older ${BALANCE.name} version`">
-        Outdated
-      </span>
+      <p v-if="rolesText" class="roles" :title="rolesText">{{ rolesText }}</p>
     </RouterLink>
 
-    <LikeButton class="like-corner" :build="build" @changed="emit('liked')" />
-    <BookmarkButton class="bookmark-corner" :build="build" @changed="(res) => emit('bookmarked', res)" />
+    <!-- Top right corner: bookmark, then like (they are siblings of the link, see above) -->
+    <div class="corner-actions">
+      <BookmarkButton :build="build" @changed="(res) => emit('bookmarked', res)" />
+      <LikeButton :build="build" @changed="emit('liked')" />
+    </div>
   </div>
 </template>
 
@@ -131,7 +149,6 @@ const commentsLabel = computed(
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  justify-self: start;
   /* same box as the like button (icon 22px, same padding and border), mirrored on the left side */
   margin-left: -0.4rem;
   padding: 0.25rem 0.55rem;
@@ -146,43 +163,54 @@ const commentsLabel = computed(
   background: var(--flashy);
   border-radius: 999px;
 }
-/* Like: in the right cell of the top row, level with the top of the portrait */
-.like-corner {
+/* Bookmark (left) and like (right): in the top right corner, level with the top of the portrait */
+.corner-actions {
   position: absolute;
   top: calc(0.8rem + 1px);
-  right: 0.4rem;
+  right: 0.25rem;
+  display: flex;
+  align-items: center;
 }
-/* New build from a followed person: gold tag in the bottom left corner, level with the bookmark. It is out of the
-   flow (position: absolute) so a card with the tag is as high as one without it. */
+/* Tighter side paddings than on the other pages, so the pair stays beside the portrait (the cell is only about 85px wide) */
+.corner-actions :deep(.bookmark) {
+  padding-inline: 0.3rem;
+}
+.corner-actions :deep(.like) {
+  padding-inline: 0.35rem;
+  gap: 0.2rem;
+}
+/* "New" and "Outdated": on the lower half of the portrait, a bit wider than it. Out of the flow (position: absolute)
+   so a card with tags is as high as one without. Raise the negative bottom to move them lower. */
+.portrait-box {
+  position: relative;
+}
+.tags {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transform: translateX(-50%);
+}
+.tag {
+  box-sizing: border-box;
+  min-width: calc(var(--portrait-w) + 14px);
+  padding-inline: 0.6rem;
+  line-height: 18px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  color: #1a1a1a;
+  border-radius: 999px;
+}
 .new-tag {
-  position: absolute;
-  bottom: calc(0.5rem + 6px); /* the bookmark button is about 32px high: the tag (18px) is centered on it */
-  left: 0.5rem;
-  padding: 0 0.45rem;
-  line-height: 18px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #1a1a1a;
   background: var(--accent);
-  border-radius: 999px;
 }
-/* Older balance version: under the comment count, out of the flow so the card keeps its height */
 .old-tag {
-  position: absolute;
-  top: calc(0.8rem + 36px);
-  left: 0.5rem;
-  padding: 0 0.45rem;
-  line-height: 18px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #1a1a1a;
   background: var(--flashy);
-  border-radius: 999px;
-}
-.bookmark-corner {
-  position: absolute;
-  right: 0.5rem;
-  bottom: 0.5rem;
 }
 /* No background, no border: the portrait stands alone */
 .portrait {
@@ -209,12 +237,27 @@ const commentsLabel = computed(
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-/* Same room on both sides, so the centered name never goes under the bookmark in the corner */
+/* Roles: one small line under the author */
+.roles {
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: var(--career-color, var(--accent));
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* Author name: one line, "…" when too long */
 .author {
   box-sizing: border-box;
   max-width: 100%;
   margin: 0;
-  padding: 0 2rem;
+  padding: 0;
   color: var(--muted);
   overflow: hidden;
   white-space: nowrap;

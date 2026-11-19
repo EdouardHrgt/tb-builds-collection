@@ -1,6 +1,7 @@
 // Text version of a build, for the "Export the build" button (easy to paste in Discord, a forum...).
 //
 //   TITLE
+//   ROLES: Tank, Support        (only when the build has roles)
 //   TALENTS: 1-1-2-3-1-2
 //   WEAPONS:
 //     WEAPON_NAME | trait | property 1 | property 2
@@ -14,6 +15,7 @@
 // `gd` is the game data (the object returned by useGameData()): this function stays pure and testable.
 import { breakpointLabel, breakpointBoosterNames } from './breakpoints.js'
 import { buildDifficultyLabel } from './difficulty.js'
+import { buildRoles } from './roles.js'
 
 export function buildToText(build, gd) {
   const data = build.data ?? {}
@@ -21,7 +23,10 @@ export function buildToText(build, gd) {
   const gear = (name, sel = {}, traits, properties) =>
     `  ${[name, nameOf(traits, sel.traitId), nameOf(properties, sel.propertyIds?.[0]), nameOf(properties, sel.propertyIds?.[1])].join(' | ')}`
 
-  const lines = [build.title, `TALENTS: ${(data.talents ?? []).join('-')}`, 'WEAPONS:']
+  const roles = buildRoles(build)
+  const lines = [build.title]
+  if (roles.length) lines.push(`ROLES: ${roles.map((r) => r.name).join(', ')}`)
+  lines.push(`TALENTS: ${(data.talents ?? []).join('-')}`, 'WEAPONS:')
 
   for (const slot of gd.getWeaponSlots(build.heroId, build.careerId)) {
     const sel = data.weapons?.[slot.key] ?? {}

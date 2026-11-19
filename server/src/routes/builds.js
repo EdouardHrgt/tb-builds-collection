@@ -2,7 +2,15 @@ import { Router } from 'express'
 import { z } from 'zod'
 import { db } from '../db.js'
 import { requireAuth } from '../auth.js'
-import { validateBuildData, BALANCE_VERSION, DIFFICULTY_IDS, DEFAULT_DIFFICULTY, DEFAULT_DEATHWISH } from '../gameData.js'
+import {
+  validateBuildData,
+  BALANCE_VERSION,
+  DIFFICULTY_IDS,
+  DEFAULT_DIFFICULTY,
+  DEFAULT_DEATHWISH,
+  ROLE_IDS,
+  MAX_ROLES,
+} from '../gameData.js'
 import { avatarFor } from '../avatars.js'
 
 export const buildsRouter = Router()
@@ -77,6 +85,7 @@ const buildSchema = z.object({
       talents: z.array(z.number().int().min(0).max(3)).length(6), // 0 = none, 1..3 = position in the tier
       weapons: z.record(id, weaponSchema), // melee / ranged
       equipment: z.record(id, gearSchema), // necklace / charm / trinket
+      roles: z.array(z.enum(ROLE_IDS)).max(MAX_ROLES, `Pick ${MAX_ROLES} roles at most`).default([]), // roles of the build, 2 at most (data/roles.json)
       difficulty: z.enum(DIFFICULTY_IDS).default(DEFAULT_DIFFICULTY), // difficulty of the breakpoints (data/difficulties.json)
       deathwish: z.boolean().default(DEFAULT_DEATHWISH), // ... with Deathwish
       breakpoints: z.array(breakpointSchema).max(50).default([]), // fast breakpoint cards (optional)
@@ -158,7 +167,7 @@ export const WEAPON_SQL = `(@weapon IS NULL
 // "%" and "_" typed by a user must be searched as plain characters
 const escapeLike = (s) => s.replace(/[\\%_]/g, (c) => '\\' + c)
 
-// List: filters (hero, career, author name), sort (newest by default / oldest / most liked), pagination
+// List: filters (hero, career, weapon, role, author name, up to date), sort (newest by default / oldest / most liked), pagination
 buildsRouter.get('/builds', (req, res) => {
   const username = str(req.query.username)?.trim().slice(0, 24) || null
   const filters = {
@@ -166,6 +175,8 @@ buildsRouter.get('/builds', (req, res) => {
     career: str(req.query.career),
     weapon: str(req.query.weapon)?.slice(0, 60) || null,
     user: username ? `%${escapeLike(username)}%` : null, // the author name contains the text
+    // ?role=tank: the builds made for that role (an unknown role is ignored)
+    role: ROLE_IDS.includes(req.query.role) ? req.query.role : null,
     // ?upToDate=1: only the builds made for the current balance version (a build without a version is not "outdated")
     current: req.query.upToDate === '1' ? BALANCE_VERSION : null,
   }
@@ -174,6 +185,7 @@ buildsRouter.get('/builds', (req, res) => {
       AND (@career IS NULL OR b.career_id = @career)
       AND ${WEAPON_SQL}
       AND (@user   IS NULL OR u.username LIKE @user ESCAPE '\\')
+      AND (@role   IS NULL OR EXISTS (SELECT 1 FROM json_each(b.data, '$.roles') WHERE json_each.value = @role))
       AND (@current IS NULL OR json_extract(b.data, '$.balance') IS NULL OR json_extract(b.data, '$.balance') = @current)`
   const order = Object.hasOwn(SORTS, req.query.sort) ? SORTS[req.query.sort] : SORTS.newest
 
