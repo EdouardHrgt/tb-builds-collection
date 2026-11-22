@@ -610,7 +610,7 @@
     },
     {
       "id": "beamstaff",
-      "name": "Beamstaff",
+      "name": "Beam Staff",
       "heroId": "sienna",
       "type": "ranged",
       "icon": "/images/sienna/weapons/beamstaff.webp",
